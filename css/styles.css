@@ -1,0 +1,41 @@
+html {
+  background: black;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+#game {
+  width: 1600px;
+  height: 900px;
+  background-color: black;
+  position: relative;
+}
+
+#background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#bg_0 {
+  position: absolute;
+  background-image: url("../assets/tiles_background_foreground/bg_0.png");
+  width: 1600px;
+  height: 900px;
+  background-size: contain;
+}
+
+#bg_1 {
+  position: absolute;
+  background-image: url("../assets/tiles_background_foreground/bg_1.png");
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+}
