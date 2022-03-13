@@ -13,7 +13,7 @@ body {
 
 #game {
   width: 1600px;
-  height: 900px;
+  height: 896px;
   background-color: black;
   position: relative;
 }
@@ -26,16 +26,33 @@ body {
 
 #bg_0 {
   position: absolute;
-  background-image: url("../assets/tiles_background_foreground/bg_0.png");
+  background-image: url('../assets/tiles_background_foreground/bg_0.png');
   width: 1600px;
-  height: 900px;
+  height: 896px;
   background-size: contain;
+  image-rendering: pixelated;
 }
 
 #bg_1 {
   position: absolute;
-  background-image: url("../assets/tiles_background_foreground/bg_1.png");
+  background-image: url('../assets/tiles_background_foreground/bg_1.png');
   width: 100%;
   height: 100%;
   background-size: contain;
+  image-rendering: pixelated;
+}
+
+#bg_2 {
+  position: absolute;
+  background-image: none;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+
+#tiles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
