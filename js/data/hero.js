@@ -14,13 +14,21 @@ export const HERO_SPRITS = {
       width: 16,
     },
     hurtbox: {
-      x: {
-        start: 0,
-        end: 16,
+      a: {
+        x: 0,
+        y: 0,
       },
-      y: {
-        start: 0,
-        end: 16,
+      b: {
+        x: 16,
+        y: 0,
+      },
+      c: {
+        x: 16,
+        y: 16,
+      },
+      d: {
+        x: 0,
+        y: 16,
       },
     },
   },
@@ -33,13 +41,21 @@ export const HERO_SPRITS = {
       width: 16,
     },
     hurtbox: {
-      x: {
-        start: 0,
-        end: 16,
+      a: {
+        x: 0,
+        y: 0,
       },
-      y: {
-        start: 0,
-        end: 16,
+      b: {
+        x: 16,
+        y: 0,
+      },
+      c: {
+        x: 16,
+        y: 16,
+      },
+      d: {
+        x: 0,
+        y: 16,
       },
     },
   },
@@ -52,13 +68,21 @@ export const HERO_SPRITS = {
       width: 32,
     },
     hurtbox: {
-      x: {
-        start: 0,
-        end: 16,
+      a: {
+        x: 0,
+        y: 0,
       },
-      y: {
-        start: 0,
-        end: 16,
+      b: {
+        x: 16,
+        y: 0,
+      },
+      c: {
+        x: 16,
+        y: 16,
+      },
+      d: {
+        x: 0,
+        y: 16,
       },
     },
   },
@@ -71,13 +95,21 @@ export const HERO_SPRITS = {
       width: 16,
     },
     hurtbox: {
-      x: {
-        start: 0,
-        end: 16,
+      a: {
+        x: 0,
+        y: 0,
       },
-      y: {
-        start: 0,
-        end: 16,
+      b: {
+        x: 16,
+        y: 0,
+      },
+      c: {
+        x: 16,
+        y: 16,
+      },
+      d: {
+        x: 0,
+        y: 16,
       },
     },
   },

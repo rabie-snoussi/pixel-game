@@ -23,13 +23,21 @@ export class Hero {
     this.sprit_counter = 0;
     this.hurtbox = {
       element: document.createElement('div'),
-      x: {
-        start: 0,
-        end: 0,
+      a: {
+        x: 0,
+        y: 0,
       },
-      y: {
-        start: 0,
-        end: 0,
+      b: {
+        x: 0,
+        y: 0,
+      },
+      c: {
+        x: 0,
+        y: 0,
+      },
+      d: {
+        x: 0,
+        y: 0,
       },
     };
     this.position = {
@@ -114,22 +122,30 @@ export class Hero {
   }
 
   updateHurtbox() {
-    this.hurtbox.x.start =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.x.start;
-    this.hurtbox.x.end =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.x.end * HERO_SIZE;
+    this.hurtbox.a.x =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.a.x * HERO_SIZE;
+    this.hurtbox.b.x =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.b.x * HERO_SIZE;
+    this.hurtbox.c.x =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.c.x * HERO_SIZE;
+    this.hurtbox.d.x =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.d.x * HERO_SIZE;
 
-    this.hurtbox.y.start =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.y.start;
-    this.hurtbox.y.end =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.y.end * HERO_SIZE;
+    this.hurtbox.a.y =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.a.y * HERO_SIZE;
+    this.hurtbox.b.y =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.b.y * HERO_SIZE;
+    this.hurtbox.c.y =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.c.y * HERO_SIZE;
+    this.hurtbox.d.y =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.d.y * HERO_SIZE;
 
-    this.hurtbox.element.style.top = this.hurtbox.y.start + 'px';
-    this.hurtbox.element.style.left = this.hurtbox.x.start + 'px';
+    this.hurtbox.element.style.top = this.hurtbox.a.y + 'px';
+    this.hurtbox.element.style.left = this.hurtbox.a.x + 'px';
 
     this.hurtbox.element.style.width =
-      this.hurtbox.x.end - this.hurtbox.x.start + 'px';
+      this.hurtbox.b.x - this.hurtbox.a.x + 'px';
     this.hurtbox.element.style.height =
-      this.hurtbox.y.end - this.hurtbox.y.start + 'px';
+      this.hurtbox.c.y - this.hurtbox.a.y + 'px';
   }
 }

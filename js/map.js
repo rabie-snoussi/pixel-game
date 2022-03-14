@@ -4,6 +4,7 @@ export default class Map {
   constructor() {
     this.maps = MAPS;
     this.map = null;
+    this.collisions = null;
   }
 
   generate(i) {
@@ -25,6 +26,25 @@ export default class Map {
         (tileElement.style.top = tile.position.y + 'px');
 
       document.getElementById('tiles').appendChild(tileElement);
+
+      this.collisions = this.map.tiles.map(({ position }) => ({
+        a: {
+          x: position.x,
+          y: position.y,
+        },
+        b: {
+          x: position.x + this.map.tile_dimensions.width,
+          y: position.y,
+        },
+        c: {
+          x: position.x + this.map.tile_dimensions.width,
+          y: position.y + this.map.tile_dimensions.height,
+        },
+        d: {
+          x: position.x,
+          y: position.y + this.map.tile_dimensions.height,
+        },
+      }));
     });
   }
 
