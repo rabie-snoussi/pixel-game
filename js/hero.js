@@ -22,6 +22,7 @@ export class Hero {
     this.is_animating = false;
     this.sprit_counter = 0;
     this.hurtbox = {
+      element: document.createElement('div'),
       x: {
         start: 0,
         end: 0,
@@ -91,18 +92,6 @@ export class Hero {
     this.hurtbox.y.end = position.y + HERO_SPRITS[this.action].hurtbox.y.end;
   }
 
-  updateHurtbox() {
-    this.hurtbox.x.start =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.x.start;
-    this.hurtbox.x.end =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.x.end;
-
-    this.hurtbox.y.start =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.y.start;
-    this.hurtbox.y.end =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.y.end;
-  }
-
   goRight() {
     this.changeDirection(HERO_DIRECTIONS.right);
 
@@ -121,5 +110,32 @@ export class Hero {
     this.direction = 'left';
 
     this.updateHurtbox();
+  }
+
+  showHurtbox() {
+    this.hurtbox.element.style.position = 'absolute';
+    this.hurtbox.element.style.border = '1px solid black';
+
+    document.getElementById('game').appendChild(this.hurtbox.element);
+  }
+
+  updateHurtbox() {
+    this.hurtbox.x.start =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.x.start;
+    this.hurtbox.x.end =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.x.end * HERO_SIZE;
+
+    this.hurtbox.y.start =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.y.start;
+    this.hurtbox.y.end =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.y.end * HERO_SIZE;
+
+    this.hurtbox.element.style.top = this.hurtbox.y.start + 'px';
+    this.hurtbox.element.style.left = this.hurtbox.x.start + 'px';
+
+    this.hurtbox.element.style.width =
+      this.hurtbox.x.end - this.hurtbox.x.start + 'px';
+    this.hurtbox.element.style.height =
+      this.hurtbox.y.end - this.hurtbox.y.start + 'px';
   }
 }

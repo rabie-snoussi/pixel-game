@@ -32,6 +32,7 @@ class Game {
     this.controls.addEventListeners();
     this.animate();
     this.movement();
+    this.hero.showHurtbox();
   }
 
   start() {
