@@ -2,6 +2,8 @@ import { HERO_SPRITS } from './data/hero.js';
 
 export const HERO_SIZE = 4;
 
+export const HERO_SPEED = 7;
+
 export const HERO_DIRECTIONS = {
   left: 'left',
   right: 'right',
@@ -97,9 +99,9 @@ export class Hero {
   goRight() {
     this.changeDirection(HERO_DIRECTIONS.right);
 
-    this.position.x += 5;
+    this.position.x += HERO_SPEED;
     this.element.style.left = this.position.x + 'px';
-    this.direction = 'right';
+    this.direction = HERO_DIRECTIONS.right;
 
     this.updateHurtbox();
   }
@@ -107,9 +109,9 @@ export class Hero {
   goLeft() {
     this.changeDirection(HERO_DIRECTIONS.left);
 
-    this.position.x -= 5;
+    this.position.x -= HERO_SPEED;
     this.element.style.left = this.position.x + 'px';
-    this.direction = 'left';
+    this.direction = HERO_DIRECTIONS.left;
 
     this.updateHurtbox();
   }
