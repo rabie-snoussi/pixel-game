@@ -1,54 +1,47 @@
-import maps from './constants/maps.js';
-
-const TILES_IMG = './assets/tiles_background_foreground/tileset_64x64.png';
-const BG_IMG = './assets/tiles_background_foreground/bg_2.png';
-const TILE_DIMENSIONS = {
-  height: 64,
-  width: 64,
-};
+import { Controls, KEY_CODES } from './controls.js';
+import { Hero, HERO_ACTIONS } from './hero.js';
+import Map from './map.js';
 
 class Game {
   constructor() {
-    this.maps = maps;
-    this.map = null;
+    this.controls = new Controls();
+    this.map = new Map();
+    this.hero = new Hero();
   }
 
-  intialize() {
-    this.map = this.maps[0];
+  animate() {
+    setInterval(() => {
+      if (this.controls._pressed[KEY_CODES.right])
+        return this.hero.playAnimation(HERO_ACTIONS.run);
+      if (this.controls._pressed[KEY_CODES.left])
+        return this.hero.playAnimation(HERO_ACTIONS.run);
+      if (this.controls._pressed[KEY_CODES.spacebar])
+        return this.hero.playAnimation(HERO_ACTIONS.sword_attack);
+      this.hero.playAnimation(HERO_ACTIONS.idle);
+    }, 100);
   }
 
-  drawMap() {
-    if (this.map.bg_2)
-      document.getElementById('bg_2').style.backgroundImage =
-        'url("' + BG_IMG + '")';
+  movement() {
+    setInterval(() => {
+      if (this.controls._pressed[KEY_CODES.right]) return this.hero.goRight();
+      if (this.controls._pressed[KEY_CODES.left]) return this.hero.goLeft();
+    }, 10);
+  }
 
-    this.map.tiles.forEach((row) => {
-      const tilesRow = document.createElement('div');
-      tilesRow.style.display = 'flex';
-
-      row.forEach((position) => {
-        const tile = document.createElement('div');
-
-        tile.style.height = TILE_DIMENSIONS.height + 'px';
-        tile.style.width = TILE_DIMENSIONS.width + '64px';
-        tile.style.backgroundImage = 'url("' + TILES_IMG + '")';
-        tile.style.backgroundPositionX =
-          TILE_DIMENSIONS.width * position.x + 'px';
-        tile.style.backgroundPositionY =
-          TILE_DIMENSIONS.height * position.y + 'px';
-
-        tilesRow.appendChild(tile);
-      });
-      document.getElementById('tiles').appendChild(tilesRow);
-    });
+  initialize() {
+    this.controls.addEventListeners();
+    this.animate();
+    this.movement();
   }
 
   start() {
-    this.drawMap();
+    this.map.generate(0);
+    this.hero.spawn(this.map.getHeroPosition());
+    this.hero.playAnimation(this.hero.action);
   }
 }
 
 const game = new Game();
 
-game.intialize();
+game.initialize();
 game.start();
