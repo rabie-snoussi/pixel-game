@@ -21,9 +21,19 @@ export class Hero {
     this.action = HERO_ACTIONS.idle;
     this.is_animating = false;
     this.sprit_counter = 0;
+    this.hurtbox = {
+      x: {
+        start: 0,
+        end: 0,
+      },
+      y: {
+        start: 0,
+        end: 0,
+      },
+    };
     this.position = {
       x: 0,
-      y: 11,
+      y: 0,
     };
   }
 
@@ -71,6 +81,26 @@ export class Hero {
 
     this.element.style.top = this.position.y + 'px';
     this.element.style.left = position.x + 'px';
+
+    this.hurtbox.x.start =
+      position.x + HERO_SPRITS[this.action].hurtbox.x.start;
+    this.hurtbox.x.end = position.x + HERO_SPRITS[this.action].hurtbox.x.end;
+
+    this.hurtbox.y.start =
+      position.y + HERO_SPRITS[this.action].hurtbox.y.start;
+    this.hurtbox.y.end = position.y + HERO_SPRITS[this.action].hurtbox.y.end;
+  }
+
+  updateHurtbox() {
+    this.hurtbox.x.start =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.x.start;
+    this.hurtbox.x.end =
+      this.position.x + HERO_SPRITS[this.action].hurtbox.x.end;
+
+    this.hurtbox.y.start =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.y.start;
+    this.hurtbox.y.end =
+      this.position.y + HERO_SPRITS[this.action].hurtbox.y.end;
   }
 
   goRight() {
@@ -79,6 +109,8 @@ export class Hero {
     this.position.x += 5;
     this.element.style.left = this.position.x + 'px';
     this.direction = 'right';
+
+    this.updateHurtbox();
   }
 
   goLeft() {
@@ -87,5 +119,7 @@ export class Hero {
     this.position.x -= 5;
     this.element.style.left = this.position.x + 'px';
     this.direction = 'left';
+
+    this.updateHurtbox();
   }
 }

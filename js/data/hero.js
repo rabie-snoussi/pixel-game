@@ -13,6 +13,16 @@ export const HERO_SPRITS = {
       height: 16,
       width: 16,
     },
+    hurtbox: {
+      x: {
+        start: 0,
+        end: 16,
+      },
+      y: {
+        start: 0,
+        end: 16,
+      },
+    },
   },
   attack: {
     img: HERO_ATTACK_IMG,
@@ -21,6 +31,16 @@ export const HERO_SPRITS = {
     dimensions: {
       height: 16,
       width: 16,
+    },
+    hurtbox: {
+      x: {
+        start: 0,
+        end: 16,
+      },
+      y: {
+        start: 0,
+        end: 16,
+      },
     },
   },
   sword_attack: {
@@ -31,6 +51,16 @@ export const HERO_SPRITS = {
       height: 16,
       width: 32,
     },
+    hurtbox: {
+      x: {
+        start: 0,
+        end: 16,
+      },
+      y: {
+        start: 0,
+        end: 16,
+      },
+    },
   },
   run: {
     img: HERO_RUN_IMG,
@@ -39,6 +69,16 @@ export const HERO_SPRITS = {
     dimensions: {
       height: 16,
       width: 16,
+    },
+    hurtbox: {
+      x: {
+        start: 0,
+        end: 16,
+      },
+      y: {
+        start: 0,
+        end: 16,
+      },
     },
   },
 };
