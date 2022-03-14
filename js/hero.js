@@ -83,13 +83,7 @@ export class Hero {
     this.element.style.top = this.position.y + 'px';
     this.element.style.left = position.x + 'px';
 
-    this.hurtbox.x.start =
-      position.x + HERO_SPRITS[this.action].hurtbox.x.start;
-    this.hurtbox.x.end = position.x + HERO_SPRITS[this.action].hurtbox.x.end;
-
-    this.hurtbox.y.start =
-      position.y + HERO_SPRITS[this.action].hurtbox.y.start;
-    this.hurtbox.y.end = position.y + HERO_SPRITS[this.action].hurtbox.y.end;
+    this.updateHurtbox();
   }
 
   goRight() {
