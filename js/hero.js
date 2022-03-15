@@ -241,8 +241,6 @@ export class Hero {
 
     const interval = setInterval(() => {
       if (this.sprits[this.action].can_move) {
-        this.element.style.left = this.position.x + 'px';
-
         this.changeDirection(HERO_DIRECTIONS.left);
         const filtered = this.collisions.filter((block) =>
           leftCollision(this.hurtbox, block)
