@@ -13,9 +13,9 @@ export const HERO_ACTIONS = {
 
 export const HERO_SPRITS = {
   idle: {
+    can_move: true,
     img: HERO_IDLE_IMG,
     possible_actions: [
-      HERO_ACTIONS.idle,
       HERO_ACTIONS.attack,
       HERO_ACTIONS.run,
       HERO_ACTIONS.sword_attack,
@@ -72,8 +72,9 @@ export const HERO_SPRITS = {
     },
   },
   sword_attack: {
+    can_move: false,
     img: HERO_SWORD_ATTACK_IMG,
-    possible_actions: [],
+    possible_actions: [HERO_ACTIONS.idle],
     sprits: 4,
     dimensions: {
       height: 16,
@@ -100,11 +101,8 @@ export const HERO_SPRITS = {
   },
   run: {
     img: HERO_RUN_IMG,
-    possible_actions: [
-      HERO_ACTIONS.attack,
-      HERO_ACTIONS.idle,
-      HERO_ACTIONS.sword_attack,
-    ],
+    can_move: true,
+    possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.sword_attack],
     sprits: 6,
     dimensions: {
       height: 16,

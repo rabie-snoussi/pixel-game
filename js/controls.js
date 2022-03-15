@@ -70,7 +70,6 @@ export class Controls {
 
     if (event.keyCode === this.keys.right) this.onStop.right();
     if (event.keyCode === this.keys.left) this.onStop.left();
-    if (event.keyCode === this.keys.spacebar) this.onStop.spacebar();
   }
 
   addEventListeners(gameContext) {

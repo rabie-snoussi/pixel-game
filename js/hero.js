@@ -48,13 +48,12 @@ export class Hero {
     this.element = document.getElementById('hero');
     this.collisions = [];
     this.direction = HERO_DIRECTIONS.right;
-    this.action = HERO_ACTIONS.idle;
+    this.action = '';
     this.sprits = HERO_SPRITS;
     this.actions = HERO_ACTIONS;
-    this.is_animating = false;
-    this.sprit_counter = 0;
-    this.intervals = {
-      idle: () => {},
+    this.clearIntervals = {
+      idle: [],
+      run: [],
     };
     this.hurtbox = {
       element: document.createElement('div'),
@@ -86,24 +85,63 @@ export class Hero {
   }
 
   idle() {
-    clearInterval(this.intervals.idle());
+    if (
+      this.action &&
+      !this.sprits[this.action].possible_actions.includes(this.actions.idle)
+    )
+      return () => {};
+
+    this.clearIntervals.run.map((func) => func());
+
+    this.clearIntervals.idle.map((func) => func());
+
+    this.action = this.actions.idle;
 
     let i = 0;
     const sprits = this.sprits[this.actions.idle];
 
     const interval = setInterval(() => {
-      if (this.action === this.actions.idle) {
-        if (i >= sprits.sprits) i = 0;
+      if (i >= sprits.sprits) i = 0;
 
-        this.element.style.backgroundImage = 'url("' + sprits.img + '")';
+      this.element.style.backgroundImage = 'url("' + sprits.img + '")';
 
-        this.element.style.height = sprits.dimensions.height * HERO_SIZE + 'px';
-        this.element.style.width = sprits.dimensions.width * HERO_SIZE + 'px';
+      this.element.style.height = sprits.dimensions.height * HERO_SIZE + 'px';
+      this.element.style.width = sprits.dimensions.width * HERO_SIZE + 'px';
 
-        this.element.style.backgroundPositionX =
-          sprits.dimensions.width * HERO_SIZE * -i + 'px';
-        i++;
-      }
+      this.element.style.backgroundPositionX =
+        sprits.dimensions.width * HERO_SIZE * -i + 'px';
+      i++;
+    }, 100);
+
+    return () => clearInterval(interval);
+  }
+
+  run() {
+    if (
+      this.action &&
+      !this.sprits[this.action].possible_actions.includes(this.actions.run)
+    )
+      return () => {};
+
+    this.clearIntervals.run.map((func) => func());
+    this.clearIntervals.idle.map((func) => func());
+
+    this.action = this.actions.run;
+
+    let i = 0;
+    const sprits = this.sprits[this.actions.run];
+
+    const interval = setInterval(() => {
+      if (i >= sprits.sprits) i = 0;
+
+      this.element.style.backgroundImage = 'url("' + sprits.img + '")';
+
+      this.element.style.height = sprits.dimensions.height * HERO_SIZE + 'px';
+      this.element.style.width = sprits.dimensions.width * HERO_SIZE + 'px';
+
+      this.element.style.backgroundPositionX =
+        sprits.dimensions.width * HERO_SIZE * -i + 'px';
+      i++;
     }, 100);
 
     return () => clearInterval(interval);
@@ -111,11 +149,15 @@ export class Hero {
 
   swordAttack() {
     if (
+      this.action &&
       !this.sprits[this.action].possible_actions.includes(
         this.actions.sword_attack
       )
     )
-      return;
+      return () => {};
+
+    this.clearIntervals.run.map((func) => func());
+    this.clearIntervals.idle.map((func) => func());
 
     this.action = this.actions.sword_attack;
 
@@ -132,14 +174,13 @@ export class Hero {
       i++;
 
       if (i >= sprits.sprits) {
-        this.action = this.actions.idle;
-        this.intervals.idle = this.idle();
+        this.clearIntervals.idle.push(this.idle());
 
         clearInterval(interval);
       }
     }, 100);
 
-    return () => {};
+    return () => clearInterval(interval);
   }
 
   changeDirection(direction) {
@@ -156,48 +197,65 @@ export class Hero {
     this.element.style.top = this.position.y + 'px';
     this.element.style.left = position.x + 'px';
 
-    this.intervals.idle = this.idle();
+    this.clearIntervals.idle.push(this.idle());
     this.updateHurtbox();
   }
 
   goRight() {
-    this.changeDirection(HERO_DIRECTIONS.right);
+    if (this.sprits[this.action].can_move) {
+      this.clearIntervals.run.push(this.run());
+    }
 
     const interval = setInterval(() => {
-      const filtered = this.collisions.filter((block) =>
-        rightCollision(this.hurtbox, block)
-      );
-      if (!!filtered.length || this.hurtbox.a.x >= SCREEN_LIMITS.x.end) return;
+      if (this.sprits[this.action].can_move) {
+        this.changeDirection(HERO_DIRECTIONS.right);
+        const filtered = this.collisions.filter((block) =>
+          rightCollision(this.hurtbox, block)
+        );
+        if (!!filtered.length || this.hurtbox.a.x >= SCREEN_LIMITS.x.end)
+          return;
 
-      this.position.x += HERO_SPEED;
-      this.element.style.left = this.position.x + 'px';
-      this.direction = HERO_DIRECTIONS.right;
+        this.position.x += HERO_SPEED;
+        this.element.style.left = this.position.x + 'px';
+        this.direction = HERO_DIRECTIONS.right;
 
-      this.updateHurtbox();
+        this.updateHurtbox();
+      }
     }, 10);
 
-    return () => clearInterval(interval);
+    return () => {
+      this.clearIntervals.idle.push(this.idle());
+      clearInterval(interval);
+    };
   }
 
   goLeft() {
-    this.changeDirection(HERO_DIRECTIONS.left);
+    if (this.sprits[this.action].can_move) {
+      this.clearIntervals.run.push(this.run());
+    }
 
     const interval = setInterval(() => {
-      const filtered = this.collisions.filter((block) =>
-        leftCollision(this.hurtbox, block)
-      );
+      if (this.sprits[this.action].can_move) {
+        this.changeDirection(HERO_DIRECTIONS.left);
+        const filtered = this.collisions.filter((block) =>
+          leftCollision(this.hurtbox, block)
+        );
 
-      if (!!filtered.length || this.hurtbox.a.x <= SCREEN_LIMITS.x.start)
-        return;
+        if (!!filtered.length || this.hurtbox.a.x <= SCREEN_LIMITS.x.start)
+          return;
 
-      this.position.x -= HERO_SPEED;
-      this.element.style.left = this.position.x + 'px';
-      this.direction = HERO_DIRECTIONS.left;
+        this.position.x -= HERO_SPEED;
+        this.element.style.left = this.position.x + 'px';
+        this.direction = HERO_DIRECTIONS.left;
 
-      this.updateHurtbox();
+        this.updateHurtbox();
+      }
     }, 10);
 
-    return () => clearInterval(interval);
+    return () => {
+      this.clearIntervals.idle.push(this.idle());
+      clearInterval(interval);
+    };
   }
 
   showHurtbox() {
