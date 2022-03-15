@@ -7,6 +7,10 @@ export default class Map {
     this.collisions = null;
   }
 
+  getCollisions() {
+    return this.collisions;
+  }
+
   generate(i) {
     this.map = this.maps[i];
     if (this.map.background)

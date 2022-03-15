@@ -1,4 +1,5 @@
 import { HERO_SPRITS } from './data/hero.js';
+import { SCREEN_LIMITS } from './game.js';
 
 export const HERO_SIZE = 4;
 
@@ -16,9 +17,36 @@ export const HERO_ACTIONS = {
   run: 'run',
 };
 
+const rightCollision = (hero, block, marging = 0) => {
+  return (
+    hero.b.x + marging >= block.a.x &&
+    hero.b.y >= block.a.y &&
+    hero.b.y <= block.d.y &&
+    hero.c.x + marging >= block.a.x &&
+    hero.c.y >= block.a.y &&
+    hero.c.y <= block.d.y &&
+    //
+    hero.b.x - marging <= block.b.x
+  );
+};
+
+const leftCollision = (hero, block, marging = 0) => {
+  return (
+    hero.a.x - marging <= block.b.x &&
+    hero.a.y >= block.b.y &&
+    hero.a.y <= block.c.y &&
+    hero.d.x - marging <= block.b.x &&
+    hero.d.y >= block.b.y &&
+    hero.d.y <= block.c.y &&
+    //
+    hero.a.x - marging >= block.a.x
+  );
+};
+
 export class Hero {
   constructor() {
     this.element = document.getElementById('hero');
+    this.collisions = [];
     this.direction = HERO_DIRECTIONS.right;
     this.action = HERO_ACTIONS.idle;
     this.sprits = HERO_SPRITS;
@@ -51,6 +79,10 @@ export class Hero {
       x: 0,
       y: 0,
     };
+  }
+
+  setCollisions(collisions) {
+    this.collisions = collisions;
   }
 
   idle() {
@@ -132,6 +164,11 @@ export class Hero {
     this.changeDirection(HERO_DIRECTIONS.right);
 
     const interval = setInterval(() => {
+      const filtered = this.collisions.filter((block) =>
+        rightCollision(this.hurtbox, block)
+      );
+      if (!!filtered.length || this.hurtbox.a.x >= SCREEN_LIMITS.x.end) return;
+
       this.position.x += HERO_SPEED;
       this.element.style.left = this.position.x + 'px';
       this.direction = HERO_DIRECTIONS.right;
@@ -146,6 +183,13 @@ export class Hero {
     this.changeDirection(HERO_DIRECTIONS.left);
 
     const interval = setInterval(() => {
+      const filtered = this.collisions.filter((block) =>
+        leftCollision(this.hurtbox, block)
+      );
+
+      if (!!filtered.length || this.hurtbox.a.x <= SCREEN_LIMITS.x.start)
+        return;
+
       this.position.x -= HERO_SPEED;
       this.element.style.left = this.position.x + 'px';
       this.direction = HERO_DIRECTIONS.left;
