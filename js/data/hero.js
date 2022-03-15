@@ -4,11 +4,23 @@ const HERO_SWORD_ATTACK_IMG =
   './assets/hero/herochar_sword_attack_anim_strip_4.png';
 const HERO_RUN_IMG = './assets/hero/herochar_run_anim_strip_6.png';
 
+export const HERO_ACTIONS = {
+  idle: 'idle',
+  attack: 'attack',
+  sword_attack: 'sword_attack',
+  run: 'run',
+};
+
 export const HERO_SPRITS = {
   idle: {
     img: HERO_IDLE_IMG,
+    possible_actions: [
+      HERO_ACTIONS.idle,
+      HERO_ACTIONS.attack,
+      HERO_ACTIONS.run,
+      HERO_ACTIONS.sword_attack,
+    ],
     sprits: 4,
-    loop: true,
     dimensions: {
       height: 16,
       width: 16,
@@ -34,8 +46,8 @@ export const HERO_SPRITS = {
   },
   attack: {
     img: HERO_ATTACK_IMG,
+    possible_actions: [],
     sprits: 4,
-    loop: false,
     dimensions: {
       height: 16,
       width: 16,
@@ -61,8 +73,8 @@ export const HERO_SPRITS = {
   },
   sword_attack: {
     img: HERO_SWORD_ATTACK_IMG,
+    possible_actions: [],
     sprits: 4,
-    loop: false,
     dimensions: {
       height: 16,
       width: 32,
@@ -88,8 +100,12 @@ export const HERO_SPRITS = {
   },
   run: {
     img: HERO_RUN_IMG,
+    possible_actions: [
+      HERO_ACTIONS.attack,
+      HERO_ACTIONS.idle,
+      HERO_ACTIONS.sword_attack,
+    ],
     sprits: 6,
-    loop: true,
     dimensions: {
       height: 16,
       width: 16,

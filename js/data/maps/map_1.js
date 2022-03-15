@@ -7,7 +7,7 @@ export default {
   tile_dimensions: TILE_DIMENSIONS,
   background: BG_IMG,
   hero_position: {
-    x: 2 * TILE_DIMENSIONS.width,
+    x: 4 * TILE_DIMENSIONS.width,
     y: 11 * TILE_DIMENSIONS.height,
   },
   tiles: [

@@ -1,5 +1,6 @@
 import { Controls, KEY_CODES } from './controls.js';
-import { Hero, HERO_ACTIONS } from './hero.js';
+import { Hero } from './hero.js';
+import { HERO_ACTIONS } from './data/hero.js';
 import Map from './map.js';
 
 const SCREEN_LIMITS = {
@@ -46,54 +47,39 @@ class Game {
     this.hero = new Hero();
   }
 
-  animate() {
-    setInterval(() => {
-      if (this.controls._pressed[KEY_CODES.right])
-        return this.hero.playAnimation(HERO_ACTIONS.run);
-      if (this.controls._pressed[KEY_CODES.left])
-        return this.hero.playAnimation(HERO_ACTIONS.run);
-      if (this.controls._pressed[KEY_CODES.spacebar])
-        return this.hero.playAnimation(HERO_ACTIONS.sword_attack);
-      this.hero.playAnimation(HERO_ACTIONS.idle);
-    }, 100);
-  }
+  // movement() {
+  //   setInterval(() => {
+  //     if (this.controls._pressed[KEY_CODES.right]) {
+  //       const filtered = this.map.collisions.filter((block) =>
+  //         rightCollision(this.hero.hurtbox, block)
+  //       );
 
-  movement() {
-    setInterval(() => {
-      if (this.controls._pressed[KEY_CODES.right]) {
-        const filtered = this.map.collisions.filter((block) =>
-          rightCollision(this.hero.hurtbox, block)
-        );
+  //       if (!!filtered.length || this.hero.hurtbox.a.x >= SCREEN_LIMITS.x.end)
+  //         return;
 
-        if (!!filtered.length || this.hero.hurtbox.a.x >= SCREEN_LIMITS.x.end)
-          return;
+  //       return this.hero.goRight();
+  //     }
+  //     if (this.controls._pressed[KEY_CODES.left]) {
+  //       const filtered = this.map.collisions.filter((block) =>
+  //         leftCollision(this.hero.hurtbox, block)
+  //       );
 
-        return this.hero.goRight();
-      }
-      if (this.controls._pressed[KEY_CODES.left]) {
-        const filtered = this.map.collisions.filter((block) =>
-          leftCollision(this.hero.hurtbox, block)
-        );
+  //       if (!!filtered.length || this.hero.hurtbox.a.x <= SCREEN_LIMITS.x.start)
+  //         return;
 
-        if (!!filtered.length || this.hero.hurtbox.a.x <= SCREEN_LIMITS.x.start)
-          return;
-
-        return this.hero.goLeft();
-      }
-    }, 10);
-  }
+  //       return this.hero.goLeft();
+  //     }
+  //   }, 10);
+  // }
 
   initialize() {
-    this.controls.addEventListeners();
-    this.animate();
-    this.movement();
+    this.controls.addEventListeners(this);
     this.hero.showHurtbox();
   }
 
   start() {
     this.map.generate(0);
     this.hero.spawn(this.map.getHeroPosition());
-    this.hero.playAnimation(this.hero.action);
   }
 }
 
