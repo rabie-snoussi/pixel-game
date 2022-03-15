@@ -101,6 +101,7 @@ export class Hero {
     const sprits = this.sprits[this.actions.idle];
 
     const interval = setInterval(() => {
+      this.element.style.left = this.position.x + 'px';
       if (i >= sprits.sprits) i = 0;
 
       this.element.style.backgroundImage = 'url("' + sprits.img + '")';
@@ -142,7 +143,7 @@ export class Hero {
       this.element.style.backgroundPositionX =
         sprits.dimensions.width * HERO_SIZE * -i + 'px';
       i++;
-    }, 100);
+    }, 50);
 
     return () => clearInterval(interval);
   }
@@ -163,7 +164,11 @@ export class Hero {
 
     let i = 0;
     const sprits = this.sprits[this.actions.sword_attack];
+
     const interval = setInterval(() => {
+      if (this.direction === HERO_DIRECTIONS.left)
+        this.element.style.left = this.position.x - 64 + 'px';
+
       this.element.style.backgroundImage = 'url("' + sprits.img + '")';
 
       this.element.style.height = sprits.dimensions.height * HERO_SIZE + 'px';
@@ -178,7 +183,7 @@ export class Hero {
 
         clearInterval(interval);
       }
-    }, 100);
+    }, 50);
 
     return () => clearInterval(interval);
   }
@@ -236,6 +241,8 @@ export class Hero {
 
     const interval = setInterval(() => {
       if (this.sprits[this.action].can_move) {
+        this.element.style.left = this.position.x + 'px';
+
         this.changeDirection(HERO_DIRECTIONS.left);
         const filtered = this.collisions.filter((block) =>
           leftCollision(this.hurtbox, block)
