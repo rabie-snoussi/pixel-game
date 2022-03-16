@@ -41,8 +41,15 @@ export class Controls {
   }
 
   onSpacebar() {
-    const emptyFunction = () => {};
-    this.onStop.spacebar = this.gameContext.hero.swordAttack() || emptyFunction;
+    this.onStop.spacebar = this.gameContext.hero.swordAttack();
+  }
+
+  onUp() {
+    this.onStop.up = this.gameContext.hero.up();
+  }
+
+  onDown() {
+    this.onStop.down = this.gameContext.hero.down();
   }
 
   onKeydown(event) {
@@ -62,6 +69,14 @@ export class Controls {
       this._pressed[this.keys.spacebar]++;
       this.onSpacebar();
     }
+    if (this._pressed[this.keys.up] === 1) {
+      this._pressed[this.keys.up]++;
+      this.onUp();
+    }
+    if (this._pressed[this.keys.down] === 1) {
+      this._pressed[this.keys.down]++;
+      this.onDown();
+    }
   }
 
   onKeyup(event) {
@@ -70,6 +85,8 @@ export class Controls {
 
     if (event.keyCode === this.keys.right) this.onStop.right();
     if (event.keyCode === this.keys.left) this.onStop.left();
+    if (event.keyCode === this.keys.up) this.onStop.up();
+    if (event.keyCode === this.keys.down) this.onStop.down();
   }
 
   addEventListeners(gameContext) {

@@ -24,7 +24,7 @@ class Game {
     this.controls.addEventListeners(this);
     this.map.generate(0);
     this.hero.showHurtbox();
-    this.hero.setCollisions(this.map.getCollisions());
+    this.hero.setBlocksPosition(this.map.getBlocksPosition());
     this.hero.spawn(this.map.getHeroPosition());
   }
 }

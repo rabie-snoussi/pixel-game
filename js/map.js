@@ -4,11 +4,11 @@ export default class Map {
   constructor() {
     this.maps = MAPS;
     this.map = null;
-    this.collisions = null;
+    this.blocks_position = null;
   }
 
-  getCollisions() {
-    return this.collisions;
+  getBlocksPosition() {
+    return this.blocks_position;
   }
 
   generate(i) {
@@ -31,7 +31,7 @@ export default class Map {
 
       document.getElementById('tiles').appendChild(tileElement);
 
-      this.collisions = this.map.tiles.map(({ position }) => ({
+      this.blocks_position = this.map.tiles.map(({ position }) => ({
         a: {
           x: position.x,
           y: position.y,
