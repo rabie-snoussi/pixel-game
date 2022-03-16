@@ -8,6 +8,7 @@ export const KEY_CODES = {
 
 export class Controls {
   constructor() {
+    this.god_mod = true;
     this.gameContext = null;
     this.onStop = {
       right: () => {},
@@ -45,7 +46,9 @@ export class Controls {
   }
 
   onUp() {
-    this.onStop.up = this.gameContext.hero.up();
+    this.onStop.up = this.god_mod
+      ? this.gameContext.hero.up()
+      : this.gameContext.hero.jump();
   }
 
   onDown() {

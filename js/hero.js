@@ -268,7 +268,7 @@ export class Hero {
       this.element.style.left = this.position.x + 'px';
       if (i >= this.sprits.sprits) i = 0;
 
-      this.updateImage(i);
+      this.spritImgUpdate(i);
 
       i++;
     }, 100);
@@ -294,7 +294,7 @@ export class Hero {
     const interval = setInterval(() => {
       if (i >= this.sprits.sprits) i = 0;
 
-      this.updateImage(i);
+      this.spritImgUpdate(i);
 
       i++;
     }, 50);
@@ -320,7 +320,7 @@ export class Hero {
     this.sprits = HERO_SPRITS[HERO_ACTIONS.sword_attack];
 
     const interval = setInterval(() => {
-      this.updateImage(i);
+      this.spritImgUpdate(i);
       i++;
 
       if (i >= this.sprits.sprits) {
@@ -475,7 +475,7 @@ export class Hero {
       if (collision) clearInterval(interval);
 
       this.updateHeroPosition();
-    }, 10);
+    }, 20);
 
     return () => clearInterval(interval);
   }
@@ -495,7 +495,7 @@ export class Hero {
       if (collision) clearInterval(interval);
 
       this.updateHeroPosition();
-    }, 10);
+    }, 20);
 
     return () => clearInterval(interval);
   }
@@ -546,7 +546,7 @@ export class Hero {
     this.blocks_position = blocks;
   }
 
-  updateImage(i) {
+  spritImgUpdate(i) {
     if (this.direction === HERO_DIRECTIONS.left)
       this.element.style.left =
         this.position.x -
