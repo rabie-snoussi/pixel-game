@@ -102,7 +102,11 @@ export const HERO_SPRITS = {
   run: {
     img: HERO_RUN_IMG,
     can_move: true,
-    possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.sword_attack],
+    possible_actions: [
+      HERO_ACTIONS.idle,
+      HERO_ACTIONS.sword_attack,
+      HERO_ACTIONS.run,
+    ],
     sprits: 6,
     dimensions: {
       height: 16,

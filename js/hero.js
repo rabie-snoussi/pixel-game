@@ -5,6 +5,8 @@ export const HERO_SIZE = 4;
 
 export const HERO_SPEED = 16;
 
+export const ANIMATION_INTERVAL = 100;
+
 export const HERO_DIRECTIONS = {
   left: 'left',
   right: 'right',
@@ -217,6 +219,7 @@ export class Hero {
     this.element = document.getElementById('hero');
     this.blocks_position = [];
     this.direction = HERO_DIRECTIONS.right;
+    this.is_idle = true;
     this.action = '';
     this.sprits = null;
     this.is_jumping = false;
@@ -271,7 +274,7 @@ export class Hero {
       this.spritImgUpdate(i);
 
       i++;
-    }, 100);
+    }, ANIMATION_INTERVAL);
 
     return () => clearInterval(interval);
   }
@@ -286,6 +289,8 @@ export class Hero {
     this.clearIntervals.run.map((func) => func());
     this.clearIntervals.idle.map((func) => func());
 
+    this.is_idle = false;
+
     this.action = HERO_ACTIONS.run;
 
     let i = 0;
@@ -297,9 +302,12 @@ export class Hero {
       this.spritImgUpdate(i);
 
       i++;
-    }, 50);
+    }, ANIMATION_INTERVAL);
 
-    return () => clearInterval(interval);
+    return () => {
+      this.is_idle = true;
+      clearInterval(interval);
+    };
   }
 
   swordAttack() {
@@ -314,6 +322,8 @@ export class Hero {
     this.clearIntervals.run.map((func) => func());
     this.clearIntervals.idle.map((func) => func());
 
+    this.is_idle = false;
+
     this.action = HERO_ACTIONS.sword_attack;
 
     let i = 0;
@@ -324,12 +334,47 @@ export class Hero {
       i++;
 
       if (i >= this.sprits.sprits) {
-        this.clearIntervals.idle.push(this.idle());
+        this.is_idle = true;
         clearInterval(interval);
       }
-    }, 50);
+    }, ANIMATION_INTERVAL);
 
-    return () => clearInterval(interval);
+    return () => {
+      this.is_idle = true;
+      learInterval(interval);
+    };
+  }
+
+  idleDetection() {
+    setInterval(() => {
+      if (!this.is_idle) return;
+      this.clearIntervals.idle.push(this.idle());
+    }, 20);
+  }
+
+  fallDetection() {
+    let i = 1;
+    setInterval(() => {
+      if (this.is_jumping) return;
+
+      const {
+        bottom: { distance },
+      } = distanceToAdd({
+        hurtbox: this.hurtbox,
+        blocks: this.blocks_position,
+        bottom: i * 2,
+      });
+
+      if (!distance) {
+        if (i === 1) return;
+        i = 1;
+        return;
+      }
+
+      this.position.y += distance;
+      this.updateHeroPosition();
+      i++;
+    }, 20);
   }
 
   spawn(position) {
@@ -337,6 +382,9 @@ export class Hero {
     this.position.y = position.y;
 
     this.clearIntervals.idle.push(this.idle());
+
+    this.idleDetection();
+    this.fallDetection();
 
     this.updateHeroPosition();
   }
@@ -365,7 +413,7 @@ export class Hero {
     }, 20);
 
     return () => {
-      this.clearIntervals.idle.push(this.idle());
+      this.is_idle = true;
       clearInterval(interval);
     };
   }
@@ -394,7 +442,7 @@ export class Hero {
     }, 20);
 
     return () => {
-      this.clearIntervals.idle.push(this.idle());
+      this.is_idle = true;
       clearInterval(interval);
     };
   }
@@ -446,7 +494,6 @@ export class Hero {
         if (i <= 0 || collision) {
           this.is_jumping = false;
           clearInterval(interval);
-          this.fall();
         }
 
         i--;
@@ -456,7 +503,6 @@ export class Hero {
     return () => {
       this.is_jumping = false;
       clearInterval(interval);
-      this.fall();
     };
   }
 

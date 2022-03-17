@@ -8,7 +8,7 @@ export const KEY_CODES = {
 
 export class Controls {
   constructor() {
-    this.god_mod = true;
+    this.god_mod = false;
     this.gameContext = null;
     this.onStop = {
       right: () => {},
