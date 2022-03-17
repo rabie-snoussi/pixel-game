@@ -4,6 +4,7 @@ const HERO_SWORD_ATTACK_IMG =
   './assets/hero/herochar_sword_attack_anim_strip_4.png';
 const HERO_RUN_IMG = './assets/hero/herochar_run_anim_strip_6.png';
 const HERO_JUMP_IMG = './assets/hero/herochar_jump_up_anim_strip_3.png';
+const HERO_FALL_IMG = './assets/hero/herochar_jump_down_anim_strip_3.png';
 
 export const HERO_ACTIONS = {
   idle: 'idle',
@@ -11,6 +12,7 @@ export const HERO_ACTIONS = {
   sword_attack: 'sword_attack',
   run: 'run',
   jump: 'jump',
+  fall: 'fall',
 };
 
 export const HERO_SPRITS = {
@@ -21,6 +23,7 @@ export const HERO_SPRITS = {
       HERO_ACTIONS.run,
       HERO_ACTIONS.sword_attack,
       HERO_ACTIONS.jump,
+      HERO_ACTIONS.fall,
     ],
     sprits: 4,
     dimensions: {
@@ -107,6 +110,7 @@ export const HERO_SPRITS = {
       HERO_ACTIONS.sword_attack,
       HERO_ACTIONS.run,
       HERO_ACTIONS.jump,
+      HERO_ACTIONS.fall,
     ],
     sprits: 6,
     dimensions: {
@@ -134,6 +138,33 @@ export const HERO_SPRITS = {
   },
   jump: {
     img: HERO_JUMP_IMG,
+    possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.fall],
+    sprits: 3,
+    dimensions: {
+      height: 16,
+      width: 16,
+    },
+    hurtbox: {
+      a: {
+        x: 0,
+        y: 0,
+      },
+      b: {
+        x: 16,
+        y: 0,
+      },
+      c: {
+        x: 16,
+        y: 16,
+      },
+      d: {
+        x: 0,
+        y: 16,
+      },
+    },
+  },
+  fall: {
+    img: HERO_FALL_IMG,
     possible_actions: [HERO_ACTIONS.idle],
     sprits: 3,
     dimensions: {
