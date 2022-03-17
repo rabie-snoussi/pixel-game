@@ -498,10 +498,7 @@ export class Hero {
       }
     }, 20);
 
-    return () => {
-      this.is_jumping = false;
-      clearInterval(interval);
-    };
+    return () => {};
   }
 
   up() {

@@ -5,7 +5,18 @@ export const KEY_CODES = {
   up: 38,
   down: 40,
 };
-
+const SIMULTANOUS_KEYS = {
+  [KEY_CODES.up]: {
+    [KEY_CODES.right]: true,
+    [KEY_CODES.left]: true,
+  },
+  [KEY_CODES.right]: {
+    [KEY_CODES.up]: true,
+  },
+  [KEY_CODES.left]: {
+    [KEY_CODES.up]: true,
+  },
+};
 export class Controls {
   constructor() {
     this.god_mod = false;
@@ -56,9 +67,14 @@ export class Controls {
   }
 
   onKeydown(event) {
-    if (Object.values(this.keys).includes(event.keyCode)) {
-      this._pressed[event.keyCode]++;
-    }
+    if (!Object.values(this.keys).includes(event.keyCode)) return;
+    if (
+      !!Object.keys(this._pressed)
+        .filter((key) => this._pressed[key] && key)
+        .filter((key) => key && !SIMULTANOUS_KEYS[key][event.keyCode]).length
+    )
+      return;
+    this._pressed[event.keyCode]++;
 
     if (this._pressed[this.keys.right] === 1) {
       this._pressed[this.keys.right]++;
