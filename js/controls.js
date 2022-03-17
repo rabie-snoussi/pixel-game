@@ -102,10 +102,10 @@ export class Controls {
     if (Object.values(this.keys).includes(event.keyCode))
       this._pressed[event.keyCode] = 0;
 
-    if (event.keyCode === this.keys.right) this.onStop.right();
-    if (event.keyCode === this.keys.left) this.onStop.left();
-    if (event.keyCode === this.keys.up) this.onStop.up();
-    if (event.keyCode === this.keys.down) this.onStop.down();
+    if (event.keyCode === this.keys.right) this.onStop.right?.();
+    if (event.keyCode === this.keys.left) this.onStop.left?.();
+    if (event.keyCode === this.keys.up) this.onStop.up?.();
+    if (event.keyCode === this.keys.down) this.onStop.down?.();
   }
 
   addEventListeners(gameContext) {

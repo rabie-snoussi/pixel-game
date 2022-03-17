@@ -19,6 +19,7 @@ export const HERO_ACTIONS = {
   attack: 'attack',
   sword_attack: 'sword_attack',
   run: 'run',
+  jump: 'jump',
 };
 
 const isCollidingRight = (hero, block, distance = 0) => {
@@ -229,6 +230,7 @@ export class Hero {
     this.clearIntervals = {
       idle: [],
       run: [],
+      jump: [],
     };
     this.hurtbox = {
       element: document.createElement('div'),
@@ -255,15 +257,20 @@ export class Hero {
     };
   }
 
+  clearAllIntervals() {
+    this.clearIntervals.run.map((func) => func?.());
+    this.clearIntervals.idle.map((func) => func?.());
+    this.clearIntervals.jump.map((func) => func?.());
+  }
+
   idle() {
     if (
       this.action &&
       !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.idle)
     )
-      return () => {};
+      return;
 
-    this.clearIntervals.run.map((func) => func());
-    this.clearIntervals.idle.map((func) => func());
+    this.clearAllIntervals();
 
     this.action = HERO_ACTIONS.idle;
 
@@ -287,10 +294,9 @@ export class Hero {
       this.action &&
       !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.run)
     )
-      return () => {};
+      return;
 
-    this.clearIntervals.run.map((func) => func());
-    this.clearIntervals.idle.map((func) => func());
+    this.clearAllIntervals();
 
     this.is_idle = false;
 
@@ -300,8 +306,6 @@ export class Hero {
     this.sprits = HERO_SPRITS[HERO_ACTIONS.run];
 
     const interval = setInterval(() => {
-      if (!this.sprits.can_move) return;
-
       if (i >= this.sprits.sprits) i = 0;
 
       this.spritImgUpdate(i);
@@ -322,10 +326,9 @@ export class Hero {
         HERO_ACTIONS.sword_attack
       )
     )
-      return () => {};
+      return;
 
-    this.clearIntervals.run.map((func) => func());
-    this.clearIntervals.idle.map((func) => func());
+    this.clearAllIntervals();
 
     this.is_idle = false;
 
@@ -367,7 +370,7 @@ export class Hero {
       } = distanceToAdd({
         hurtbox: this.hurtbox,
         blocks: this.blocks_position,
-        bottom: i * 2,
+        bottom: i * 3,
       });
 
       if (!distance) {
@@ -380,7 +383,7 @@ export class Hero {
       this.position.y += distance;
       this.updateHeroPosition();
       i++;
-    }, 20);
+    }, 30);
   }
 
   spawn(position) {
@@ -412,7 +415,7 @@ export class Hero {
       this.position.x += distance;
 
       this.updateHeroPosition();
-    }, 20);
+    }, 30);
 
     return () => {
       this.is_idle = true;
@@ -437,7 +440,7 @@ export class Hero {
       this.position.x -= distance;
 
       this.updateHeroPosition();
-    }, 20);
+    }, 30);
 
     return () => {
       this.is_idle = true;
@@ -462,7 +465,7 @@ export class Hero {
 
       this.updateHeroPosition();
       i++;
-    }, 20);
+    }, 30);
 
     return () => {
       this.clearIntervals.idle.push(this.idle());
@@ -470,35 +473,64 @@ export class Hero {
     };
   }
 
+  jumpAnimation() {
+    if (
+      this.action &&
+      !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.jump)
+    )
+      return;
+
+    this.clearAllIntervals();
+
+    this.action = HERO_ACTIONS.jump;
+
+    let i = 0;
+    this.sprits = HERO_SPRITS[this.action];
+
+    const interval = setInterval(() => {
+      if (i >= this.sprits.sprits) i = 0;
+
+      this.spritImgUpdate(i);
+
+      i++;
+    }, ANIMATION_INTERVAL);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }
+
   jump() {
     if (this.is_jumping) return;
     if (!this.jump_count) return;
+
+    this.clearIntervals.jump.push(this.jumpAnimation());
     this.jump_count--;
 
-    let i = 15;
+    let i = 12;
     const interval = setInterval(() => {
+      this.is_idle = false;
+      this.is_jumping = true;
+
       const {
         top: { distance, collision },
       } = distanceToAdd({
         hurtbox: this.hurtbox,
         blocks: this.blocks_position,
-        top: i * 2,
+        top: i * 3,
       });
 
       this.position.y -= distance;
       this.updateHeroPosition();
 
-      this.is_jumping = true;
-
       if (i <= 0 || collision) {
+        this.is_idle = true;
         this.is_jumping = false;
         clearInterval(interval);
       }
 
       i--;
-    }, 20);
-
-    return () => {};
+    }, 30);
   }
 
   up() {
