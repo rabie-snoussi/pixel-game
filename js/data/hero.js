@@ -74,7 +74,7 @@ export const HERO_SPRITS = {
   sword_attack: {
     can_move: false,
     img: HERO_SWORD_ATTACK_IMG,
-    possible_actions: [HERO_ACTIONS.idle],
+    possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.run],
     sprits: 4,
     dimensions: {
       height: 16,

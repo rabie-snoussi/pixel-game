@@ -297,6 +297,8 @@ export class Hero {
     this.sprits = HERO_SPRITS[HERO_ACTIONS.run];
 
     const interval = setInterval(() => {
+      if (!this.sprits.can_move) return;
+
       if (i >= this.sprits.sprits) i = 0;
 
       this.spritImgUpdate(i);
@@ -341,7 +343,7 @@ export class Hero {
 
     return () => {
       this.is_idle = true;
-      learInterval(interval);
+      clearInterval(interval);
     };
   }
 
@@ -390,9 +392,7 @@ export class Hero {
   }
 
   goRight() {
-    if (HERO_SPRITS[this.action].can_move) {
-      this.clearIntervals.run.push(this.run());
-    }
+    this.clearIntervals.run.push(this.run());
 
     const interval = setInterval(() => {
       if (HERO_SPRITS[this.action].can_move) {
@@ -419,9 +419,7 @@ export class Hero {
   }
 
   goLeft() {
-    if (HERO_SPRITS[this.action].can_move) {
-      this.clearIntervals.run.push(this.run());
-    }
+    this.clearIntervals.run.push(this.run());
 
     const interval = setInterval(() => {
       if (HERO_SPRITS[this.action].can_move) {
