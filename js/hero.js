@@ -7,6 +7,8 @@ export const HERO_SPEED = 16;
 
 export const ANIMATION_INTERVAL = 100;
 
+const MAX_JUMPS = 2;
+
 export const HERO_DIRECTIONS = {
   left: 'left',
   right: 'right',
@@ -223,6 +225,7 @@ export class Hero {
     this.action = '';
     this.sprits = null;
     this.is_jumping = false;
+    this.jump_count = MAX_JUMPS;
     this.clearIntervals = {
       idle: [],
       run: [],
@@ -351,7 +354,7 @@ export class Hero {
     setInterval(() => {
       if (!this.is_idle) return;
       this.clearIntervals.idle.push(this.idle());
-    }, 20);
+    }, 100);
   }
 
   fallDetection() {
@@ -368,6 +371,7 @@ export class Hero {
       });
 
       if (!distance) {
+        this.jump_count = MAX_JUMPS;
         if (i === 1) return;
         i = 1;
         return;
@@ -395,21 +399,19 @@ export class Hero {
     this.clearIntervals.run.push(this.run());
 
     const interval = setInterval(() => {
-      if (HERO_SPRITS[this.action].can_move) {
-        this.changeDirection(HERO_DIRECTIONS.right);
+      this.changeDirection(HERO_DIRECTIONS.right);
 
-        const {
-          right: { distance },
-        } = distanceToAdd({
-          hurtbox: this.hurtbox,
-          blocks: this.blocks_position,
-          right: HERO_SPEED,
-        });
+      const {
+        right: { distance },
+      } = distanceToAdd({
+        hurtbox: this.hurtbox,
+        blocks: this.blocks_position,
+        right: HERO_SPEED,
+      });
 
-        this.position.x += distance;
+      this.position.x += distance;
 
-        this.updateHeroPosition();
-      }
+      this.updateHeroPosition();
     }, 20);
 
     return () => {
@@ -422,21 +424,19 @@ export class Hero {
     this.clearIntervals.run.push(this.run());
 
     const interval = setInterval(() => {
-      if (HERO_SPRITS[this.action].can_move) {
-        this.changeDirection(HERO_DIRECTIONS.left);
+      this.changeDirection(HERO_DIRECTIONS.left);
 
-        const {
-          left: { distance },
-        } = distanceToAdd({
-          hurtbox: this.hurtbox,
-          blocks: this.blocks_position,
-          left: HERO_SPEED,
-        });
+      const {
+        left: { distance },
+      } = distanceToAdd({
+        hurtbox: this.hurtbox,
+        blocks: this.blocks_position,
+        left: HERO_SPEED,
+      });
 
-        this.position.x -= distance;
+      this.position.x -= distance;
 
-        this.updateHeroPosition();
-      }
+      this.updateHeroPosition();
     }, 20);
 
     return () => {
@@ -448,21 +448,19 @@ export class Hero {
   fall() {
     let i = 0;
     const interval = setInterval(() => {
-      if (HERO_SPRITS[this.action].can_move) {
-        const {
-          bottom: { distance, collision },
-        } = distanceToAdd({
-          hurtbox: this.hurtbox,
-          blocks: this.blocks_position,
-          bottom: i * 2,
-        });
+      const {
+        bottom: { distance, collision },
+      } = distanceToAdd({
+        hurtbox: this.hurtbox,
+        blocks: this.blocks_position,
+        bottom: i * 2,
+      });
 
-        this.position.y += distance;
+      this.position.y += distance;
 
-        if (collision) clearInterval(interval);
+      if (collision) clearInterval(interval);
 
-        this.updateHeroPosition();
-      }
+      this.updateHeroPosition();
       i++;
     }, 20);
 
@@ -473,29 +471,31 @@ export class Hero {
   }
 
   jump() {
+    if (this.is_jumping) return;
+    if (!this.jump_count) return;
+    this.jump_count--;
+
     let i = 15;
     const interval = setInterval(() => {
-      if (HERO_SPRITS[this.action].can_move) {
-        const {
-          top: { distance, collision },
-        } = distanceToAdd({
-          hurtbox: this.hurtbox,
-          blocks: this.blocks_position,
-          top: i * 2,
-        });
+      const {
+        top: { distance, collision },
+      } = distanceToAdd({
+        hurtbox: this.hurtbox,
+        blocks: this.blocks_position,
+        top: i * 2,
+      });
 
-        this.is_jumping = true;
-        this.position.y -= distance;
+      this.position.y -= distance;
+      this.updateHeroPosition();
 
-        this.updateHeroPosition();
+      this.is_jumping = true;
 
-        if (i <= 0 || collision) {
-          this.is_jumping = false;
-          clearInterval(interval);
-        }
-
-        i--;
+      if (i <= 0 || collision) {
+        this.is_jumping = false;
+        clearInterval(interval);
       }
+
+      i--;
     }, 20);
 
     return () => {};
