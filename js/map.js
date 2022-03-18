@@ -1,4 +1,4 @@
-import MAPS from './data/maps/index.js';
+import MAPS from './data/maps/maps.js';
 
 export default class Map {
   constructor() {

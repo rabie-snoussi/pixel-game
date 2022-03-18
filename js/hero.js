@@ -1,242 +1,24 @@
 import { HERO_SPRITS } from './data/hero.js';
-import { SCREEN_LIMITS } from './game.js';
-
-export const HERO_SIZE = 4;
-
-export const HERO_SPEED = 16;
-
-export const ANIMATION_INTERVAL = 100;
-
-export const MOVEMENT_INTERVAL = 30;
-
-const MAX_JUMPS = 2;
-
-export const HERO_DIRECTIONS = {
-  left: 'left',
-  right: 'right',
-};
-
-export const HERO_ACTIONS = {
-  idle: 'idle',
-  attack: 'attack',
-  sword_attack: 'sword_attack',
-  run: 'run',
-  jump: 'jump',
-  fall: 'fall',
-};
-
-const isCollidingRight = (hero, block, distance = 0) => {
-  return (
-    (hero.b.x + distance >= block.a.x &&
-      hero.b.y === block.a.y &&
-      hero.c.y === block.d.y &&
-      hero.b.x < block.b.x) ||
-    (hero.b.x + distance >= block.a.x &&
-      hero.b.y > block.a.y &&
-      hero.b.y < block.d.y &&
-      hero.b.x < block.b.x) ||
-    (hero.b.x + distance >= block.a.x &&
-      hero.c.y > block.a.y &&
-      hero.c.y < block.d.y &&
-      hero.b.x < block.b.x)
-  );
-};
-
-const isCollidingLeft = (hero, block, distance = 0) => {
-  return (
-    (hero.a.x - distance <= block.b.x &&
-      hero.a.y === block.b.y &&
-      hero.d.y === block.c.y &&
-      hero.a.x + distance > block.a.x) ||
-    (hero.a.x - distance <= block.b.x &&
-      hero.a.y > block.b.y &&
-      hero.a.y < block.c.y &&
-      hero.a.x + distance > block.a.x) ||
-    (hero.a.x - distance <= block.b.x &&
-      hero.d.y > block.b.y &&
-      hero.d.y < block.c.y &&
-      hero.a.x + distance > block.a.x)
-  );
-};
-
-const isCollidingTop = (hero, block, distance = 0) => {
-  return (
-    (hero.a.y - distance <= block.c.y &&
-      hero.a.x === block.d.x &&
-      hero.b.x === block.c.x &&
-      hero.a.y + distance > block.a.y) ||
-    (hero.a.y - distance <= block.c.y &&
-      hero.a.x > block.d.x &&
-      hero.a.x < block.c.x &&
-      hero.a.y + distance > block.a.y) ||
-    (hero.a.y - distance <= block.c.y &&
-      hero.b.x > block.d.x &&
-      hero.b.x < block.c.x &&
-      hero.a.y + distance > block.a.y)
-  );
-};
-
-const isCollidingBottom = (hero, block, distance = 0) => {
-  return (
-    (hero.c.y + distance >= block.a.y &&
-      hero.c.x === block.b.x &&
-      hero.d.x === block.a.x &&
-      hero.c.y < block.c.y) ||
-    (hero.c.y + distance >= block.a.y &&
-      hero.c.x > block.a.x &&
-      hero.c.x < block.b.x &&
-      hero.c.y < block.c.y) ||
-    (hero.c.y + distance >= block.a.y &&
-      hero.d.x > block.a.x &&
-      hero.d.x < block.b.x &&
-      hero.c.y < block.c.y)
-  );
-};
-
-const blockDistance =
-  (collisionFilter, direction) =>
-  ({ hurtbox, blocks, distance }) => {
-    const distanceCalculation = (hurtbox, block) => {
-      const operations = {
-        top: hurtbox.a.y - block.d.y,
-        bottom: block.a.y - hurtbox.d.y,
-        right: block.a.x - hurtbox.b.x,
-        left: hurtbox.a.x - block.b.x,
-      };
-
-      return operations[direction];
-    };
-
-    const distances = blocks
-      .filter((block) => collisionFilter(hurtbox, block, distance))
-      .map((block) => distanceCalculation(hurtbox, block));
-
-    distances.sort(function (a, b) {
-      return a - b;
-    });
-
-    return distances[0];
-  };
-
-const screenCollision = ({
-  hurtbox,
-  top = 0,
-  bottom = 0,
-  left = 0,
-  right = 0,
-}) => {
-  const topCollision = hurtbox.a.y - top <= SCREEN_LIMITS.y.start;
-  const bottomCollision = hurtbox.c.y + bottom >= SCREEN_LIMITS.y.end;
-  const rightCollision = hurtbox.b.x + right >= SCREEN_LIMITS.x.end;
-  const leftCollision = hurtbox.a.x - left <= SCREEN_LIMITS.x.start;
-
-  const topDistance = hurtbox.a.y - SCREEN_LIMITS.y.start;
-  const bottomDistance = SCREEN_LIMITS.y.end - hurtbox.a.y;
-  const rightDistance = SCREEN_LIMITS.x.end - hurtbox.b.x;
-  const leftDistance = hurtbox.a.x - SCREEN_LIMITS.x.start;
-
-  return {
-    top: topCollision ? topDistance : undefined,
-    bottom: bottomCollision ? bottomDistance : undefined,
-    right: rightCollision ? rightDistance : undefined,
-    left: leftCollision ? leftDistance : undefined,
-  };
-};
-
-const distanceToAdd = ({
-  hurtbox,
-  blocks,
-  top = 0,
-  bottom = 0,
-  right = 0,
-  left = 0,
-}) => {
-  const topBlockDistance = blockDistance(
-    isCollidingTop,
-    'top'
-  )({
-    hurtbox,
-    blocks,
-    distance: top,
-  });
-
-  const bottomBlockDistance = blockDistance(
-    isCollidingBottom,
-    'bottom'
-  )({
-    hurtbox,
-    blocks,
-    distance: bottom,
-  });
-
-  const rightBlockDistance = blockDistance(
-    isCollidingRight,
-    'right'
-  )({
-    hurtbox,
-    blocks,
-    distance: right,
-  });
-
-  const leftBlockDistance = blockDistance(
-    isCollidingLeft,
-    'left'
-  )({
-    hurtbox,
-    blocks,
-    distance: left,
-  });
-
-  const screenCollisions = screenCollision({
-    hurtbox,
-    top,
-    bottom,
-    left,
-    right,
-  });
-
-  const topDistance = topBlockDistance ?? screenCollisions.top ?? top;
-  const bottomDistance =
-    bottomBlockDistance ?? screenCollisions.bottom ?? bottom;
-  const rightDistance = rightBlockDistance ?? screenCollisions.right ?? right;
-  const leftDistance = leftBlockDistance ?? screenCollisions.left ?? left;
-
-  const topCollision =
-    topBlockDistance == 0 || !!topBlockDistance || !!screenCollisions.top;
-  const bottomCollision =
-    bottomBlockDistance == 0 ||
-    !!bottomBlockDistance ||
-    !!screenCollisions.bottom;
-  const rightCollision =
-    rightBlockDistance == 0 || !!rightBlockDistance || !!screenCollisions.right;
-  const leftCollision =
-    leftBlockDistance == 0 || !!leftBlockDistance || !!screenCollisions.left;
-
-  return {
-    top: { distance: topDistance, collision: topCollision },
-    bottom: { distance: bottomDistance, collision: bottomCollision },
-    right: { distance: rightDistance, collision: rightCollision },
-    left: { distance: leftDistance, collision: leftCollision },
-  };
-};
+import {
+  HERO_DIRECTIONS,
+  HERO_ACTIONS,
+  HERO_SIZE,
+  HERO_SPEED,
+  MOVEMENT_INTERVAL,
+  ANIMATION_INTERVAL,
+  MAX_JUMPS,
+} from './constants.js';
+import { distanceToAdd } from './helpers.js';
 
 export class Hero {
   constructor() {
     this.element = document.getElementById('hero');
     this.blocks_position = [];
     this.direction = HERO_DIRECTIONS.right;
-    this.is_idle = true;
-    this.on_ground = true;
-    this.action = '';
-    this.sprits = null;
+    this.sprits = HERO_SPRITS[HERO_ACTIONS.idle];
+    this.sprits_counter = 0;
     this.is_jumping = false;
     this.jump_count = MAX_JUMPS;
-    this.clearIntervals = {
-      idle: [],
-      run: [],
-      jump: [],
-      fall: [],
-    };
     this.hurtbox = {
       element: document.createElement('div'),
       a: {
@@ -262,115 +44,47 @@ export class Hero {
     };
   }
 
-  clearAllIntervals() {
-    this.clearIntervals.run.map((func) => func?.());
-    this.clearIntervals.jump.map((func) => func?.());
-    this.clearIntervals.fall.map((func) => func?.());
-    this.clearIntervals.idle.map((func) => func?.());
-  }
-
   idle() {
-    if (
-      this.action &&
-      !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.idle)
-    )
-      return;
+    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.idle)) return;
 
-    this.clearAllIntervals();
-
-    this.action = HERO_ACTIONS.idle;
-
-    let i = 0;
     this.sprits = HERO_SPRITS[HERO_ACTIONS.idle];
-
-    const interval = setInterval(() => {
-      this.element.style.left = this.position.x + 'px';
-      if (i >= this.sprits.sprits) i = 0;
-
-      this.spritImgUpdate(i);
-
-      i++;
-    }, ANIMATION_INTERVAL);
+    this.sprits_counter = 0;
 
     return () => clearInterval(interval);
   }
 
   run() {
-    if (
-      this.action &&
-      !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.run)
-    )
-      return;
+    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.run)) return;
 
-    this.clearAllIntervals();
-
-    this.is_idle = false;
-
-    this.action = HERO_ACTIONS.run;
-
-    let i = 0;
     this.sprits = HERO_SPRITS[HERO_ACTIONS.run];
+    this.sprits_counter = 0;
+  }
 
-    const interval = setInterval(() => {
-      if (i >= this.sprits.sprits) i = 0;
+  animate() {
+    setInterval(() => {
+      if (this.sprits_counter >= this.sprits.number) this.sprits_counter = 0;
 
-      this.spritImgUpdate(i);
+      this.spritImgUpdate();
+      this.sprits_counter++;
 
-      i++;
+      if (!this.sprits.loop && this.sprits_counter >= this.sprits.number)
+        this.idle();
     }, ANIMATION_INTERVAL);
-
-    return () => {
-      this.is_idle = true;
-      clearInterval(interval);
-    };
   }
 
   swordAttack() {
-    if (
-      this.action &&
-      !HERO_SPRITS[this.action].possible_actions.includes(
-        HERO_ACTIONS.sword_attack
-      )
-    )
+    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.sword_attack))
       return;
 
-    this.clearAllIntervals();
-
-    this.is_idle = false;
-
-    this.action = HERO_ACTIONS.sword_attack;
-
-    let i = 0;
     this.sprits = HERO_SPRITS[HERO_ACTIONS.sword_attack];
-
-    const interval = setInterval(() => {
-      this.spritImgUpdate(i);
-      i++;
-
-      if (i >= this.sprits.sprits) {
-        this.is_idle = true;
-        clearInterval(interval);
-      }
-    }, ANIMATION_INTERVAL);
-
-    return () => {
-      this.is_idle = true;
-      clearInterval(interval);
-    };
-  }
-
-  idleDetection() {
-    setInterval(() => {
-      if (!this.is_idle) return;
-      if (!this.on_ground) return;
-      this.clearIntervals.idle.push(this.idle());
-    }, 100);
+    this.sprits_counter = 0;
   }
 
   fallDetection() {
     let i = 1;
     let is_falling = false;
     let double_jump = false;
+
     setInterval(() => {
       if (this.is_jumping) return;
 
@@ -384,12 +98,10 @@ export class Hero {
 
       if (!distance) {
         is_falling = false;
-        this.on_ground = true;
         this.jump_count = MAX_JUMPS;
         if (i === 1) return;
+        this.idle();
         double_jump = false;
-        this.clearIntervals.fall.map((func) => func?.());
-        this.is_idle = true;
         i = 1;
         return;
       }
@@ -401,10 +113,9 @@ export class Hero {
         }
       }
 
-      if (!is_falling) this.clearIntervals.fall.push(this.fallAnimation());
+      if (!is_falling) this.fallAnimation();
 
       is_falling = true;
-      this.on_ground = false;
       this.position.y += distance;
       this.updateHeroPosition();
 
@@ -413,47 +124,28 @@ export class Hero {
   }
 
   fallAnimation() {
-    if (
-      this.action &&
-      !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.fall)
-    )
-      return;
-    this.is_idle = false;
+    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.fall)) return;
 
-    this.clearAllIntervals();
-
-    this.action = HERO_ACTIONS.fall;
-
-    let i = 0;
-    this.sprits = HERO_SPRITS[this.action];
-
-    const interval = setInterval(() => {
-      if (i >= this.sprits.sprits) i = 0;
-
-      this.spritImgUpdate(i);
-
-      i++;
-    }, ANIMATION_INTERVAL);
-
-    return () => clearInterval(interval);
+    this.sprits = HERO_SPRITS[HERO_ACTIONS.fall];
+    this.sprits_counter = 0;
   }
 
   spawn(position) {
     this.position.x = position.x;
     this.position.y = position.y;
 
-    this.clearIntervals.idle.push(this.idle());
-
-    this.idleDetection();
-    this.fallDetection();
-
+    this.idle();
     this.updateHeroPosition();
+    this.fallDetection();
+    this.animate();
   }
 
   goRight() {
-    this.clearIntervals.run.push(this.run());
+    this.run();
 
     const interval = setInterval(() => {
+      if (!this.sprits.can_move) return;
+
       this.changeDirection(HERO_DIRECTIONS.right);
 
       const {
@@ -465,20 +157,21 @@ export class Hero {
       });
 
       this.position.x += distance;
-
       this.updateHeroPosition();
     }, MOVEMENT_INTERVAL);
 
     return () => {
-      this.is_idle = true;
+      this.idle();
       clearInterval(interval);
     };
   }
 
   goLeft() {
-    this.clearIntervals.run.push(this.run());
+    this.run();
 
     const interval = setInterval(() => {
+      if (!this.sprits.can_move) return;
+
       this.changeDirection(HERO_DIRECTIONS.left);
 
       const {
@@ -495,35 +188,16 @@ export class Hero {
     }, MOVEMENT_INTERVAL);
 
     return () => {
-      this.is_idle = true;
+      this.idle();
       clearInterval(interval);
     };
   }
 
   jumpAnimation() {
-    if (
-      this.action &&
-      !HERO_SPRITS[this.action].possible_actions.includes(HERO_ACTIONS.jump)
-    )
-      return;
+    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.jump)) return;
 
-    this.clearAllIntervals();
-
-    this.is_idle = false;
-    this.is_jumping = true;
-
-    this.action = HERO_ACTIONS.jump;
-
-    let i = 0;
-    this.sprits = HERO_SPRITS[this.action];
-
-    const interval = setInterval(() => {
-      if (i >= this.sprits.sprits) i = 0;
-
-      this.spritImgUpdate(i);
-
-      i++;
-    }, ANIMATION_INTERVAL);
+    this.sprits = HERO_SPRITS[HERO_ACTIONS.jump];
+    this.sprits_counter = 0;
 
     return () => {
       clearInterval(interval);
@@ -533,14 +207,13 @@ export class Hero {
   jump() {
     if (this.is_jumping) return;
     if (!this.jump_count) return;
+    if (!this.sprits.can_move) return;
 
-    this.is_idle = false;
     this.is_jumping = true;
-
-    this.clearIntervals.jump.push(this.jumpAnimation());
+    this.jumpAnimation();
     this.jump_count--;
-
     let i = 11;
+
     const interval = setInterval(() => {
       const {
         top: { distance, collision },
@@ -618,23 +291,15 @@ export class Hero {
   }
 
   updateHurtbox() {
-    this.hurtbox.a.x =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.a.x * HERO_SIZE;
-    this.hurtbox.b.x =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.b.x * HERO_SIZE;
-    this.hurtbox.c.x =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.c.x * HERO_SIZE;
-    this.hurtbox.d.x =
-      this.position.x + HERO_SPRITS[this.action].hurtbox.d.x * HERO_SIZE;
+    this.hurtbox.a.x = this.position.x + this.sprits.hurtbox.a.x * HERO_SIZE;
+    this.hurtbox.b.x = this.position.x + this.sprits.hurtbox.b.x * HERO_SIZE;
+    this.hurtbox.c.x = this.position.x + this.sprits.hurtbox.c.x * HERO_SIZE;
+    this.hurtbox.d.x = this.position.x + this.sprits.hurtbox.d.x * HERO_SIZE;
 
-    this.hurtbox.a.y =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.a.y * HERO_SIZE;
-    this.hurtbox.b.y =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.b.y * HERO_SIZE;
-    this.hurtbox.c.y =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.c.y * HERO_SIZE;
-    this.hurtbox.d.y =
-      this.position.y + HERO_SPRITS[this.action].hurtbox.d.y * HERO_SIZE;
+    this.hurtbox.a.y = this.position.y + this.sprits.hurtbox.a.y * HERO_SIZE;
+    this.hurtbox.b.y = this.position.y + this.sprits.hurtbox.b.y * HERO_SIZE;
+    this.hurtbox.c.y = this.position.y + this.sprits.hurtbox.c.y * HERO_SIZE;
+    this.hurtbox.d.y = this.position.y + this.sprits.hurtbox.d.y * HERO_SIZE;
 
     this.hurtbox.element.style.top = this.hurtbox.a.y + 'px';
     this.hurtbox.element.style.left = this.hurtbox.a.x + 'px';
@@ -649,7 +314,7 @@ export class Hero {
     this.blocks_position = blocks;
   }
 
-  spritImgUpdate(i) {
+  spritImgUpdate() {
     if (this.direction === HERO_DIRECTIONS.left)
       this.element.style.left =
         this.position.x -
@@ -664,7 +329,7 @@ export class Hero {
     this.element.style.width = this.sprits.dimensions.width * HERO_SIZE + 'px';
 
     this.element.style.backgroundPositionX =
-      this.sprits.dimensions.width * HERO_SIZE * -i + 'px';
+      this.sprits.dimensions.width * HERO_SIZE * -this.sprits_counter + 'px';
   }
 
   changeDirection(direction) {

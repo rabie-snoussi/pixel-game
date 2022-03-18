@@ -1,22 +1,17 @@
-const HERO_IDLE_IMG = './assets/hero/herochar_idle_anim_strip_4.png';
-const HERO_ATTACK_IMG = './assets/hero/herochar_attack_anim_strip_4.png';
-const HERO_SWORD_ATTACK_IMG =
-  './assets/hero/herochar_sword_attack_anim_strip_4.png';
-const HERO_RUN_IMG = './assets/hero/herochar_run_anim_strip_6.png';
-const HERO_JUMP_IMG = './assets/hero/herochar_jump_up_anim_strip_3.png';
-const HERO_FALL_IMG = './assets/hero/herochar_jump_down_anim_strip_3.png';
-
-export const HERO_ACTIONS = {
-  idle: 'idle',
-  attack: 'attack',
-  sword_attack: 'sword_attack',
-  run: 'run',
-  jump: 'jump',
-  fall: 'fall',
-};
+import {
+  HERO_ACTIONS,
+  HERO_ATTACK_IMG,
+  HERO_FALL_IMG,
+  HERO_IDLE_IMG,
+  HERO_JUMP_IMG,
+  HERO_RUN_IMG,
+  HERO_SWORD_ATTACK_IMG,
+} from '../constants.js';
 
 export const HERO_SPRITS = {
   idle: {
+    loop: true,
+    can_move: true,
     img: HERO_IDLE_IMG,
     possible_actions: [
       HERO_ACTIONS.attack,
@@ -25,7 +20,7 @@ export const HERO_SPRITS = {
       HERO_ACTIONS.jump,
       HERO_ACTIONS.fall,
     ],
-    sprits: 4,
+    number: 4,
     dimensions: {
       height: 16,
       width: 16,
@@ -50,9 +45,11 @@ export const HERO_SPRITS = {
     },
   },
   attack: {
+    loop: false,
+    can_move: false,
     img: HERO_ATTACK_IMG,
     possible_actions: [],
-    sprits: 4,
+    number: 4,
     dimensions: {
       height: 16,
       width: 16,
@@ -77,9 +74,11 @@ export const HERO_SPRITS = {
     },
   },
   sword_attack: {
+    loop: false,
+    can_move: false,
     img: HERO_SWORD_ATTACK_IMG,
-    possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.run],
-    sprits: 4,
+    possible_actions: [HERO_ACTIONS.idle],
+    number: 4,
     dimensions: {
       height: 16,
       width: 32,
@@ -104,6 +103,8 @@ export const HERO_SPRITS = {
     },
   },
   run: {
+    loop: true,
+    can_move: true,
     img: HERO_RUN_IMG,
     possible_actions: [
       HERO_ACTIONS.idle,
@@ -112,7 +113,7 @@ export const HERO_SPRITS = {
       HERO_ACTIONS.jump,
       HERO_ACTIONS.fall,
     ],
-    sprits: 6,
+    number: 6,
     dimensions: {
       height: 16,
       width: 16,
@@ -137,9 +138,11 @@ export const HERO_SPRITS = {
     },
   },
   jump: {
+    loop: true,
+    can_move: true,
     img: HERO_JUMP_IMG,
     possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.fall],
-    sprits: 3,
+    number: 3,
     dimensions: {
       height: 16,
       width: 16,
@@ -164,9 +167,11 @@ export const HERO_SPRITS = {
     },
   },
   fall: {
+    loop: true,
+    can_move: true,
     img: HERO_FALL_IMG,
     possible_actions: [HERO_ACTIONS.idle],
-    sprits: 3,
+    number: 3,
     dimensions: {
       height: 16,
       width: 16,

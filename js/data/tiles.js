@@ -1,10 +1,4 @@
-export const TILES_IMG =
-  './assets/tiles_background_foreground/tileset_64x64.png';
-
-export const TILE_DIMENSIONS = {
-  height: 64,
-  width: 64,
-};
+import { TILE_DIMENSIONS } from "../constants.js";
 
 export const TILES = {
   transparent: { x: -4, y: -1 },

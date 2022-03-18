@@ -1,6 +1,6 @@
-import { TILES, TILE_DIMENSIONS, TILES_IMG } from '../tiles.js';
-import { BG_IMG } from './shared.js';
+import { TILES } from '../tiles.js';
 import { GRID } from '../grid.js';
+import { TILES_IMG, TILE_DIMENSIONS, BG_IMG } from '../../constants.js';
 
 export default {
   tile_img: TILES_IMG,

@@ -1,7 +1,4 @@
-export const GRID_DIMENSIONS = {
-  height: 64,
-  width: 64,
-};
+import {GRID_DIMENSIONS } from './../constants.js';
 
 export const GRID = [
   [
