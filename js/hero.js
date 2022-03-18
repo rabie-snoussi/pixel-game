@@ -11,224 +11,290 @@ import {
 import { distanceToAdd } from './helpers.js';
 
 export class Hero {
-  constructor() {
-    this.element = document.getElementById('hero');
-    this.blocks_position = [];
-    this.direction = HERO_DIRECTIONS.right;
-    this.sprits = HERO_SPRITS[HERO_ACTIONS.idle];
-    this.sprits_counter = 0;
-    this.is_jumping = false;
-    this.jump_count = MAX_JUMPS;
-    this.hurtbox = {
-      element: document.createElement('div'),
-      a: {
-        x: 0,
-        y: 0,
-      },
-      b: {
-        x: 0,
-        y: 0,
-      },
-      c: {
-        x: 0,
-        y: 0,
-      },
-      d: {
-        x: 0,
-        y: 0,
-      },
-    };
-    this.position = {
+  // Private properties
+
+  #spritsCounter = 0;
+  #isJumping = false;
+  #element = document.getElementById('hero');
+  #blocksPosition = [];
+  #direction = HERO_DIRECTIONS.right;
+  #sprits = HERO_SPRITS[HERO_ACTIONS.idle];
+  #jumpCount = MAX_JUMPS;
+  #hurtbox = {
+    element: document.createElement('div'),
+    a: {
       x: 0,
       y: 0,
-    };
-  }
+    },
+    b: {
+      x: 0,
+      y: 0,
+    },
+    c: {
+      x: 0,
+      y: 0,
+    },
+    d: {
+      x: 0,
+      y: 0,
+    },
+  };
+  #position = {
+    x: 0,
+    y: 0,
+  };
 
-  idle() {
-    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.idle)) return;
+  constructor() {}
 
-    this.sprits = HERO_SPRITS[HERO_ACTIONS.idle];
-    this.sprits_counter = 0;
+  // Private methods
+
+  #idleSprits() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.idle)) return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.idle];
+    this.#spritsCounter = 0;
 
     return () => clearInterval(interval);
   }
 
-  run() {
-    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.run)) return;
+  #runSprits() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.run)) return;
 
-    this.sprits = HERO_SPRITS[HERO_ACTIONS.run];
-    this.sprits_counter = 0;
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.run];
+    this.#spritsCounter = 0;
   }
 
-  animate() {
+  #fallSprits() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.fall)) return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.fall];
+    this.#spritsCounter = 0;
+  }
+
+  #jumpAnimation() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.jump)) return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.jump];
+    this.#spritsCounter = 0;
+
+    return () => {
+      clearInterval(interval);
+    };
+  }
+
+  #animate() {
     setInterval(() => {
-      if (this.sprits_counter >= this.sprits.number) this.sprits_counter = 0;
+      if (this.#spritsCounter >= this.#sprits.number) this.#spritsCounter = 0;
 
-      this.spritImgUpdate();
-      this.sprits_counter++;
+      this.#spritImgUpdate();
+      this.#spritsCounter++;
 
-      if (!this.sprits.loop && this.sprits_counter >= this.sprits.number)
-        this.idle();
+      if (!this.#sprits.loop && this.#spritsCounter >= this.#sprits.number)
+        this.#idleSprits();
     }, ANIMATION_INTERVAL);
   }
 
-  swordAttack() {
-    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.sword_attack))
-      return;
-
-    this.sprits = HERO_SPRITS[HERO_ACTIONS.sword_attack];
-    this.sprits_counter = 0;
-  }
-
-  fallDetection() {
+  #gravity() {
     let i = 1;
-    let is_falling = false;
-    let double_jump = false;
+    let isFalling = false;
+    let doubleJump = false;
 
     setInterval(() => {
-      if (this.is_jumping) return;
+      if (this.#isJumping) return;
 
       const {
         bottom: { distance },
       } = distanceToAdd({
-        hurtbox: this.hurtbox,
-        blocks: this.blocks_position,
+        hurtbox: this.#hurtbox,
+        blocks: this.#blocksPosition,
         bottom: i * 3,
       });
 
       if (!distance) {
-        is_falling = false;
-        this.jump_count = MAX_JUMPS;
+        isFalling = false;
+        this.#jumpCount = MAX_JUMPS;
         if (i === 1) return;
-        this.idle();
-        double_jump = false;
+        this.#idleSprits();
+        doubleJump = false;
         i = 1;
         return;
       }
 
-      if (this.jump_count === 0 && !double_jump) {
-        double_jump = true;
+      if (this.#jumpCount === 0 && !doubleJump) {
+        doubleJump = true;
         if (i !== 1) {
           i = 1;
         }
       }
 
-      if (!is_falling) this.fallAnimation();
+      if (!isFalling) this.#fallSprits();
 
-      is_falling = true;
-      this.position.y += distance;
-      this.updateHeroPosition();
+      isFalling = true;
+      this.#position.y += distance;
+      this.#updateHeroPosition();
 
       i++;
     }, MOVEMENT_INTERVAL);
   }
 
-  fallAnimation() {
-    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.fall)) return;
+  #updateHeroPosition() {
+    this.#element.style.top = this.#position.y + 'px';
+    this.#element.style.left = this.#position.x + 'px';
 
-    this.sprits = HERO_SPRITS[HERO_ACTIONS.fall];
-    this.sprits_counter = 0;
+    this.#updateHurtbox();
+  }
+
+  #updateHurtbox() {
+    this.#hurtbox.a.x = this.#position.x + this.#sprits.hurtbox.a.x * HERO_SIZE;
+    this.#hurtbox.b.x = this.#position.x + this.#sprits.hurtbox.b.x * HERO_SIZE;
+    this.#hurtbox.c.x = this.#position.x + this.#sprits.hurtbox.c.x * HERO_SIZE;
+    this.#hurtbox.d.x = this.#position.x + this.#sprits.hurtbox.d.x * HERO_SIZE;
+
+    this.#hurtbox.a.y = this.#position.y + this.#sprits.hurtbox.a.y * HERO_SIZE;
+    this.#hurtbox.b.y = this.#position.y + this.#sprits.hurtbox.b.y * HERO_SIZE;
+    this.#hurtbox.c.y = this.#position.y + this.#sprits.hurtbox.c.y * HERO_SIZE;
+    this.#hurtbox.d.y = this.#position.y + this.#sprits.hurtbox.d.y * HERO_SIZE;
+
+    this.#hurtbox.element.style.top = this.#hurtbox.a.y + 'px';
+    this.#hurtbox.element.style.left = this.#hurtbox.a.x + 'px';
+
+    this.#hurtbox.element.style.width =
+      this.#hurtbox.b.x - this.#hurtbox.a.x + 'px';
+    this.#hurtbox.element.style.height =
+      this.#hurtbox.c.y - this.#hurtbox.a.y + 'px';
+  }
+
+  #spritImgUpdate() {
+    if (this.#direction === HERO_DIRECTIONS.left)
+      this.#element.style.left =
+        this.#position.x -
+        (this.#sprits.dimensions.width * HERO_SIZE -
+          (this.#sprits.hurtbox.b.x - this.#sprits.hurtbox.a.x) * HERO_SIZE) +
+        'px';
+
+    this.#element.style.backgroundImage = 'url("' + this.#sprits.img + '")';
+
+    this.#element.style.height =
+      this.#sprits.dimensions.height * HERO_SIZE + 'px';
+    this.#element.style.width =
+      this.#sprits.dimensions.width * HERO_SIZE + 'px';
+
+    this.#element.style.backgroundPositionX =
+      this.#sprits.dimensions.width * HERO_SIZE * -this.#spritsCounter + 'px';
+  }
+
+  #changeDirection(direction) {
+    if (direction == HERO_DIRECTIONS.left) {
+      this.#element.style.transform = 'scaleX(-1)';
+      this.#direction = HERO_DIRECTIONS.left;
+    }
+    if (direction == HERO_DIRECTIONS.right) {
+      this.#element.style.transform = 'none';
+      this.#direction = HERO_DIRECTIONS.right;
+    }
+  }
+
+  // Public methods
+
+  setBlocksPosition(blocks) {
+    this.#blocksPosition = blocks;
+  }
+
+  swordAttack() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.swordAttack))
+      return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.swordAttack];
+    this.#spritsCounter = 0;
   }
 
   spawn(position) {
-    this.position.x = position.x;
-    this.position.y = position.y;
+    this.#position.x = position.x;
+    this.#position.y = position.y;
 
-    this.idle();
-    this.updateHeroPosition();
-    this.fallDetection();
-    this.animate();
+    this.#idleSprits();
+    this.#updateHeroPosition();
+    this.#gravity();
+    this.#animate();
   }
 
   goRight() {
-    this.run();
+    this.#runSprits();
 
     const interval = setInterval(() => {
-      if (!this.sprits.can_move) return;
+      if (!this.#sprits.canMove) return;
 
-      this.changeDirection(HERO_DIRECTIONS.right);
+      this.#changeDirection(HERO_DIRECTIONS.right);
 
       const {
         right: { distance },
       } = distanceToAdd({
-        hurtbox: this.hurtbox,
-        blocks: this.blocks_position,
+        hurtbox: this.#hurtbox,
+        blocks: this.#blocksPosition,
         right: HERO_SPEED,
       });
 
-      this.position.x += distance;
-      this.updateHeroPosition();
+      this.#position.x += distance;
+      this.#updateHeroPosition();
     }, MOVEMENT_INTERVAL);
 
     return () => {
-      this.idle();
+      this.#idleSprits();
       clearInterval(interval);
     };
   }
 
   goLeft() {
-    this.run();
+    this.#runSprits();
 
     const interval = setInterval(() => {
-      if (!this.sprits.can_move) return;
+      if (!this.#sprits.canMove) return;
 
-      this.changeDirection(HERO_DIRECTIONS.left);
+      this.#changeDirection(HERO_DIRECTIONS.left);
 
       const {
         left: { distance },
       } = distanceToAdd({
-        hurtbox: this.hurtbox,
-        blocks: this.blocks_position,
+        hurtbox: this.#hurtbox,
+        blocks: this.#blocksPosition,
         left: HERO_SPEED,
       });
 
-      this.position.x -= distance;
+      this.#position.x -= distance;
 
-      this.updateHeroPosition();
+      this.#updateHeroPosition();
     }, MOVEMENT_INTERVAL);
 
     return () => {
-      this.idle();
-      clearInterval(interval);
-    };
-  }
-
-  jumpAnimation() {
-    if (!this.sprits.possible_actions.includes(HERO_ACTIONS.jump)) return;
-
-    this.sprits = HERO_SPRITS[HERO_ACTIONS.jump];
-    this.sprits_counter = 0;
-
-    return () => {
+      this.#idleSprits();
       clearInterval(interval);
     };
   }
 
   jump() {
-    if (this.is_jumping) return;
-    if (!this.jump_count) return;
-    if (!this.sprits.can_move) return;
+    if (this.#isJumping) return;
+    if (!this.#jumpCount) return;
+    if (!this.#sprits.canMove) return;
 
-    this.is_jumping = true;
-    this.jumpAnimation();
-    this.jump_count--;
+    this.#isJumping = true;
+    this.#jumpAnimation();
+    this.#jumpCount--;
     let i = 11;
 
     const interval = setInterval(() => {
       const {
         top: { distance, collision },
       } = distanceToAdd({
-        hurtbox: this.hurtbox,
-        blocks: this.blocks_position,
+        hurtbox: this.#hurtbox,
+        blocks: this.#blocksPosition,
         top: i * 2,
       });
 
-      this.position.y -= distance;
-      this.updateHeroPosition();
+      this.#position.y -= distance;
+      this.#updateHeroPosition();
 
       if (i <= 0 || collision) {
-        this.is_idle = true;
-        this.is_jumping = false;
+        this.#isJumping = false;
         clearInterval(interval);
       }
 
@@ -236,110 +302,50 @@ export class Hero {
     }, MOVEMENT_INTERVAL);
   }
 
-  up() {
+  goUp() {
     const interval = setInterval(() => {
       const {
         top: { distance, collision },
       } = distanceToAdd({
-        hurtbox: this.hurtbox,
-        blocks: this.blocks_position,
+        hurtbox: this.#hurtbox,
+        blocks: this.#blocksPosition,
         top: HERO_SPEED,
       });
 
-      this.position.y -= distance;
+      this.#position.y -= distance;
 
       if (collision) clearInterval(interval);
 
-      this.updateHeroPosition();
+      this.#updateHeroPosition();
     }, 20);
 
     return () => clearInterval(interval);
   }
 
-  down() {
+  goDown() {
     const interval = setInterval(() => {
       const {
         bottom: { distance, collision },
       } = distanceToAdd({
-        hurtbox: this.hurtbox,
-        blocks: this.blocks_position,
+        hurtbox: this.#hurtbox,
+        blocks: this.#blocksPosition,
         bottom: HERO_SPEED,
       });
 
-      this.position.y += distance;
+      this.#position.y += distance;
 
       if (collision) clearInterval(interval);
 
-      this.updateHeroPosition();
+      this.#updateHeroPosition();
     }, 20);
 
     return () => clearInterval(interval);
   }
 
   showHurtbox() {
-    this.hurtbox.element.style.position = 'absolute';
-    this.hurtbox.element.style.border = '1px solid black';
+    this.#hurtbox.element.style.position = 'absolute';
+    this.#hurtbox.element.style.border = '1px solid black';
 
-    document.getElementById('game').appendChild(this.hurtbox.element);
-  }
-
-  updateHeroPosition() {
-    this.element.style.top = this.position.y + 'px';
-    this.element.style.left = this.position.x + 'px';
-
-    this.updateHurtbox();
-  }
-
-  updateHurtbox() {
-    this.hurtbox.a.x = this.position.x + this.sprits.hurtbox.a.x * HERO_SIZE;
-    this.hurtbox.b.x = this.position.x + this.sprits.hurtbox.b.x * HERO_SIZE;
-    this.hurtbox.c.x = this.position.x + this.sprits.hurtbox.c.x * HERO_SIZE;
-    this.hurtbox.d.x = this.position.x + this.sprits.hurtbox.d.x * HERO_SIZE;
-
-    this.hurtbox.a.y = this.position.y + this.sprits.hurtbox.a.y * HERO_SIZE;
-    this.hurtbox.b.y = this.position.y + this.sprits.hurtbox.b.y * HERO_SIZE;
-    this.hurtbox.c.y = this.position.y + this.sprits.hurtbox.c.y * HERO_SIZE;
-    this.hurtbox.d.y = this.position.y + this.sprits.hurtbox.d.y * HERO_SIZE;
-
-    this.hurtbox.element.style.top = this.hurtbox.a.y + 'px';
-    this.hurtbox.element.style.left = this.hurtbox.a.x + 'px';
-
-    this.hurtbox.element.style.width =
-      this.hurtbox.b.x - this.hurtbox.a.x + 'px';
-    this.hurtbox.element.style.height =
-      this.hurtbox.c.y - this.hurtbox.a.y + 'px';
-  }
-
-  setBlocksPosition(blocks) {
-    this.blocks_position = blocks;
-  }
-
-  spritImgUpdate() {
-    if (this.direction === HERO_DIRECTIONS.left)
-      this.element.style.left =
-        this.position.x -
-        (this.sprits.dimensions.width * HERO_SIZE -
-          (this.sprits.hurtbox.b.x - this.sprits.hurtbox.a.x) * HERO_SIZE) +
-        'px';
-
-    this.element.style.backgroundImage = 'url("' + this.sprits.img + '")';
-
-    this.element.style.height =
-      this.sprits.dimensions.height * HERO_SIZE + 'px';
-    this.element.style.width = this.sprits.dimensions.width * HERO_SIZE + 'px';
-
-    this.element.style.backgroundPositionX =
-      this.sprits.dimensions.width * HERO_SIZE * -this.sprits_counter + 'px';
-  }
-
-  changeDirection(direction) {
-    if (direction == HERO_DIRECTIONS.left) {
-      this.element.style.transform = 'scaleX(-1)';
-      this.direction = HERO_DIRECTIONS.left;
-    }
-    if (direction == HERO_DIRECTIONS.right) {
-      this.element.style.transform = 'none';
-      this.direction = HERO_DIRECTIONS.right;
-    }
+    document.getElementById('game').appendChild(this.#hurtbox.element);
   }
 }

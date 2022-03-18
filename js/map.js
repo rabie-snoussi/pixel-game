@@ -1,29 +1,37 @@
 import MAPS from './data/maps/maps.js';
 
 export default class Map {
-  constructor() {
-    this.maps = MAPS;
-    this.map = null;
-    this.blocks_position = null;
-  }
+  //Private properties
+
+  #blocksPosition;
+  #map;
+
+  constructor() {}
+
+  // Public methods
 
   getBlocksPosition() {
-    return this.blocks_position;
+    return this.#blocksPosition;
   }
 
-  generate(i) {
-    this.map = this.maps[i];
-    if (this.map.background)
-      document.getElementById('bg_2').style.backgroundImage =
-        'url("' + this.map.background + '")';
+  getHeroPosition() {
+    return this.#map.heroPosition;
+  }
 
-    this.map.tiles.forEach((tile) => {
+  initialize(i) {
+    this.#map = MAPS[i];
+
+    if (this.#map.background)
+      document.getElementById('bg_2').style.backgroundImage =
+        'url("' + this.#map.background + '")';
+
+    this.#map.tiles.forEach((tile) => {
       const tileElement = document.createElement('div');
 
       tileElement.style.position = 'absolute';
-      tileElement.style.height = this.map.tile_dimensions.height + 'px';
-      tileElement.style.width = this.map.tile_dimensions.width + 'px';
-      tileElement.style.backgroundImage = 'url("' + this.map.tile_img + '")';
+      tileElement.style.height = this.#map.tileDimensions.height + 'px';
+      tileElement.style.width = this.#map.tileDimensions.width + 'px';
+      tileElement.style.backgroundImage = 'url("' + this.#map.tileImg + '")';
       tileElement.style.backgroundPositionX = tile.backgroundPosition.x + 'px';
       tileElement.style.backgroundPositionY = tile.backgroundPosition.y + 'px';
       (tileElement.style.left = tile.position.x + 'px'),
@@ -31,28 +39,24 @@ export default class Map {
 
       document.getElementById('tiles').appendChild(tileElement);
 
-      this.blocks_position = this.map.tiles.map(({ position }) => ({
+      this.#blocksPosition = this.#map.tiles.map(({ position }) => ({
         a: {
           x: position.x,
           y: position.y,
         },
         b: {
-          x: position.x + this.map.tile_dimensions.width,
+          x: position.x + this.#map.tileDimensions.width,
           y: position.y,
         },
         c: {
-          x: position.x + this.map.tile_dimensions.width,
-          y: position.y + this.map.tile_dimensions.height,
+          x: position.x + this.#map.tileDimensions.width,
+          y: position.y + this.#map.tileDimensions.height,
         },
         d: {
           x: position.x,
-          y: position.y + this.map.tile_dimensions.height,
+          y: position.y + this.#map.tileDimensions.height,
         },
       }));
     });
-  }
-
-  getHeroPosition() {
-    return this.map.hero_position;
   }
 }

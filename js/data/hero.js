@@ -11,12 +11,12 @@ import {
 export const HERO_SPRITS = {
   idle: {
     loop: true,
-    can_move: true,
+    canMove: true,
     img: HERO_IDLE_IMG,
-    possible_actions: [
+    possibleActions: [
       HERO_ACTIONS.attack,
       HERO_ACTIONS.run,
-      HERO_ACTIONS.sword_attack,
+      HERO_ACTIONS.swordAttack,
       HERO_ACTIONS.jump,
       HERO_ACTIONS.fall,
     ],
@@ -46,9 +46,9 @@ export const HERO_SPRITS = {
   },
   attack: {
     loop: false,
-    can_move: false,
+    canMove: false,
     img: HERO_ATTACK_IMG,
-    possible_actions: [],
+    possibleActions: [],
     number: 4,
     dimensions: {
       height: 16,
@@ -73,11 +73,11 @@ export const HERO_SPRITS = {
       },
     },
   },
-  sword_attack: {
+  swordAttack: {
     loop: false,
-    can_move: false,
+    canMove: false,
     img: HERO_SWORD_ATTACK_IMG,
-    possible_actions: [HERO_ACTIONS.idle],
+    possibleActions: [HERO_ACTIONS.idle],
     number: 4,
     dimensions: {
       height: 16,
@@ -104,11 +104,11 @@ export const HERO_SPRITS = {
   },
   run: {
     loop: true,
-    can_move: true,
+    canMove: true,
     img: HERO_RUN_IMG,
-    possible_actions: [
+    possibleActions: [
       HERO_ACTIONS.idle,
-      HERO_ACTIONS.sword_attack,
+      HERO_ACTIONS.swordAttack,
       HERO_ACTIONS.run,
       HERO_ACTIONS.jump,
       HERO_ACTIONS.fall,
@@ -139,9 +139,9 @@ export const HERO_SPRITS = {
   },
   jump: {
     loop: true,
-    can_move: true,
+    canMove: true,
     img: HERO_JUMP_IMG,
-    possible_actions: [HERO_ACTIONS.idle, HERO_ACTIONS.fall],
+    possibleActions: [HERO_ACTIONS.idle, HERO_ACTIONS.fall],
     number: 3,
     dimensions: {
       height: 16,
@@ -168,9 +168,9 @@ export const HERO_SPRITS = {
   },
   fall: {
     loop: true,
-    can_move: true,
+    canMove: true,
     img: HERO_FALL_IMG,
-    possible_actions: [HERO_ACTIONS.idle],
+    possibleActions: [HERO_ACTIONS.idle],
     number: 3,
     dimensions: {
       height: 16,

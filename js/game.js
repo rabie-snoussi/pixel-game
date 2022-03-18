@@ -10,8 +10,8 @@ class Game {
   }
 
   start() {
-    this.controls.addEventListeners(this);
-    this.map.generate(0);
+    this.controls.initialize(this.hero);
+    this.map.initialize(0);
     this.hero.showHurtbox();
     this.hero.setBlocksPosition(this.map.getBlocksPosition());
     this.hero.spawn(this.map.getHeroPosition());

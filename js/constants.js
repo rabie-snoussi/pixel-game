@@ -30,7 +30,7 @@ export const HERO_DIRECTIONS = {
 export const HERO_ACTIONS = {
   idle: 'idle',
   attack: 'attack',
-  sword_attack: 'sword_attack',
+  swordAttack: 'swordAttack',
   run: 'run',
   jump: 'jump',
   fall: 'fall',

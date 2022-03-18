@@ -3,10 +3,10 @@ import { GRID } from '../grid.js';
 import { TILES_IMG, TILE_DIMENSIONS, BG_IMG } from '../../constants.js';
 
 export default {
-  tile_img: TILES_IMG,
-  tile_dimensions: TILE_DIMENSIONS,
+  tileImg: TILES_IMG,
+  tileDimensions: TILE_DIMENSIONS,
   background: BG_IMG,
-  hero_position: {
+  heroPosition: {
     x: 5 * TILE_DIMENSIONS.width,
     y: 11 * TILE_DIMENSIONS.height,
   },
