@@ -2,7 +2,7 @@ import { KEY_CODES, SIMULTANOUS_KEYS } from './constants.js';
 export class Controls {
   // Private properties
 
-  #godMod = false;
+  #godMode = false;
   #hero = null;
   #onStop = {
     right: () => {},
@@ -35,7 +35,7 @@ export class Controls {
   }
 
   #onUp() {
-    this.#onStop.up = this.#godMod ? this.#hero.goUp() : this.#hero.jump();
+    this.#onStop.up = this.#godMode ? this.#hero.goUp() : this.#hero.jump();
   }
 
   #onDown() {
@@ -102,6 +102,10 @@ export class Controls {
   }
 
   // Public methods
+
+  godMode() {
+    this.#godMode = true;
+  }
 
   initialize(hero) {
     this.#hero = hero;

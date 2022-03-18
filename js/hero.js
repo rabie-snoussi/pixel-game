@@ -13,6 +13,7 @@ import { distanceToAdd } from './helpers.js';
 export class Hero {
   // Private properties
 
+  #gravityInterval;
   #spritsCounter = 0;
   #isJumping = false;
   #element = document.getElementById('hero');
@@ -99,7 +100,7 @@ export class Hero {
     let isFalling = false;
     let doubleJump = false;
 
-    setInterval(() => {
+    this.#gravityInterval = setInterval(() => {
       if (this.#isJumping) return;
 
       const {
@@ -337,6 +338,10 @@ export class Hero {
     this.#hurtbox.element.style.border = '1px solid black';
 
     document.getElementById('game').appendChild(this.#hurtbox.element);
+  }
+
+  godMode() {
+    clearInterval(this.#gravityInterval);
   }
 
   initialize(position, blocks) {

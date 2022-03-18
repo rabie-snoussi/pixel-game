@@ -3,6 +3,7 @@ import { Hero } from './hero.js';
 import Map from './map.js';
 
 class Game {
+
   // Private Properties
 
   #controls = new Controls();
@@ -15,6 +16,11 @@ class Game {
 
   showHurtbox() {
     this.#hero.showHurtbox();
+  }
+
+  godMode() {
+    this.#controls.godMode()
+    this.#hero.godMode();
   }
 
   initialize() {
@@ -30,4 +36,5 @@ class Game {
 const game = new Game();
 
 game.initialize();
+// game.godMode();
 game.showHurtbox();
