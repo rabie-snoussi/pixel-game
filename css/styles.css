@@ -1,3 +1,8 @@
+:root {
+  --screen-width: 1600px;
+  --screen-height: 896px;
+}
+
 html {
   background: black;
   padding: 0;
@@ -12,23 +17,23 @@ body {
 }
 
 #game {
-  width: 1600px;
-  height: 896px;
+  width: var(--screen-width);
+  height: var(--screen-height);
   background-color: black;
   position: relative;
 }
 
 #background {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: var(--screen-width);
+  height: var(--screen-height);
 }
 
 #bg_0 {
   position: absolute;
   background-image: url('../assets/tiles_background_foreground/bg_0.png');
-  width: 1600px;
-  height: 896px;
+  width: var(--screen-width);
+  height: var(--screen-height);
   background-size: contain;
   image-rendering: pixelated;
 }
@@ -36,8 +41,8 @@ body {
 #bg_1 {
   position: absolute;
   background-image: url('../assets/tiles_background_foreground/bg_1.png');
-  width: 100%;
-  height: 100%;
+  width: var(--screen-width);
+  height: var(--screen-height);
   background-size: contain;
   image-rendering: pixelated;
 }
@@ -45,16 +50,16 @@ body {
 #bg_2 {
   position: absolute;
   background-image: none;
-  width: 100%;
-  height: 100%;
+  width: var(--screen-width);
+  height: var(--screen-height);
   background-size: contain;
   image-rendering: pixelated;
 }
 
 #tiles {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: var(--screen-width);
+  height: var(--screen-height);
 }
 
 #hero {
