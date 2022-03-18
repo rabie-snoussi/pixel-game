@@ -3,21 +3,31 @@ import { Hero } from './hero.js';
 import Map from './map.js';
 
 class Game {
-  constructor() {
-    this.controls = new Controls();
-    this.map = new Map();
-    this.hero = new Hero();
+  // Private Properties
+
+  #controls = new Controls();
+  #map = new Map();
+  #hero = new Hero();
+
+  constructor() {}
+
+  // Public Methods
+
+  showHurtbox() {
+    this.#hero.showHurtbox();
   }
 
-  start() {
-    this.controls.initialize(this.hero);
-    this.map.initialize(0);
-    this.hero.showHurtbox();
-    this.hero.setBlocksPosition(this.map.getBlocksPosition());
-    this.hero.spawn(this.map.getHeroPosition());
+  initialize() {
+    this.#controls.initialize(this.#hero);
+    this.#map.initialize(0);
+    this.#hero.initialize(
+      this.#map.getHeroPosition(),
+      this.#map.getBlocksPosition()
+    );
   }
 }
 
 const game = new Game();
 
-game.start();
+game.initialize();
+game.showHurtbox();

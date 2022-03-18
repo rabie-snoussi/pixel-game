@@ -208,16 +208,6 @@ export class Hero {
     this.#spritsCounter = 0;
   }
 
-  spawn(position) {
-    this.#position.x = position.x;
-    this.#position.y = position.y;
-
-    this.#idleSprits();
-    this.#updateHeroPosition();
-    this.#gravity();
-    this.#animate();
-  }
-
   goRight() {
     this.#runSprits();
 
@@ -347,5 +337,16 @@ export class Hero {
     this.#hurtbox.element.style.border = '1px solid black';
 
     document.getElementById('game').appendChild(this.#hurtbox.element);
+  }
+
+  initialize(position, blocks) {
+    this.#position.x = position.x;
+    this.#position.y = position.y;
+
+    this.#blocksPosition = blocks;
+    this.#idleSprits();
+    this.#updateHeroPosition();
+    this.#gravity();
+    this.#animate();
   }
 }
