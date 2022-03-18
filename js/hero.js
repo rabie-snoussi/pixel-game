@@ -54,8 +54,6 @@ export class Hero {
 
     this.#sprits = HERO_SPRITS[HERO_ACTIONS.idle];
     this.#spritsCounter = 0;
-
-    return () => clearInterval(interval);
   }
 
   #runSprits() {
@@ -78,9 +76,13 @@ export class Hero {
     this.#sprits = HERO_SPRITS[HERO_ACTIONS.jump];
     this.#spritsCounter = 0;
 
-    return () => {
-      clearInterval(interval);
-    };
+  }
+
+  #doubleJumpAnimation() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.doubleJump)) return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.doubleJump];
+    this.#spritsCounter = 0;
   }
 
   #animate() {
@@ -268,7 +270,8 @@ export class Hero {
     if (!this.#sprits.canMove) return;
 
     this.#isJumping = true;
-    this.#jumpAnimation();
+    if(this.#jumpCount === 2) this.#jumpAnimation();
+    if(this.#jumpCount === 1) this.#doubleJumpAnimation();
     this.#jumpCount--;
     let i = 11;
 

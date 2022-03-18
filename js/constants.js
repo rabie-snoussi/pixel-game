@@ -9,6 +9,8 @@ export const HERO_RUN_IMG = './assets/hero/herochar_run_anim_strip_6.png';
 
 export const HERO_JUMP_IMG = './assets/hero/herochar_jump_up_anim_strip_3.png';
 
+export const HERO_DOUBLE_JUMP_IMG = './assets/hero/herochar_jump_double_anim_strip_3.png';
+
 export const HERO_FALL_IMG =
   './assets/hero/herochar_jump_down_anim_strip_3.png';
 
@@ -33,6 +35,7 @@ export const HERO_ACTIONS = {
   swordAttack: 'swordAttack',
   run: 'run',
   jump: 'jump',
+  doubleJump: 'doubleJump',
   fall: 'fall',
 };
 

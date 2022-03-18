@@ -3,7 +3,6 @@ import { Hero } from './hero.js';
 import Map from './map.js';
 
 class Game {
-
   // Private Properties
 
   #controls = new Controls();

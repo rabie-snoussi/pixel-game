@@ -6,6 +6,7 @@ import {
   HERO_JUMP_IMG,
   HERO_RUN_IMG,
   HERO_SWORD_ATTACK_IMG,
+  HERO_DOUBLE_JUMP_IMG,
 } from '../constants.js';
 
 export const HERO_SPRITS = {
@@ -141,7 +142,36 @@ export const HERO_SPRITS = {
     loop: true,
     canMove: true,
     img: HERO_JUMP_IMG,
-    possibleActions: [HERO_ACTIONS.idle, HERO_ACTIONS.fall],
+    possibleActions: [HERO_ACTIONS.fall, HERO_ACTIONS.doubleJump],
+    number: 3,
+    dimensions: {
+      height: 16,
+      width: 16,
+    },
+    hurtbox: {
+      a: {
+        x: 0,
+        y: 0,
+      },
+      b: {
+        x: 16,
+        y: 0,
+      },
+      c: {
+        x: 16,
+        y: 16,
+      },
+      d: {
+        x: 0,
+        y: 16,
+      },
+    },
+  },
+  doubleJump: {
+    loop: true,
+    canMove: true,
+    img: HERO_DOUBLE_JUMP_IMG,
+    possibleActions: [HERO_ACTIONS.idle],
     number: 3,
     dimensions: {
       height: 16,
@@ -170,7 +200,7 @@ export const HERO_SPRITS = {
     loop: true,
     canMove: true,
     img: HERO_FALL_IMG,
-    possibleActions: [HERO_ACTIONS.idle],
+    possibleActions: [HERO_ACTIONS.idle, HERO_ACTIONS.doubleJump],
     number: 3,
     dimensions: {
       height: 16,
