@@ -112,7 +112,6 @@ export class Hero {
 
   #gravity() {
     let i = 1;
-    let isFalling = false;
     let doubleJump = false;
 
     this.#gravityInterval = setInterval(() => {
@@ -127,7 +126,6 @@ export class Hero {
       });
 
       if (!distance) {
-        isFalling = false;
         this.#jumpCount = MAX_JUMPS;
         if (i === 1) return;
         this.#postJumpAnimation();
@@ -143,9 +141,8 @@ export class Hero {
         }
       }
 
-      if (!isFalling) this.#fallSprits();
+      if (this.#sprits.name !== HERO_ACTIONS.fall) this.#fallSprits();
 
-      isFalling = true;
       this.#position.y += distance;
       this.#updateHeroPosition();
 
@@ -277,22 +274,22 @@ export class Hero {
     };
   }
 
-  async jump () {
+  async jump() {
     if (this.#isJumping) return;
     if (!this.#jumpCount) return;
     if (!this.#sprits.canMove) return;
 
     this.#isJumping = true;
 
-    if(this.#jumpCount === 2) {
+    if (this.#jumpCount === 2) {
       this.#preJumpAnimation();
 
       await sleep(ANIMATION_INTERVAL * 3);
 
       this.#jumpAnimation();
     }
-    
-    if(this.#jumpCount === 1) this.#doubleJumpAnimation();
+
+    if (this.#jumpCount === 1) this.#doubleJumpAnimation();
 
     this.#jumpCount--;
     let i = 11;

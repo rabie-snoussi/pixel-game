@@ -12,6 +12,7 @@ import {
 
 export const HERO_SPRITS = {
   idle: {
+    name: HERO_ACTIONS.idle,
     loop: true,
     canMove: true,
     img: HERO_IDLE_IMG,
@@ -47,6 +48,7 @@ export const HERO_SPRITS = {
     },
   },
   attack: {
+    name: HERO_ACTIONS.attack,
     loop: false,
     canMove: false,
     img: HERO_ATTACK_IMG,
@@ -76,6 +78,7 @@ export const HERO_SPRITS = {
     },
   },
   swordAttack: {
+    name: HERO_ACTIONS.swordAttack,
     loop: false,
     canMove: false,
     img: HERO_SWORD_ATTACK_IMG,
@@ -105,6 +108,7 @@ export const HERO_SPRITS = {
     },
   },
   run: {
+    name: HERO_ACTIONS.run,
     loop: true,
     canMove: true,
     img: HERO_RUN_IMG,
@@ -140,6 +144,7 @@ export const HERO_SPRITS = {
     },
   },
   preJump: {
+    name: HERO_ACTIONS.preJump,
     loop: false,
     canMove: false,
     img: HERO_PRE_POST_JUMP_IMG,
@@ -169,6 +174,7 @@ export const HERO_SPRITS = {
     },
   },
   jump: {
+    name: HERO_ACTIONS.jump,
     loop: true,
     canMove: true,
     img: HERO_JUMP_IMG,
@@ -198,6 +204,7 @@ export const HERO_SPRITS = {
     },
   },
   doubleJump: {
+    name: HERO_ACTIONS.doubleJump,
     loop: true,
     canMove: true,
     img: HERO_DOUBLE_JUMP_IMG,
@@ -227,6 +234,7 @@ export const HERO_SPRITS = {
     },
   },
   postJump: {
+    name: HERO_ACTIONS.postJump,
     loop: false,
     canMove: false,
     img: HERO_PRE_POST_JUMP_IMG,
@@ -256,6 +264,7 @@ export const HERO_SPRITS = {
     },
   },
   fall: {
+    name: HERO_ACTIONS.fall,
     loop: true,
     canMove: true,
     img: HERO_FALL_IMG,
