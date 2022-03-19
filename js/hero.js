@@ -1,8 +1,7 @@
-import { HERO_SPRITS } from './data/hero.js';
+import HERO_SPRITS from './data/hero.js';
 import {
-  HERO_DIRECTIONS,
+  DIRECTIONS,
   HERO_ACTIONS,
-  HERO_SIZE,
   HERO_SPEED,
   MOVEMENT_INTERVAL,
   ANIMATION_INTERVAL,
@@ -10,15 +9,15 @@ import {
 } from './constants.js';
 import { distanceToAdd, sleep } from './helpers.js';
 
-export class Hero {
+export default class Hero {
   // Private properties
 
   #gravityInterval;
   #spritsCounter = 0;
   #isJumping = false;
-  #element = document.getElementById('hero');
+  #element = document.createElement('div');
   #blocksPosition = [];
-  #direction = HERO_DIRECTIONS.right;
+  #direction = DIRECTIONS.right;
   #sprits = HERO_SPRITS[HERO_ACTIONS.idle];
   #jumpCount = MAX_JUMPS;
   #hurtbox = {
@@ -144,13 +143,13 @@ export class Hero {
       if (this.#sprits.name !== HERO_ACTIONS.fall) this.#fallSprits();
 
       this.#position.y += distance;
-      this.#updateHeroPosition();
+      this.#updatePosition();
 
       i++;
     }, MOVEMENT_INTERVAL);
   }
 
-  #updateHeroPosition() {
+  #updatePosition() {
     this.#element.style.top = this.#position.y + 'px';
     this.#element.style.left = this.#position.x + 'px';
 
@@ -158,15 +157,15 @@ export class Hero {
   }
 
   #updateHurtbox() {
-    this.#hurtbox.a.x = this.#position.x + this.#sprits.hurtbox.a.x * HERO_SIZE;
-    this.#hurtbox.b.x = this.#position.x + this.#sprits.hurtbox.b.x * HERO_SIZE;
-    this.#hurtbox.c.x = this.#position.x + this.#sprits.hurtbox.c.x * HERO_SIZE;
-    this.#hurtbox.d.x = this.#position.x + this.#sprits.hurtbox.d.x * HERO_SIZE;
+    this.#hurtbox.a.x = this.#position.x + this.#sprits.hurtbox.a.x;
+    this.#hurtbox.b.x = this.#position.x + this.#sprits.hurtbox.b.x;
+    this.#hurtbox.c.x = this.#position.x + this.#sprits.hurtbox.c.x;
+    this.#hurtbox.d.x = this.#position.x + this.#sprits.hurtbox.d.x;
 
-    this.#hurtbox.a.y = this.#position.y + this.#sprits.hurtbox.a.y * HERO_SIZE;
-    this.#hurtbox.b.y = this.#position.y + this.#sprits.hurtbox.b.y * HERO_SIZE;
-    this.#hurtbox.c.y = this.#position.y + this.#sprits.hurtbox.c.y * HERO_SIZE;
-    this.#hurtbox.d.y = this.#position.y + this.#sprits.hurtbox.d.y * HERO_SIZE;
+    this.#hurtbox.a.y = this.#position.y + this.#sprits.hurtbox.a.y;
+    this.#hurtbox.b.y = this.#position.y + this.#sprits.hurtbox.b.y;
+    this.#hurtbox.c.y = this.#position.y + this.#sprits.hurtbox.c.y;
+    this.#hurtbox.d.y = this.#position.y + this.#sprits.hurtbox.d.y;
 
     this.#hurtbox.element.style.top = this.#hurtbox.a.y + 'px';
     this.#hurtbox.element.style.left = this.#hurtbox.a.x + 'px';
@@ -178,32 +177,32 @@ export class Hero {
   }
 
   #spritImgUpdate() {
-    if (this.#direction === HERO_DIRECTIONS.left)
+    if (this.#direction === DIRECTIONS.left)
       this.#element.style.left =
         this.#position.x -
-        (this.#sprits.dimensions.width * HERO_SIZE -
-          (this.#sprits.hurtbox.b.x - this.#sprits.hurtbox.a.x) * HERO_SIZE) +
+        (this.#sprits.dimensions.width -
+          (this.#sprits.hurtbox.b.x - this.#sprits.hurtbox.a.x)) +
         'px';
 
     this.#element.style.backgroundImage = 'url("' + this.#sprits.img + '")';
 
     this.#element.style.height =
-      this.#sprits.dimensions.height * HERO_SIZE + 'px';
+      this.#sprits.dimensions.height + 'px';
     this.#element.style.width =
-      this.#sprits.dimensions.width * HERO_SIZE + 'px';
+      this.#sprits.dimensions.width + 'px';
 
     this.#element.style.backgroundPositionX =
-      this.#sprits.dimensions.width * HERO_SIZE * -this.#spritsCounter + 'px';
+      this.#sprits.dimensions.width * -this.#spritsCounter + 'px';
   }
 
-  #changeDirection(direction) {
-    if (direction == HERO_DIRECTIONS.left) {
+  #updateDirection(direction) {
+    if (direction == DIRECTIONS.left) {
       this.#element.style.transform = 'scaleX(-1)';
-      this.#direction = HERO_DIRECTIONS.left;
+      this.#direction = DIRECTIONS.left;
     }
-    if (direction == HERO_DIRECTIONS.right) {
+    if (direction == DIRECTIONS.right) {
       this.#element.style.transform = 'none';
-      this.#direction = HERO_DIRECTIONS.right;
+      this.#direction = DIRECTIONS.right;
     }
   }
 
@@ -227,7 +226,7 @@ export class Hero {
 
       if (this.#sprits.name !== HERO_ACTIONS.run) this.#runSprits();
 
-      this.#changeDirection(HERO_DIRECTIONS.right);
+      this.#updateDirection(DIRECTIONS.right);
 
       const {
         right: { distance },
@@ -238,7 +237,7 @@ export class Hero {
       });
 
       this.#position.x += distance;
-      this.#updateHeroPosition();
+      this.#updatePosition();
     }, MOVEMENT_INTERVAL);
 
     return () => {
@@ -253,7 +252,7 @@ export class Hero {
 
       if (this.#sprits.name !== HERO_ACTIONS.run) this.#runSprits();
 
-      this.#changeDirection(HERO_DIRECTIONS.left);
+      this.#updateDirection(DIRECTIONS.left);
 
       const {
         left: { distance },
@@ -265,7 +264,7 @@ export class Hero {
 
       this.#position.x -= distance;
 
-      this.#updateHeroPosition();
+      this.#updatePosition();
     }, MOVEMENT_INTERVAL);
 
     return () => {
@@ -304,7 +303,7 @@ export class Hero {
       });
 
       this.#position.y -= distance;
-      this.#updateHeroPosition();
+      this.#updatePosition();
 
       if (i <= 0 || collision) {
         this.#isJumping = false;
@@ -329,7 +328,7 @@ export class Hero {
 
       if (collision) clearInterval(interval);
 
-      this.#updateHeroPosition();
+      this.#updatePosition();
     }, 20);
 
     return () => clearInterval(interval);
@@ -349,7 +348,7 @@ export class Hero {
 
       if (collision) clearInterval(interval);
 
-      this.#updateHeroPosition();
+      this.#updatePosition();
     }, 20);
 
     return () => clearInterval(interval);
@@ -358,6 +357,7 @@ export class Hero {
   showHurtbox() {
     this.#hurtbox.element.style.position = 'absolute';
     this.#hurtbox.element.style.border = '1px solid green';
+    this.#hurtbox.element.style.boxSizing = 'border-box';
 
     document.getElementById('game').appendChild(this.#hurtbox.element);
   }
@@ -367,12 +367,18 @@ export class Hero {
   }
 
   initialize(position, blocks) {
+    this.#element.style.position = 'absolute';
+    this.#element.style.backgroundSize = 'cover';
+    this.#element.style.imageRendering = 'pixelated';
+
+    document.getElementById('game').appendChild(this.#element);
+
     this.#position.x = position.x;
     this.#position.y = position.y;
 
     this.#blocksPosition = blocks;
     this.#idleSprits();
-    this.#updateHeroPosition();
+    this.#updatePosition();
     this.#gravity();
     this.#animate();
   }

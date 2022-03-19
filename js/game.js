@@ -1,7 +1,8 @@
-import { Controls } from './controls.js';
+import Controls from './controls.js';
 import { GRID } from './data/grid.js';
-import { Hero } from './hero.js';
+import Hero from './hero.js';
 import Map from './map.js';
+import Enemy from './enemy.js';
 import { GRID_DIMENSIONS } from './constants.js';
 
 class Game {
@@ -10,6 +11,7 @@ class Game {
   #controls = new Controls();
   #map = new Map();
   #hero = new Hero();
+  #enemy = new Enemy();
 
   constructor() {}
 
@@ -24,6 +26,7 @@ class Game {
         const gridItemElement = document.createElement('div');
 
         gridItemElement.style.position = 'absolute';
+        gridItemElement.style.boxSizing = 'border-box';
         gridItemElement.style.height = GRID_DIMENSIONS.height + 'px';
         gridItemElement.style.width = GRID_DIMENSIONS.width + 'px';
         gridItemElement.style.left = item.x + 'px';
@@ -31,8 +34,9 @@ class Game {
         gridItemElement.style.border = '0.5px solid white';
         gridItemElement.style.textAlign = 'center';
         gridItemElement.style.color = 'white';
+        gridItemElement.style.fontSize = '10px';
         gridElement.style.opacity = '0.5';
-        gridItemElement.innerHTML = j + ' x ' + i;
+        gridItemElement.innerHTML = i + ' x ' + j;
 
         gridElement.appendChild(gridItemElement);
       });
@@ -43,6 +47,7 @@ class Game {
 
   showHurtbox() {
     this.#hero.showHurtbox();
+    this.#enemy.showHurtbox();
   }
 
   godMode() {
@@ -53,6 +58,7 @@ class Game {
   initialize() {
     this.#controls.initialize(this.#hero);
     this.#map.initialize(0);
+    this.#enemy.initialize(this.#map.getEnemies(), this.#map.getBlocksPosition());
     this.#hero.initialize(
       this.#map.getHeroPosition(),
       this.#map.getBlocksPosition()
@@ -64,5 +70,5 @@ const game = new Game();
 
 game.initialize();
 // game.godMode();
-//game.showGrid();
+game.showGrid();
 game.showHurtbox();

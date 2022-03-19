@@ -1,5 +1,5 @@
 import { KEY_CODES, SIMULTANOUS_KEYS } from './constants.js';
-export class Controls {
+export default class Controls {
   // Private properties
 
   #godMode = false;

@@ -1,22 +1,21 @@
-export const HERO_IDLE_IMG = './assets/hero/herochar_idle_anim_strip_4.png';
+export const HERO_IMG = {
+  idle: './assets/hero/herochar_idle_anim_strip_4.png',
+  attack: './assets/hero/herochar_attack_anim_strip_4.png',
+  swordAttack: './assets/hero/herochar_sword_attack_anim_strip_4.png',
+  run: './assets/hero/herochar_run_anim_strip_6.png',
+  prePostJump: './assets/hero/herochar_before_or_after_jump_strip_2.png',
+  jump: './assets/hero/herochar_jump_up_anim_strip_3.png',
+  doubleJump: './assets/hero/herochar_jump_double_anim_strip_3.png',
+  fall: './assets/hero/herochar_jump_down_anim_strip_3.png',
+};
 
-export const HERO_ATTACK_IMG = './assets/hero/herochar_attack_anim_strip_4.png';
-
-export const HERO_SWORD_ATTACK_IMG =
-  './assets/hero/herochar_sword_attack_anim_strip_4.png';
-
-export const HERO_RUN_IMG = './assets/hero/herochar_run_anim_strip_6.png';
-
-export const HERO_PRE_POST_JUMP_IMG = './assets/hero/herochar_before_or_after_jump_strip_2.png';
-
-export const HERO_JUMP_IMG = './assets/hero/herochar_jump_up_anim_strip_3.png';
-
-export const HERO_DOUBLE_JUMP_IMG = './assets/hero/herochar_jump_double_anim_strip_3.png';
-
-export const HERO_FALL_IMG =
-  './assets/hero/herochar_jump_down_anim_strip_3.png';
+export const GOBLIN_IMG = {
+  idle: './assets/enemies/goblin/goblin_idle_anim_strip_4.png',
+};
 
 export const HERO_SIZE = 4;
+
+export const GOBLIN_SIZE = 4;
 
 export const HERO_SPEED = 16;
 
@@ -26,7 +25,7 @@ export const MOVEMENT_INTERVAL = 30;
 
 export const MAX_JUMPS = 2;
 
-export const HERO_DIRECTIONS = {
+export const DIRECTIONS = {
   left: 'left',
   right: 'right',
 };
@@ -41,6 +40,10 @@ export const HERO_ACTIONS = {
   doubleJump: 'doubleJump',
   postJump: 'postJump',
   fall: 'fall',
+};
+
+export const GOBLIN_ACTIONS = {
+  idle: 'idle',
 };
 
 export const SCREEN_LIMITS = {
@@ -86,6 +89,6 @@ export const TILE_DIMENSIONS = {
 };
 
 export const GRID_DIMENSIONS = {
-    height: 64,
-    width: 64,
-  };
+  height: 64,
+  width: 64,
+};

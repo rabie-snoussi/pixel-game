@@ -1,15 +1,31 @@
 import { TILES } from '../tiles.js';
 import { GRID } from '../grid.js';
-import { TILES_IMG, TILE_DIMENSIONS, BG_IMG } from '../../constants.js';
+import { TILES_IMG, BG_IMG, GRID_DIMENSIONS } from '../../constants.js';
 
 export default {
   tileImg: TILES_IMG,
-  tileDimensions: TILE_DIMENSIONS,
+  tileDimensions: GRID_DIMENSIONS,
   background: BG_IMG,
   heroPosition: {
-    x: 5 * TILE_DIMENSIONS.width,
-    y: 11 * TILE_DIMENSIONS.height,
+    x: 5 * GRID_DIMENSIONS.width,
+    y: 11 * GRID_DIMENSIONS.height,
   },
+  enemies: [
+    {
+      name: 'goblin',
+      position: {
+        x: 18 * GRID_DIMENSIONS.width,
+        y: 8 * GRID_DIMENSIONS.height,
+      },
+    },
+    {
+      name: 'goblin',
+      position: {
+        x: 13 * GRID_DIMENSIONS.width,
+        y: 8 * GRID_DIMENSIONS.height,
+      },
+    },
+  ],
   tiles: [
     // ROW 0
 

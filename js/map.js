@@ -1,4 +1,4 @@
-import MAPS from './data/maps/maps.js';
+import MAPS from './data/maps/index.js';
 
 export default class Map {
   //Private properties
@@ -16,6 +16,10 @@ export default class Map {
 
   getHeroPosition() {
     return this.#map.heroPosition;
+  }
+
+  getEnemies() {
+    return this.#map.enemies;
   }
 
   initialize(i) {
