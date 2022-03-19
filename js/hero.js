@@ -357,7 +357,7 @@ export class Hero {
 
   showHurtbox() {
     this.#hurtbox.element.style.position = 'absolute';
-    this.#hurtbox.element.style.border = '1px solid black';
+    this.#hurtbox.element.style.border = '1px solid green';
 
     document.getElementById('game').appendChild(this.#hurtbox.element);
   }

@@ -34,8 +34,8 @@ export default class Map {
       tileElement.style.backgroundImage = 'url("' + this.#map.tileImg + '")';
       tileElement.style.backgroundPositionX = tile.backgroundPosition.x + 'px';
       tileElement.style.backgroundPositionY = tile.backgroundPosition.y + 'px';
-      (tileElement.style.left = tile.position.x + 'px'),
-        (tileElement.style.top = tile.position.y + 'px');
+      tileElement.style.left = tile.position.x + 'px';
+      tileElement.style.top = tile.position.y + 'px';
 
       document.getElementById('tiles').appendChild(tileElement);
 
