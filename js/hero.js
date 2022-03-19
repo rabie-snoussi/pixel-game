@@ -222,10 +222,10 @@ export class Hero {
   }
 
   goRight() {
-    this.#runSprits();
-
     const interval = setInterval(() => {
       if (!this.#sprits.canMove) return;
+
+      if (this.#sprits.name !== HERO_ACTIONS.run) this.#runSprits();
 
       this.#changeDirection(HERO_DIRECTIONS.right);
 
@@ -248,10 +248,10 @@ export class Hero {
   }
 
   goLeft() {
-    this.#runSprits();
-
     const interval = setInterval(() => {
       if (!this.#sprits.canMove) return;
+
+      if (this.#sprits.name !== HERO_ACTIONS.run) this.#runSprits();
 
       this.#changeDirection(HERO_DIRECTIONS.left);
 
