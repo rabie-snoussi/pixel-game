@@ -34,8 +34,8 @@ export class Controls {
     this.#onStop.spacebar = this.#hero.swordAttack();
   }
 
-  #onUp() {
-    this.#onStop.up = this.#godMode ? this.#hero.goUp() : this.#hero.jump();
+  async #onUp() {
+    this.#onStop.up = this.#godMode ? this.#hero.goUp() : await this.#hero.jump();
   }
 
   #onDown() {

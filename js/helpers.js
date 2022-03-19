@@ -1,5 +1,7 @@
 import { SCREEN_LIMITS } from './constants.js';
 
+export const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 const isCollidingRight = (hero, block, distance = 0) => {
     return (
       (hero.b.x + distance >= block.a.x &&

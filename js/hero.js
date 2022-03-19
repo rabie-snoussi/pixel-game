@@ -8,7 +8,7 @@ import {
   ANIMATION_INTERVAL,
   MAX_JUMPS,
 } from './constants.js';
-import { distanceToAdd } from './helpers.js';
+import { distanceToAdd, sleep } from './helpers.js';
 
 export class Hero {
   // Private properties
@@ -70,18 +70,31 @@ export class Hero {
     this.#spritsCounter = 0;
   }
 
+  #preJumpAnimation() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.preJump)) return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.preJump];
+    this.#spritsCounter = 0;
+  }
+
   #jumpAnimation() {
     if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.jump)) return;
 
     this.#sprits = HERO_SPRITS[HERO_ACTIONS.jump];
     this.#spritsCounter = 0;
-
   }
 
   #doubleJumpAnimation() {
     if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.doubleJump)) return;
 
     this.#sprits = HERO_SPRITS[HERO_ACTIONS.doubleJump];
+    this.#spritsCounter = 0;
+  }
+
+  #postJumpAnimation() {
+    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.postJump)) return;
+
+    this.#sprits = HERO_SPRITS[HERO_ACTIONS.postJump];
     this.#spritsCounter = 0;
   }
 
@@ -117,7 +130,7 @@ export class Hero {
         isFalling = false;
         this.#jumpCount = MAX_JUMPS;
         if (i === 1) return;
-        this.#idleSprits();
+        this.#postJumpAnimation();
         doubleJump = false;
         i = 1;
         return;
@@ -264,14 +277,23 @@ export class Hero {
     };
   }
 
-  jump() {
+  async jump () {
     if (this.#isJumping) return;
     if (!this.#jumpCount) return;
     if (!this.#sprits.canMove) return;
 
     this.#isJumping = true;
-    if(this.#jumpCount === 2) this.#jumpAnimation();
+
+    if(this.#jumpCount === 2) {
+      this.#preJumpAnimation();
+
+      await sleep(ANIMATION_INTERVAL * 3);
+
+      this.#jumpAnimation();
+    }
+    
     if(this.#jumpCount === 1) this.#doubleJumpAnimation();
+
     this.#jumpCount--;
     let i = 11;
 
