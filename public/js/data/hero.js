@@ -75,17 +75,17 @@ export default {
     possibleActions: [HERO_ACTIONS.idle],
     number: 4,
     dimensions: {
-      height: 16  * HERO_SIZE,
-      width: 32  * HERO_SIZE,
+      height: 16 * HERO_SIZE,
+      width: 32 * HERO_SIZE,
     },
     hurtbox: {
       a: {
-        x: 0  * HERO_SIZE,
-        y: 0  * HERO_SIZE,
+        x: 0 * HERO_SIZE,
+        y: 0 * HERO_SIZE,
       },
       b: {
-        x: 16  * HERO_SIZE,
-        y: 0  * HERO_SIZE,
+        x: 16 * HERO_SIZE,
+        y: 0 * HERO_SIZE,
       },
       c: {
         x: 16 * HERO_SIZE,
@@ -171,7 +171,7 @@ export default {
     possibleActions: [HERO_ACTIONS.fall, HERO_ACTIONS.doubleJump],
     number: 3,
     dimensions: {
-      height: 16  * HERO_SIZE,
+      height: 16 * HERO_SIZE,
       width: 16 * HERO_SIZE,
     },
     hurtbox: {
@@ -198,7 +198,7 @@ export default {
     loop: true,
     canMove: true,
     img: HERO_IMG.doubleJump,
-    possibleActions: [HERO_ACTIONS.postJump],
+    possibleActions: [HERO_ACTIONS.fall],
     number: 3,
     dimensions: {
       height: 16 * HERO_SIZE,

@@ -6,6 +6,7 @@ import {
   MOVEMENT_INTERVAL,
   ANIMATION_INTERVAL,
   MAX_JUMPS,
+  RESOLUTION_MULTIPLIER,
 } from './constants.js';
 import { distanceToAdd, sleep } from './helpers.js';
 
@@ -283,7 +284,7 @@ export default class Hero {
     if (this.#jumpCount === 2) {
       this.#preJumpAnimation();
 
-      await sleep(ANIMATION_INTERVAL * 3);
+      await sleep(ANIMATION_INTERVAL * 2);
 
       this.#jumpAnimation();
     }
@@ -291,7 +292,7 @@ export default class Hero {
     if (this.#jumpCount === 1) this.#doubleJumpAnimation();
 
     this.#jumpCount--;
-    let i = 11;
+    let i = 12;
 
     const interval = setInterval(() => {
       const {
@@ -299,7 +300,7 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        top: i * 2,
+        top: i * RESOLUTION_MULTIPLIER,
       });
 
       this.#position.y -= distance;

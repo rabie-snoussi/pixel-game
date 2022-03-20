@@ -1,3 +1,4 @@
+import { RESOLUTION_MULTIPLIER } from './constants.js';
 import MAPS from './data/maps/index.js';
 
 export default class Map {
@@ -40,6 +41,8 @@ export default class Map {
       tileElement.style.backgroundPositionY = tile.backgroundPosition.y + 'px';
       tileElement.style.left = tile.position.x + 'px';
       tileElement.style.top = tile.position.y + 'px';
+      tileElement.style.backgroundSize = (384 * RESOLUTION_MULTIPLIER) + 'px';
+      tileElement.style.imageRendering = "pixelated";
 
       document.getElementById('tiles').appendChild(tileElement);
 

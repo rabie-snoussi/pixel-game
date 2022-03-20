@@ -3,7 +3,7 @@ import { GRID } from './data/grid.js';
 import Hero from './hero.js';
 import Map from './map.js';
 import Enemy from './enemy.js';
-import { GRID_DIMENSIONS } from './constants.js';
+import { GRID_DIMENSIONS, SCREEN_LIMITS } from './constants.js';
 
 class Game {
   // Private Properties
@@ -56,12 +56,17 @@ class Game {
   }
 
   initialize() {
+    const root = document.querySelector(':root');
+
+    root.style.setProperty('--screen-width', SCREEN_LIMITS.x.end + 'px');
+    root.style.setProperty('--screen-height', SCREEN_LIMITS.y.end + 'px');
+
     this.#controls.initialize(this.#hero);
     this.#map.initialize(0);
     this.#enemy.initialize({
       enemies: this.#map.getEnemies(),
       blocksVerteces: this.#map.getBlocksVerteces(),
-      heroHurtbox: this.#hero.getHurtbox()
+      heroHurtbox: this.#hero.getHurtbox(),
     });
     this.#hero.initialize({
       position: this.#map.getHeroPosition(),
@@ -74,6 +79,6 @@ class Game {
 const game = new Game();
 
 game.initialize();
-game.godMode();
-game.showGrid();
+// game.godMode();
+// game.showGrid();
 game.showHurtbox();

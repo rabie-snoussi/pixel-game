@@ -18,15 +18,17 @@ export const SLIME_IMG = {
   idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
 };
 
-export const HERO_SIZE = 4;
+export const RESOLUTION_MULTIPLIER = 1.75;
 
-export const GOBLIN_SIZE = 4;
+export const HERO_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
-export const SLIME_SIZE = 4;
+export const GOBLIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
-export const HERO_SPEED = 16;
+export const SLIME_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
-export const GOBLIN_SPEED = 8;
+export const HERO_SPEED = 8 * RESOLUTION_MULTIPLIER;
+
+export const GOBLIN_SPEED = 4 * RESOLUTION_MULTIPLIER;
 
 export const ANIMATION_INTERVAL = 100;
 
@@ -67,11 +69,11 @@ export const SLIME_ACTIONS = {
 export const SCREEN_LIMITS = {
   x: {
     start: 0,
-    end: 1600,
+    end: 800 * RESOLUTION_MULTIPLIER,
   },
   y: {
     start: 0,
-    end: 896,
+    end: 448 * RESOLUTION_MULTIPLIER,
   },
 };
 
@@ -99,14 +101,14 @@ export const SIMULTANOUS_KEYS = {
 export const BG_IMG = './assets/tiles_background_foreground/bg_2.png';
 
 export const TILES_IMG =
-  './assets/tiles_background_foreground/tileset_64x64.png';
+  './assets/tiles_background_foreground/tileset_32x32.png';
 
 export const TILE_DIMENSIONS = {
-  height: 64,
-  width: 64,
+  height: 32 * RESOLUTION_MULTIPLIER,
+  width: 32 * RESOLUTION_MULTIPLIER,
 };
 
 export const GRID_DIMENSIONS = {
-  height: 64,
-  width: 64,
+  height: 32 * RESOLUTION_MULTIPLIER,
+  width: 32 * RESOLUTION_MULTIPLIER,
 };
