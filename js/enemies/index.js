@@ -1,5 +1,7 @@
 import Goblin from "./goblin.js";
+import Slime from "./slime.js";
 
 export default {
-    goblin: Goblin
+    goblin: Goblin,
+    slime: Slime
 }

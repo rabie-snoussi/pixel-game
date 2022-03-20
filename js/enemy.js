@@ -4,19 +4,22 @@ export default class Enemy {
   #enemies;
   constructor() {}
 
-  getEnemies() {
-      return this.#enemies;
+  getHurtbox() {
+    return this.#enemies.map(({ _hurtbox: { element, ...rest } }) => rest);
   }
 
   showHurtbox() {
     this.#enemies.map((enemy) => enemy.showHurtbox());
   }
 
-  initialize(enemies, blocks) {
-
+  initialize({ enemies, blocksVerteces, heroHurtbox }) {
     this.#enemies = enemies.map((item) => {
       const enemy = new enemiesClass[item.name]();
-      enemy.initialize(item.position, blocks);
+      enemy.initialize({
+        position: item.position,
+        blocksVerteces,
+        heroHurtbox,
+      });
       return enemy;
     });
   }

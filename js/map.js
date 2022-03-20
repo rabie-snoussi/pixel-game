@@ -3,15 +3,15 @@ import MAPS from './data/maps/index.js';
 export default class Map {
   //Private properties
 
-  #blocksPosition;
+  #blocksVerteces;
   #map;
 
   constructor() {}
 
   // Public methods
 
-  getBlocksPosition() {
-    return this.#blocksPosition;
+  getBlocksVerteces() {
+    return this.#blocksVerteces;
   }
 
   getHeroPosition() {
@@ -43,7 +43,7 @@ export default class Map {
 
       document.getElementById('tiles').appendChild(tileElement);
 
-      this.#blocksPosition = this.#map.tiles.map(({ position }) => ({
+      this.#blocksVerteces = this.#map.tiles.map(({ position }) => ({
         a: {
           x: position.x,
           y: position.y,

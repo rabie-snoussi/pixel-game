@@ -11,13 +11,22 @@ export const HERO_IMG = {
 
 export const GOBLIN_IMG = {
   idle: './assets/enemies/goblin/goblin_idle_anim_strip_4.png',
+  run: './assets/enemies/goblin/goblin_run_anim_strip_6.png',
+};
+
+export const SLIME_IMG = {
+  idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
 };
 
 export const HERO_SIZE = 4;
 
 export const GOBLIN_SIZE = 4;
 
+export const SLIME_SIZE = 4;
+
 export const HERO_SPEED = 16;
+
+export const GOBLIN_SPEED = 8;
 
 export const ANIMATION_INTERVAL = 100;
 
@@ -42,7 +51,16 @@ export const HERO_ACTIONS = {
   fall: 'fall',
 };
 
+export const MONSTER_ACTIONS = {
+  idle: 'idle',
+};
+
 export const GOBLIN_ACTIONS = {
+  idle: 'idle',
+  run: 'run',
+};
+
+export const SLIME_ACTIONS = {
   idle: 'idle',
 };
 

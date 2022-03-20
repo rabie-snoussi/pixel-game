@@ -16,7 +16,8 @@ export default class Hero {
   #spritsCounter = 0;
   #isJumping = false;
   #element = document.createElement('div');
-  #blocksPosition = [];
+  #blocksVerteces = [];
+  #enemiesVerteces = [];
   #direction = DIRECTIONS.right;
   #sprits = HERO_SPRITS[HERO_ACTIONS.idle];
   #jumpCount = MAX_JUMPS;
@@ -44,7 +45,8 @@ export default class Hero {
     y: 0,
   };
 
-  constructor() {}
+  constructor() {
+  }
 
   // Private methods
 
@@ -120,7 +122,8 @@ export default class Hero {
         bottom: { distance },
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
-        blocks: this.#blocksPosition,
+        blocks: this.#blocksVerteces,
+        enemies: this.#enemiesVerteces,
         bottom: i * 3,
       });
 
@@ -186,10 +189,8 @@ export default class Hero {
 
     this.#element.style.backgroundImage = 'url("' + this.#sprits.img + '")';
 
-    this.#element.style.height =
-      this.#sprits.dimensions.height + 'px';
-    this.#element.style.width =
-      this.#sprits.dimensions.width + 'px';
+    this.#element.style.height = this.#sprits.dimensions.height + 'px';
+    this.#element.style.width = this.#sprits.dimensions.width + 'px';
 
     this.#element.style.backgroundPositionX =
       this.#sprits.dimensions.width * -this.#spritsCounter + 'px';
@@ -208,8 +209,8 @@ export default class Hero {
 
   // Public methods
 
-  setBlocksPosition(blocks) {
-    this.#blocksPosition = blocks;
+  getHurtbox() {
+    return this.#hurtbox;
   }
 
   swordAttack() {
@@ -232,7 +233,8 @@ export default class Hero {
         right: { distance },
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
-        blocks: this.#blocksPosition,
+        blocks: this.#blocksVerteces,
+        enemies: this.#enemiesVerteces,
         right: HERO_SPEED,
       });
 
@@ -254,11 +256,14 @@ export default class Hero {
 
       this.#updateDirection(DIRECTIONS.left);
 
+      console.log(this.#enemiesVerteces)
+
       const {
         left: { distance },
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
-        blocks: this.#blocksPosition,
+        blocks: this.#blocksVerteces,
+        enemies: this.#enemiesVerteces,
         left: HERO_SPEED,
       });
 
@@ -298,7 +303,8 @@ export default class Hero {
         top: { distance, collision },
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
-        blocks: this.#blocksPosition,
+        blocks: this.#blocksVerteces,
+        enemies: this.#enemiesVerteces,
         top: i * 2,
       });
 
@@ -320,7 +326,8 @@ export default class Hero {
         top: { distance, collision },
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
-        blocks: this.#blocksPosition,
+        blocks: this.#blocksVerteces,
+        enemies: this.#enemiesVerteces,
         top: HERO_SPEED,
       });
 
@@ -340,7 +347,8 @@ export default class Hero {
         bottom: { distance, collision },
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
-        blocks: this.#blocksPosition,
+        blocks: this.#blocksVerteces,
+        enemies: this.#enemiesVerteces,
         bottom: HERO_SPEED,
       });
 
@@ -366,7 +374,7 @@ export default class Hero {
     clearInterval(this.#gravityInterval);
   }
 
-  initialize(position, blocks) {
+  initialize({ position, blocksVerteces, enemiesVerteces }) {
     this.#element.style.position = 'absolute';
     this.#element.style.backgroundSize = 'cover';
     this.#element.style.imageRendering = 'pixelated';
@@ -376,7 +384,8 @@ export default class Hero {
     this.#position.x = position.x;
     this.#position.y = position.y;
 
-    this.#blocksPosition = blocks;
+    this.#blocksVerteces = blocksVerteces;
+    this.#enemiesVerteces = enemiesVerteces;
     this.#idleSprits();
     this.#updatePosition();
     this.#gravity();

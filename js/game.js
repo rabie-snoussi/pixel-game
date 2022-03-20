@@ -58,17 +58,22 @@ class Game {
   initialize() {
     this.#controls.initialize(this.#hero);
     this.#map.initialize(0);
-    this.#enemy.initialize(this.#map.getEnemies(), this.#map.getBlocksPosition());
-    this.#hero.initialize(
-      this.#map.getHeroPosition(),
-      this.#map.getBlocksPosition()
-    );
+    this.#enemy.initialize({
+      enemies: this.#map.getEnemies(),
+      blocksVerteces: this.#map.getBlocksVerteces(),
+      heroHurtbox: this.#hero.getHurtbox()
+    });
+    this.#hero.initialize({
+      position: this.#map.getHeroPosition(),
+      blocksVerteces: this.#map.getBlocksVerteces(),
+      enemiesVerteces: this.#enemy.getHurtbox(),
+    });
   }
 }
 
 const game = new Game();
 
 game.initialize();
-// game.godMode();
+game.godMode();
 game.showGrid();
 game.showHurtbox();
