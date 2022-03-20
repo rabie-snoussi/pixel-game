@@ -22,8 +22,6 @@ export default class Goblin extends Monster {
     this._spritsCounter = 0;
   }
 
-  gravity() {}
-
   heroChasing() {
     setInterval(() => {
       const distance = chaseDistance({
@@ -31,8 +29,8 @@ export default class Goblin extends Monster {
         monsterVerteces: this._hurtbox,
         blocksVerteces: this._blocksVerteces,
         detection: {
-          x: GRID_DIMENSIONS.width * 3,
-          y: GRID_DIMENSIONS.height * 7,
+          x: GRID_DIMENSIONS.width * 7,
+          y: GRID_DIMENSIONS.height * 3,
         },
         distance: GOBLIN_SPEED
       });

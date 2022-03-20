@@ -256,8 +256,6 @@ export default class Hero {
 
       this.#updateDirection(DIRECTIONS.left);
 
-      console.log(this.#enemiesVerteces)
-
       const {
         left: { distance },
       } = distanceToAdd({
