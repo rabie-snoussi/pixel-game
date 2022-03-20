@@ -35,10 +35,10 @@ export default class Goblin extends Monster {
         distance: GOBLIN_SPEED
       });
 
-      if (!distance.x) return;
+      if (!distance.x) return this.idleSprits();
 
-      if (distance < 0) this.updateDirection(DIRECTIONS.left);
-      if (distance > 0) this.updateDirection(DIRECTIONS.right);
+      if (distance.x < 0) this.updateDirection(DIRECTIONS.left);
+      if (distance.x > 0) this.updateDirection(DIRECTIONS.right);
 
       this.runSprits();
       this._position.x += distance.x;
