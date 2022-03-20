@@ -2,71 +2,71 @@ import { SCREEN_LIMITS } from './constants.js';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const isCollidingRight = (hero, block, distance = 0) => {
+export const isCollidingRight = (verteces1, verteces2, distance = 0) => {
   return (
-    (hero.b.x + distance >= block.a.x &&
-      hero.b.y === block.a.y &&
-      hero.c.y === block.d.y &&
-      hero.b.x < block.b.x) ||
-    (hero.b.x + distance >= block.a.x &&
-      hero.b.y > block.a.y &&
-      hero.b.y < block.d.y &&
-      hero.b.x < block.b.x) ||
-    (hero.b.x + distance >= block.a.x &&
-      hero.c.y > block.a.y &&
-      hero.c.y < block.d.y &&
-      hero.b.x < block.b.x)
+    (verteces1.b.x + distance >= verteces2.a.x &&
+      verteces1.b.y === verteces2.a.y &&
+      verteces1.c.y === verteces2.d.y &&
+      verteces1.b.x < verteces2.b.x) ||
+    (verteces1.b.x + distance >= verteces2.a.x &&
+      verteces1.b.y > verteces2.a.y &&
+      verteces1.b.y < verteces2.d.y &&
+      verteces1.b.x < verteces2.b.x) ||
+    (verteces1.b.x + distance >= verteces2.a.x &&
+      verteces1.c.y > verteces2.a.y &&
+      verteces1.c.y < verteces2.d.y &&
+      verteces1.b.x < verteces2.b.x)
   );
 };
 
-const isCollidingLeft = (hero, block, distance = 0) => {
+export const isCollidingLeft = (verteces1, verteces2, distance = 0) => {
   return (
-    (hero.a.x - distance <= block.b.x &&
-      hero.a.y === block.b.y &&
-      hero.d.y === block.c.y &&
-      hero.a.x + distance > block.a.x) ||
-    (hero.a.x - distance <= block.b.x &&
-      hero.a.y > block.b.y &&
-      hero.a.y < block.c.y &&
-      hero.a.x + distance > block.a.x) ||
-    (hero.a.x - distance <= block.b.x &&
-      hero.d.y > block.b.y &&
-      hero.d.y < block.c.y &&
-      hero.a.x + distance > block.a.x)
+    (verteces1.a.x - distance <= verteces2.b.x &&
+      verteces1.a.y === verteces2.b.y &&
+      verteces1.d.y === verteces2.c.y &&
+      verteces1.a.x + distance > verteces2.a.x) ||
+    (verteces1.a.x - distance <= verteces2.b.x &&
+      verteces1.a.y > verteces2.b.y &&
+      verteces1.a.y < verteces2.c.y &&
+      verteces1.a.x + distance > verteces2.a.x) ||
+    (verteces1.a.x - distance <= verteces2.b.x &&
+      verteces1.d.y > verteces2.b.y &&
+      verteces1.d.y < verteces2.c.y &&
+      verteces1.a.x + distance > verteces2.a.x)
   );
 };
 
-const isCollidingTop = (hero, block, distance = 0) => {
+export const isCollidingTop = (verteces1, verteces2, distance = 0) => {
   return (
-    (hero.a.y - distance <= block.c.y &&
-      hero.a.x === block.d.x &&
-      hero.b.x === block.c.x &&
-      hero.a.y + distance > block.a.y) ||
-    (hero.a.y - distance <= block.c.y &&
-      hero.a.x > block.d.x &&
-      hero.a.x < block.c.x &&
-      hero.a.y + distance > block.a.y) ||
-    (hero.a.y - distance <= block.c.y &&
-      hero.b.x > block.d.x &&
-      hero.b.x < block.c.x &&
-      hero.a.y + distance > block.a.y)
+    (verteces1.a.y - distance <= verteces2.c.y &&
+      verteces1.a.x === verteces2.d.x &&
+      verteces1.b.x === verteces2.c.x &&
+      verteces1.a.y + distance > verteces2.a.y) ||
+    (verteces1.a.y - distance <= verteces2.c.y &&
+      verteces1.a.x > verteces2.d.x &&
+      verteces1.a.x < verteces2.c.x &&
+      verteces1.a.y + distance > verteces2.a.y) ||
+    (verteces1.a.y - distance <= verteces2.c.y &&
+      verteces1.b.x > verteces2.d.x &&
+      verteces1.b.x < verteces2.c.x &&
+      verteces1.a.y + distance > verteces2.a.y)
   );
 };
 
-const isCollidingBottom = (hero, block, distance = 0) => {
+export const isCollidingBottom = (verteces1, verteces2, distance = 0) => {
   return (
-    (hero.c.y + distance >= block.a.y &&
-      hero.c.x === block.b.x &&
-      hero.d.x === block.a.x &&
-      hero.c.y < block.c.y) ||
-    (hero.c.y + distance >= block.a.y &&
-      hero.c.x > block.a.x &&
-      hero.c.x < block.b.x &&
-      hero.c.y < block.c.y) ||
-    (hero.c.y + distance >= block.a.y &&
-      hero.d.x > block.a.x &&
-      hero.d.x < block.b.x &&
-      hero.c.y < block.c.y)
+    (verteces1.c.y + distance >= verteces2.a.y &&
+      verteces1.c.x === verteces2.b.x &&
+      verteces1.d.x === verteces2.a.x &&
+      verteces1.c.y < verteces2.c.y) ||
+    (verteces1.c.y + distance >= verteces2.a.y &&
+      verteces1.c.x > verteces2.a.x &&
+      verteces1.c.x < verteces2.b.x &&
+      verteces1.c.y < verteces2.c.y) ||
+    (verteces1.c.y + distance >= verteces2.a.y &&
+      verteces1.d.x > verteces2.a.x &&
+      verteces1.d.x < verteces2.b.x &&
+      verteces1.c.y < verteces2.c.y)
   );
 };
 

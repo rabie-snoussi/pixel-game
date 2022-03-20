@@ -47,7 +47,6 @@ export default class Monster {
     this._hurtbox = hurtbox;
   }
 
-
   spritImgUpdate() {
     if (this._direction === DIRECTIONS.left)
       this._element.style.left =
@@ -84,7 +83,6 @@ export default class Monster {
     this._hurtbox.element.style.height =
       this._hurtbox.c.y - this._hurtbox.a.y + 'px';
   }
-
 
   idleSprits() {
     if (!this._sprits.possibleActions.includes(MONSTER_ACTIONS.idle)) return;
@@ -155,12 +153,13 @@ export default class Monster {
     document.getElementById('game').appendChild(this._hurtbox.element);
   }
 
-  heroChasing() {}
+  aggression() {}
 
   initialize({ position, blocksVerteces, heroHurtbox }) {
     this._element.style.position = 'absolute';
     this._element.style.backgroundSize = 'cover';
     this._element.style.imageRendering = 'pixelated';
+    this._element.style.zIndex = '1';
 
     document.getElementById('game').appendChild(this._element);
 
@@ -174,6 +173,6 @@ export default class Monster {
     this.updateDirection(DIRECTIONS.left);
     this.gravity();
     this.animate();
-    this.heroChasing();
+    this.aggression();
   }
 }
