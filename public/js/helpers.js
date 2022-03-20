@@ -123,7 +123,6 @@ const screenCollision = ({
 export const distanceToAdd = ({
   hurtbox,
   blocks = [],
-  enemies = [],
   top = 0,
   bottom = 0,
   right = 0,
@@ -134,7 +133,7 @@ export const distanceToAdd = ({
     'top'
   )({
     hurtbox,
-    blocks: [...blocks, ...enemies],
+    blocks,
     distance: top,
   });
 
@@ -143,7 +142,7 @@ export const distanceToAdd = ({
     'bottom'
   )({
     hurtbox,
-    blocks: [...blocks, ...enemies],
+    blocks,
     distance: bottom,
   });
 
@@ -152,7 +151,7 @@ export const distanceToAdd = ({
     'right'
   )({
     hurtbox,
-    blocks: [...blocks, ...enemies],
+    blocks,
     distance: right,
   });
 
@@ -161,7 +160,7 @@ export const distanceToAdd = ({
     'left'
   )({
     hurtbox,
-    blocks: [...blocks, ...enemies],
+    blocks,
     distance: left,
   });
 
@@ -212,10 +211,10 @@ export const chaseDistance = ({
   distance,
 }) => {
   const heroCenter = getCenterPosition(heroVerteces);
-  const goblinCenter = getCenterPosition(monsterVerteces);
+  const monsterCenter = getCenterPosition(monsterVerteces);
   const distanceDiff = {
-    x: heroCenter.x - goblinCenter.x,
-    y: heroCenter.y - goblinCenter.y,
+    x: heroCenter.x - monsterCenter.x,
+    y: heroCenter.y - monsterCenter.y,
   };
 
   if (distanceDiff.y > detection.y || distanceDiff.y < -detection.y)
@@ -234,21 +233,26 @@ export const chaseDistance = ({
     bottom: distance,
     left: distance,
     right: distance,
-    blocks: blocksVerteces,
-    enemies: [heroVerteces],
+    blocks: blocksVerteces
   });
 
-  if (heroCenter.x < goblinCenter.x && heroCenter.y < goblinCenter.y)
+  if (heroCenter.x < monsterCenter.x && heroCenter.y < monsterCenter.y)
     return { x: -leftDistance, y: -topDistance };
-
-  if (heroCenter.x < goblinCenter.x && heroCenter.y > goblinCenter.y)
+  if (heroCenter.x < monsterCenter.x && heroCenter.y > monsterCenter.y)
     return { x: -leftDistance, y: bottomDistance };
-
-  if (heroCenter.x > goblinCenter.x && heroCenter.y < goblinCenter.y)
+  if (heroCenter.x > monsterCenter.x && heroCenter.y < monsterCenter.y)
     return { x: rightDistance, y: -topDistance };
-
-  if (heroCenter.x > goblinCenter.x && heroCenter.y > goblinCenter.y)
+  if (heroCenter.x > monsterCenter.x && heroCenter.y > monsterCenter.y)
     return { x: rightDistance, y: bottomDistance };
+
+  if (heroCenter.x < monsterCenter.x && heroCenter.y === monsterCenter.y)
+    return { x: -leftDistance, y: 0 };
+  if (heroCenter.x > monsterCenter.x && heroCenter.y === monsterCenter.y)
+    return { x: rightDistance, y: 0 };
+  if (heroCenter.x === monsterCenter.x && heroCenter.y < monsterCenter.y)
+    return { x: 0, y: -topDistance };
+  if (heroCenter.x === monsterCenter.x && heroCenter.y > monsterCenter.y)
+    return { x: 0, y: bottomDistance };
 
   return { x: 0, y: 0 };
 };

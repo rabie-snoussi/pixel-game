@@ -123,7 +123,6 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        enemies: this.#enemiesVerteces,
         bottom: i * 3,
       });
 
@@ -234,7 +233,6 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        enemies: this.#enemiesVerteces,
         right: HERO_SPEED,
       });
 
@@ -261,7 +259,6 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        enemies: this.#enemiesVerteces,
         left: HERO_SPEED,
       });
 
@@ -302,7 +299,6 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        enemies: this.#enemiesVerteces,
         top: i * 2,
       });
 
@@ -325,7 +321,6 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        enemies: this.#enemiesVerteces,
         top: HERO_SPEED,
       });
 
@@ -346,7 +341,6 @@ export default class Hero {
       } = distanceToAdd({
         hurtbox: this.#hurtbox,
         blocks: this.#blocksVerteces,
-        enemies: this.#enemiesVerteces,
         bottom: HERO_SPEED,
       });
 
