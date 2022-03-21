@@ -1,6 +1,7 @@
 export const HERO_IMG = {
   idle: './assets/hero/herochar_idle_anim_strip_4.png',
   attack: './assets/hero/herochar_attack_anim_strip_4.png',
+  sword: './assets/hero/sword_effect_strip_4.png',
   swordAttack: './assets/hero/herochar_sword_attack_anim_strip_4.png',
   run: './assets/hero/herochar_run_anim_strip_6.png',
   prePostJump: './assets/hero/herochar_before_or_after_jump_strip_2.png',
@@ -96,9 +97,15 @@ export const SIMULTANOUS_KEYS = {
   },
   [KEY_CODES.right]: {
     [KEY_CODES.up]: true,
+    [KEY_CODES.spacebar]: true,
   },
   [KEY_CODES.left]: {
     [KEY_CODES.up]: true,
+    [KEY_CODES.spacebar]: true,
+  },
+  [KEY_CODES.spacebar]: {
+    [KEY_CODES.left]: true,
+    [KEY_CODES.right]: true,
   },
 };
 
