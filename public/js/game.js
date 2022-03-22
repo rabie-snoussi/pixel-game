@@ -66,12 +66,11 @@ class Game {
     this.#enemy.initialize({
       enemies: this.#map.getEnemies(),
       blocksVerteces: this.#map.getBlocksVerteces(),
-      heroHurtbox: this.#hero.getHurtbox(),
+      heroHurtbox: this.#hero.getHurtbox().verteces,
     });
     this.#hero.initialize({
       position: this.#map.getHeroPosition(),
       blocksVerteces: this.#map.getBlocksVerteces(),
-      enemiesVerteces: this.#enemy.getHurtbox(),
     });
   }
 }

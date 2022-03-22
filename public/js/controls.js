@@ -31,7 +31,7 @@ export default class Controls {
   }
 
   #onSpacebar() {
-    this.#onStop.spacebar = this.#hero.swordAttack();
+    this.#onStop.spacebar = this.#hero.attack();
   }
 
   async #onUp() {

@@ -2,7 +2,6 @@ export const HERO_IMG = {
   idle: './assets/hero/herochar_idle_anim_strip_4.png',
   attack: './assets/hero/herochar_attack_anim_strip_4.png',
   sword: './assets/hero/sword_effect_strip_4.png',
-  swordAttack: './assets/hero/herochar_sword_attack_anim_strip_4.png',
   run: './assets/hero/herochar_run_anim_strip_6.png',
   prePostJump: './assets/hero/herochar_before_or_after_jump_strip_2.png',
   jump: './assets/hero/herochar_jump_up_anim_strip_3.png',
@@ -48,7 +47,6 @@ export const DIRECTIONS = {
 export const HERO_ACTIONS = {
   idle: 'idle',
   attack: 'attack',
-  swordAttack: 'swordAttack',
   run: 'run',
   preJump: 'preJump',
   jump: 'jump',

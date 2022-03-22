@@ -1,7 +1,6 @@
-import HERO_SPRITS from './data/hero.js';
+import ACTIONS from './data/hero/hero.js';
 import {
   DIRECTIONS,
-  HERO_ACTIONS,
   HERO_SPEED,
   MOVEMENT_INTERVAL,
   ANIMATION_INTERVAL,
@@ -14,31 +13,32 @@ export default class Hero {
   // Private properties
 
   #gravityInterval;
-  #spritsCounter = 0;
+  #frameCounter = 0;
   #isJumping = false;
   #element = document.createElement('div');
   #blocksVerteces = [];
-  #enemiesVerteces = [];
   #direction = DIRECTIONS.right;
-  #sprits = HERO_SPRITS[HERO_ACTIONS.idle];
+  #action = ACTIONS.idle;
   #jumpCount = MAX_JUMPS;
   #hurtbox = {
     element: document.createElement('div'),
-    a: {
-      x: 0,
-      y: 0,
-    },
-    b: {
-      x: 0,
-      y: 0,
-    },
-    c: {
-      x: 0,
-      y: 0,
-    },
-    d: {
-      x: 0,
-      y: 0,
+    verteces: {
+      a: {
+        x: 0,
+        y: 0,
+      },
+      b: {
+        x: 0,
+        y: 0,
+      },
+      c: {
+        x: 0,
+        y: 0,
+      },
+      d: {
+        x: 0,
+        y: 0,
+      },
     },
   };
   #position = {
@@ -46,69 +46,71 @@ export default class Hero {
     y: 0,
   };
 
-  constructor() {
-  }
+  constructor() {}
 
   // Private methods
 
-  #idleSprits() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.idle)) return;
-
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.idle];
-    this.#spritsCounter = 0;
+  #idle() {
+    if (!this.#action.allowedActions.includes(ACTIONS.idle.name)) return;
+    this.#action = ACTIONS.idle;
+    this.#frameCounter = 0;
   }
 
-  #runSprits() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.run)) return;
+  #run() {
+    if (!this.#action.allowedActions.includes(ACTIONS.run.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.run];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.run;
+    this.#frameCounter = 0;
   }
 
-  #fallSprits() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.fall)) return;
+  #fall() {
+    if (!this.#action.allowedActions.includes(ACTIONS.fall.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.fall];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.fall;
+    this.#frameCounter = 0;
   }
 
-  #preJumpAnimation() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.preJump)) return;
+  #preJump() {
+    if (!this.#action.allowedActions.includes(ACTIONS.preJump.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.preJump];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.preJump;
+    this.#frameCounter = 0;
   }
 
-  #jumpAnimation() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.jump)) return;
+  #jump() {
+    if (!this.#action.allowedActions.includes(ACTIONS.jump.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.jump];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.jump;
+    this.#frameCounter = 0;
   }
 
-  #doubleJumpAnimation() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.doubleJump)) return;
+  #doubleJump() {
+    if (!this.#action.allowedActions.includes(ACTIONS.doubleJump.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.doubleJump];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.doubleJump;
+    this.#frameCounter = 0;
   }
 
-  #postJumpAnimation() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.postJump)) return;
+  #postJump() {
+    if (!this.#action.allowedActions.includes(ACTIONS.postJump.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.postJump];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.postJump;
+    this.#frameCounter = 0;
   }
 
   #animate() {
     setInterval(() => {
-      if (this.#spritsCounter >= this.#sprits.number) this.#spritsCounter = 0;
+      if (this.#frameCounter >= this.#action.frames[this.#direction].length)
+        this.#frameCounter = 0;
 
-      this.#spritImgUpdate();
-      this.#spritsCounter++;
+      this.#updateFrame();
+      this.#frameCounter++;
 
-      if (!this.#sprits.loop && this.#spritsCounter >= this.#sprits.number)
-        this.#idleSprits();
+      if (
+        !this.#action.loop &&
+        this.#frameCounter >= this.#action.frames[this.#direction].length
+      )
+        this.#idle();
     }, ANIMATION_INTERVAL);
   }
 
@@ -117,20 +119,22 @@ export default class Hero {
     let doubleJump = false;
 
     this.#gravityInterval = setInterval(() => {
+      
       if (this.#isJumping) return;
+
 
       const {
         bottom: { distance },
       } = distanceToAdd({
-        hurtbox: this.#hurtbox,
+        hurtbox: this.#hurtbox.verteces,
         blocks: this.#blocksVerteces,
-        bottom: i * 3,
+        bottom: i * 2,
       });
 
       if (!distance) {
         this.#jumpCount = MAX_JUMPS;
         if (i === 1) return;
-        this.#postJumpAnimation();
+        this.#postJump();
         doubleJump = false;
         i = 1;
         return;
@@ -143,7 +147,7 @@ export default class Hero {
         }
       }
 
-      if (this.#sprits.name !== HERO_ACTIONS.fall) this.#fallSprits();
+      if (this.#action.name !== ACTIONS.fall.name) this.#fall();
 
       this.#position.y += distance;
       this.#updatePosition();
@@ -160,51 +164,33 @@ export default class Hero {
   }
 
   #updateHurtbox() {
-    this.#hurtbox.a.x = this.#position.x + this.#sprits.hurtbox.a.x;
-    this.#hurtbox.b.x = this.#position.x + this.#sprits.hurtbox.b.x;
-    this.#hurtbox.c.x = this.#position.x + this.#sprits.hurtbox.c.x;
-    this.#hurtbox.d.x = this.#position.x + this.#sprits.hurtbox.d.x;
+    this.#hurtbox.verteces = this.#action.hurtbox(this.#position).verteces;
 
-    this.#hurtbox.a.y = this.#position.y + this.#sprits.hurtbox.a.y;
-    this.#hurtbox.b.y = this.#position.y + this.#sprits.hurtbox.b.y;
-    this.#hurtbox.c.y = this.#position.y + this.#sprits.hurtbox.c.y;
-    this.#hurtbox.d.y = this.#position.y + this.#sprits.hurtbox.d.y;
+    this.#hurtbox.element.style.top = this.#action.hurtbox(
+      this.#position
+    ).position.top;
+    this.#hurtbox.element.style.left = this.#action.hurtbox(
+      this.#position
+    ).position.left;
 
-    this.#hurtbox.element.style.top = this.#hurtbox.a.y + 'px';
-    this.#hurtbox.element.style.left = this.#hurtbox.a.x + 'px';
-
-    this.#hurtbox.element.style.width =
-      this.#hurtbox.b.x - this.#hurtbox.a.x + 'px';
-    this.#hurtbox.element.style.height =
-      this.#hurtbox.c.y - this.#hurtbox.a.y + 'px';
+    this.#hurtbox.element.style.width = this.#action.hurtbox(
+      this.#position
+    ).dimensions.width;
+    this.#hurtbox.element.style.height = this.#action.hurtbox(
+      this.#position
+    ).dimensions.height;
   }
 
-  #spritImgUpdate() {
-    if (this.#direction === DIRECTIONS.left)
-      this.#element.style.left =
-        this.#position.x -
-        (this.#sprits.dimensions.width -
-          (this.#sprits.hurtbox.b.x - this.#sprits.hurtbox.a.x)) +
-        'px';
+  #updateFrame() {
+    this.#element.style.backgroundImage = this.#action.img;
 
-    this.#element.style.backgroundImage = 'url("' + this.#sprits.img + '")';
+    this.#element.style.height = this.#action.dimensions.height;
+    this.#element.style.width = this.#action.dimensions.width;
 
-    this.#element.style.height = this.#sprits.dimensions.height + 'px';
-    this.#element.style.width = this.#sprits.dimensions.width + 'px';
+    const frame = this.#action.frames[this.#direction][this.#frameCounter];
 
-    this.#element.style.backgroundPositionX =
-      this.#sprits.dimensions.width * -this.#spritsCounter + 'px';
-  }
-
-  #updateDirection(direction) {
-    if (direction == DIRECTIONS.left) {
-      this.#element.style.transform = 'scaleX(-1)';
-      this.#direction = DIRECTIONS.left;
-    }
-    if (direction == DIRECTIONS.right) {
-      this.#element.style.transform = 'none';
-      this.#direction = DIRECTIONS.right;
-    }
+    this.#element.style.backgroundPositionX = frame.backgroundPositionX;
+    this.#element.style.transform = frame.transform;
   }
 
   // Public methods
@@ -213,26 +199,25 @@ export default class Hero {
     return this.#hurtbox;
   }
 
-  swordAttack() {
-    if (!this.#sprits.possibleActions.includes(HERO_ACTIONS.swordAttack))
-      return;
+  attack() {
+    if (!this.#action.allowedActions.includes(ACTIONS.attack.name)) return;
 
-    this.#sprits = HERO_SPRITS[HERO_ACTIONS.swordAttack];
-    this.#spritsCounter = 0;
+    this.#action = ACTIONS.attack;
+    this.#frameCounter = 0;
   }
 
   goRight() {
     const interval = setInterval(() => {
-      if (!this.#sprits.canMove) return;
+      if (!this.#action.canMove) return;
 
-      if (this.#sprits.name !== HERO_ACTIONS.run) this.#runSprits();
+      if (this.#action.name !== ACTIONS.run) this.#run();
 
-      this.#updateDirection(DIRECTIONS.right);
+      this.#direction = DIRECTIONS.right;
 
       const {
         right: { distance },
       } = distanceToAdd({
-        hurtbox: this.#hurtbox,
+        hurtbox: this.#hurtbox.verteces,
         blocks: this.#blocksVerteces,
         right: HERO_SPEED,
       });
@@ -242,23 +227,23 @@ export default class Hero {
     }, MOVEMENT_INTERVAL);
 
     return () => {
-      this.#idleSprits();
+      this.#idle();
       clearInterval(interval);
     };
   }
 
   goLeft() {
     const interval = setInterval(() => {
-      if (!this.#sprits.canMove) return;
+      if (!this.#action.canMove) return;
 
-      if (this.#sprits.name !== HERO_ACTIONS.run) this.#runSprits();
+      if (this.#action.name !== ACTIONS.run) this.#run();
 
-      this.#updateDirection(DIRECTIONS.left);
+      this.#direction = DIRECTIONS.left;
 
       const {
         left: { distance },
       } = distanceToAdd({
-        hurtbox: this.#hurtbox,
+        hurtbox: this.#hurtbox.verteces,
         blocks: this.#blocksVerteces,
         left: HERO_SPEED,
       });
@@ -269,7 +254,7 @@ export default class Hero {
     }, MOVEMENT_INTERVAL);
 
     return () => {
-      this.#idleSprits();
+      this.#idle();
       clearInterval(interval);
     };
   }
@@ -277,19 +262,19 @@ export default class Hero {
   async jump() {
     if (this.#isJumping) return;
     if (!this.#jumpCount) return;
-    if (!this.#sprits.canMove) return;
+    if (!this.#action.canMove) return;
 
     this.#isJumping = true;
 
     if (this.#jumpCount === 2) {
-      this.#preJumpAnimation();
+      this.#preJump();
 
       await sleep(ANIMATION_INTERVAL * 2);
 
-      this.#jumpAnimation();
+      this.#jump();
     }
 
-    if (this.#jumpCount === 1) this.#doubleJumpAnimation();
+    if (this.#jumpCount === 1) this.#doubleJump();
 
     this.#jumpCount--;
     let i = 12;
@@ -298,7 +283,7 @@ export default class Hero {
       const {
         top: { distance, collision },
       } = distanceToAdd({
-        hurtbox: this.#hurtbox,
+        hurtbox: this.#hurtbox.verteces,
         blocks: this.#blocksVerteces,
         top: i * RESOLUTION_MULTIPLIER,
       });
@@ -320,7 +305,7 @@ export default class Hero {
       const {
         top: { distance, collision },
       } = distanceToAdd({
-        hurtbox: this.#hurtbox,
+        hurtbox: this.#hurtbox.verteces,
         blocks: this.#blocksVerteces,
         top: HERO_SPEED,
       });
@@ -340,7 +325,7 @@ export default class Hero {
       const {
         bottom: { distance, collision },
       } = distanceToAdd({
-        hurtbox: this.#hurtbox,
+        hurtbox: this.#hurtbox.verteces,
         blocks: this.#blocksVerteces,
         bottom: HERO_SPEED,
       });
@@ -367,7 +352,7 @@ export default class Hero {
     clearInterval(this.#gravityInterval);
   }
 
-  initialize({ position, blocksVerteces, enemiesVerteces }) {
+  initialize({ position, blocksVerteces }) {
     this.#element.style.position = 'absolute';
     this.#element.style.backgroundSize = 'cover';
     this.#element.style.imageRendering = 'pixelated';
@@ -378,8 +363,7 @@ export default class Hero {
     this.#position.y = position.y;
 
     this.#blocksVerteces = blocksVerteces;
-    this.#enemiesVerteces = enemiesVerteces;
-    this.#idleSprits();
+    this.#idle();
     this.#updatePosition();
     this.#gravity();
     this.#animate();
