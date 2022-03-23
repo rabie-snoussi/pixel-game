@@ -7,7 +7,7 @@ import {
   MAX_JUMPS,
   RESOLUTION_MULTIPLIER,
 } from './constants.js';
-import { distanceToAdd, sleep } from './helpers.js';
+import { distanceToAdd, sleep, cloneWithElements } from './helpers.js';
 
 export default class Hero {
   // Private properties
@@ -19,7 +19,10 @@ export default class Hero {
   #blocksVerteces = [];
   #direction = DIRECTIONS.right;
   #action = ACTIONS.idle;
+  #effects = [];
   #jumpCount = MAX_JUMPS;
+  #hitbox = {};
+  #showHitbox = false;
   #hurtbox = {
     element: document.createElement('div'),
     verteces: {
@@ -54,6 +57,8 @@ export default class Hero {
     if (!this.#action.allowedActions.includes(ACTIONS.idle.name)) return;
     this.#action = ACTIONS.idle;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
   }
 
   #run() {
@@ -61,6 +66,8 @@ export default class Hero {
 
     this.#action = ACTIONS.run;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
   }
 
   #fall() {
@@ -68,6 +75,8 @@ export default class Hero {
 
     this.#action = ACTIONS.fall;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
   }
 
   #preJump() {
@@ -75,6 +84,18 @@ export default class Hero {
 
     this.#action = ACTIONS.preJump;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
+  }
+
+  #insertEffects() {
+    this.#effects = cloneWithElements({
+      effects: this.#action.effects,
+      position: this.#position,
+      direction: this.#direction,
+      heroEffects: this.#effects,
+      showHitbox: this.#showHitbox
+    });
   }
 
   #jump() {
@@ -82,6 +103,8 @@ export default class Hero {
 
     this.#action = ACTIONS.jump;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
   }
 
   #doubleJump() {
@@ -89,6 +112,8 @@ export default class Hero {
 
     this.#action = ACTIONS.doubleJump;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
   }
 
   #postJump() {
@@ -96,13 +121,55 @@ export default class Hero {
 
     this.#action = ACTIONS.postJump;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
+  }
+
+  #playEffects() {
+    this.#effects?.forEach((item, i) => {
+      if (!_.isEmpty(item.frames?.[item.hero.direction])) {
+        const frame = item.frames[item.hero.direction].shift();
+        const effectElement = item.elements.effect;
+
+        effectElement.style.visibility = 'visible';
+
+        effectElement.style.transform = frame.transform;
+        effectElement.style.backgroundPositionX =
+          frame.backgroundPositionX;
+
+          if(!item.frames[item.hero.direction].length) effectElement.remove();
+      }
+      if (!_.isEmpty(item.hitbox?.[item.hero.direction])) {
+        const getHitbox = item.hitbox[item.hero.direction].shift();
+        const hitbox = getHitbox(item.hero.position);
+        const hitboxElement = item.elements.hitbox;
+
+        hitboxElement.style.visibility = 'visible';
+
+        hitboxElement.style.width = hitbox.dimensions.width;
+        hitboxElement.style.height = hitbox.dimensions.height;
+
+        hitboxElement.style.top = hitbox.position.top;
+        hitboxElement.style.left = hitbox.position.left;
+
+        this.#hitbox = hitbox.verteces;
+
+        if(!item.frames[item.hero.direction].length) {
+          hitboxElement.remove();
+          this.#hitbox = {};
+        }
+      }
+
+      if(_.isEmpty(item.frames?.[item.hero.direction]) && _.isEmpty(item.hitbox?.[item.hero.direction])) 
+        this.#effects.splice(i, 1)
+    });
   }
 
   #animate() {
     setInterval(() => {
       if (this.#frameCounter >= this.#action.frames[this.#direction].length)
         this.#frameCounter = 0;
-
+      this.#playEffects();
       this.#updateFrame();
       this.#frameCounter++;
 
@@ -119,9 +186,7 @@ export default class Hero {
     let doubleJump = false;
 
     this.#gravityInterval = setInterval(() => {
-      
       if (this.#isJumping) return;
-
 
       const {
         bottom: { distance },
@@ -204,6 +269,8 @@ export default class Hero {
 
     this.#action = ACTIONS.attack;
     this.#frameCounter = 0;
+
+    this.#insertEffects();
   }
 
   goRight() {
@@ -346,6 +413,10 @@ export default class Hero {
     this.#hurtbox.element.style.boxSizing = 'border-box';
 
     document.getElementById('game').appendChild(this.#hurtbox.element);
+  }
+
+  showHitbox() {
+    this.#showHitbox = true;
   }
 
   godMode() {

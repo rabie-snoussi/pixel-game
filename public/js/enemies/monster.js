@@ -14,6 +14,7 @@ export default class Monster {
     this._allSprits = allSprits;
     this._sprits = allSprits[MONSTER_ACTIONS.idle];
     this._element = document.createElement('div');
+    this._heroHurtbox = {};
     this._hurtbox = {
       element: document.createElement('div'),
       a: {

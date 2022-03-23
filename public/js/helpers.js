@@ -233,7 +233,7 @@ export const chaseDistance = ({
     bottom: distance,
     left: distance,
     right: distance,
-    blocks: blocksVerteces
+    blocks: blocksVerteces,
   });
 
   if (heroCenter.x < monsterCenter.x && heroCenter.y < monsterCenter.y)
@@ -255,4 +255,73 @@ export const chaseDistance = ({
     return { x: 0, y: bottomDistance };
 
   return { x: 0, y: 0 };
+};
+
+export const insertEffect = ({ effect, position, direction }) => {
+  const effectPosition = effect.position(position)[direction];
+
+  const element = document.createElement('div');
+
+  element.style.position = 'absolute';
+
+  element.style.backgroundImage = effect.img;
+  element.style.backgroundSize = 'cover';
+  element.style.imageRendering = 'pixelated';
+
+  element.style.height = effect.dimensions.height;
+  element.style.width = effect.dimensions.width;
+
+  element.style.top = effectPosition.top;
+  element.style.left = effectPosition.left;
+
+  element.style.visibility = 'hidden';
+
+  document.getElementById('game').appendChild(element);
+  return element;
+};
+
+export const insertHitbox = (effect, showHitbox) => {
+  if (_.isEmpty(effect.hitbox)) return null;
+
+  const element = document.createElement('div');
+
+  if (showHitbox) {
+    element.style.position = 'absolute';
+    element.style.border = '1px solid yellow';
+    element.style.boxSizing = 'border-box';
+    element.style.visibility = 'hidden';
+  }
+
+  document.getElementById('game').appendChild(element);
+  return element;
+};
+
+export const cloneWithElements = ({
+  effects,
+  position,
+  direction,
+  heroEffects,
+  showHitbox,
+}) => {
+  if (_.isEmpty(effects)) return heroEffects;
+
+  const cloned = _.cloneDeep(effects);
+
+  const effectWithElements = cloned.map((item) => ({
+    hero: {
+      position: _.clone(position),
+      direction: _.clone(direction),
+    },
+    elements: {
+      effect: insertEffect({
+        effect: item,
+        position: position,
+        direction: direction,
+      }),
+      hitbox: insertHitbox(item, showHitbox),
+    },
+    ...item,
+  }));
+
+  return [..._.cloneDeep(heroEffects), ...effectWithElements];
 };

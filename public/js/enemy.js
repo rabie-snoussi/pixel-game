@@ -4,7 +4,7 @@ export default class Enemy {
   #enemies;
   constructor() {}
 
-  getHurtbox() {
+  getBox() {
     return this.#enemies.map(({ _hurtbox: { element, ...rest } }) => rest);
   }
 

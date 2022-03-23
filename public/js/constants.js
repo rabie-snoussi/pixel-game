@@ -7,6 +7,8 @@ export const HERO_IMG = {
   jump: './assets/hero/herochar_jump_up_anim_strip_3.png',
   doubleJump: './assets/hero/herochar_jump_double_anim_strip_3.png',
   fall: './assets/hero/herochar_jump_down_anim_strip_3.png',
+  preJumpDust: './assets/hero/herochar_before_jump_dust_anim_strip_4.png',
+  postJumpDust: './assets/hero/herochar_after_jump_dust_anim_strip_4.png',
 };
 
 export const GOBLIN_IMG = {
@@ -19,7 +21,7 @@ export const SLIME_IMG = {
   idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
 };
 
-export const RESOLUTION_MULTIPLIER = 1.80;
+export const RESOLUTION_MULTIPLIER = 1.8;
 
 export const HERO_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
@@ -55,6 +57,12 @@ export const HERO_ACTIONS = {
   fall: 'fall',
 };
 
+export const HERO_EFFECTS = {
+  sword: 'sword',
+  preJumpDust: 'preJumpDust',
+  postJumpDust: 'postJumpDust',
+};
+
 export const MONSTER_ACTIONS = {
   idle: 'idle',
 };
@@ -62,7 +70,7 @@ export const MONSTER_ACTIONS = {
 export const GOBLIN_ACTIONS = {
   idle: 'idle',
   run: 'run',
-  attack: 'attack'
+  attack: 'attack',
 };
 
 export const SLIME_ACTIONS = {

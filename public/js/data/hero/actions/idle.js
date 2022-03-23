@@ -1,5 +1,10 @@
-import { HERO_ACTIONS, HERO_IMG } from '../../constants.js';
-import { getHurtbox, getVerteces, getDimensions, getFrames } from './helpers.js';
+import { HERO_ACTIONS, HERO_IMG } from '../../../constants.js';
+import {
+  getBox,
+  getVerteces,
+  getDimensions,
+  getFrames,
+} from '../helpers.js';
 
 const name = HERO_ACTIONS.idle;
 
@@ -18,13 +23,16 @@ const verteces = getVerteces(dimensions);
 
 const frames = getFrames({ dimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
 
+const effects = [];
+
 export default {
   name,
   loop: true,
   canMove: true,
   img,
+  effects,
   allowedActions,
-  hurtbox: getHurtbox(verteces),
+  hurtbox: getBox(verteces),
   frames,
   dimensions: {
     height: dimensions.height + 'px',

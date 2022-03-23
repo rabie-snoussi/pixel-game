@@ -39,7 +39,7 @@ export default class Goblin extends Monster {
   aggression() {
     setInterval(async () => {
       const distance = chaseDistance({
-        heroVerteces: this._heroHurtbox,
+        heroVerteces: this._heroHurtbox.verteces,
         monsterVerteces: this._hurtbox,
         blocksVerteces: this._blocksVerteces,
         detection: {
@@ -60,8 +60,8 @@ export default class Goblin extends Monster {
       this.updatePosition();
 
       while (
-        isCollidingLeft(this._hurtbox, this._heroHurtbox) ||
-        isCollidingRight(this._hurtbox, this._heroHurtbox)
+        isCollidingLeft(this._hurtbox, this._heroHurtbox.verteces) ||
+        isCollidingRight(this._hurtbox, this._heroHurtbox.verteces)
       ) {
         this._isAttacking = true;
         this.attackSprits();

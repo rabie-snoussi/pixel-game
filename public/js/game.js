@@ -50,6 +50,10 @@ class Game {
     this.#enemy.showHurtbox();
   }
 
+  showHitbox() {
+    this.#hero.showHitbox();
+  }
+
   godMode() {
     this.#controls.godMode();
     this.#hero.godMode();
@@ -66,7 +70,7 @@ class Game {
     this.#enemy.initialize({
       enemies: this.#map.getEnemies(),
       blocksVerteces: this.#map.getBlocksVerteces(),
-      heroHurtbox: this.#hero.getHurtbox().verteces,
+      heroHurtbox: this.#hero.getHurtbox(),
     });
     this.#hero.initialize({
       position: this.#map.getHeroPosition(),
@@ -81,3 +85,4 @@ game.initialize();
 // game.godMode();
 // game.showGrid();
 game.showHurtbox();
+// game.showHitbox();

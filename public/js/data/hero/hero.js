@@ -1,11 +1,11 @@
-import idle from './idle.js';
-import attack from './attack.js';
-import run from './run.js';
-import jump from './jump.js';
-import fall from './fall.js';
-import preJump from './pre_jump.js';
-import doubleJump from './double_jump.js';
-import postJump from './post_jump.js';
+import idle from './actions/idle.js';
+import attack from './actions/attack.js';
+import run from './actions/run.js';
+import jump from './actions/jump.js';
+import fall from './actions/fall.js';
+import preJump from './actions/pre_jump.js';
+import doubleJump from './actions/double_jump.js';
+import postJump from './actions/post_jump.js';
 
 export default {
   idle,

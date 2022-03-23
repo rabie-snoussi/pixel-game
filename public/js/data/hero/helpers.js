@@ -1,11 +1,11 @@
 import { HERO_SIZE } from '../../constants.js';
 
 export const getPosition = (x, y) => ({
-  x: x * HERO_SIZE,
-  y: y * HERO_SIZE,
+  x: Math.floor(x * HERO_SIZE),
+  y: Math.floor(y * HERO_SIZE),
 });
 
-export const getHurtbox =
+export const getBox =
   ({ a, b, c, d }) =>
   (heroPos) => {
     const verteces = {
@@ -33,18 +33,19 @@ export const getHurtbox =
   };
 
 export const getDimensions = ({ height, width }) => ({
-  height: height * HERO_SIZE,
-  width: width * HERO_SIZE,
+  height: Math.floor(height * HERO_SIZE),
+  width: Math.floor(width * HERO_SIZE),
 });
 
-export const getVerteces = ({ height, width }) => ({
-  a: { x: 0, y: 0 },
-  b: { x: width, y: 0 },
-  c: { x: width, y: height },
-  d: { x: 0, y: height },
+export const getVerteces = ({ height, width }, initial = { x: 0, y: 0 }) => ({
+  a: { x: initial.x, y: initial.y },
+  b: { x: initial.x + width, y: initial.y },
+  c: { x: initial.x + width, y: initial.y + height },
+  d: { x: initial.x, y: initial.y + height },
 });
 
-export const getBackgroundPositionX = (dimensions, i) => dimensions.width * -i + 'px';
+export const getBackgroundPositionX = (dimensions, i) =>
+  dimensions.width * -i + 'px';
 
 export const getFrames = ({ dimensions, number, left, right }) => {
   const rightFrames = Array.apply(null, Array(number)).map((item, i) => ({
@@ -59,3 +60,37 @@ export const getFrames = ({ dimensions, number, left, right }) => {
 
   return { right: rightFrames, left: leftFrames };
 };
+
+export const getHitbox = (dimensionsArray, initialPositionsArray) => {
+  const dimensions = dimensionsArray.map((item) => getDimensions(item));
+
+  const rightPositions = initialPositionsArray.right.map(({ x, y }) =>
+    getPosition(x, y)
+  );
+  const leftPositions = initialPositionsArray.left.map(({ x, y }) =>
+    getPosition(x, y)
+  );
+
+  const rightVerteces = rightPositions.map((item, i) =>
+    getVerteces(dimensions[i], rightPositions[i])
+  );
+  const leftVerteces = leftPositions.map((item, i) =>
+    getVerteces(dimensions[i], leftPositions[i])
+  );
+
+  const rightHitboxs = rightVerteces.map((item, i) => getBox(rightVerteces[i]));
+  const leftHitboxs = leftVerteces.map((item, i) => getBox(leftVerteces[i]));
+
+  return { right: rightHitboxs, left: leftHitboxs };
+};
+
+export const getEffectPosition = (position) => (heroPos) => ({
+  right: {
+    top: heroPos.y + position.right.y + 'px',
+    left: heroPos.x + position.right.x + 'px',
+  },
+  left: {
+    top: heroPos.y + position.left.y + 'px',
+    left: heroPos.x + position.left.x + 'px',
+  },
+});
