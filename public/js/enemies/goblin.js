@@ -5,7 +5,7 @@ import {
   isCollidingLeft,
   isCollidingRight,
   sleep,
-} from '../helpers.js';
+} from './helpers.js';
 import {
   DIRECTIONS,
   GOBLIN_ACTIONS,

@@ -3,7 +3,7 @@ import { GRID } from './data/grid.js';
 import Hero from './hero.js';
 import Map from './map.js';
 import Enemy from './enemy.js';
-import { GRID_DIMENSIONS, SCREEN_LIMITS } from './constants.js';
+import { GRID_DIMENSIONS, SCREEN_LIMITS, GAME_LOOP_INTERVAL, ANIMATION_INTERVAL } from './constants.js';
 
 class Game {
   // Private Properties
@@ -59,6 +59,18 @@ class Game {
     this.#hero.godMode();
   }
 
+  loop() {
+    setInterval(() => {
+      this.#hero.loop();
+    }, GAME_LOOP_INTERVAL);
+  }
+
+  animate() {
+    setInterval(() => {
+      this.#hero.animate();
+    }, ANIMATION_INTERVAL);
+  }
+
   initialize() {
     const root = document.querySelector(':root');
 
@@ -76,6 +88,8 @@ class Game {
       position: this.#map.getHeroPosition(),
       blocksVerteces: this.#map.getBlocksVerteces(),
     });
+    this.loop();
+    this.animate();
   }
 }
 
@@ -85,4 +99,4 @@ game.initialize();
 // game.godMode();
 // game.showGrid();
 game.showHurtbox();
-// game.showHitbox();
+game.showHitbox();

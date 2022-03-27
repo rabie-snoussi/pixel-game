@@ -4,7 +4,7 @@ import {
   ANIMATION_INTERVAL,
   MOVEMENT_INTERVAL,
 } from '../constants.js';
-import { distanceToAdd } from '../helpers.js';
+import { distanceToAdd } from './helpers.js';
 
 export default class Monster {
   constructor({ allSprits }) {

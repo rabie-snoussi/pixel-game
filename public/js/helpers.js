@@ -70,191 +70,145 @@ export const isCollidingBottom = (verteces1, verteces2, distance = 0) => {
   );
 };
 
-const distanceCalculation = ({ hurtbox, block, direction }) => {
-  const operations = {
-    top: hurtbox.a.y - block.d.y,
-    bottom: block.a.y - hurtbox.d.y,
-    right: block.a.x - hurtbox.b.x,
-    left: hurtbox.a.x - block.b.x,
+const getBlockDistance = ({ hurtbox, blocks, distance, direction }) => {
+  const directions = {
+    top: {
+      filter: isCollidingTop,
+      operation: ({ hurtbox, block }) => hurtbox.a.y - block.d.y,
+    },
+    bottom: {
+      filter: isCollidingBottom,
+      operation:({ hurtbox, block }) => block.a.y - hurtbox.d.y,
+    },
+    right: {
+      filter: isCollidingRight,
+      operation: ({ hurtbox, block }) => block.a.x - hurtbox.b.x,
+    },
+    left: {
+      filter: isCollidingLeft,
+      operation: ({ hurtbox, block }) => hurtbox.a.x - block.b.x,
+    },
   };
 
-  return operations[direction];
+  const distances = blocks
+    .filter((block) => directions[direction].filter(hurtbox, block, distance))
+    .map((block) =>
+      directions[direction].operation({ hurtbox, block })
+    );
+
+  distances.sort(function (a, b) {
+    return a - b;
+  });
+
+  return distances[0];
 };
 
-const blockDistance =
-  (collisionFilter, direction) =>
-  ({ hurtbox, blocks, distance }) => {
-    const distances = blocks
-      .filter((block) => collisionFilter(hurtbox, block, distance))
-      .map((block) => distanceCalculation({ hurtbox, block, direction }));
+const getXDirection = ({ hurtbox, blocks, vector, collision }) => {
+  if (!vector.x) return 0;
 
-    distances.sort(function (a, b) {
-      return a - b;
+  if (vector.x > 0) {
+    const distance = vector.x;
+
+    const blockDistance = getBlockDistance({
+      hurtbox,
+      blocks,
+      distance,
+      direction: 'right',
     });
 
-    return distances[0];
-  };
+    const screenCollision = hurtbox.b.x + distance >= SCREEN_LIMITS.x.end;
+    const screenDistance = SCREEN_LIMITS.x.end - hurtbox.b.x;
 
-const screenCollision = ({
-  hurtbox,
-  top = 0,
-  bottom = 0,
-  left = 0,
-  right = 0,
-}) => {
-  const topCollision = hurtbox.a.y - top <= SCREEN_LIMITS.y.start;
-  const bottomCollision = hurtbox.c.y + bottom >= SCREEN_LIMITS.y.end;
-  const rightCollision = hurtbox.b.x + right >= SCREEN_LIMITS.x.end;
-  const leftCollision = hurtbox.a.x - left <= SCREEN_LIMITS.x.start;
+    collision.right = blockDistance === 0 || screenCollision;
 
-  const topDistance = hurtbox.a.y - SCREEN_LIMITS.y.start;
-  const bottomDistance = SCREEN_LIMITS.y.end - hurtbox.a.y;
-  const rightDistance = SCREEN_LIMITS.x.end - hurtbox.b.x;
-  const leftDistance = hurtbox.a.x - SCREEN_LIMITS.x.start;
+    return (
+      blockDistance ??
+      (screenCollision ? screenDistance : undefined) ??
+      distance
+    );
+  }
 
-  return {
-    top: topCollision ? topDistance : undefined,
-    bottom: bottomCollision ? bottomDistance : undefined,
-    right: rightCollision ? rightDistance : undefined,
-    left: leftCollision ? leftDistance : undefined,
-  };
+  const distance = -vector.x;
+
+  const blockDistance = getBlockDistance({
+    hurtbox,
+    blocks,
+    distance,
+    direction: 'left',
+  });
+
+  const screenCollision = hurtbox.a.x + vector.x <= SCREEN_LIMITS.x.start;
+  const screenDistance = hurtbox.a.x - SCREEN_LIMITS.x.start;
+
+  collision.left = blockDistance === 0 || screenCollision;
+
+  return -(
+    blockDistance ??
+    (screenCollision ? screenDistance : undefined) ??
+    distance
+  );
 };
 
-export const distanceToAdd = ({
-  hurtbox,
-  blocks = [],
-  top = 0,
-  bottom = 0,
-  right = 0,
-  left = 0,
-}) => {
-  const topBlockDistance = blockDistance(
-    isCollidingTop,
-    'top'
-  )({
+const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
+  if (!vector.y) return 0;
+
+  if (vector.y > 0) {
+    const distance = vector.y;
+
+    const blockDistance = getBlockDistance({
+      hurtbox,
+      blocks,
+      distance,
+      direction: 'bottom',
+    });
+
+    const screenCollision = hurtbox.b.y + distance >= SCREEN_LIMITS.y.end;
+    const screenDistance = SCREEN_LIMITS.x.end - hurtbox.b.y;
+
+    collision.top = false;
+    collision.bottom = blockDistance === 0 || screenCollision;
+
+    return (
+      blockDistance ??
+      (screenCollision ? screenDistance : undefined) ??
+      distance
+    );
+  }
+
+  const distance = -vector.y;
+
+  const blockDistance = getBlockDistance({
     hurtbox,
     blocks,
-    distance: top,
+    distance,
+    direction: 'top',
   });
 
-  const bottomBlockDistance = blockDistance(
-    isCollidingBottom,
-    'bottom'
-  )({
-    hurtbox,
-    blocks,
-    distance: bottom,
-  });
+  const screenCollision = hurtbox.a.y + vector.y <= SCREEN_LIMITS.y.start;
+  const screenDistance = hurtbox.a.y - SCREEN_LIMITS.y.start;
 
-  const rightBlockDistance = blockDistance(
-    isCollidingRight,
-    'right'
-  )({
-    hurtbox,
-    blocks,
-    distance: right,
-  });
+  collision.bottom = false;
+  collision.top = blockDistance === 0 || screenCollision;
 
-  const leftBlockDistance = blockDistance(
-    isCollidingLeft,
-    'left'
-  )({
-    hurtbox,
-    blocks,
-    distance: left,
-  });
-
-  const screenCollisions = screenCollision({
-    hurtbox,
-    top,
-    bottom,
-    left,
-    right,
-  });
-
-  const topDistance = topBlockDistance ?? screenCollisions.top ?? top;
-  const bottomDistance =
-    bottomBlockDistance ?? screenCollisions.bottom ?? bottom;
-  const rightDistance = rightBlockDistance ?? screenCollisions.right ?? right;
-  const leftDistance = leftBlockDistance ?? screenCollisions.left ?? left;
-
-  const topCollision =
-    topBlockDistance == 0 || !!topBlockDistance || !!screenCollisions.top;
-  const bottomCollision =
-    bottomBlockDistance == 0 ||
-    !!bottomBlockDistance ||
-    !!screenCollisions.bottom;
-  const rightCollision =
-    rightBlockDistance == 0 || !!rightBlockDistance || !!screenCollisions.right;
-  const leftCollision =
-    leftBlockDistance == 0 || !!leftBlockDistance || !!screenCollisions.left;
-
-  return {
-    top: { distance: topDistance, collision: topCollision },
-    bottom: { distance: bottomDistance, collision: bottomCollision },
-    right: { distance: rightDistance, collision: rightCollision },
-    left: { distance: leftDistance, collision: leftCollision },
-  };
+  return -(
+    blockDistance ??
+    (screenCollision ? screenDistance : undefined) ??
+    distance
+  );
 };
+
+export const nextPosition = ({ hurtbox, blocks = [], vector, position, collision }) => {
+  const xDirection = getXDirection({ hurtbox, blocks, vector, collision });
+  const yDirection = getYDirection({ hurtbox, blocks, vector, collision });
+
+  position.x += xDirection;
+  position.y += yDirection;
+  };
 
 export const getCenterPosition = (verteces) => {
   const xCenter = (verteces.a.x + verteces.c.x) / 2;
   const yCenter = (verteces.a.y + verteces.c.y) / 2;
   return { x: xCenter, y: yCenter };
-};
-
-export const chaseDistance = ({
-  heroVerteces,
-  monsterVerteces,
-  blocksVerteces,
-  detection,
-  distance,
-}) => {
-  const heroCenter = getCenterPosition(heroVerteces);
-  const monsterCenter = getCenterPosition(monsterVerteces);
-  const distanceDiff = {
-    x: heroCenter.x - monsterCenter.x,
-    y: heroCenter.y - monsterCenter.y,
-  };
-
-  if (distanceDiff.y > detection.y || distanceDiff.y < -detection.y)
-    return { x: 0, y: 0 };
-  if (distanceDiff.x > detection.x || distanceDiff.x < -detection.x)
-    return { x: 0, y: 0 };
-
-  const {
-    left: { distance: leftDistance },
-    right: { distance: rightDistance },
-    top: { distance: topDistance },
-    bottom: { distance: bottomDistance },
-  } = distanceToAdd({
-    hurtbox: monsterVerteces,
-    top: distance,
-    bottom: distance,
-    left: distance,
-    right: distance,
-    blocks: blocksVerteces,
-  });
-
-  if (heroCenter.x < monsterCenter.x && heroCenter.y < monsterCenter.y)
-    return { x: -leftDistance, y: -topDistance };
-  if (heroCenter.x < monsterCenter.x && heroCenter.y > monsterCenter.y)
-    return { x: -leftDistance, y: bottomDistance };
-  if (heroCenter.x > monsterCenter.x && heroCenter.y < monsterCenter.y)
-    return { x: rightDistance, y: -topDistance };
-  if (heroCenter.x > monsterCenter.x && heroCenter.y > monsterCenter.y)
-    return { x: rightDistance, y: bottomDistance };
-
-  if (heroCenter.x < monsterCenter.x && heroCenter.y === monsterCenter.y)
-    return { x: -leftDistance, y: 0 };
-  if (heroCenter.x > monsterCenter.x && heroCenter.y === monsterCenter.y)
-    return { x: rightDistance, y: 0 };
-  if (heroCenter.x === monsterCenter.x && heroCenter.y < monsterCenter.y)
-    return { x: 0, y: -topDistance };
-  if (heroCenter.x === monsterCenter.x && heroCenter.y > monsterCenter.y)
-    return { x: 0, y: bottomDistance };
-
-  return { x: 0, y: 0 };
 };
 
 export const insertEffect = ({ effect, position, direction }) => {

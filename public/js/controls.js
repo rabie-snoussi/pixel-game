@@ -78,10 +78,22 @@ export default class Controls {
     if (Object.values(KEY_CODES).includes(event.keyCode))
       this.#pressed[event.keyCode] = 0;
 
-    if (event.keyCode === KEY_CODES.right) this.#onStop.right?.();
-    if (event.keyCode === KEY_CODES.left) this.#onStop.left?.();
-    if (event.keyCode === KEY_CODES.up) this.#onStop.up?.();
-    if (event.keyCode === KEY_CODES.down) this.#onStop.down?.();
+    if (event.keyCode === KEY_CODES.right) {
+      this.#onStop.right?.();
+      this.#onStop.right = null;
+    }
+    if (event.keyCode === KEY_CODES.left) {
+      this.#onStop.left?.();
+      this.#onStop.left = null;
+    }
+    if (event.keyCode === KEY_CODES.up) {
+      this.#onStop.up?.();
+      this.#onStop.up = null;
+    }
+    if (event.keyCode === KEY_CODES.down) {
+      this.#onStop.down?.();
+      this.#onStop.down = null;
+    }
   }
 
   #addEventListeners() {

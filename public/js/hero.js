@@ -5,24 +5,30 @@ import {
   MOVEMENT_INTERVAL,
   ANIMATION_INTERVAL,
   MAX_JUMPS,
-  RESOLUTION_MULTIPLIER,
+  ACCELERATION,
 } from './constants.js';
-import { distanceToAdd, sleep, cloneWithElements } from './helpers.js';
+import { sleep, cloneWithElements, nextPosition } from './helpers.js';
 
 export default class Hero {
   // Private properties
 
-  #gravityInterval;
+  #godMode = false;
   #frameCounter = 0;
-  #isJumping = false;
   #element = document.createElement('div');
   #blocksVerteces = [];
   #direction = DIRECTIONS.right;
   #action = ACTIONS.idle;
   #effects = [];
   #jumpCount = MAX_JUMPS;
+  #collision = {
+    top: false,
+    bottom: false,
+    right: false,
+    left: false,
+  };
   #hitbox = {};
   #showHitbox = false;
+  #vector = { x: 0, y: 0 };
   #hurtbox = {
     element: document.createElement('div'),
     verteces: {
@@ -94,7 +100,7 @@ export default class Hero {
       position: this.#position,
       direction: this.#direction,
       heroEffects: this.#effects,
-      showHitbox: this.#showHitbox
+      showHitbox: this.#showHitbox,
     });
   }
 
@@ -134,10 +140,9 @@ export default class Hero {
         effectElement.style.visibility = 'visible';
 
         effectElement.style.transform = frame.transform;
-        effectElement.style.backgroundPositionX =
-          frame.backgroundPositionX;
+        effectElement.style.backgroundPositionX = frame.backgroundPositionX;
 
-          if(!item.frames[item.hero.direction].length) effectElement.remove();
+        if (!item.frames[item.hero.direction].length) effectElement.remove();
       }
       if (!_.isEmpty(item.hitbox?.[item.hero.direction])) {
         const getHitbox = item.hitbox[item.hero.direction].shift();
@@ -154,71 +159,18 @@ export default class Hero {
 
         this.#hitbox = hitbox.verteces;
 
-        if(!item.frames[item.hero.direction].length) {
+        if (!item.frames[item.hero.direction].length) {
           hitboxElement.remove();
           this.#hitbox = {};
         }
       }
 
-      if(_.isEmpty(item.frames?.[item.hero.direction]) && _.isEmpty(item.hitbox?.[item.hero.direction])) 
-        this.#effects.splice(i, 1)
-    });
-  }
-
-  #animate() {
-    setInterval(() => {
-      if (this.#frameCounter >= this.#action.frames[this.#direction].length)
-        this.#frameCounter = 0;
-      this.#playEffects();
-      this.#updateFrame();
-      this.#frameCounter++;
-
       if (
-        !this.#action.loop &&
-        this.#frameCounter >= this.#action.frames[this.#direction].length
+        _.isEmpty(item.frames?.[item.hero.direction]) &&
+        _.isEmpty(item.hitbox?.[item.hero.direction])
       )
-        this.#idle();
-    }, ANIMATION_INTERVAL);
-  }
-
-  #gravity() {
-    let i = 1;
-    let doubleJump = false;
-
-    this.#gravityInterval = setInterval(() => {
-      if (this.#isJumping) return;
-
-      const {
-        bottom: { distance },
-      } = distanceToAdd({
-        hurtbox: this.#hurtbox.verteces,
-        blocks: this.#blocksVerteces,
-        bottom: i * 2,
-      });
-
-      if (!distance) {
-        this.#jumpCount = MAX_JUMPS;
-        if (i === 1) return;
-        this.#postJump();
-        doubleJump = false;
-        i = 1;
-        return;
-      }
-
-      if (this.#jumpCount === 0 && !doubleJump) {
-        doubleJump = true;
-        if (i !== 1) {
-          i = 1;
-        }
-      }
-
-      if (this.#action.name !== ACTIONS.fall.name) this.#fall();
-
-      this.#position.y += distance;
-      this.#updatePosition();
-
-      i++;
-    }, MOVEMENT_INTERVAL);
+        this.#effects.splice(i, 1);
+    });
   }
 
   #updatePosition() {
@@ -258,6 +210,11 @@ export default class Hero {
     this.#element.style.transform = frame.transform;
   }
 
+  #gravity() {
+    if (this.#godMode) return;
+    this.#vector.y += ACCELERATION;
+  }
+
   // Public methods
 
   getHurtbox() {
@@ -273,65 +230,63 @@ export default class Hero {
     this.#insertEffects();
   }
 
-  goRight() {
-    const interval = setInterval(() => {
-      if (!this.#action.canMove) return;
+  animate() {
+    if (this.#frameCounter >= this.#action.frames[this.#direction].length)
+      this.#frameCounter = 0;
+    this.#playEffects();
+    this.#updateFrame();
+    this.#frameCounter++;
 
-      if (this.#action.name !== ACTIONS.run) this.#run();
-
-      this.#direction = DIRECTIONS.right;
-
-      const {
-        right: { distance },
-      } = distanceToAdd({
-        hurtbox: this.#hurtbox.verteces,
-        blocks: this.#blocksVerteces,
-        right: HERO_SPEED,
-      });
-
-      this.#position.x += distance;
-      this.#updatePosition();
-    }, MOVEMENT_INTERVAL);
-
-    return () => {
+    if (
+      !this.#action.loop &&
+      this.#frameCounter >= this.#action.frames[this.#direction].length
+    )
       this.#idle();
-      clearInterval(interval);
-    };
+  }
+
+  loop() {
+    nextPosition({
+      hurtbox: this.#hurtbox.verteces,
+      blocks: this.#blocksVerteces,
+      vector: this.#vector,
+      position: this.#position,
+      collision: this.#collision,
+    });
+
+    if (this.#collision.bottom) {
+      this.#vector.y = 0;
+      this.#jumpCount = MAX_JUMPS;
+
+      if (this.#action.name === ACTIONS.fall.name) this.#postJump();
+      if (this.#vector.x === 0) this.#idle();
+
+      if (this.#vector.x !== 0) this.#run();
+    }
+
+    if (!this.#collision.bottom) {
+      if (this.#vector.y > 0) this.#fall();
+    }
+
+    this.#updatePosition();
+    this.#gravity();
+  }
+
+  goRight() {
+    this.#direction = DIRECTIONS.right;
+    this.#vector.x += HERO_SPEED;
+
+    return () => (this.#vector.x -= HERO_SPEED);
   }
 
   goLeft() {
-    const interval = setInterval(() => {
-      if (!this.#action.canMove) return;
+    this.#direction = DIRECTIONS.left;
+    this.#vector.x -= HERO_SPEED;
 
-      if (this.#action.name !== ACTIONS.run) this.#run();
-
-      this.#direction = DIRECTIONS.left;
-
-      const {
-        left: { distance },
-      } = distanceToAdd({
-        hurtbox: this.#hurtbox.verteces,
-        blocks: this.#blocksVerteces,
-        left: HERO_SPEED,
-      });
-
-      this.#position.x -= distance;
-
-      this.#updatePosition();
-    }, MOVEMENT_INTERVAL);
-
-    return () => {
-      this.#idle();
-      clearInterval(interval);
-    };
+    return () => (this.#vector.x += HERO_SPEED);
   }
 
   async jump() {
-    if (this.#isJumping) return;
     if (!this.#jumpCount) return;
-    if (!this.#action.canMove) return;
-
-    this.#isJumping = true;
 
     if (this.#jumpCount === 2) {
       this.#preJump();
@@ -344,67 +299,18 @@ export default class Hero {
     if (this.#jumpCount === 1) this.#doubleJump();
 
     this.#jumpCount--;
-    let i = 12;
 
-    const interval = setInterval(() => {
-      const {
-        top: { distance, collision },
-      } = distanceToAdd({
-        hurtbox: this.#hurtbox.verteces,
-        blocks: this.#blocksVerteces,
-        top: i * RESOLUTION_MULTIPLIER,
-      });
-
-      this.#position.y -= distance;
-      this.#updatePosition();
-
-      if (i <= 0 || collision) {
-        this.#isJumping = false;
-        clearInterval(interval);
-      }
-
-      i--;
-    }, MOVEMENT_INTERVAL);
+    this.#vector.y = -HERO_SPEED * 2;
   }
 
   goUp() {
-    const interval = setInterval(() => {
-      const {
-        top: { distance, collision },
-      } = distanceToAdd({
-        hurtbox: this.#hurtbox.verteces,
-        blocks: this.#blocksVerteces,
-        top: HERO_SPEED,
-      });
-
-      this.#position.y -= distance;
-
-      if (collision) clearInterval(interval);
-
-      this.#updatePosition();
-    }, 20);
-
-    return () => clearInterval(interval);
+    this.#vector.y -= HERO_SPEED;
+    return () => (this.#vector.y += HERO_SPEED);
   }
 
   goDown() {
-    const interval = setInterval(() => {
-      const {
-        bottom: { distance, collision },
-      } = distanceToAdd({
-        hurtbox: this.#hurtbox.verteces,
-        blocks: this.#blocksVerteces,
-        bottom: HERO_SPEED,
-      });
-
-      this.#position.y += distance;
-
-      if (collision) clearInterval(interval);
-
-      this.#updatePosition();
-    }, 20);
-
-    return () => clearInterval(interval);
+    this.#vector.y += HERO_SPEED;
+    return () => (this.#vector.y -= this.#vector.y);
   }
 
   showHurtbox() {
@@ -420,7 +326,7 @@ export default class Hero {
   }
 
   godMode() {
-    clearInterval(this.#gravityInterval);
+    this.#godMode = true;
   }
 
   initialize({ position, blocksVerteces }) {
@@ -436,7 +342,5 @@ export default class Hero {
     this.#blocksVerteces = blocksVerteces;
     this.#idle();
     this.#updatePosition();
-    this.#gravity();
-    this.#animate();
   }
 }

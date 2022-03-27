@@ -1,8 +1,8 @@
 import { HERO_SIZE } from '../../constants.js';
 
 export const getPosition = (x, y) => ({
-  x: Math.floor(x * HERO_SIZE),
-  y: Math.floor(y * HERO_SIZE),
+  x: x * HERO_SIZE,
+  y: y * HERO_SIZE,
 });
 
 export const getBox =
@@ -33,8 +33,8 @@ export const getBox =
   };
 
 export const getDimensions = ({ height, width }) => ({
-  height: Math.floor(height * HERO_SIZE),
-  width: Math.floor(width * HERO_SIZE),
+  height: height * HERO_SIZE,
+  width: width * HERO_SIZE,
 });
 
 export const getVerteces = ({ height, width }, initial = { x: 0, y: 0 }) => ({

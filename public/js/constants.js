@@ -39,7 +39,11 @@ export const ANIMATION_INTERVAL = 100;
 
 export const MOVEMENT_INTERVAL = 30;
 
+export const GAME_LOOP_INTERVAL = 30;
+
 export const MAX_JUMPS = 2;
+
+export const ACCELERATION = 2;
 
 export const DIRECTIONS = {
   left: 'left',
