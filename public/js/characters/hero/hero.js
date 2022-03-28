@@ -1,13 +1,12 @@
-import ACTIONS from './data/hero/hero.js';
+import ACTIONS from '../../data/characters/hero/hero.js';
 import {
   DIRECTIONS,
   HERO_SPEED,
-  MOVEMENT_INTERVAL,
   ANIMATION_INTERVAL,
   MAX_JUMPS,
   ACCELERATION,
-} from './constants.js';
-import { sleep, cloneWithElements, nextPosition } from './helpers.js';
+} from '../../constants.js';
+import { sleep, cloneWithElements, nextPosition } from '../helpers.js';
 
 export default class Hero {
   // Private properties
@@ -285,7 +284,7 @@ export default class Hero {
     return () => (this.#vector.x += HERO_SPEED);
   }
 
-  async jump() {
+  async jumpUp() {
     if (!this.#jumpCount) return;
 
     if (this.#jumpCount === 2) {
@@ -340,7 +339,5 @@ export default class Hero {
     this.#position.y = position.y;
 
     this.#blocksVerteces = blocksVerteces;
-    this.#idle();
-    this.#updatePosition();
   }
 }

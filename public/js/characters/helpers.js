@@ -1,4 +1,4 @@
-import { SCREEN_LIMITS } from './constants.js';
+import { SCREEN_LIMITS } from '../constants.js';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

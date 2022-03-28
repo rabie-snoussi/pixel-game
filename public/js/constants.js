@@ -69,6 +69,8 @@ export const HERO_EFFECTS = {
 
 export const MONSTER_ACTIONS = {
   idle: 'idle',
+  run: 'run',
+  attack: 'attack',
 };
 
 export const GOBLIN_ACTIONS = {

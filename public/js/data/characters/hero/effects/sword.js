@@ -1,4 +1,4 @@
-import { HERO_EFFECTS, HERO_IMG } from '../../../constants.js';
+import { HERO_EFFECTS, HERO_IMG } from '../../../../constants.js';
 import {
   getHitbox,
   getDimensions,

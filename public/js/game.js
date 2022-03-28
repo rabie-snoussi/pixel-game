@@ -1,9 +1,14 @@
 import Controls from './controls.js';
 import { GRID } from './data/grid.js';
-import Hero from './hero.js';
+import Hero from './characters/hero/hero.js';
 import Map from './map.js';
-import Enemy from './enemy.js';
-import { GRID_DIMENSIONS, SCREEN_LIMITS, GAME_LOOP_INTERVAL, ANIMATION_INTERVAL } from './constants.js';
+import Monster from './characters/index.js';
+import {
+  GRID_DIMENSIONS,
+  SCREEN_LIMITS,
+  GAME_LOOP_INTERVAL,
+  ANIMATION_INTERVAL,
+} from './constants.js';
 
 class Game {
   // Private Properties
@@ -11,7 +16,7 @@ class Game {
   #controls = new Controls();
   #map = new Map();
   #hero = new Hero();
-  #enemy = new Enemy();
+  #monsters;
 
   constructor() {}
 
@@ -47,7 +52,7 @@ class Game {
 
   showHurtbox() {
     this.#hero.showHurtbox();
-    this.#enemy.showHurtbox();
+    this.#monsters.map((monster) => monster.showHurtbox());
   }
 
   showHitbox() {
@@ -62,12 +67,19 @@ class Game {
   loop() {
     setInterval(() => {
       this.#hero.loop();
+      this.#monsters.forEach((monster) => {
+        monster.loop();
+      });
     }, GAME_LOOP_INTERVAL);
   }
 
   animate() {
     setInterval(() => {
       this.#hero.animate();
+
+      this.#monsters.forEach((monster) => {
+        monster.animate();
+      });
     }, ANIMATION_INTERVAL);
   }
 
@@ -79,11 +91,18 @@ class Game {
 
     this.#controls.initialize(this.#hero);
     this.#map.initialize(0);
-    this.#enemy.initialize({
-      enemies: this.#map.getEnemies(),
-      blocksVerteces: this.#map.getBlocksVerteces(),
-      heroHurtbox: this.#hero.getHurtbox(),
+
+    this.#monsters = this.#map.getEnemies().map((item) => {
+      const monster = new Monster[item.name]();
+      monster.initialize({
+        position: item.position,
+        blocksVerteces: this.#map.getBlocksVerteces(),
+        heroHurtbox: this.#hero.getHurtbox(),
+      });
+      return monster;
     });
+
+
     this.#hero.initialize({
       position: this.#map.getHeroPosition(),
       blocksVerteces: this.#map.getBlocksVerteces(),

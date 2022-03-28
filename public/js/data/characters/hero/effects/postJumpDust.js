@@ -1,4 +1,4 @@
-import { HERO_EFFECTS, HERO_IMG } from '../../../constants.js';
+import { HERO_EFFECTS, HERO_IMG } from '../../../../constants.js';
 import {
   getDimensions,
   getFrames,
@@ -6,9 +6,9 @@ import {
   getEffectPosition,
 } from '../helpers.js';
 
-const name = HERO_EFFECTS.preJumpDust;
+const name = HERO_EFFECTS.postJumpDust;
 
-const img = 'url("' + HERO_IMG.preJumpDust + '")';
+const img = 'url("' + HERO_IMG.postJumpDust + '")';
 
 const dimensions = getDimensions({ height: 16, width: 16 });
 

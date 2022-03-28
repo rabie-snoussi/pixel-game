@@ -1,4 +1,4 @@
-import { HERO_ACTIONS, HERO_IMG } from '../../../constants.js';
+import { HERO_ACTIONS, HERO_IMG } from '../../../../constants.js';
 import {
   getBox,
   getVerteces,
@@ -6,27 +6,25 @@ import {
   getFrames,
 } from '../helpers.js';
 
-const name = HERO_ACTIONS.run;
+const name = HERO_ACTIONS.preJump;
 
-const img = 'url("' + HERO_IMG.run + '")';
+const img = 'url("' + HERO_IMG.prePostJump + '")';
 
 const allowedActions = [
-    HERO_ACTIONS.idle,
-    HERO_ACTIONS.preJump,
-    HERO_ACTIONS.attack,
+    HERO_ACTIONS.jump,
 ];
 
 const dimensions = getDimensions({ height: 16, width: 16 });
 
 const verteces = getVerteces(dimensions);
 
-const frames = getFrames({ dimensions, number: 6, left: 'scaleX(-1)', right: 'none' });
+const frames = getFrames({ dimensions, number: 2, left: 'scaleX(-1)', right: 'none' });
 
 const effects = [];
 
 export default {
   name,
-  loop: true,
+  loop: false,
   canMove: true,
   img,
   effects,

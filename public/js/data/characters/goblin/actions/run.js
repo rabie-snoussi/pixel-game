@@ -1,4 +1,4 @@
-import { HERO_ACTIONS, HERO_IMG } from '../../../constants.js';
+import { GOBLIN_ACTIONS, GOBLIN_IMG } from '../../../../constants.js';
 import {
   getBox,
   getVerteces,
@@ -6,21 +6,15 @@ import {
   getFrames,
 } from '../helpers.js';
 
-const name = HERO_ACTIONS.fall;
+const name = GOBLIN_ACTIONS.run;
 
-const img = 'url("' + HERO_IMG.fall + '")';
-
-const allowedActions = [
-  HERO_ACTIONS.postJump,
-  HERO_ACTIONS.doubleJump,
-  HERO_ACTIONS.attack,
-];
+const img = 'url("' + GOBLIN_IMG.run + '")';
 
 const dimensions = getDimensions({ height: 16, width: 16 });
 
 const verteces = getVerteces(dimensions);
 
-const frames = getFrames({ dimensions, number: 3, left: 'scaleX(-1)', right: 'none' });
+const frames = getFrames({ dimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
 
 const effects = [];
 
@@ -30,7 +24,6 @@ export default {
   canMove: true,
   img,
   effects,
-  allowedActions,
   hurtbox: getBox(verteces),
   frames,
   dimensions: {

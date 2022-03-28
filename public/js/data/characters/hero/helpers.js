@@ -1,4 +1,4 @@
-import { HERO_SIZE } from '../../constants.js';
+import { HERO_SIZE } from '../../../constants.js';
 
 export const getPosition = (x, y) => ({
   x: x * HERO_SIZE,

@@ -1,4 +1,4 @@
-import { HERO_ACTIONS, HERO_IMG } from '../../../constants.js';
+import { HERO_ACTIONS, HERO_IMG } from '../../../../constants.js';
 import {
   getBox,
   getVerteces,

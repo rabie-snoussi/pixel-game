@@ -1,4 +1,4 @@
-import { HERO_ACTIONS, HERO_IMG } from '../../../constants.js';
+import { HERO_ACTIONS, HERO_IMG } from '../../../../constants.js';
 import {
   getBox,
   getVerteces,
@@ -6,13 +6,14 @@ import {
   getFrames,
 } from '../helpers.js';
 
-const name = HERO_ACTIONS.doubleJump;
+const name = HERO_ACTIONS.fall;
 
-const img = 'url("' + HERO_IMG.doubleJump + '")';
+const img = 'url("' + HERO_IMG.fall + '")';
 
 const allowedActions = [
-    HERO_ACTIONS.fall,
-    HERO_ACTIONS.attack,
+  HERO_ACTIONS.postJump,
+  HERO_ACTIONS.doubleJump,
+  HERO_ACTIONS.attack,
 ];
 
 const dimensions = getDimensions({ height: 16, width: 16 });

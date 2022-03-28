@@ -1,5 +1,4 @@
-import { HERO_ACTIONS, HERO_IMG } from '../../../constants.js';
-import postJumpDust from '../effects/postJumpDust.js';
+import { HERO_ACTIONS, HERO_IMG } from '../../../../constants.js';
 import {
   getBox,
   getVerteces,
@@ -7,25 +6,26 @@ import {
   getFrames,
 } from '../helpers.js';
 
-const name = HERO_ACTIONS.postJump;
+const name = HERO_ACTIONS.doubleJump;
 
-const img = 'url("' + HERO_IMG.prePostJump + '")';
+const img = 'url("' + HERO_IMG.doubleJump + '")';
 
 const allowedActions = [
-    HERO_ACTIONS.idle,
+    HERO_ACTIONS.fall,
+    HERO_ACTIONS.attack,
 ];
 
 const dimensions = getDimensions({ height: 16, width: 16 });
 
 const verteces = getVerteces(dimensions);
 
-const frames = getFrames({ dimensions, number: 2, left: 'scaleX(-1)', right: 'none' });
+const frames = getFrames({ dimensions, number: 3, left: 'scaleX(-1)', right: 'none' });
 
-const effects = [postJumpDust];
+const effects = [];
 
 export default {
   name,
-  loop: false,
+  loop: true,
   canMove: true,
   img,
   effects,

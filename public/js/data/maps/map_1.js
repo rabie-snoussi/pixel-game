@@ -19,7 +19,7 @@ export default {
       },
     },
     {
-      name: 'slime',
+      name: 'goblin',
       position: {
         x: 13 * GRID_DIMENSIONS.width,
         y: 8 * GRID_DIMENSIONS.height,

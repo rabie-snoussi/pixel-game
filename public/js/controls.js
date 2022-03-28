@@ -35,7 +35,7 @@ export default class Controls {
   }
 
   async #onUp() {
-    this.#onStop.up = this.#godMode ? this.#hero.goUp() : await this.#hero.jump();
+    this.#onStop.up = this.#godMode ? this.#hero.goUp() : await this.#hero.jumpUp();
   }
 
   #onDown() {
