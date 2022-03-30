@@ -251,18 +251,18 @@ export const insertHitbox = (effect, showHitbox) => {
 };
 
 export const cloneWithElements = ({
-  effects,
+  actionsEffects,
   position,
   direction,
-  heroEffects,
+  effects,
   showHitbox,
 }) => {
-  if (_.isEmpty(effects)) return heroEffects;
+  if (_.isEmpty(actionsEffects)) return effects;
 
-  const cloned = _.cloneDeep(effects);
+  const cloned = _.cloneDeep(actionsEffects);
 
   const effectWithElements = cloned.map((item) => ({
-    hero: {
+    character: {
       position: _.clone(position),
       direction: _.clone(direction),
     },
@@ -277,5 +277,5 @@ export const cloneWithElements = ({
     ...item,
   }));
 
-  return [..._.cloneDeep(heroEffects), ...effectWithElements];
+  return [..._.cloneDeep(effects), ...effectWithElements];
 };

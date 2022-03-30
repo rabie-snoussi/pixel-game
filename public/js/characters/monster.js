@@ -85,8 +85,8 @@ export default class Monster {
 
   playEffects() {
     this._effects?.forEach((item, i) => {
-      if (!_.isEmpty(item.frames?.[item.monster.direction])) {
-        const frame = item.frames[item.monster.direction].shift();
+      if (!_.isEmpty(item.frames?.[item.character.direction])) {
+        const frame = item.frames[item.character.direction].shift();
         const effectElement = item.elements.effect;
 
         effectElement.style.visibility = 'visible';
@@ -94,11 +94,11 @@ export default class Monster {
         effectElement.style.transform = frame.transform;
         effectElement.style.backgroundPositionX = frame.backgroundPositionX;
 
-        if (!item.frames[item.monster.direction].length) effectElement.remove();
+        if (!item.frames[item.character.direction].length) effectElement.remove();
       }
-      if (!_.isEmpty(item.hitbox?.[item.monster.direction])) {
-        const getHitbox = item.hitbox[item.monster.direction].shift();
-        const hitbox = getHitbox(item.monster.position);
+      if (!_.isEmpty(item.hitbox?.[item.character.direction])) {
+        const getHitbox = item.hitbox[item.character.direction].shift();
+        const hitbox = getHitbox(item.character.position);
         const hitboxElement = item.elements.hitbox;
 
         hitboxElement.style.visibility = 'visible';
@@ -111,15 +111,15 @@ export default class Monster {
 
         this._hitbox = hitbox.verteces;
 
-        if (!item.frames[item.monster.direction].length) {
+        if (!item.frames[item.character.direction].length) {
           hitboxElement.remove();
           this._hitbox = {};
         }
       }
 
       if (
-        _.isEmpty(item.frames?.[item.monster.direction]) &&
-        _.isEmpty(item.hitbox?.[item.monster.direction])
+        _.isEmpty(item.frames?.[item.character.direction]) &&
+        _.isEmpty(item.hitbox?.[item.character.direction])
       )
         this._effects.splice(i, 1);
     });

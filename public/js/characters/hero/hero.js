@@ -60,6 +60,7 @@ export default class Hero {
 
   #idle() {
     if (!this.#action.allowedActions.includes(ACTIONS.idle.name)) return;
+    if(!this.#action.loop && this.#action.frames[this.#direction].length > this.#frameCounter) return;
     this.#action = ACTIONS.idle;
     this.#frameCounter = 0;
 
@@ -95,12 +96,14 @@ export default class Hero {
 
   #insertEffects() {
     this.#effects = cloneWithElements({
-      effects: this.#action.effects,
+      actionsEffects: this.#action.effects,
       position: this.#position,
       direction: this.#direction,
-      heroEffects: this.#effects,
+      effects: this.#effects,
       showHitbox: this.#showHitbox,
     });
+
+    console.log(_.clone(this.#effects));
   }
 
   #jump() {
@@ -132,8 +135,8 @@ export default class Hero {
 
   #playEffects() {
     this.#effects?.forEach((item, i) => {
-      if (!_.isEmpty(item.frames?.[item.hero.direction])) {
-        const frame = item.frames[item.hero.direction].shift();
+      if (!_.isEmpty(item.frames?.[item.character.direction])) {
+        const frame = item.frames[item.character.direction].shift();
         const effectElement = item.elements.effect;
 
         effectElement.style.visibility = 'visible';
@@ -141,11 +144,11 @@ export default class Hero {
         effectElement.style.transform = frame.transform;
         effectElement.style.backgroundPositionX = frame.backgroundPositionX;
 
-        if (!item.frames[item.hero.direction].length) effectElement.remove();
+        if (!item.frames[item.character.direction].length) effectElement.remove();
       }
-      if (!_.isEmpty(item.hitbox?.[item.hero.direction])) {
-        const getHitbox = item.hitbox[item.hero.direction].shift();
-        const hitbox = getHitbox(item.hero.position);
+      if (!_.isEmpty(item.hitbox?.[item.character.direction])) {
+        const getHitbox = item.hitbox[item.character.direction].shift();
+        const hitbox = getHitbox(item.character.position);
         const hitboxElement = item.elements.hitbox;
 
         hitboxElement.style.visibility = 'visible';
@@ -158,15 +161,15 @@ export default class Hero {
 
         this.#hitbox = hitbox.verteces;
 
-        if (!item.frames[item.hero.direction].length) {
+        if (!item.frames[item.character.direction].length) {
           hitboxElement.remove();
           this.#hitbox = {};
         }
       }
 
       if (
-        _.isEmpty(item.frames?.[item.hero.direction]) &&
-        _.isEmpty(item.hitbox?.[item.hero.direction])
+        _.isEmpty(item.frames?.[item.character.direction]) &&
+        _.isEmpty(item.hitbox?.[item.character.direction])
       )
         this.#effects.splice(i, 1);
     });
