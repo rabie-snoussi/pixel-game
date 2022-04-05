@@ -15,6 +15,7 @@ export const GOBLIN_IMG = {
   idle: './assets/enemies/goblin/goblin_idle_anim_strip_4.png',
   run: './assets/enemies/goblin/goblin_run_anim_strip_6.png',
   attack: './assets/enemies/goblin/goblin_attack_anim_strip_4.png',
+  hit: './assets/enemies/goblin/goblin_hit_anim_strip_3.png'
 };
 
 export const SLIME_IMG = {
@@ -71,12 +72,14 @@ export const MONSTER_ACTIONS = {
   idle: 'idle',
   run: 'run',
   attack: 'attack',
+  hit: 'hit'
 };
 
 export const GOBLIN_ACTIONS = {
   idle: 'idle',
   run: 'run',
   attack: 'attack',
+  hit: 'hit'
 };
 
 export const SLIME_ACTIONS = {

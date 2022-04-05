@@ -216,7 +216,7 @@ export const getCenterPosition = (verteces) => {
 };
 
 export const insertEffect = ({ effect, position, direction }) => {
-  if(!effect.img) return;
+  if (!effect.img) return;
   const effectPosition = effect.position(position)[direction];
 
   const element = document.createElement('div');
@@ -303,4 +303,13 @@ export const heroChase = ({ verteces, heroVerteces, vector, distance }) => {
 
   if (heroPos.x < monsterPos.x) vector.x = -2;
   if (heroPos.x > monsterPos.x) vector.x = 2;
+};
+
+export const isColliding = (verteces1, verteces2) => {
+  const topCollision = isCollidingTop(verteces1, verteces2);
+  const bottomCollision = isCollidingBottom(verteces1, verteces2);
+  const rightCollision = isCollidingRight(verteces1, verteces2);
+  const leftCollision = isCollidingLeft(verteces1, verteces2);
+
+  return topCollision || bottomCollision || rightCollision || leftCollision;
 };

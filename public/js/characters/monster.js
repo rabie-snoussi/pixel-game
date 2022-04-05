@@ -5,13 +5,13 @@ export default class Monster {
   constructor({ actions }) {
     this._frameCounter = 0;
     this._element = document.createElement('div');
-    this._blocksVerteces = [];
-    this._direction = DIRECTIONS.left;
+    this.blocksVerteces = [];
+    this.direction = DIRECTIONS.left;
     this._actions = actions;
-    this._action = {};
+    this.action = {};
     this._effects = [];
     this._imgPosition = { x: 0, y: 0 };
-    this._collision = {
+    this.collision = {
       top: false,
       bottom: false,
       right: false,
@@ -19,7 +19,7 @@ export default class Monster {
     };
     this._hitbox = {};
     this._showHitbox = false;
-    this._vector = { x: 0, y: 0 };
+    this.vector = { x: 0, y: 0 };
     this.hero = {};
     this.hurtbox = {
       element: document.createElement('div'),
@@ -42,44 +42,53 @@ export default class Monster {
         },
       },
     };
-    this._position = {
+    this.position = {
       x: 0,
       y: 0,
     };
   }
 
   idle() {
-    if (this._action.name === MONSTER_ACTIONS.idle) return;
+    if (this.action.name === MONSTER_ACTIONS.idle) return;
     if (
-      !this._action.loop &&
-      this._action.frames[this._direction].length > this._frameCounter
+      !this.action.loop &&
+      this.action.frames[this.direction].length > this._frameCounter
     )
       return;
 
-    this._action = this._actions.idle;
+    this.action = this._actions.idle;
+    this._frameCounter = 0;
+
+    this.insertEffects();
+  }
+
+  hit() {
+    if (this.action.name === MONSTER_ACTIONS.hit) return;
+
+    this.action = this._actions.hit;
     this._frameCounter = 0;
 
     this.insertEffects();
   }
 
   run() {
-    if (this._action.name === MONSTER_ACTIONS.run) return;
+    if (this.action.name === MONSTER_ACTIONS.run) return;
     if (
-      !this._action.loop &&
-      this._action.frames[this._direction].length > this._frameCounter
+      !this.action.loop &&
+      this.action.frames[this.direction].length > this._frameCounter
     )
       return;
 
-    this._action = this._actions.run;
+    this.action = this._actions.run;
     this._frameCounter = 0;
 
     this.insertEffects();
   }
 
   attack() {
-    if (this._action.name === MONSTER_ACTIONS.attack) return;
+    if (this.action.name === MONSTER_ACTIONS.attack) return;
 
-    this._action = this._actions.attack;
+    this.action = this._actions.attack;
     this._frameCounter = 0;
 
     this.insertEffects();
@@ -87,9 +96,9 @@ export default class Monster {
 
   insertEffects() {
     this._effects = cloneWithElements({
-      actionEffects: this._action.effects,
-      position: this._position,
-      direction: this._direction,
+      actionEffects: this.action.effects,
+      position: this.position,
+      direction: this.direction,
       effects: this._effects,
       showHitbox: this._showHitbox,
     });
@@ -139,9 +148,9 @@ export default class Monster {
   }
 
   updatePosition() {
-    if (this._action.img === this._element.style.backgroundImage)
-      this._imgPosition = this._action.getPosition(this._position)[
-        this._direction
+    if (this.action.img === this._element.style.backgroundImage)
+      this._imgPosition = this.action.getPosition(this.position)[
+        this.direction
       ];
 
     this._element.style.top = this._imgPosition.y + 'px';
@@ -151,30 +160,30 @@ export default class Monster {
   }
 
   updateHurtbox() {
-    this.hurtbox.verteces = this._action.hurtbox(this._position).verteces;
+    this.hurtbox.verteces = this.action.hurtbox(this.position).verteces;
 
-    this.hurtbox.element.style.top = this._action.hurtbox(
-      this._position
+    this.hurtbox.element.style.top = this.action.hurtbox(
+      this.position
     ).position.top;
-    this.hurtbox.element.style.left = this._action.hurtbox(
-      this._position
+    this.hurtbox.element.style.left = this.action.hurtbox(
+      this.position
     ).position.left;
 
-    this.hurtbox.element.style.width = this._action.hurtbox(
-      this._position
+    this.hurtbox.element.style.width = this.action.hurtbox(
+      this.position
     ).dimensions.width;
-    this.hurtbox.element.style.height = this._action.hurtbox(
-      this._position
+    this.hurtbox.element.style.height = this.action.hurtbox(
+      this.position
     ).dimensions.height;
   }
 
   updateFrame() {
-    this._element.style.backgroundImage = this._action.img;
+    this._element.style.backgroundImage = this.action.img;
 
-    this._element.style.height = this._action.dimensions.height;
-    this._element.style.width = this._action.dimensions.width;
+    this._element.style.height = this.action.dimensions.height;
+    this._element.style.width = this.action.dimensions.width;
 
-    const frame = this._action.frames[this._direction][this._frameCounter];
+    const frame = this.action.frames[this.direction][this._frameCounter];
 
     this._element.style.backgroundPositionX = frame.backgroundPositionX;
     this._element.style.transform = frame.transform;
@@ -183,19 +192,19 @@ export default class Monster {
   }
 
   gravity() {
-    this._vector.y += ACCELERATION;
+    this.vector.y += ACCELERATION;
   }
 
   animate() {
-    if (this._frameCounter >= this._action.frames[this._direction].length)
+    if (this._frameCounter >= this.action.frames[this.direction].length)
       this._frameCounter = 0;
     this.playEffects();
     this.updateFrame();
     this._frameCounter++;
 
     if (
-      !this._action.loop &&
-      this._frameCounter >= this._action.frames[this._direction].length
+      !this.action.loop &&
+      this._frameCounter >= this.action.frames[this.direction].length
     )
       this.idle();
   }
@@ -203,16 +212,16 @@ export default class Monster {
   loop() {
     nextPosition({
       hurtbox: this.hurtbox.verteces,
-      blocks: this._blocksVerteces,
-      vector: this._vector,
-      position: this._position,
-      collision: this._collision,
+      blocks: this.blocksVerteces,
+      vector: this.vector,
+      position: this.position,
+      collision: this.collision,
     });
 
-    if (this._collision.bottom) {
-      this._vector.y = 0;
+    if (this.collision.bottom) {
+      this.vector.y = 0;
 
-      if (this._vector.x === 0) this.idle();
+      if (this.vector.x === 0) this.idle();
     }
 
     this.updatePosition();
@@ -238,12 +247,12 @@ export default class Monster {
 
     document.getElementById('game').appendChild(this._element);
 
-    this._action = this._actions.idle;
+    this.action = this._actions.idle;
 
-    this._position.x = position.x;
-    this._position.y = position.y;
+    this.position.x = position.x;
+    this.position.y = position.y;
 
     this.hero = hero;
-    this._blocksVerteces = blocksVerteces;
+    this.blocksVerteces = blocksVerteces;
   }
 }

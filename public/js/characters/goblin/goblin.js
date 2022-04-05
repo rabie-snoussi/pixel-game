@@ -8,6 +8,7 @@ import {
 } from '../../constants.js';
 import {
   heroChase,
+  isColliding,
   isCollidingLeft,
   isCollidingRight,
   nextPosition,
@@ -16,59 +17,76 @@ import {
 export default class Goblin extends Monster {
   constructor() {
     super({ actions: GOBLIN_IMGS });
-    this._heroCollision = false;
-    this._isAttacking = false;
-    this._attackInterval = null;
+    this.heroCollision = false;
+    this.isAttacking = false;
+    this.attackInterval = null;
+    this.isHit = false;
   }
 
-  async attackInterval() {
-    this._isAttacking = true;
+  attacking() {
+    this.isAttacking = true;
     this.attack();
-    this._attackInterval = setInterval(() => {
+    this.attackInterval = setInterval(() => {
       this.attack();
     }, GOBLIN_ATTACK_INTERVAL);
   }
 
-  async loop() {
-    if (!this._isAttacking)
+  loop() {
+    if (
+      !_.isEmpty(this.hero.hitbox) &&
+      isColliding(this.hero.hitbox, this.hurtbox.verteces) &&
+      !this.isHit
+    ) {
+      this.hit();
+      this.isHit = true;
+      this.vector.y -= 10;
+    }
+
+    if (this.isHit && this.action.name !== MONSTER_ACTIONS.hit) {
+      this.isHit = false;
+    }
+
+    if (!this.isAttacking && !this.isHit) {
       heroChase({
         verteces: this.hurtbox.verteces,
         heroVerteces: this.hero.hurtbox.verteces,
-        vector: this._vector,
+        vector: this.vector,
         distance: {
           x: GRID_DIMENSIONS.width * 5,
           y: GRID_DIMENSIONS.height * 2,
         },
       });
+    }
 
-    this._heroCollision =
+    this.heroCollision =
       isCollidingLeft(this.hurtbox.verteces, this.hero.hurtbox.verteces) ||
       isCollidingRight(this.hurtbox.verteces, this.hero.hurtbox.verteces);
 
-    if (this._heroCollision) this._vector.x = 0;
-    if (!this._heroCollision && this._action.name !== MONSTER_ACTIONS.attack) {
-      this._isAttacking = false;
-      clearInterval(this._attackInterval);
+    if (this.heroCollision || this.isHit || this.isAttacking) this.vector.x = 0;
+    if (!this.heroCollision && this.action.name !== MONSTER_ACTIONS.attack) {
+      this.isAttacking = false;
+      clearInterval(this.attackInterval);
     }
 
     nextPosition({
       hurtbox: this.hurtbox.verteces,
-      blocks: this._blocksVerteces,
-      vector: this._vector,
-      position: this._position,
-      collision: this._collision,
+      blocks: this.blocksVerteces,
+      vector: this.vector,
+      position: this.position,
+      collision: this.collision,
     });
 
-    if (this._vector.x !== 0) this.run();
+    if (this.vector.x !== 0) this.run();
 
-    if (this._vector.x > 0) this._direction = DIRECTIONS.right;
-    if (this._vector.x < 0) this._direction = DIRECTIONS.left;
+    if (this.vector.x > 0) this.direction = DIRECTIONS.right;
+    if (this.vector.x < 0) this.direction = DIRECTIONS.left;
 
-    if (this._collision.bottom) {
-      this._vector.y = 0;
+    if (this.collision.bottom) {
+      this.vector.y = 0;
 
-      if (this._vector.x === 0) {
-        if (this._heroCollision && !this._isAttacking) this.attackInterval();
+      if (this.vector.x === 0) {
+        if (this.heroCollision && !this.isAttacking && !this.isHit)
+          this.attacking();
         else this.idle();
       }
     }
