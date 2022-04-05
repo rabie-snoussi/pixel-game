@@ -57,6 +57,7 @@ class Game {
 
   showHitbox() {
     this.#hero.showHitbox();
+    this.#monsters.map((monster) => monster.showHitbox());
   }
 
   godMode() {
@@ -97,7 +98,7 @@ class Game {
       monster.initialize({
         position: item.position,
         blocksVerteces: this.#map.getBlocksVerteces(),
-        heroHurtbox: this.#hero.getHurtbox(),
+        hero: this.#hero,
       });
       return monster;
     });

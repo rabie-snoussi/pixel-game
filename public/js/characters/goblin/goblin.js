@@ -1,6 +1,11 @@
 import Monster from '../monster.js';
 import GOBLIN_IMGS from '../../data/characters/goblin/goblin.js';
-import { DIRECTIONS, GRID_DIMENSIONS, GOBLIN_ATTACK_INTERVAL } from '../../constants.js';
+import {
+  DIRECTIONS,
+  GRID_DIMENSIONS,
+  GOBLIN_ATTACK_INTERVAL,
+  MONSTER_ACTIONS,
+} from '../../constants.js';
 import {
   heroChase,
   isCollidingLeft,
@@ -25,25 +30,29 @@ export default class Goblin extends Monster {
   }
 
   async loop() {
-    heroChase({
-      verteces: this._hurtbox.verteces,
-      heroVerteces: this._heroHurtbox.verteces,
-      vector: this._vector,
-      distance: { x: GRID_DIMENSIONS.width * 5, y: GRID_DIMENSIONS.height * 2 },
-    });
+    if (!this._isAttacking)
+      heroChase({
+        verteces: this.hurtbox.verteces,
+        heroVerteces: this.hero.hurtbox.verteces,
+        vector: this._vector,
+        distance: {
+          x: GRID_DIMENSIONS.width * 5,
+          y: GRID_DIMENSIONS.height * 2,
+        },
+      });
 
     this._heroCollision =
-      isCollidingLeft(this._hurtbox.verteces, this._heroHurtbox.verteces) ||
-      isCollidingRight(this._hurtbox.verteces, this._heroHurtbox.verteces);
+      isCollidingLeft(this.hurtbox.verteces, this.hero.hurtbox.verteces) ||
+      isCollidingRight(this.hurtbox.verteces, this.hero.hurtbox.verteces);
 
     if (this._heroCollision) this._vector.x = 0;
-    if (!this._heroCollision) {
+    if (!this._heroCollision && this._action.name !== MONSTER_ACTIONS.attack) {
       this._isAttacking = false;
       clearInterval(this._attackInterval);
     }
 
     nextPosition({
-      hurtbox: this._hurtbox.verteces,
+      hurtbox: this.hurtbox.verteces,
       blocks: this._blocksVerteces,
       vector: this._vector,
       position: this._position,

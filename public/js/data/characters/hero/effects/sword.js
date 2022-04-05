@@ -37,9 +37,9 @@ const hitboxInitialPositions = {
 
 const hitbox = getHitbox(hitboxDimensions, hitboxInitialPositions);
 
-const swordPosition = { left: getPosition(-16, 0), right: getPosition(16, 0) };
+const imgPosition = { left: getPosition(-16, 0), right: getPosition(16, 0) };
 
-const position = getEffectPosition(swordPosition);
+const position = getEffectPosition(imgPosition);
 
 const frames = getFrames({
   dimensions,

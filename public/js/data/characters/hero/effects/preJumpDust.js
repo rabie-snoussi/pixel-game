@@ -12,9 +12,9 @@ const img = 'url("' + HERO_IMG.preJumpDust + '")';
 
 const dimensions = getDimensions({ height: 16, width: 16 });
 
-const dustPosition = { left: getPosition(0, 0), right: getPosition(0, 0) };
+const imgPosition = { left: getPosition(0, 0), right: getPosition(0, 0) };
 
-const position = getEffectPosition(dustPosition);
+const position = getEffectPosition(imgPosition);
 
 const frames = getFrames({
   dimensions,

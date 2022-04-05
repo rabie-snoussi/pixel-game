@@ -20,8 +20,8 @@ export default class Monster {
     this._hitbox = {};
     this._showHitbox = false;
     this._vector = { x: 0, y: 0 };
-    this._heroHurtbox = {};
-    this._hurtbox = {
+    this.hero = {};
+    this.hurtbox = {
       element: document.createElement('div'),
       verteces: {
         a: {
@@ -124,7 +124,7 @@ export default class Monster {
 
         this._hitbox = hitbox.verteces;
 
-        if (!item.frames[item.character.direction].length) {
+        if (!item.hitbox[item.character.direction].length) {
           hitboxElement.remove();
           this._hitbox = {};
         }
@@ -151,19 +151,19 @@ export default class Monster {
   }
 
   updateHurtbox() {
-    this._hurtbox.verteces = this._action.hurtbox(this._position).verteces;
+    this.hurtbox.verteces = this._action.hurtbox(this._position).verteces;
 
-    this._hurtbox.element.style.top = this._action.hurtbox(
+    this.hurtbox.element.style.top = this._action.hurtbox(
       this._position
     ).position.top;
-    this._hurtbox.element.style.left = this._action.hurtbox(
+    this.hurtbox.element.style.left = this._action.hurtbox(
       this._position
     ).position.left;
 
-    this._hurtbox.element.style.width = this._action.hurtbox(
+    this.hurtbox.element.style.width = this._action.hurtbox(
       this._position
     ).dimensions.width;
-    this._hurtbox.element.style.height = this._action.hurtbox(
+    this.hurtbox.element.style.height = this._action.hurtbox(
       this._position
     ).dimensions.height;
   }
@@ -202,7 +202,7 @@ export default class Monster {
 
   loop() {
     nextPosition({
-      hurtbox: this._hurtbox.verteces,
+      hurtbox: this.hurtbox.verteces,
       blocks: this._blocksVerteces,
       vector: this._vector,
       position: this._position,
@@ -220,18 +220,18 @@ export default class Monster {
   }
 
   showHurtbox() {
-    this._hurtbox.element.style.position = 'absolute';
-    this._hurtbox.element.style.border = '1px solid red';
-    this._hurtbox.element.style.boxSizing = 'border-box';
+    this.hurtbox.element.style.position = 'absolute';
+    this.hurtbox.element.style.border = '1px solid red';
+    this.hurtbox.element.style.boxSizing = 'border-box';
 
-    document.getElementById('game').appendChild(this._hurtbox.element);
+    document.getElementById('game').appendChild(this.hurtbox.element);
   }
 
   showHitbox() {
     this._showHitbox = true;
   }
 
-  initialize({ position, blocksVerteces, heroHurtbox }) {
+  initialize({ position, blocksVerteces, hero }) {
     this._element.style.position = 'absolute';
     this._element.style.backgroundSize = 'cover';
     this._element.style.imageRendering = 'pixelated';
@@ -243,7 +243,7 @@ export default class Monster {
     this._position.x = position.x;
     this._position.y = position.y;
 
-    this._heroHurtbox = heroHurtbox;
+    this.hero = hero;
     this._blocksVerteces = blocksVerteces;
   }
 }

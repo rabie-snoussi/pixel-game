@@ -1,4 +1,5 @@
 import { GOBLIN_ACTIONS, GOBLIN_IMG } from '../../../../constants.js';
+import attack from '../effects/attack.js';
 import {
   getBox,
   getVerteces,
@@ -19,7 +20,7 @@ const frameDimensions = getDimensions({ height: 16, width: 24 });
 
 const frames = getFrames({ dimensions: frameDimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
 
-const effects = [];
+const effects = [attack];
 
 const position = {
   right: { x: 0, y: 0 },

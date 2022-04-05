@@ -216,6 +216,7 @@ export const getCenterPosition = (verteces) => {
 };
 
 export const insertEffect = ({ effect, position, direction }) => {
+  if(!effect.img) return;
   const effectPosition = effect.position(position)[direction];
 
   const element = document.createElement('div');
@@ -255,15 +256,15 @@ export const insertHitbox = (effect, showHitbox) => {
 };
 
 export const cloneWithElements = ({
-  actionsEffects,
+  actionEffects,
   position,
   direction,
   effects,
   showHitbox,
 }) => {
-  if (_.isEmpty(actionsEffects)) return effects;
+  if (_.isEmpty(actionEffects)) return effects;
 
-  const cloned = _.cloneDeep(actionsEffects);
+  const cloned = _.cloneDeep(actionEffects);
 
   const effectWithElements = cloned.map((item) => ({
     character: {

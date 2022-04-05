@@ -25,36 +25,38 @@ export default class Hero {
     right: false,
     left: false,
   };
-  #hitbox = {};
   #showHitbox = false;
   #vector = { x: 0, y: 0 };
-  #hurtbox = {
-    element: document.createElement('div'),
-    verteces: {
-      a: {
-        x: 0,
-        y: 0,
-      },
-      b: {
-        x: 0,
-        y: 0,
-      },
-      c: {
-        x: 0,
-        y: 0,
-      },
-      d: {
-        x: 0,
-        y: 0,
-      },
-    },
-  };
+
   #position = {
     x: 0,
     y: 0,
   };
 
-  constructor() {}
+  constructor() {
+    this.hitbox = {};
+    this.hurtbox = {
+      element: document.createElement('div'),
+      verteces: {
+        a: {
+          x: 0,
+          y: 0,
+        },
+        b: {
+          x: 0,
+          y: 0,
+        },
+        c: {
+          x: 0,
+          y: 0,
+        },
+        d: {
+          x: 0,
+          y: 0,
+        },
+      },
+    };
+  }
 
   // Private methods
 
@@ -96,7 +98,7 @@ export default class Hero {
 
   #insertEffects() {
     this.#effects = cloneWithElements({
-      actionsEffects: this.#action.effects,
+      actionEffects: this.#action.effects,
       position: this.#position,
       direction: this.#direction,
       effects: this.#effects,
@@ -157,11 +159,11 @@ export default class Hero {
         hitboxElement.style.top = hitbox.position.top;
         hitboxElement.style.left = hitbox.position.left;
 
-        this.#hitbox = hitbox.verteces;
+        this.hitbox = hitbox.verteces;
 
         if (!item.frames[item.character.direction].length) {
           hitboxElement.remove();
-          this.#hitbox = {};
+          this.hitbox = {};
         }
       }
 
@@ -181,19 +183,19 @@ export default class Hero {
   }
 
   #updateHurtbox() {
-    this.#hurtbox.verteces = this.#action.hurtbox(this.#position).verteces;
+    this.hurtbox.verteces = this.#action.hurtbox(this.#position).verteces;
 
-    this.#hurtbox.element.style.top = this.#action.hurtbox(
+    this.hurtbox.element.style.top = this.#action.hurtbox(
       this.#position
     ).position.top;
-    this.#hurtbox.element.style.left = this.#action.hurtbox(
+    this.hurtbox.element.style.left = this.#action.hurtbox(
       this.#position
     ).position.left;
 
-    this.#hurtbox.element.style.width = this.#action.hurtbox(
+    this.hurtbox.element.style.width = this.#action.hurtbox(
       this.#position
     ).dimensions.width;
-    this.#hurtbox.element.style.height = this.#action.hurtbox(
+    this.hurtbox.element.style.height = this.#action.hurtbox(
       this.#position
     ).dimensions.height;
   }
@@ -218,7 +220,7 @@ export default class Hero {
   // Public methods
 
   getHurtbox() {
-    return this.#hurtbox;
+    return this.hurtbox;
   }
 
   attack() {
@@ -246,7 +248,7 @@ export default class Hero {
 
   loop() {
     nextPosition({
-      hurtbox: this.#hurtbox.verteces,
+      hurtbox: this.hurtbox.verteces,
       blocks: this.#blocksVerteces,
       vector: this.#vector,
       position: this.#position,
@@ -314,11 +316,11 @@ export default class Hero {
   }
 
   showHurtbox() {
-    this.#hurtbox.element.style.position = 'absolute';
-    this.#hurtbox.element.style.border = '1px solid green';
-    this.#hurtbox.element.style.boxSizing = 'border-box';
+    this.hurtbox.element.style.position = 'absolute';
+    this.hurtbox.element.style.border = '1px solid green';
+    this.hurtbox.element.style.boxSizing = 'border-box';
 
-    document.getElementById('game').appendChild(this.#hurtbox.element);
+    document.getElementById('game').appendChild(this.hurtbox.element);
   }
 
   showHitbox() {
