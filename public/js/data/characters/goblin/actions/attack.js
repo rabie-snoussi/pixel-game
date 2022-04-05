@@ -4,6 +4,7 @@ import {
   getVerteces,
   getDimensions,
   getFrames,
+  addPosition,
 } from '../helpers.js';
 
 const name = GOBLIN_ACTIONS.attack;
@@ -14,20 +15,30 @@ const dimensions = getDimensions({ height: 16, width: 16 });
 
 const verteces = getVerteces(dimensions);
 
-const frames = getFrames({ dimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
+const frameDimensions = getDimensions({ height: 16, width: 24 });
+
+const frames = getFrames({ dimensions: frameDimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
 
 const effects = [];
 
+const position = {
+  right: { x: 0, y: 0 },
+  left: { x: -8, y: 0 },
+};
+
+const getPosition = addPosition(position);
+
 export default {
   name,
-  loop: true,
+  loop: false,
   canMove: true,
   img,
   effects,
   hurtbox: getBox(verteces),
   frames,
   dimensions: {
-    height: dimensions.height + 'px',
-    width: dimensions.width + 'px',
+    height: frameDimensions.height + 'px',
+    width: frameDimensions.width + 'px',
   },
+  getPosition
 };

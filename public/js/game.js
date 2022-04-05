@@ -107,15 +107,15 @@ class Game {
       position: this.#map.getHeroPosition(),
       blocksVerteces: this.#map.getBlocksVerteces(),
     });
-    this.loop();
     this.animate();
+    this.loop();
   }
 }
 
 const game = new Game();
 
 game.initialize();
-// game.godMode();
+game.godMode();
 // game.showGrid();
 game.showHurtbox();
 game.showHitbox();

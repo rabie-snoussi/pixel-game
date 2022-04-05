@@ -5,6 +5,24 @@ export const getPosition = (x, y) => ({
   y: y * GOBLIN_SIZE,
 });
 
+export const addPosition =
+  ({ right, left }) =>
+  (position) => {
+    const rightInitialPos = getPosition(right.x, right.y);
+    const rightPosition = {
+      x: position.x + rightInitialPos.x,
+      y: position.y + rightInitialPos.y,
+    };
+
+    const leftInitialPos = getPosition(left.x, left.y);
+    const leftPosition = {
+      x: position.x + leftInitialPos.x,
+      y: position.y + leftInitialPos.y,
+    };
+
+    return { right: rightPosition, left: leftPosition };
+  };
+
 export const getBox =
   ({ a, b, c, d }) =>
   (monsterPos) => {

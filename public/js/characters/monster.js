@@ -10,6 +10,7 @@ export default class Monster {
     this._actions = actions;
     this._action = {};
     this._effects = [];
+    this._imgPosition = { x: 0, y: 0 };
     this._collision = {
       top: false,
       bottom: false,
@@ -19,6 +20,7 @@ export default class Monster {
     this._hitbox = {};
     this._showHitbox = false;
     this._vector = { x: 0, y: 0 };
+    this._heroHurtbox = {};
     this._hurtbox = {
       element: document.createElement('div'),
       verteces: {
@@ -47,7 +49,12 @@ export default class Monster {
   }
 
   idle() {
-    if(this._action.name === MONSTER_ACTIONS.idle) return;
+    if (this._action.name === MONSTER_ACTIONS.idle) return;
+    if (
+      !this._action.loop &&
+      this._action.frames[this._direction].length > this._frameCounter
+    )
+      return;
 
     this._action = this._actions.idle;
     this._frameCounter = 0;
@@ -56,7 +63,12 @@ export default class Monster {
   }
 
   run() {
-    if(this._action.name === MONSTER_ACTIONS.run) return;
+    if (this._action.name === MONSTER_ACTIONS.run) return;
+    if (
+      !this._action.loop &&
+      this._action.frames[this._direction].length > this._frameCounter
+    )
+      return;
 
     this._action = this._actions.run;
     this._frameCounter = 0;
@@ -65,7 +77,7 @@ export default class Monster {
   }
 
   attack() {
-    if(this._action.name === MONSTER_ACTIONS.attack) return;
+    if (this._action.name === MONSTER_ACTIONS.attack) return;
 
     this._action = this._actions.attack;
     this._frameCounter = 0;
@@ -94,7 +106,8 @@ export default class Monster {
         effectElement.style.transform = frame.transform;
         effectElement.style.backgroundPositionX = frame.backgroundPositionX;
 
-        if (!item.frames[item.character.direction].length) effectElement.remove();
+        if (!item.frames[item.character.direction].length)
+          effectElement.remove();
       }
       if (!_.isEmpty(item.hitbox?.[item.character.direction])) {
         const getHitbox = item.hitbox[item.character.direction].shift();
@@ -126,8 +139,13 @@ export default class Monster {
   }
 
   updatePosition() {
-    this._element.style.top = this._position.y + 'px';
-    this._element.style.left = this._position.x + 'px';
+    if (this._action.img === this._element.style.backgroundImage)
+      this._imgPosition = this._action.getPosition(this._position)[
+        this._direction
+      ];
+
+    this._element.style.top = this._imgPosition.y + 'px';
+    this._element.style.left = this._imgPosition.x + 'px';
 
     this.updateHurtbox();
   }
@@ -160,20 +178,12 @@ export default class Monster {
 
     this._element.style.backgroundPositionX = frame.backgroundPositionX;
     this._element.style.transform = frame.transform;
+
+    this.updatePosition();
   }
 
   gravity() {
     this._vector.y += ACCELERATION;
-  }
-
-  attack() {
-    if (!this._action.allowedActions.includes(this._actions.attack.name))
-      return;
-
-    this._action = this._actions.attack;
-    this._frameCounter = 0;
-
-    this.insertEffects();
   }
 
   animate() {
@@ -191,7 +201,6 @@ export default class Monster {
   }
 
   loop() {
-
     nextPosition({
       hurtbox: this._hurtbox.verteces,
       blocks: this._blocksVerteces,
@@ -201,6 +210,8 @@ export default class Monster {
     });
 
     if (this._collision.bottom) {
+      this._vector.y = 0;
+
       if (this._vector.x === 0) this.idle();
     }
 
@@ -220,7 +231,7 @@ export default class Monster {
     this._showHitbox = true;
   }
 
-  initialize({ position, blocksVerteces }) {
+  initialize({ position, blocksVerteces, heroHurtbox }) {
     this._element.style.position = 'absolute';
     this._element.style.backgroundSize = 'cover';
     this._element.style.imageRendering = 'pixelated';
@@ -232,6 +243,7 @@ export default class Monster {
     this._position.x = position.x;
     this._position.y = position.y;
 
+    this._heroHurtbox = heroHurtbox;
     this._blocksVerteces = blocksVerteces;
   }
 }

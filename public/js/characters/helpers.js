@@ -78,7 +78,7 @@ const getBlockDistance = ({ hurtbox, blocks, distance, direction }) => {
     },
     bottom: {
       filter: isCollidingBottom,
-      operation:({ hurtbox, block }) => block.a.y - hurtbox.d.y,
+      operation: ({ hurtbox, block }) => block.a.y - hurtbox.d.y,
     },
     right: {
       filter: isCollidingRight,
@@ -92,9 +92,7 @@ const getBlockDistance = ({ hurtbox, blocks, distance, direction }) => {
 
   const distances = blocks
     .filter((block) => directions[direction].filter(hurtbox, block, distance))
-    .map((block) =>
-      directions[direction].operation({ hurtbox, block })
-    );
+    .map((block) => directions[direction].operation({ hurtbox, block }));
 
   distances.sort(function (a, b) {
     return a - b;
@@ -197,13 +195,19 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
   );
 };
 
-export const nextPosition = ({ hurtbox, blocks = [], vector, position, collision }) => {
+export const nextPosition = ({
+  hurtbox,
+  blocks = [],
+  vector,
+  position,
+  collision,
+}) => {
   const xDirection = getXDirection({ hurtbox, blocks, vector, collision });
   const yDirection = getYDirection({ hurtbox, blocks, vector, collision });
 
   position.x += xDirection;
   position.y += yDirection;
-  };
+};
 
 export const getCenterPosition = (verteces) => {
   const xCenter = (verteces.a.x + verteces.c.x) / 2;
@@ -278,4 +282,24 @@ export const cloneWithElements = ({
   }));
 
   return [..._.cloneDeep(effects), ...effectWithElements];
+};
+
+export const heroDetection = ({ monsterPos, heroPos, distance }) =>
+  !!(
+    heroPos.x - distance.x < monsterPos.x &&
+    heroPos.x + distance.x > monsterPos.x &&
+    heroPos.y - distance.y < monsterPos.y &&
+    heroPos.y + distance.y > monsterPos.y
+  );
+
+export const heroChase = ({ verteces, heroVerteces, vector, distance }) => {
+  const heroPos = getCenterPosition(heroVerteces);
+  const monsterPos = getCenterPosition(verteces);
+
+  const isDetected = heroDetection({ monsterPos, heroPos, distance });
+
+  if (!isDetected) return (vector.x = 0);
+
+  if (heroPos.x < monsterPos.x) vector.x = -2;
+  if (heroPos.x > monsterPos.x) vector.x = 2;
 };

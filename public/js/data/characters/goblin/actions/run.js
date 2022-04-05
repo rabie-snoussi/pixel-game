@@ -4,6 +4,7 @@ import {
   getVerteces,
   getDimensions,
   getFrames,
+  addPosition,
 } from '../helpers.js';
 
 const name = GOBLIN_ACTIONS.run;
@@ -18,6 +19,13 @@ const frames = getFrames({ dimensions, number: 4, left: 'scaleX(-1)', right: 'no
 
 const effects = [];
 
+const position = {
+  right: { x: 0, y: 0 },
+  left: { x: 0, y: 0 },
+};
+
+const getPosition = addPosition(position);
+
 export default {
   name,
   loop: true,
@@ -30,4 +38,5 @@ export default {
     height: dimensions.height + 'px',
     width: dimensions.width + 'px',
   },
+  getPosition
 };

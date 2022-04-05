@@ -102,8 +102,6 @@ export default class Hero {
       effects: this.#effects,
       showHitbox: this.#showHitbox,
     });
-
-    console.log(_.clone(this.#effects));
   }
 
   #jump() {
