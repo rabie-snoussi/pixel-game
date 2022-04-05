@@ -29,7 +29,6 @@ const getPosition = addPosition(position);
 export default {
   name,
   loop: true,
-  canMove: true,
   img,
   effects,
   hurtbox: getBox(verteces),

@@ -34,7 +34,6 @@ const effects = [sword];
 export default {
   name,
   loop: false,
-  canMove: true,
   img,
   effects,
   allowedActions,

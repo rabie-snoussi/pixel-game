@@ -25,7 +25,6 @@ const effects = [];
 export default {
   name,
   loop: false,
-  canMove: true,
   img,
   effects,
   allowedActions,

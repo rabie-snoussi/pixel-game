@@ -15,7 +15,7 @@ const dimensions = getDimensions({ height: 16, width: 16 });
 
 const verteces = getVerteces(dimensions);
 
-const frames = getFrames({ dimensions, number: 8, left: 'scaleX(-1)', right: 'none' });
+const frames = getFrames({ dimensions, number: 12, left: 'scaleX(-1)', right: 'none' });
 
 const effects = [];
 
@@ -29,7 +29,6 @@ const getPosition = addPosition(position);
 export default {
   name,
   loop: false,
-  canMove: true,
   img,
   effects,
   hurtbox: getBox(verteces),
