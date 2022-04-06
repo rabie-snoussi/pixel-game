@@ -5,6 +5,7 @@ import {
   GRID_DIMENSIONS,
   GOBLIN_ATTACK_INTERVAL,
   MONSTER_ACTIONS,
+  GOBLIN_HEALTH,
 } from '../../constants.js';
 import {
   heroChase,
@@ -21,31 +22,46 @@ export default class Goblin extends Monster {
     this.isAttacking = false;
     this.attackInterval = null;
     this.isHit = false;
+    this.health = GOBLIN_HEALTH;
   }
 
   attacking() {
     this.isAttacking = true;
     this.attack();
+
     this.attackInterval = setInterval(() => {
       this.attack();
     }, GOBLIN_ATTACK_INTERVAL);
   }
 
   loop() {
+    // Hit check
     if (
       !_.isEmpty(this.hero.hitbox) &&
       isColliding(this.hero.hitbox, this.hurtbox.verteces) &&
       !this.isHit
     ) {
-      this.hit();
+      clearInterval(this.attackInterval);
+      this.isAttacking = false;
       this.isHit = true;
-      this.vector.y -= 10;
+      this.removeHitbox();
+
+      if (this.health > 0) {
+        this.hit();
+        this.vector.y -= 10;
+        this.health--;
+      } else this.death();
     }
 
-    if (this.isHit && this.action.name !== MONSTER_ACTIONS.hit) {
+    if (
+      this.isHit &&
+      this.action.name !== MONSTER_ACTIONS.hit &&
+      this.action.name !== MONSTER_ACTIONS.death
+    ) {
       this.isHit = false;
     }
 
+    // Prevents chasing when attacking or being hit
     if (!this.isAttacking && !this.isHit) {
       heroChase({
         verteces: this.hurtbox.verteces,
@@ -62,7 +78,9 @@ export default class Goblin extends Monster {
       isCollidingLeft(this.hurtbox.verteces, this.hero.hurtbox.verteces) ||
       isCollidingRight(this.hurtbox.verteces, this.hero.hurtbox.verteces);
 
+    // Stop moving when Colliding with the play or being hit or attacking
     if (this.heroCollision || this.isHit || this.isAttacking) this.vector.x = 0;
+
     if (!this.heroCollision && this.action.name !== MONSTER_ACTIONS.attack) {
       this.isAttacking = false;
       clearInterval(this.attackInterval);
@@ -78,6 +96,7 @@ export default class Goblin extends Monster {
 
     if (this.vector.x !== 0) this.run();
 
+    // Change directions
     if (this.vector.x > 0) this.direction = DIRECTIONS.right;
     if (this.vector.x < 0) this.direction = DIRECTIONS.left;
 

@@ -78,8 +78,13 @@ class Game {
     setInterval(() => {
       this.#hero.animate();
 
-      this.#monsters.forEach((monster) => {
+      this.#monsters.forEach((monster, i) => {
         monster.animate();
+        if(monster.isDead) {
+          monster.destroy();
+          this.#monsters.splice(i, 1);
+
+        }
       });
     }, ANIMATION_INTERVAL);
   }

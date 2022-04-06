@@ -3,6 +3,7 @@ import { cloneWithElements, nextPosition } from './helpers.js';
 
 export default class Monster {
   constructor({ actions }) {
+    this.isDead = false;
     this._frameCounter = 0;
     this._element = document.createElement('div');
     this.blocksVerteces = [];
@@ -49,6 +50,7 @@ export default class Monster {
   }
 
   idle() {
+    if (this.action.name === MONSTER_ACTIONS.death) return;
     if (this.action.name === MONSTER_ACTIONS.idle) return;
     if (
       !this.action.loop &&
@@ -63,6 +65,7 @@ export default class Monster {
   }
 
   hit() {
+    if (this.action.name === MONSTER_ACTIONS.death) return;
     if (this.action.name === MONSTER_ACTIONS.hit) return;
 
     this.action = this._actions.hit;
@@ -72,6 +75,7 @@ export default class Monster {
   }
 
   run() {
+    if (this.action.name === MONSTER_ACTIONS.death) return;
     if (this.action.name === MONSTER_ACTIONS.run) return;
     if (
       !this.action.loop &&
@@ -86,9 +90,19 @@ export default class Monster {
   }
 
   attack() {
+    if (this.action.name === MONSTER_ACTIONS.death) return;
     if (this.action.name === MONSTER_ACTIONS.attack) return;
 
     this.action = this._actions.attack;
+    this._frameCounter = 0;
+
+    this.insertEffects();
+  }
+
+  death() {
+    if (this.action.name === MONSTER_ACTIONS.death) return;
+
+    this.action = this._actions.death;
     this._frameCounter = 0;
 
     this.insertEffects();
@@ -102,6 +116,10 @@ export default class Monster {
       effects: this._effects,
       showHitbox: this._showHitbox,
     });
+  }
+
+  removeHitbox() {
+    this._effects?.map(item => item.elements?.hitbox.remove());
   }
 
   playEffects() {
@@ -195,18 +213,22 @@ export default class Monster {
     this.vector.y += ACCELERATION;
   }
 
+  destroy() {
+    this._element.remove();
+    this.hurtbox.element.remove();
+    this._hitbox = {};
+    this.removeHitbox();
+  }
+
   animate() {
-    if (this._frameCounter >= this.action.frames[this.direction].length)
-      this._frameCounter = 0;
+    if (this._frameCounter >= this.action.frames[this.direction].length) {
+      if(this.action.name === MONSTER_ACTIONS.death) return this.isDead = true;
+      if(this.action.name !== MONSTER_ACTIONS.death) this._frameCounter = 0;
+    }
+
     this.playEffects();
     this.updateFrame();
     this._frameCounter++;
-
-    if (
-      !this.action.loop &&
-      this._frameCounter >= this.action.frames[this.direction].length
-    )
-      this.idle();
   }
 
   loop() {

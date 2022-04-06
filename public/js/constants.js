@@ -15,7 +15,8 @@ export const GOBLIN_IMG = {
   idle: './assets/enemies/goblin/goblin_idle_anim_strip_4.png',
   run: './assets/enemies/goblin/goblin_run_anim_strip_6.png',
   attack: './assets/enemies/goblin/goblin_attack_anim_strip_4.png',
-  hit: './assets/enemies/goblin/goblin_hit_anim_strip_3.png'
+  hit: './assets/enemies/goblin/goblin_hit_anim_strip_3.png',
+  death: './assets/enemies/goblin/goblin_death_anim_strip_6.png',
 };
 
 export const SLIME_IMG = {
@@ -33,6 +34,8 @@ export const SLIME_SIZE = 2 * RESOLUTION_MULTIPLIER;
 export const HERO_SPEED = 8 * RESOLUTION_MULTIPLIER;
 
 export const GOBLIN_SPEED = 2 * RESOLUTION_MULTIPLIER;
+
+export const GOBLIN_HEALTH = 2;
 
 export const GOBLIN_ATTACK_INTERVAL = 1000;
 
@@ -72,14 +75,16 @@ export const MONSTER_ACTIONS = {
   idle: 'idle',
   run: 'run',
   attack: 'attack',
-  hit: 'hit'
+  hit: 'hit',
+  death: 'death'
 };
 
 export const GOBLIN_ACTIONS = {
   idle: 'idle',
   run: 'run',
   attack: 'attack',
-  hit: 'hit'
+  hit: 'hit',
+  death: 'death'
 };
 
 export const SLIME_ACTIONS = {
