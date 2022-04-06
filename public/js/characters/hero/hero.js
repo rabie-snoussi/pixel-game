@@ -5,6 +5,7 @@ import {
   ANIMATION_INTERVAL,
   MAX_JUMPS,
   ACCELERATION,
+  HERO_JUMP_SPEED,
 } from '../../constants.js';
 import { sleep, cloneWithElements, nextPosition } from '../helpers.js';
 
@@ -302,7 +303,7 @@ export default class Hero {
 
     this.#jumpCount--;
 
-    this.#vector.y = -HERO_SPEED * 2;
+    this.#vector.y = -HERO_JUMP_SPEED;
   }
 
   goUp() {
