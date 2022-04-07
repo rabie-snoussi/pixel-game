@@ -1,5 +1,5 @@
 import Controls from './controls.js';
-import { GRID } from './data/grid.js';
+import { GRID, SMALLER_GRID } from './data/grid.js';
 import Hero from './characters/hero/hero.js';
 import Map from './map.js';
 import Monster from './characters/index.js';
@@ -8,6 +8,7 @@ import {
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
+  SMALLER_GRID_DIMENSIONS,
 } from './constants.js';
 
 class Game {
@@ -40,14 +41,34 @@ class Game {
         gridItemElement.style.textAlign = 'center';
         gridItemElement.style.color = 'white';
         gridItemElement.style.fontSize = '10px';
-        gridElement.style.opacity = '0.5';
+        gridItemElement.style.opacity = '0.5';
         gridItemElement.innerHTML = i + ' x ' + j;
 
         gridElement.appendChild(gridItemElement);
       });
     });
 
-    document.getElementById('background').appendChild(gridElement);
+    SMALLER_GRID.forEach((row, i) => {
+      row.forEach((item, j) => {
+        const gridItemElement = document.createElement('div');
+
+        gridItemElement.style.position = 'absolute';
+        gridItemElement.style.boxSizing = 'border-box';
+        gridItemElement.style.height = SMALLER_GRID_DIMENSIONS.height + 'px';
+        gridItemElement.style.width = SMALLER_GRID_DIMENSIONS.width + 'px';
+        gridItemElement.style.left = item.x + 'px';
+        gridItemElement.style.top = item.y + 'px';
+        gridItemElement.style.border = '0.5px solid white';
+        gridItemElement.style.textAlign = 'center';
+        gridItemElement.style.color = 'white';
+        gridItemElement.style.fontSize = '10px';
+        gridItemElement.style.opacity = '0.25';
+
+        gridElement.appendChild(gridItemElement);
+      });
+    });
+
+    document.getElementById('foreground').appendChild(gridElement);
   }
 
   showHurtbox() {
@@ -77,6 +98,8 @@ class Game {
   animate() {
     setInterval(() => {
       this.#hero.animate();
+
+      this.#map.animate();
 
       this.#monsters.forEach((monster, i) => {
         monster.animate();

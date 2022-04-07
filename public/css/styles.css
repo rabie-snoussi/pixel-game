@@ -47,7 +47,7 @@ body {
   image-rendering: pixelated;
 }
 
-#bg_2 {
+#bg_2, #fg_0, #fg_1 {
   position: absolute;
   background-image: none;
   width: var(--screen-width);
@@ -56,7 +56,7 @@ body {
   image-rendering: pixelated;
 }
 
-#tiles {
+#tiles, #bg_tiles, area, #waterfall {
   position: absolute;
   width: var(--screen-width);
   height: var(--screen-height);

@@ -255,7 +255,7 @@ export default class Monster {
     this.hurtbox.element.style.border = '1px solid red';
     this.hurtbox.element.style.boxSizing = 'border-box';
 
-    document.getElementById('game').appendChild(this.hurtbox.element);
+    document.getElementById('area').appendChild(this.hurtbox.element);
   }
 
   showHitbox() {
@@ -267,7 +267,7 @@ export default class Monster {
     this._element.style.backgroundSize = 'cover';
     this._element.style.imageRendering = 'pixelated';
 
-    document.getElementById('game').appendChild(this._element);
+    document.getElementById('area').appendChild(this._element);
 
     this.action = this._actions.idle;
 

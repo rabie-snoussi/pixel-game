@@ -321,7 +321,7 @@ export default class Hero {
     this.hurtbox.element.style.border = '1px solid green';
     this.hurtbox.element.style.boxSizing = 'border-box';
 
-    document.getElementById('game').appendChild(this.hurtbox.element);
+    document.getElementById('area').appendChild(this.hurtbox.element);
   }
 
   showHitbox() {
@@ -337,7 +337,7 @@ export default class Hero {
     this.#element.style.backgroundSize = 'cover';
     this.#element.style.imageRendering = 'pixelated';
 
-    document.getElementById('game').appendChild(this.#element);
+    document.getElementById('area').appendChild(this.#element);
 
     this.#position.x = position.x;
     this.#position.y = position.y;

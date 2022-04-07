@@ -131,7 +131,19 @@ export const SIMULTANOUS_KEYS = {
   },
 };
 
-export const BG_IMG = './assets/tiles_background_foreground/bg_2.png';
+export const BG_2_IMG = './assets/tiles_background_foreground/bg_2.png';
+
+export const FG_0_IMG = './assets/tiles_background_foreground/fg_0.png';
+
+export const FG_1_IMG = './assets/tiles_background_foreground/fg_1.png';
+
+export const WATERFALL_IMG = './assets/tiles_background_foreground/waterfall_anim_strip_4.png';
+
+export const WATERFALL_IMG_SIZE = 256 * RESOLUTION_MULTIPLIER + 'px' + ' ' + 64 * RESOLUTION_MULTIPLIER + 'px';
+
+export const WATERFALL_BOTTOM_IMG = './assets/tiles_background_foreground/waterfall_bottom_anim_strip_4.png';
+
+export const WATERFALL_BOTTOM_IMG_SIZE = 128 * RESOLUTION_MULTIPLIER + 'px' + ' ' + 16 * RESOLUTION_MULTIPLIER + 'px';
 
 export const TILES_IMG =
   './assets/tiles_background_foreground/tileset_32x32.png';
@@ -144,4 +156,19 @@ export const TILE_DIMENSIONS = {
 export const GRID_DIMENSIONS = {
   height: 32 * RESOLUTION_MULTIPLIER,
   width: 32 * RESOLUTION_MULTIPLIER,
+};
+
+export const WATERFALL_DIMENSIONS = {
+  height: 64 * RESOLUTION_MULTIPLIER,
+  width: 32 * RESOLUTION_MULTIPLIER,
+};
+
+export const WATERFALL_BOTTOM_DIMENSIONS = {
+  height: 16 * RESOLUTION_MULTIPLIER,
+  width: 32 * RESOLUTION_MULTIPLIER,
+};
+
+export const SMALLER_GRID_DIMENSIONS = {
+  height: 16 * RESOLUTION_MULTIPLIER,
+  width: 16 * RESOLUTION_MULTIPLIER,
 };

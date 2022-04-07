@@ -1,31 +1,32 @@
 import { TILES } from '../tiles.js';
-import { GRID } from '../grid.js';
-import { TILES_IMG, BG_IMG, GRID_DIMENSIONS } from '../../constants.js';
+import { GRID, SMALLER_GRID } from '../grid.js';
+import {
+  GRID_DIMENSIONS,
+  WATERFALL_BOTTOM_DIMENSIONS,
+  WATERFALL_BOTTOM_IMG,
+  WATERFALL_DIMENSIONS,
+  WATERFALL_IMG,
+  WATERFALL_IMG_SIZE,
+  WATERFALL_BOTTOM_IMG_SIZE,
+} from '../../constants.js';
 
 export default {
-  tileImg: TILES_IMG,
-  tileDimensions: GRID_DIMENSIONS,
-  background: BG_IMG,
-  heroPosition: {
-    x: 5 * GRID_DIMENSIONS.width,
-    y: 11 * GRID_DIMENSIONS.height,
-  },
+  bg2: true,
+  fg0: true,
+  fg1: true,
+  demensions: GRID_DIMENSIONS,
+  heroPosition: GRID[5][11],
   enemies: [
     {
       name: 'goblin',
-      position: {
-        x: 7 * GRID_DIMENSIONS.width,
-        y: 11 * GRID_DIMENSIONS.height,
-      },
+      position: GRID[7][11],
     },
     {
       name: 'goblin',
-      position: {
-        x: 13 * GRID_DIMENSIONS.width,
-        y: 8 * GRID_DIMENSIONS.height,
-      },
+      position: GRID[13][8],
     },
   ],
+  bgTiles: [],
   tiles: [
     // ROW 0
 
@@ -489,6 +490,104 @@ export default {
     {
       position: GRID[24][13],
       backgroundPosition: TILES.normal.green[1][1],
+    },
+  ],
+  waterfall: [
+    {
+      position: GRID[16][0],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][0],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[16][2],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][2],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[16][4],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][4],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[16][6],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][6],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[16][8],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][8],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[16][10],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][10],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[16][11],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: GRID[17][11],
+      img: WATERFALL_IMG,
+      dimensions: WATERFALL_DIMENSIONS,
+      size: WATERFALL_IMG_SIZE,
+    },
+    {
+      position: SMALLER_GRID[32][25],
+      img: WATERFALL_BOTTOM_IMG,
+      dimensions: WATERFALL_BOTTOM_DIMENSIONS,
+      size: WATERFALL_BOTTOM_IMG_SIZE,
+    },
+    {
+      position: SMALLER_GRID[34][25],
+      img: WATERFALL_BOTTOM_IMG,
+      dimensions: WATERFALL_BOTTOM_DIMENSIONS,
+      size: WATERFALL_BOTTOM_IMG_SIZE,
     },
   ],
 };
