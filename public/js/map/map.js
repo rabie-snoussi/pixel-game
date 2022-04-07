@@ -27,7 +27,7 @@ export default class Map {
     return this.#map.enemies;
   }
 
-  animate() {
+  update() {
     this.animations.forEach((item) => {
       item.element.style.backgroundPositionX =
       item.dimensions.width * this.frameCounter + 'px';

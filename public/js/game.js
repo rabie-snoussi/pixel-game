@@ -89,12 +89,12 @@ class Game {
 
   animate() {
     setInterval(() => {
-      this.#hero.animate();
+      this.#hero.update();
 
-      this.#map.animate();
+      this.#map.update();
 
       this.#monsters.forEach((monster, i) => {
-        monster.animate();
+        monster.update();
         if (monster.isDead) {
           monster.destroy();
           this.#monsters.splice(i, 1);

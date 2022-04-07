@@ -220,7 +220,7 @@ export default class Monster {
     this.removeHitbox();
   }
 
-  animate() {
+  update() {
     if (this._frameCounter >= this.action.frames[this.direction].length) {
       if(this.action.name === MONSTER_ACTIONS.death) return this.isDead = true;
       if(this.action.name !== MONSTER_ACTIONS.death) this._frameCounter = 0;

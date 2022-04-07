@@ -233,7 +233,7 @@ export default class Hero {
     this.#insertEffects();
   }
 
-  animate() {
+  update() {
     if (this.#frameCounter >= this.#action.frames[this.#direction].length)
       this.#frameCounter = 0;
     this.#playEffects();
