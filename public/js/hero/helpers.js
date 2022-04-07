@@ -4,69 +4,49 @@ export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export const isCollidingRight = (verteces1, verteces2, distance = 0) => {
   return (
-    (verteces1.b.x + distance >= verteces2.a.x &&
-      verteces1.b.y === verteces2.a.y &&
-      verteces1.c.y === verteces2.d.y &&
-      verteces1.b.x < verteces2.b.x) ||
-    (verteces1.b.x + distance >= verteces2.a.x &&
-      verteces1.b.y > verteces2.a.y &&
-      verteces1.b.y < verteces2.d.y &&
-      verteces1.b.x < verteces2.b.x) ||
-    (verteces1.b.x + distance >= verteces2.a.x &&
-      verteces1.c.y > verteces2.a.y &&
-      verteces1.c.y < verteces2.d.y &&
-      verteces1.b.x < verteces2.b.x)
+    verteces1.b.x + distance >= verteces2.a.x &&
+    ((verteces1.b.y === verteces2.a.y && verteces1.c.y === verteces2.d.y) ||
+      (verteces1.b.y > verteces2.a.y && verteces1.b.y < verteces2.d.y) ||
+      (verteces1.c.y > verteces2.a.y && verteces1.c.y < verteces2.d.y) ||
+      (verteces2.a.y > verteces1.b.y && verteces2.a.y < verteces1.c.y) ||
+      (verteces2.d.y > verteces1.b.y && verteces2.d.y < verteces1.c.y)) &&
+    verteces1.b.x < verteces2.b.x
   );
 };
 
 export const isCollidingLeft = (verteces1, verteces2, distance = 0) => {
   return (
-    (verteces1.a.x - distance <= verteces2.b.x &&
-      verteces1.a.y === verteces2.b.y &&
-      verteces1.d.y === verteces2.c.y &&
-      verteces1.a.x + distance > verteces2.a.x) ||
-    (verteces1.a.x - distance <= verteces2.b.x &&
-      verteces1.a.y > verteces2.b.y &&
-      verteces1.a.y < verteces2.c.y &&
-      verteces1.a.x + distance > verteces2.a.x) ||
-    (verteces1.a.x - distance <= verteces2.b.x &&
-      verteces1.d.y > verteces2.b.y &&
-      verteces1.d.y < verteces2.c.y &&
-      verteces1.a.x + distance > verteces2.a.x)
+    verteces1.a.x - distance <= verteces2.b.x &&
+    ((verteces1.a.y === verteces2.b.y && verteces1.d.y === verteces2.c.y) ||
+      (verteces1.a.y > verteces2.b.y && verteces1.a.y < verteces2.c.y) ||
+      (verteces1.d.y > verteces2.b.y && verteces1.d.y < verteces2.c.y) ||
+      (verteces2.b.y > verteces1.a.y && verteces2.b.y < verteces1.d.y) ||
+      (verteces2.c.y > verteces1.a.y && verteces2.c.y < verteces1.d.y)) &&
+    verteces1.a.x > verteces2.a.x
   );
 };
 
 export const isCollidingTop = (verteces1, verteces2, distance = 0) => {
   return (
-    (verteces1.a.y - distance <= verteces2.c.y &&
-      verteces1.a.x === verteces2.d.x &&
-      verteces1.b.x === verteces2.c.x &&
-      verteces1.a.y + distance > verteces2.a.y) ||
-    (verteces1.a.y - distance <= verteces2.c.y &&
-      verteces1.a.x > verteces2.d.x &&
-      verteces1.a.x < verteces2.c.x &&
-      verteces1.a.y + distance > verteces2.a.y) ||
-    (verteces1.a.y - distance <= verteces2.c.y &&
-      verteces1.b.x > verteces2.d.x &&
-      verteces1.b.x < verteces2.c.x &&
-      verteces1.a.y + distance > verteces2.a.y)
+    verteces1.a.y - distance <= verteces2.c.y &&
+    ((verteces1.a.x === verteces2.d.x && verteces1.b.x === verteces2.c.x) ||
+      (verteces1.a.x > verteces2.d.x && verteces1.a.x < verteces2.c.x) ||
+      (verteces1.b.x > verteces2.d.x && verteces1.b.x < verteces2.c.x) ||
+      (verteces2.c.x > verteces1.a.x && verteces2.c.x < verteces1.b.x) ||
+      (verteces2.d.x > verteces1.a.x && verteces2.d.x < verteces1.b.x)) &&
+    verteces1.a.y > verteces2.a.y
   );
 };
 
 export const isCollidingBottom = (verteces1, verteces2, distance = 0) => {
   return (
-    (verteces1.c.y + distance >= verteces2.a.y &&
-      verteces1.c.x === verteces2.b.x &&
-      verteces1.d.x === verteces2.a.x &&
-      verteces1.c.y < verteces2.c.y) ||
-    (verteces1.c.y + distance >= verteces2.a.y &&
-      verteces1.c.x > verteces2.a.x &&
-      verteces1.c.x < verteces2.b.x &&
-      verteces1.c.y < verteces2.c.y) ||
-    (verteces1.c.y + distance >= verteces2.a.y &&
-      verteces1.d.x > verteces2.a.x &&
-      verteces1.d.x < verteces2.b.x &&
-      verteces1.c.y < verteces2.c.y)
+    verteces1.c.y + distance >= verteces2.a.y &&
+    ((verteces1.c.x === verteces2.b.x && verteces1.d.x === verteces2.a.x) ||
+      (verteces1.c.x > verteces2.a.x && verteces1.c.x < verteces2.b.x) ||
+      (verteces1.d.x > verteces2.a.x && verteces1.d.x < verteces2.b.x) ||
+      (verteces2.a.x > verteces1.d.x && verteces2.a.x < verteces1.c.x) ||
+      (verteces2.b.x > verteces1.d.x && verteces2.b.x < verteces1.c.x)) &&
+    verteces1.c.y < verteces2.c.y
   );
 };
 
