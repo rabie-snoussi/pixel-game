@@ -68,8 +68,8 @@ export default class Goblin extends Monster {
         heroVerteces: this.hero.hurtbox.verteces,
         vector: this.vector,
         distance: {
-          x: GRID_DIMENSIONS.width * 5,
-          y: GRID_DIMENSIONS.height * 2,
+          x: GRID_DIMENSIONS.width * 10,
+          y: GRID_DIMENSIONS.height * 4,
         },
       });
     }

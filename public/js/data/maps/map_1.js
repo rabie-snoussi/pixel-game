@@ -1,29 +1,29 @@
 import { TILES } from '../tiles.js';
-import { GRID, SMALLER_GRID } from '../grid.js';
+import { GRID } from '../grid.js';
 import {
-  GRID_DIMENSIONS,
+  TILE_DIMENSIONS,
   WATERFALL_BOTTOM_DIMENSIONS,
-  WATERFALL_BOTTOM_IMG,
   WATERFALL_DIMENSIONS,
-  WATERFALL_IMG,
-  WATERFALL_IMG_SIZE,
-  WATERFALL_BOTTOM_IMG_SIZE,
 } from '../../constants.js';
 
 export default {
   bg2: true,
   fg0: true,
   fg1: true,
-  demensions: GRID_DIMENSIONS,
-  heroPosition: GRID[5][11],
+  dimensions: {
+    tiles: TILE_DIMENSIONS,
+    waterfall: WATERFALL_DIMENSIONS,
+    waterfallBottom: WATERFALL_BOTTOM_DIMENSIONS,
+  },
+  heroPosition: GRID[10][22],
   enemies: [
     {
       name: 'goblin',
-      position: GRID[7][11],
+      position: GRID[14][22],
     },
     {
       name: 'goblin',
-      position: GRID[13][8],
+      position: GRID[26][16],
     },
   ],
   bgTiles: [],
@@ -35,42 +35,19 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[1][0],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
       position: GRID[2][0],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[3][0],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
       position: GRID[4][0],
-      backgroundPosition: TILES.normal.green[2][1],
-    },
-
-    // ROW 1
-
-    {
-      position: GRID[0][1],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[1][1],
+      position: GRID[6][0],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[2][1],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[3][1],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[4][1],
+      position: GRID[8][0],
       backgroundPosition: TILES.normal.green[2][1],
     },
 
@@ -81,513 +58,490 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[1][2],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
       position: GRID[2][2],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[3][2],
+      position: GRID[4][2],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[4][2],
+      position: GRID[6][2],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[8][2],
       backgroundPosition: TILES.normal.green[2][1],
     },
 
-    // ROW 3
+    // ROW 4
 
     {
-      position: GRID[0][3],
+      position: GRID[0][4],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[2][4],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[4][4],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[6][4],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[8][4],
+      backgroundPosition: TILES.normal.green[2][1],
+    },
+
+    // ROW 6
+
+    {
+      position: GRID[0][6],
       backgroundPosition: TILES.normal.green[1][2],
     },
     {
-      position: GRID[1][3],
+      position: GRID[2][6],
       backgroundPosition: TILES.normal.green[1][2],
     },
     {
-      position: GRID[2][3],
+      position: GRID[4][6],
       backgroundPosition: TILES.normal.green[1][2],
     },
     {
-      position: GRID[3][3],
+      position: GRID[6][6],
       backgroundPosition: TILES.normal.green[1][2],
     },
     {
-      position: GRID[4][3],
+      position: GRID[8][6],
       backgroundPosition: TILES.normal.green[2][2],
     },
 
-    // ROW 9
+    // ROW 18
 
     {
-      position: GRID[12][9],
+      position: GRID[24][18],
       backgroundPosition: TILES.normal.green[0][0],
     },
     {
-      position: GRID[13][9],
+      position: GRID[26][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[14][9],
+      position: GRID[28][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[15][9],
+      position: GRID[30][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[16][9],
+      position: GRID[32][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[17][9],
+      position: GRID[34][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[18][9],
+      position: GRID[36][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[19][9],
+      position: GRID[38][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[20][9],
+      position: GRID[40][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[21][9],
+      position: GRID[42][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[22][9],
+      position: GRID[44][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[23][9],
+      position: GRID[46][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[24][9],
+      position: GRID[48][18],
       backgroundPosition: TILES.normal.green[1][0],
     },
 
-    // ROW 10
+    // ROW 20
 
     {
-      position: GRID[12][10],
+      position: GRID[24][20],
       backgroundPosition: TILES.normal.green[0][1],
     },
     {
-      position: GRID[13][10],
+      position: GRID[26][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[14][10],
+      position: GRID[28][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[15][10],
+      position: GRID[30][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[16][10],
+      position: GRID[32][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[17][10],
+      position: GRID[34][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[18][10],
+      position: GRID[36][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[19][10],
+      position: GRID[38][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[20][10],
+      position: GRID[40][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[21][10],
+      position: GRID[42][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[22][10],
+      position: GRID[44][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[23][10],
+      position: GRID[46][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[24][10],
+      position: GRID[48][20],
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // ROW 11
+    // ROW 22
 
     {
-      position: GRID[12][11],
+      position: GRID[24][22],
       backgroundPosition: TILES.normal.green[0][1],
     },
     {
-      position: GRID[13][11],
+      position: GRID[26][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[14][11],
+      position: GRID[28][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[15][11],
+      position: GRID[30][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[16][11],
+      position: GRID[32][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[17][11],
+      position: GRID[34][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[18][11],
+      position: GRID[36][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[19][11],
+      position: GRID[38][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[20][11],
+      position: GRID[40][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[21][11],
+      position: GRID[42][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[22][11],
+      position: GRID[44][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[23][11],
+      position: GRID[46][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[24][11],
+      position: GRID[48][22],
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // ROW 12
+    // ROW 24
 
     {
-      position: GRID[0][12],
+      position: GRID[0][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[1][12],
+      position: GRID[2][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[2][12],
+      position: GRID[4][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[3][12],
+      position: GRID[6][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[4][12],
+      position: GRID[8][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[5][12],
+      position: GRID[10][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[6][12],
+      position: GRID[12][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[7][12],
+      position: GRID[14][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[8][12],
+      position: GRID[16][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[9][12],
+      position: GRID[18][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[10][12],
+      position: GRID[20][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[11][12],
+      position: GRID[22][24],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
-      position: GRID[12][12],
+      position: GRID[24][24],
       backgroundPosition: TILES.reversed.green[2][2],
     },
     {
-      position: GRID[13][12],
+      position: GRID[26][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[14][12],
+      position: GRID[28][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[15][12],
+      position: GRID[30][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[16][12],
+      position: GRID[32][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[17][12],
+      position: GRID[34][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[18][12],
+      position: GRID[36][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[19][12],
+      position: GRID[38][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[20][12],
+      position: GRID[40][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[21][12],
+      position: GRID[42][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[22][12],
+      position: GRID[44][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[23][12],
+      position: GRID[46][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[24][12],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-
-    // ROW 13
-
-    {
-      position: GRID[0][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[1][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[2][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[3][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[4][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[5][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[6][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[7][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[8][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[9][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[10][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[11][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[12][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[13][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[14][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[15][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[16][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[17][13],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[18][13],
+      position: GRID[48][24],
       backgroundPosition: TILES.normal.green[1][1],
     },
 
+    // ROW 26
+
     {
-      position: GRID[19][13],
+      position: GRID[0][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[20][13],
+      position: GRID[2][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[21][13],
+      position: GRID[4][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[22][13],
+      position: GRID[6][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[23][13],
+      position: GRID[8][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      position: GRID[24][13],
+      position: GRID[10][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[12][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[14][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[16][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[18][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[20][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[22][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[24][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[26][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[28][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[30][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[32][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[34][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[36][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+
+    {
+      position: GRID[38][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[40][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[42][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[44][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[46][26],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[48][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
   ],
   waterfall: [
     {
-      position: GRID[16][0],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][0],
     },
     {
-      position: GRID[17][0],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[34][0],
     },
     {
-      position: GRID[16][2],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][4],
     },
     {
-      position: GRID[17][2],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[34][4],
     },
     {
-      position: GRID[16][4],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][8],
     },
     {
-      position: GRID[17][4],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[34][8],
     },
     {
-      position: GRID[16][6],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][12],
     },
     {
-      position: GRID[17][6],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[34][12],
     },
     {
-      position: GRID[16][8],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][16],
     },
     {
-      position: GRID[17][8],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[34][16],
     },
     {
-      position: GRID[16][10],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][20],
     },
     {
-      position: GRID[17][10],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[34][20],
     },
     {
-      position: GRID[16][11],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
+      position: GRID[32][22],
     },
     {
-      position: GRID[17][11],
-      img: WATERFALL_IMG,
-      dimensions: WATERFALL_DIMENSIONS,
-      size: WATERFALL_IMG_SIZE,
-    },
-    {
-      position: SMALLER_GRID[32][25],
-      img: WATERFALL_BOTTOM_IMG,
-      dimensions: WATERFALL_BOTTOM_DIMENSIONS,
-      size: WATERFALL_BOTTOM_IMG_SIZE,
-    },
-    {
-      position: SMALLER_GRID[34][25],
-      img: WATERFALL_BOTTOM_IMG,
-      dimensions: WATERFALL_BOTTOM_DIMENSIONS,
-      size: WATERFALL_BOTTOM_IMG_SIZE,
+      position: GRID[34][22],
     },
   ],
+  waterfallBottom: [
+    {
+      position: GRID[32][25],
+    },
+    {
+      position: GRID[34][25],
+    },
+  ]
 };

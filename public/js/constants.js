@@ -148,14 +148,16 @@ export const WATERFALL_BOTTOM_IMG_SIZE = 128 * RESOLUTION_MULTIPLIER + 'px' + ' 
 export const TILES_IMG =
   './assets/tiles_background_foreground/tileset_32x32.png';
 
+export const TILES_IMG_SIZE = 384 * RESOLUTION_MULTIPLIER + 'px';
+
 export const TILE_DIMENSIONS = {
   height: 32 * RESOLUTION_MULTIPLIER,
   width: 32 * RESOLUTION_MULTIPLIER,
 };
 
 export const GRID_DIMENSIONS = {
-  height: 32 * RESOLUTION_MULTIPLIER,
-  width: 32 * RESOLUTION_MULTIPLIER,
+  height: 16 * RESOLUTION_MULTIPLIER,
+  width: 16 * RESOLUTION_MULTIPLIER,
 };
 
 export const WATERFALL_DIMENSIONS = {

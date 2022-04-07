@@ -1,14 +1,13 @@
 import Controls from './controls.js';
-import { GRID, SMALLER_GRID } from './data/grid.js';
+import { GRID } from './data/grid.js';
 import Hero from './characters/hero/hero.js';
 import Map from './map.js';
 import Monster from './characters/index.js';
 import {
-  GRID_DIMENSIONS,
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
-  SMALLER_GRID_DIMENSIONS,
+  GRID_DIMENSIONS,
 } from './constants.js';
 
 class Game {
@@ -40,29 +39,21 @@ class Game {
         gridItemElement.style.border = '0.5px solid white';
         gridItemElement.style.textAlign = 'center';
         gridItemElement.style.color = 'white';
-        gridItemElement.style.fontSize = '10px';
-        gridItemElement.style.opacity = '0.5';
-        gridItemElement.innerHTML = i + ' x ' + j;
-
-        gridElement.appendChild(gridItemElement);
-      });
-    });
-
-    SMALLER_GRID.forEach((row, i) => {
-      row.forEach((item, j) => {
-        const gridItemElement = document.createElement('div');
-
-        gridItemElement.style.position = 'absolute';
-        gridItemElement.style.boxSizing = 'border-box';
-        gridItemElement.style.height = SMALLER_GRID_DIMENSIONS.height + 'px';
-        gridItemElement.style.width = SMALLER_GRID_DIMENSIONS.width + 'px';
-        gridItemElement.style.left = item.x + 'px';
-        gridItemElement.style.top = item.y + 'px';
-        gridItemElement.style.border = '0.5px solid white';
-        gridItemElement.style.textAlign = 'center';
-        gridItemElement.style.color = 'white';
-        gridItemElement.style.fontSize = '10px';
+        gridItemElement.style.fontSize = '8px';
         gridItemElement.style.opacity = '0.25';
+        gridItemElement.style.lineHeight = '27px';
+
+        gridItemElement.addEventListener('mouseenter', () => {
+          gridItemElement.style.background = 'black';
+          gridItemElement.innerHTML = i + ' x ' + j;
+          gridItemElement.style.opacity = '1';
+        });
+
+        gridItemElement.addEventListener('mouseleave', () => {
+          gridItemElement.style.background = 'transparent';
+          gridItemElement.innerHTML = '';
+          gridItemElement.style.opacity = '0.25';
+        });
 
         gridElement.appendChild(gridItemElement);
       });
@@ -103,10 +94,9 @@ class Game {
 
       this.#monsters.forEach((monster, i) => {
         monster.animate();
-        if(monster.isDead) {
+        if (monster.isDead) {
           monster.destroy();
           this.#monsters.splice(i, 1);
-
         }
       });
     }, ANIMATION_INTERVAL);
@@ -125,16 +115,15 @@ class Game {
       const monster = new Monster[item.name]();
       monster.initialize({
         position: item.position,
-        blocksVerteces: this.#map.getBlocksVerteces(),
+        blocksVerteces: this.#map.blocksVerteces,
         hero: this.#hero,
       });
       return monster;
     });
 
-
     this.#hero.initialize({
       position: this.#map.getHeroPosition(),
-      blocksVerteces: this.#map.getBlocksVerteces(),
+      blocksVerteces: this.#map.blocksVerteces,
     });
     this.animate();
     this.loop();

@@ -1,27 +1,28 @@
 import {
-  RESOLUTION_MULTIPLIER,
   BG_2_IMG,
   TILES_IMG,
   FG_0_IMG,
   FG_1_IMG,
+  WATERFALL_IMG,
+  WATERFALL_IMG_SIZE,
+  TILES_IMG_SIZE,
+  WATERFALL_BOTTOM_IMG,
+  WATERFALL_BOTTOM_IMG_SIZE,
 } from './constants.js';
 import MAPS from './data/maps/index.js';
+import { createElement, getBlocksVerteces } from './helpers.js';
 
 export default class Map {
   //Private properties
 
-  #blocksVerteces;
   #map;
 
   constructor() {
+    this.blocksVerteces = [];
     this.frameCounter = 0;
   }
 
   // Public methods
-
-  getBlocksVerteces() {
-    return this.#blocksVerteces;
-  }
 
   getHeroPosition() {
     return this.#map.heroPosition;
@@ -31,13 +32,13 @@ export default class Map {
     return this.#map.enemies;
   }
 
-  animate() { 
-    this.waterfall.forEach(item => {
-      item.element.style.backgroundPositionX = item.dimensions.width * this.frameCounter + 'px';
+  animate() {
+    this.animations.forEach((item) => {
+      item.element.style.backgroundPositionX =
+        this.#map.dimensions.waterfall.width * this.frameCounter + 'px';
     });
     this.frameCounter--;
   }
-
 
   initialize(i) {
     this.#map = MAPS[i];
@@ -55,73 +56,58 @@ export default class Map {
         'url("' + FG_1_IMG + '")';
 
     this.#map.bgTiles.forEach((tile) => {
-      const tileElement = document.createElement('div');
+      const element = createElement({
+        item: tile,
+        demensions: this.#map.dimensions.tiles,
+        img: TILES_IMG,
+        imgSize: TILES_IMG_SIZE,
+      });
 
-      tileElement.style.position = 'absolute';
-      tileElement.style.height = this.#map.demensions.height + 'px';
-      tileElement.style.width = this.#map.demensions.width + 'px';
-      tileElement.style.backgroundImage = 'url("' + TILES_IMG + '")';
-      tileElement.style.backgroundPositionX = tile.backgroundPosition.x + 'px';
-      tileElement.style.backgroundPositionY = tile.backgroundPosition.y + 'px';
-      tileElement.style.left = tile.position.x + 'px';
-      tileElement.style.top = tile.position.y + 'px';
-      tileElement.style.backgroundSize = 384 * RESOLUTION_MULTIPLIER + 'px';
-      tileElement.style.imageRendering = 'pixelated';
-
-      document.getElementById('bg_tiles').appendChild(tileElement);
+      document.getElementById('bg_tiles').appendChild(element);
     });
 
     this.#map.tiles.forEach((tile) => {
-      const tileElement = document.createElement('div');
+      const element = createElement({
+        item: tile,
+        demensions: this.#map.dimensions.tiles,
+        img: TILES_IMG,
+        imgSize: TILES_IMG_SIZE,
+      });
 
-      tileElement.style.position = 'absolute';
-      tileElement.style.height = this.#map.demensions.height + 'px';
-      tileElement.style.width = this.#map.demensions.width + 'px';
-      tileElement.style.backgroundImage = 'url("' + TILES_IMG + '")';
-      tileElement.style.backgroundPositionX = tile.backgroundPosition.x + 'px';
-      tileElement.style.backgroundPositionY = tile.backgroundPosition.y + 'px';
-      tileElement.style.left = tile.position.x + 'px';
-      tileElement.style.top = tile.position.y + 'px';
-      tileElement.style.backgroundSize = 384 * RESOLUTION_MULTIPLIER + 'px';
-      tileElement.style.imageRendering = 'pixelated';
+      document.getElementById('tiles').appendChild(element);
 
-      document.getElementById('tiles').appendChild(tileElement);
-
-      this.#blocksVerteces = this.#map.tiles.map(({ position }) => ({
-        a: {
-          x: position.x,
-          y: position.y,
-        },
-        b: {
-          x: position.x + this.#map.demensions.width,
-          y: position.y,
-        },
-        c: {
-          x: position.x + this.#map.demensions.width,
-          y: position.y + this.#map.demensions.height,
-        },
-        d: {
-          x: position.x,
-          y: position.y + this.#map.demensions.height,
-        },
-      }));
+      this.blocksVerteces = getBlocksVerteces({
+        blocks: this.#map.tiles,
+        dimensions: this.#map.dimensions.tiles,
+      });
     });
 
-    this.waterfall = this.#map.waterfall.map((item) => {
-      const waterfallEl = document.createElement('div');
+    const waterfall = this.#map.waterfall.map((item) => {
+      const element = createElement({
+        item,
+        demensions: this.#map.dimensions.waterfall,
+        img: WATERFALL_IMG,
+        imgSize: WATERFALL_IMG_SIZE,
+      });
 
-      waterfallEl.style.position = 'absolute';
-      waterfallEl.style.height = item.dimensions.height + 'px';
-      waterfallEl.style.width = item.dimensions.width + 'px';
-      waterfallEl.style.backgroundImage = 'url("' + item.img + '")';
-      waterfallEl.style.left = item.position.x + 'px';
-      waterfallEl.style.top = item.position.y + 'px';
-      waterfallEl.style.backgroundSize = item.size;
-      waterfallEl.style.imageRendering = 'pixelated';
+      document.getElementById('waterfall').appendChild(element);
 
-      document.getElementById('waterfall').appendChild(waterfallEl);
-
-      return {...item, element: waterfallEl};
+      return { ...item, element };
     });
+
+    const waterfallBottom = this.#map.waterfallBottom.map((item) => {
+      const element = createElement({
+        item,
+        demensions: this.#map.dimensions.waterfallBottom,
+        img: WATERFALL_BOTTOM_IMG,
+        imgSize: WATERFALL_BOTTOM_IMG_SIZE,
+      });
+
+      document.getElementById('waterfall').appendChild(element);
+
+      return { ...item, element };
+    });
+
+    this.animations = [...waterfall, ...waterfallBottom];
   }
 }
