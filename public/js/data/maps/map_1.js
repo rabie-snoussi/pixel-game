@@ -48,80 +48,251 @@ export default {
     },
     {
       position: GRID[8][0],
-      backgroundPosition: TILES.normal.green[2][1],
+      backgroundPosition: TILES.normal.green[1][1],
     },
+    {
+      position: GRID[10][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[12][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[14][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[16][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[18][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[20][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[22][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[24][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[26][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[28][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[30][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[32][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[34][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[36][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[38][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[40][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[42][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[44][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[46][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      position: GRID[48][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    
 
     // ROW 2
 
     {
       position: GRID[0][2],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.reversed.green[0][0],
     },
     {
       position: GRID[2][2],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][2],
     },
     {
       position: GRID[4][2],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][2],
     },
     {
       position: GRID[6][2],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][2],
     },
     {
       position: GRID[8][2],
-      backgroundPosition: TILES.normal.green[2][1],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[10][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[12][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[14][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[16][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[18][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[20][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[22][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[24][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[26][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[28][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[30][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[32][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[34][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[36][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[38][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[40][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[42][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[44][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[46][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      position: GRID[48][2],
+      backgroundPosition: TILES.normal.green[1][2],
     },
 
     // ROW 4
 
     {
       position: GRID[0][4],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[2][4],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[4][4],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[6][4],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      position: GRID[8][4],
       backgroundPosition: TILES.normal.green[2][1],
     },
+
 
     // ROW 6
 
     {
       position: GRID[0][6],
-      backgroundPosition: TILES.normal.green[1][2],
+      backgroundPosition: TILES.normal.green[2][1],
     },
+
+
+    // ROW 8
+
     {
-      position: GRID[2][6],
-      backgroundPosition: TILES.normal.green[1][2],
+      position: GRID[0][8],
+      backgroundPosition: TILES.normal.green[2][1],
     },
+
+    // ROW 10
+
     {
-      position: GRID[4][6],
-      backgroundPosition: TILES.normal.green[1][2],
+      position: GRID[0][10],
+      backgroundPosition: TILES.normal.green[2][1],
     },
+
+    // ROW 12
+
     {
-      position: GRID[6][6],
-      backgroundPosition: TILES.normal.green[1][2],
+      position: GRID[0][12],
+      backgroundPosition: TILES.normal.green[2][1],
     },
+
+    // ROW 14
+
     {
-      position: GRID[8][6],
-      backgroundPosition: TILES.normal.green[2][2],
+      position: GRID[0][14],
+      backgroundPosition: TILES.normal.green[2][1],
     },
+
+    // ROW 16
+
+    {
+      position: GRID[0][16],
+      backgroundPosition: TILES.normal.green[2][1],
+    },
+
 
     // ROW 18
 
+    {
+      position: GRID[0][18],
+      backgroundPosition: TILES.normal.green[2][1],
+    },
     {
       position: GRID[24][18],
       backgroundPosition: TILES.normal.green[0][0],
@@ -230,8 +401,19 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
 
+    // ROW 20
+
+    {
+      position: GRID[0][20],
+      backgroundPosition: TILES.normal.green[2][1],
+    },
+
     // ROW 22
 
+    {
+      position: GRID[0][22],
+      backgroundPosition: TILES.normal.green[2][1],
+    },
     {
       position: GRID[24][22],
       backgroundPosition: TILES.normal.green[0][1],
@@ -289,7 +471,7 @@ export default {
 
     {
       position: GRID[0][24],
-      backgroundPosition: TILES.normal.green[1][0],
+      backgroundPosition: TILES.reversed.green[0][2],
     },
     {
       position: GRID[2][24],
