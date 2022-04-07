@@ -15,7 +15,7 @@ const dimensions = getDimensions({ height: 16, width: 16 });
 
 const verteces = getVerteces(dimensions);
 
-const frames = getFrames({ dimensions, number: 12, left: 'scaleX(-1)', right: 'none' });
+const frames = getFrames({ dimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
 
 const effects = [];
 

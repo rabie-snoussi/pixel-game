@@ -174,3 +174,40 @@ export const SMALLER_GRID_DIMENSIONS = {
   height: 16 * RESOLUTION_MULTIPLIER,
   width: 16 * RESOLUTION_MULTIPLIER,
 };
+
+export const MAP_MATERIALS = {
+  bgTile: {
+    name: 'bgTile',
+    dimensions: TILE_DIMENSIONS,
+    img: TILES_IMG,
+    imgSize: TILES_IMG_SIZE,
+    animation: false,
+    collision: false,
+  },
+  tile: {
+    name: 'tile',
+    dimensions: TILE_DIMENSIONS,
+    img: TILES_IMG,
+    imgSize: TILES_IMG_SIZE,
+    animation: false,
+    collision: true,
+  },
+  waterfall: {
+    name: 'waterfall',
+    dimensions: WATERFALL_DIMENSIONS,
+    img: WATERFALL_IMG,
+    imgSize: WATERFALL_IMG_SIZE,
+    animation: true,
+    collision: false,
+    zIndex: 1,
+  },
+  waterfallBottom: {
+    name: 'waterfallBottom',
+    dimensions: WATERFALL_BOTTOM_DIMENSIONS,
+    img: WATERFALL_BOTTOM_IMG,
+    imgSize: WATERFALL_BOTTOM_IMG_SIZE,
+    animation: true,
+    collision: false,
+    zIndex: 1,
+  },
+};

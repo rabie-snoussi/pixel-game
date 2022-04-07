@@ -42,9 +42,10 @@ class Game {
         gridItemElement.style.fontSize = '8px';
         gridItemElement.style.opacity = '0.25';
         gridItemElement.style.lineHeight = '27px';
+        gridItemElement.style.zIndex = 99;
 
         gridItemElement.addEventListener('mouseenter', () => {
-          gridItemElement.style.background = 'black';
+          gridItemElement.style.background = 'rgba(0, 0, 0, 0.25)';
           gridItemElement.innerHTML = i + ' x ' + j;
           gridItemElement.style.opacity = '1';
         });
@@ -59,7 +60,7 @@ class Game {
       });
     });
 
-    document.getElementById('foreground').appendChild(gridElement);
+    document.getElementById('game').appendChild(gridElement);
   }
 
   showHurtbox() {

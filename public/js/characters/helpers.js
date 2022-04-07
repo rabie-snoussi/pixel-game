@@ -235,7 +235,7 @@ export const insertEffect = ({ effect, position, direction }) => {
 
   element.style.visibility = 'hidden';
 
-  document.getElementById('area').appendChild(element);
+  document.getElementById('map').appendChild(element);
   return element;
 };
 
@@ -251,7 +251,7 @@ export const insertHitbox = (effect, showHitbox) => {
     element.style.visibility = 'hidden';
   }
 
-  document.getElementById('area').appendChild(element);
+  document.getElementById('map').appendChild(element);
   return element;
 };
 

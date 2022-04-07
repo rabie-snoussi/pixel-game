@@ -321,7 +321,7 @@ export default class Hero {
     this.hurtbox.element.style.border = '1px solid green';
     this.hurtbox.element.style.boxSizing = 'border-box';
 
-    document.getElementById('area').appendChild(this.hurtbox.element);
+    document.getElementById('map').appendChild(this.hurtbox.element);
   }
 
   showHitbox() {
@@ -333,11 +333,12 @@ export default class Hero {
   }
 
   initialize({ position, blocksVerteces }) {
+    this.#element.setAttribute('id', 'hero');
     this.#element.style.position = 'absolute';
     this.#element.style.backgroundSize = 'cover';
     this.#element.style.imageRendering = 'pixelated';
 
-    document.getElementById('area').appendChild(this.#element);
+    document.getElementById('map').appendChild(this.#element);
 
     this.#position.x = position.x;
     this.#position.y = position.y;
