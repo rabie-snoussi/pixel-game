@@ -1,13 +1,13 @@
-import Controls from './controls.js';
-import { GRID } from './data/grid.js';
-import Hero from './characters/hero/hero.js';
-import Map from './map.js';
-import Monster from './characters/index.js';
+import Controls from './control/control.js';
+import Hero from './hero/hero.js';
+import Map from './map/map.js';
+import Monster from './monster/monsters/index.js';
 import {
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
   GRID_DIMENSIONS,
+  GRID,
 } from './constants.js';
 
 class Game {

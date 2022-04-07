@@ -120,12 +120,18 @@ export const SIMULTANOUS_KEYS = {
   [KEY_CODES.right]: {
     [KEY_CODES.up]: true,
     [KEY_CODES.spacebar]: true,
+    [KEY_CODES.down]: true,
   },
   [KEY_CODES.left]: {
     [KEY_CODES.up]: true,
     [KEY_CODES.spacebar]: true,
+    [KEY_CODES.down]: true,
   },
   [KEY_CODES.spacebar]: {
+    [KEY_CODES.left]: true,
+    [KEY_CODES.right]: true,
+  },
+  [KEY_CODES.down]: {
     [KEY_CODES.left]: true,
     [KEY_CODES.right]: true,
   },
@@ -209,5 +215,144 @@ export const MAP_MATERIALS = {
     animation: true,
     collision: false,
     zIndex: 1,
+  },
+};
+
+const makeGrid = (dimensions) => {
+  const columnsNumber = SCREEN_LIMITS.x.end/dimensions.width;
+  const rowsNumber = SCREEN_LIMITS.y.end/dimensions.height;
+  const grid = [];
+
+  for (let x = 0; x < columnsNumber; x++) {
+    grid.push([]);
+
+    for (let y = 0; y < rowsNumber; y++) {
+      const cell = { x: x * dimensions.width, y: y * dimensions.height }
+      grid[x].push(cell);
+    }
+  }
+  return grid;
+};
+
+export const GRID = makeGrid(GRID_DIMENSIONS);
+
+export const TILES = {
+  normal: {
+    green: [
+      [
+        { x: 0 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: 0 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: 0 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -1 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -2 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -2 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -2 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+    ],
+    black: [
+      [
+        { x: -6 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -6 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -6 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -7 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -7 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -7 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -8 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -8 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -8 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+    ],
+    brown: [
+      [
+        { x: 0 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+        { x: 0 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+        { x: 0 * TILE_DIMENSIONS.width, y: -5 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -1 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -5 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -2 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+        { x: -2 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+        { x: -2 * TILE_DIMENSIONS.width, y: -5 * TILE_DIMENSIONS.height },
+      ],
+    ],
+  },
+  reversed: {
+    green: [
+      [
+        { x: -3 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -3 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -3 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -4 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -4 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -4 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -5 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -5 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -5 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+    ],
+    black: [
+      [
+        { x: -9 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -9 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -9 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -1 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -1 * TILE_DIMENSIONS.width, y: 0 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -1 * TILE_DIMENSIONS.height },
+        { x: -1 * TILE_DIMENSIONS.width, y: -2 * TILE_DIMENSIONS.height },
+      ],
+    ],
+    brown: [
+      [
+        { x: -3 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+        { x: -3 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+        { x: -3 * TILE_DIMENSIONS.width, y: -5 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -4 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+        { x: -4 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+        { x: -4 * TILE_DIMENSIONS.width, y: -5 * TILE_DIMENSIONS.height },
+      ],
+      [
+        { x: -5 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+        { x: -5 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+        { x: -5 * TILE_DIMENSIONS.width, y: -5 * TILE_DIMENSIONS.height },
+      ],
+    ],
+  },
+  floating: {
+    green: [
+      { x: -6 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+      { x: -7 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+      { x: -8 * TILE_DIMENSIONS.width, y: -3 * TILE_DIMENSIONS.height },
+    ],
+    black: [
+      { x: -6 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+      { x: -7 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+      { x: -8 * TILE_DIMENSIONS.width, y: -4 * TILE_DIMENSIONS.height },
+    ],
   },
 };
