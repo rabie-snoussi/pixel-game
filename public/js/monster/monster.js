@@ -1,5 +1,5 @@
 import { DIRECTIONS, ACCELERATION, MONSTER_ACTIONS } from '../constants.js';
-import { cloneWithElements, nextPosition } from './helpers.js';
+import { cloneWithElements, nextPosition } from '../helpers.js';
 
 export default class Monster {
   constructor({ actions }) {

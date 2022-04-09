@@ -7,13 +7,13 @@ import {
   MONSTER_ACTIONS,
   GOBLIN_HEALTH,
 } from '../../../constants.js';
+import { heroChase } from '../../helpers.js';
 import {
-  heroChase,
   isColliding,
   isCollidingLeft,
   isCollidingRight,
   nextPosition,
-} from '../../helpers.js';
+} from '../../../helpers.js';
 
 export default class Goblin extends Monster {
   constructor() {

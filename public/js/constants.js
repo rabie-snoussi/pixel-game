@@ -19,6 +19,11 @@ export const GOBLIN_IMG = {
   death: './assets/enemies/goblin/goblin_death_anim_strip_6.png',
 };
 
+export const COIN_IMG = {
+  initial: './assets/miscellaneous/coin_anim_strip_6.png',
+  pickup: './assets/miscellaneous/coin_pickup_anim_strip_6.png',
+};
+
 export const SLIME_IMG = {
   idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
 };
@@ -28,6 +33,8 @@ export const RESOLUTION_MULTIPLIER = 1.8;
 export const HERO_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
 export const GOBLIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
+
+export const COIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
 export const SLIME_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
@@ -87,6 +94,11 @@ export const GOBLIN_ACTIONS = {
   attack: 'attack',
   hit: 'hit',
   death: 'death',
+};
+
+export const COIN_STATES = {
+  initial: 'initial',
+  pickup: 'pickup',
 };
 
 export const SLIME_ACTIONS = {

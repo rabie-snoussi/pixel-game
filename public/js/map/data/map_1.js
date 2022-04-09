@@ -901,4 +901,21 @@ export default {
       position: GRID[33][25],
     },
   ],
+
+  // COLLECTIBLES
+  // --------------------------------------------------
+  collectibles: [
+    {
+      name: 'coin',
+      position: GRID[18][22],
+    },
+    {
+      name: 'coin',
+      position: GRID[19][22],
+    },
+    {
+      name: 'coin',
+      position: GRID[20][22],
+    },
+  ],
 };

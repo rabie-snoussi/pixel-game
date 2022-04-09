@@ -7,7 +7,7 @@ import {
   ACCELERATION,
   HERO_JUMP_SPEED,
 } from '../constants.js';
-import { sleep, cloneWithElements, nextPosition } from './helpers.js';
+import { sleep, cloneWithElements, nextPosition } from '../helpers.js';
 
 export default class Hero {
   // Private properties
@@ -35,6 +35,7 @@ export default class Hero {
   };
 
   constructor() {
+    this.coins = 0;
     this.hitbox = {};
     this.hurtbox = {
       element: document.createElement('div'),

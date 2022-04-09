@@ -1,7 +1,8 @@
 import Controls from './control/control.js';
 import Hero from './hero/hero.js';
 import Map from './map/map.js';
-import Monster from './monster/monsters/index.js';
+import Monster from './monster/data/index.js';
+import Collectible from './collectible/data/index.js';
 import {
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
@@ -81,7 +82,16 @@ class Game {
   loop() {
     setInterval(() => {
       this.#hero.loop();
-      this.#monsters.forEach((monster) => {
+
+      this.collectibles.forEach((item, i) => {
+        item.loop();
+        if(item.isCollected) {
+          item.destroy();
+          this.collectibles.splice(i, 1);
+        }
+      });
+
+      this.#monsters.forEach((monster, i) => {
         monster.loop();
         if (monster.isDead) {
           monster.destroy();
@@ -97,7 +107,11 @@ class Game {
 
       this.#map.update();
 
-      this.#monsters.forEach((monster, i) => {
+      this.collectibles.forEach((item) => {
+        item.update();
+      });
+
+      this.#monsters.forEach((monster) => {
         monster.update();
       });
     }, ANIMATION_INTERVAL);
@@ -111,6 +125,12 @@ class Game {
 
     this.#controls.initialize(this.#hero);
     this.#map.initialize(0);
+
+    this.collectibles = this.#map.getCollectibles().map((item) => {
+      const collectible = new Collectible[item.name]();
+      collectible.initialize({ position: item.position, hero: this.#hero });
+      return collectible;
+    });
 
     this.#monsters = this.#map.getEnemies().map((item) => {
       const monster = new Monster[item.name]();
@@ -134,7 +154,7 @@ class Game {
 const game = new Game();
 
 game.initialize();
-game.godMode();
-// game.showGrid();
+// game.godMode();
+game.showGrid();
 game.showHurtbox();
 game.showHitbox();

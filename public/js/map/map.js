@@ -27,6 +27,10 @@ export default class Map {
     return this.#map.enemies;
   }
 
+  getCollectibles() {
+    return this.#map.collectibles;
+  }
+
   update() {
     this.animations.forEach((item) => {
       item.element.style.backgroundPositionX =
