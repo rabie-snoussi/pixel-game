@@ -15,8 +15,6 @@ export const createElement = (item) => {
       element.style.backgroundPositionY = item.backgroundPosition.y + 'px';
     }
   
-    if (item.zIndex) element.style.zIndex = item.zIndex;
-  
     return element;
   };
   

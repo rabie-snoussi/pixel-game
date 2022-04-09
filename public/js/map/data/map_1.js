@@ -16,7 +16,8 @@ export default {
     },
   ],
   materials: [
-    // ROW 0
+    // TILES
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -104,14 +105,6 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][0],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][0],
-    },
-    {
       ...MAP_MATERIALS.tile,
       position: GRID[34][0],
       backgroundPosition: TILES.normal.green[1][1],
@@ -152,7 +145,7 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // ROW 2
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -280,23 +273,15 @@ export default {
       backgroundPosition: TILES.normal.green[1][2],
     },
 
-    // ROW 4
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][4],
       backgroundPosition: TILES.normal.green[2][1],
     },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][4],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][4],
-    },
 
-    // ROW 6
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -304,23 +289,15 @@ export default {
       backgroundPosition: TILES.normal.green[2][1],
     },
 
-    // ROW 8
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][8],
       backgroundPosition: TILES.normal.green[2][1],
     },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][8],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][8],
-    },
 
-    // ROW 10
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -328,51 +305,31 @@ export default {
       backgroundPosition: TILES.normal.green[2][1],
     },
 
-    // ROW 12
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][12],
       backgroundPosition: TILES.normal.green[2][1],
     },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][12],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][12],
-    },
 
-    // ROW 14
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][14],
       backgroundPosition: TILES.normal.green[2][1],
     },
-    {
-      ...MAP_MATERIALS.arrowPlateRight,
-      position: GRID[26][16],
-    },
 
-    // ROW 16
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][16],
       backgroundPosition: TILES.normal.green[2][1],
     },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][16],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][16],
-    },
 
-    // ROW 18
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -403,14 +360,6 @@ export default {
       ...MAP_MATERIALS.tile,
       position: GRID[32][18],
       backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][20],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][20],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -453,7 +402,7 @@ export default {
       backgroundPosition: TILES.normal.green[1][0],
     },
 
-    // ROW 20
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -526,7 +475,7 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // ROW 22
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -599,7 +548,7 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // ROW 24
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -687,14 +636,6 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][24],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][24],
-    },
-    {
       ...MAP_MATERIALS.tile,
       position: GRID[34][24],
       backgroundPosition: TILES.normal.green[1][1],
@@ -735,18 +676,7 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // ROW 25
-
-    {
-      ...MAP_MATERIALS.waterfallBottom,
-      position: GRID[32][25],
-    },
-    {
-      ...MAP_MATERIALS.waterfallBottom,
-      position: GRID[33][25],
-    },
-
-    // ROW 26
+    // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
@@ -843,7 +773,6 @@ export default {
       position: GRID[36][26],
       backgroundPosition: TILES.normal.green[1][1],
     },
-
     {
       ...MAP_MATERIALS.tile,
       position: GRID[38][26],
@@ -873,6 +802,103 @@ export default {
       ...MAP_MATERIALS.tile,
       position: GRID[48][26],
       backgroundPosition: TILES.normal.green[1][1],
+    },
+
+    // MISC
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.arrowPlateRight,
+      position: GRID[26][16],
+    },
+
+    // WATERFALL
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][0],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][0],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][4],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][4],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][8],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][8],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][12],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][12],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][16],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][16],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][20],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][20],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][24],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][24],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfallBottom,
+      position: GRID[32][25],
+    },
+    {
+      ...MAP_MATERIALS.waterfallBottom,
+      position: GRID[33][25],
     },
   ],
 };
