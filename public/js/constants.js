@@ -263,6 +263,7 @@ export const MAP_MATERIALS = {
     imgSize: MATERIALS_SIZE.waterfall,
     animation: true,
     collision: false,
+    zIndex: 1,
   },
   waterfallBottom: {
     name: 'waterfallBottom',
@@ -271,6 +272,7 @@ export const MAP_MATERIALS = {
     imgSize: MATERIALS_SIZE.waterfallBottom,
     animation: true,
     collision: false,
+    zIndex: 1,
   },
   woodenPlate: {
     name: 'woodenPlate',
