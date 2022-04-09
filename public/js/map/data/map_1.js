@@ -12,7 +12,7 @@ export default {
     },
     {
       name: 'goblin',
-      position: GRID[26][16],
+      position: GRID[42][16],
     },
   ],
   materials: [
@@ -351,6 +351,10 @@ export default {
       position: GRID[0][14],
       backgroundPosition: TILES.normal.green[2][1],
     },
+    {
+      ...MAP_MATERIALS.arrowPlateRight,
+      position: GRID[26][16],
+    },
 
     // ROW 16
 
@@ -402,11 +406,11 @@ export default {
     },
     {
       ...MAP_MATERIALS.waterfall,
-      position: GRID[32][19],
+      position: GRID[32][20],
     },
     {
       ...MAP_MATERIALS.waterfall,
-      position: GRID[33][19],
+      position: GRID[33][20],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -555,14 +559,6 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[32][22],
-    },
-    {
-      ...MAP_MATERIALS.waterfall,
-      position: GRID[33][22],
-    },
-    {
       ...MAP_MATERIALS.tile,
       position: GRID[34][22],
       backgroundPosition: TILES.normal.green[1][1],
@@ -689,6 +685,14 @@ export default {
       ...MAP_MATERIALS.tile,
       position: GRID[32][24],
       backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[32][24],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[33][24],
     },
     {
       ...MAP_MATERIALS.tile,

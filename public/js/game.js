@@ -83,6 +83,10 @@ class Game {
       this.#hero.loop();
       this.#monsters.forEach((monster) => {
         monster.loop();
+        if (monster.isDead) {
+          monster.destroy();
+          this.#monsters.splice(i, 1);
+        }
       });
     }, GAME_LOOP_INTERVAL);
   }
@@ -95,10 +99,6 @@ class Game {
 
       this.#monsters.forEach((monster, i) => {
         monster.update();
-        if (monster.isDead) {
-          monster.destroy();
-          this.#monsters.splice(i, 1);
-        }
       });
     }, ANIMATION_INTERVAL);
   }
