@@ -35,6 +35,7 @@ export default class Hero {
   };
 
   constructor() {
+    this.hearts = 3;
     this.coins = 0;
     this.hitbox = {};
     this.hurtbox = {

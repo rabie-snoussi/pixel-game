@@ -21,7 +21,11 @@ export const GOBLIN_IMG = {
 
 export const COIN_IMG = {
   initial: './assets/miscellaneous/coin_anim_strip_6.png',
-  pickup: './assets/miscellaneous/coin_pickup_anim_strip_6.png',
+  collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
+};
+
+export const HEALTH_POTION_IMG = {
+  initial: './assets/miscellaneous/health_potion.png',
 };
 
 export const SLIME_IMG = {
@@ -35,6 +39,8 @@ export const HERO_SIZE = 2 * RESOLUTION_MULTIPLIER;
 export const GOBLIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
 export const COIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
+
+export const HEALTH_POTION_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
 export const SLIME_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
@@ -98,7 +104,11 @@ export const GOBLIN_ACTIONS = {
 
 export const COIN_STATES = {
   initial: 'initial',
-  pickup: 'pickup',
+  collect: 'collect',
+};
+
+export const HEALTH_POTION_STATES = {
+  initial: 'initial',
 };
 
 export const SLIME_ACTIONS = {

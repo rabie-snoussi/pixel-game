@@ -5,14 +5,13 @@ import {
   getFrames,
 } from '../helpers.js';
 
-const name = COIN_STATES.pickup;
+const name = COIN_STATES.collect;
 
-const img = 'url("' + COIN_IMG.pickup + '")';
+const img = 'url("' + COIN_IMG.collect + '")';
 
 const dimensions = getDimensions({ height: 16, width: 8 });
 
 const frames = getFrames({ dimensions, number: 6 });
-
 
 export default {
   name,

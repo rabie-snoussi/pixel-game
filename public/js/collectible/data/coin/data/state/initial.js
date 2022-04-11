@@ -13,7 +13,6 @@ const dimensions = getDimensions({ height: 8, width: 8 });
 
 const frames = getFrames({ dimensions, number: 4 });
 
-
 export default {
   name,
   img,

@@ -8,7 +8,7 @@ export default class Coin extends Collectible {
   }
 
   collect() {
-      this.state = this.states.pickup;
+      this.state = this.states.collect;
       this.position.y-= 16 * RESOLUTION_MULTIPLIER;
       this.frameCounter = 0;
       this.hero.coins++;
