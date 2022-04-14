@@ -1,4 +1,4 @@
-import initial from './state/initial.js';
-import collect from './state/collect.js';
+import initial from './states/initial.js';
+import collect from './states/collect.js';
 
 export default { initial, collect };

@@ -190,9 +190,10 @@ export const nextPosition = ({
   vector,
   position,
   collision,
+  items = [],
 }) => {
-  const xDirection = getXDirection({ hurtbox, blocks, vector, collision });
-  const yDirection = getYDirection({ hurtbox, blocks, vector, collision });
+  const xDirection = getXDirection({ hurtbox, blocks: [...blocks, ...items], vector, collision });
+  const yDirection = getYDirection({ hurtbox, blocks: [...blocks, ...items], vector, collision });
 
   position.x += xDirection;
   position.y += yDirection;

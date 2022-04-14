@@ -19,18 +19,6 @@ export default class Map {
 
   // Public methods
 
-  getHeroPosition() {
-    return this.#map.heroPosition;
-  }
-
-  getEnemies() {
-    return this.#map.enemies;
-  }
-
-  getCollectibles() {
-    return this.#map.collectibles;
-  }
-
   update() {
     this.animations.forEach((item) => {
       item.element.style.backgroundPositionX =
@@ -41,6 +29,11 @@ export default class Map {
 
   initialize(i) {
     this.#map = MAPS[i];
+
+    this.enemies = this.#map.enemies;
+    this.collectibles = this.#map.collectibles;
+    this.items = this.#map.items;
+    this.heroPosition = this.#map.heroPosition;
 
     if (this.#map.bg2)
       document.getElementById('bg_2').style.backgroundImage =

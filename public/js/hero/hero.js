@@ -38,6 +38,7 @@ export default class Hero {
     this.hearts = 3;
     this.coins = 0;
     this.hitbox = {};
+    this.items = [];
     this.hurtbox = {
       element: document.createElement('div'),
       verteces: {
@@ -256,6 +257,7 @@ export default class Hero {
       vector: this.#vector,
       position: this.#position,
       collision: this.#collision,
+      items: this.items
     });
 
     if (this.#collision.bottom) {
@@ -334,7 +336,7 @@ export default class Hero {
     this.#godMode = true;
   }
 
-  initialize({ position, blocksVerteces }) {
+  initialize({ position, blocksVerteces, items }) {
     this.#element.setAttribute('id', 'hero');
     this.#element.style.position = 'absolute';
     this.#element.style.backgroundSize = 'cover';
@@ -346,5 +348,6 @@ export default class Hero {
     this.#position.y = position.y;
 
     this.#blocksVerteces = blocksVerteces;
+    this.items = items;
   }
 }

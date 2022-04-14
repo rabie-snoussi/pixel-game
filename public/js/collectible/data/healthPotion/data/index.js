@@ -1,3 +1,3 @@
-import initial from './state/initial.js';
+import initial from './states/initial.js';
 
 export default { initial };

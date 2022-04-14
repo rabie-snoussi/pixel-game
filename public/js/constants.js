@@ -28,6 +28,16 @@ export const HEALTH_POTION_IMG = {
   initial: './assets/miscellaneous/health_potion.png',
 };
 
+export const BUTTON_IMG = {
+  enabled: './assets/miscellaneous/button_pressed.png',
+  disabled: './assets/miscellaneous/button.png',
+};
+
+export const LEVER_IMG = {
+  enabled: './assets/miscellaneous/lever_turned_right.png',
+  disabled: './assets/miscellaneous/lever_turned_left.png',
+};
+
 export const SLIME_IMG = {
   idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
 };
@@ -43,6 +53,10 @@ export const COIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
 export const HEALTH_POTION_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
 export const SLIME_SIZE = 2 * RESOLUTION_MULTIPLIER;
+
+export const BUTTON_SIZE = 2 * RESOLUTION_MULTIPLIER;
+
+export const LEVER_SIZE = 2 * RESOLUTION_MULTIPLIER;
 
 export const HERO_SPEED = 8 * RESOLUTION_MULTIPLIER;
 
@@ -109,6 +123,16 @@ export const COIN_STATES = {
 
 export const HEALTH_POTION_STATES = {
   initial: 'initial',
+};
+
+export const BUTTON_STATES = {
+  enabled: 'enabled',
+  disabled: 'disabled',
+};
+
+export const LEVER_STATES = {
+  enabled: 'enabled',
+  disabled: 'disabled',
 };
 
 export const SLIME_ACTIONS = {

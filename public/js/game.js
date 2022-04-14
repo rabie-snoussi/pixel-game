@@ -3,6 +3,7 @@ import Hero from './hero/hero.js';
 import Map from './map/map.js';
 import Monster from './monster/data/index.js';
 import Collectible from './collectible/data/index.js';
+import Trigger from './trigger/data/index.js';
 import {
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
@@ -85,10 +86,14 @@ class Game {
 
       this.collectibles.forEach((item, i) => {
         item.loop();
-        if(item.isCollected) {
+        if (item.isCollected) {
           item.destroy();
           this.collectibles.splice(i, 1);
         }
+      });
+
+      this.triggers.forEach((item, i) => {
+        item.loop();
       });
 
       this.#monsters.forEach((monster, i) => {
@@ -126,13 +131,22 @@ class Game {
     this.#controls.initialize(this.#hero);
     this.#map.initialize(0);
 
-    this.collectibles = this.#map.getCollectibles().map((item) => {
+    this.collectibles = this.#map.collectibles.map((item) => {
       const collectible = new Collectible[item.name]();
       collectible.initialize({ position: item.position, hero: this.#hero });
       return collectible;
     });
 
-    this.#monsters = this.#map.getEnemies().map((item) => {
+    this.triggers = this.#map
+      .items
+      .filter((item) => item.type === 'trigger')
+      .map((item) => {
+        const trigger = new Trigger[item.name]();
+        trigger.initialize({ position: item.position, hero: this.#hero });
+        return trigger;
+      });
+
+    this.#monsters = this.#map.enemies.map((item) => {
       const monster = new Monster[item.name]();
       monster.initialize({
         position: item.position,
@@ -143,8 +157,11 @@ class Game {
     });
 
     this.#hero.initialize({
-      position: this.#map.getHeroPosition(),
+      position: this.#map.heroPosition,
       blocksVerteces: this.#map.blocksVerteces,
+      items: this.triggers
+        .filter((trigger) => trigger.state.collision)
+        .map((trigger) => trigger.vertices),
     });
     this.animate();
     this.loop();
@@ -155,6 +172,6 @@ const game = new Game();
 
 game.initialize();
 // game.godMode();
-game.showGrid();
+// game.showGrid();
 game.showHurtbox();
 game.showHitbox();

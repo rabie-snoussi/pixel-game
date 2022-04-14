@@ -914,4 +914,19 @@ export default {
       position: GRID[20][22],
     },
   ],
+
+  // ITEMS
+  // --------------------------------------------------
+  items: [
+    {
+      type: 'trigger',
+      name: 'button',
+      position: GRID[37][17],
+    },
+    {
+      type: 'trigger',
+      name: 'lever',
+      position: GRID[39][16],
+    },
+  ],
 };
