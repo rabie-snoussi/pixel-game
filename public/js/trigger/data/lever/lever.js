@@ -2,7 +2,7 @@ import { isColliding } from '../../../helpers.js';
 import Trigger from '../../trigger.js';
 import STATES from './states/index.js';
 
-export default class Button extends Trigger {
+export default class Lever extends Trigger {
   constructor() {
     super({ states: STATES });
     this.isLocked = false;
@@ -55,7 +55,7 @@ export default class Button extends Trigger {
     this.element.style.left = this.position.x + 'px';
     this.element.style.top = this.position.y + 'px';
 
-    document.getElementById('items').appendChild(this.element);
+    document.getElementById('misc').appendChild(this.element);
 
     this.hero = hero;
   }

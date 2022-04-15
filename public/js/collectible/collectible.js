@@ -61,7 +61,7 @@ export default class Collectible {
     this.element.style.left = position.x + 'px';
     this.element.style.top = position.y + 'px';
 
-    document.getElementById('collectibles').appendChild(this.element);
+    document.getElementById('misc').appendChild(this.element);
 
     this.position.x = position.x;
     this.position.y = position.y;

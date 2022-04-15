@@ -32,7 +32,7 @@ export default class Map {
 
     this.enemies = this.#map.enemies;
     this.collectibles = this.#map.collectibles;
-    this.items = this.#map.items;
+    this.triggers = this.#map.triggers;
     this.heroPosition = this.#map.heroPosition;
 
     if (this.#map.bg2)

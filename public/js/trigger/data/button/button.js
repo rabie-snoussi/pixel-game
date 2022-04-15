@@ -51,7 +51,7 @@ export default class Button extends Trigger {
     this.element.style.left = this.position.x + 'px';
     this.element.style.top = this.position.y + 'px';
 
-    document.getElementById('items').appendChild(this.element);
+    document.getElementById('misc').appendChild(this.element);
 
     this.hero = hero;
   }

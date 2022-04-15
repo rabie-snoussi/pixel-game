@@ -138,8 +138,7 @@ class Game {
     });
 
     this.triggers = this.#map
-      .items
-      .filter((item) => item.type === 'trigger')
+      .triggers
       .map((item) => {
         const trigger = new Trigger[item.name]();
         trigger.initialize({ position: item.position, hero: this.#hero });

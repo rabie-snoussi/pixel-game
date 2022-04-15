@@ -1,5 +1,3 @@
-import { RESOLUTION_MULTIPLIER } from '../constants.js';
-
 export default class Trigger {
   constructor({ states }) {
     this.states = states;
@@ -9,10 +7,6 @@ export default class Trigger {
     this.element = document.createElement('div');
     this.hero = {};
     this.isEnabled = false;
-  }
-
-  destroy() {
-    this.element.remove();
   }
 
   initialize() {}

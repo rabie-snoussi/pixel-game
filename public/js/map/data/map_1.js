@@ -915,9 +915,9 @@ export default {
     },
   ],
 
-  // ITEMS
+  // TRIGGERS
   // --------------------------------------------------
-  items: [
+  triggers: [
     {
       type: 'trigger',
       name: 'button',
