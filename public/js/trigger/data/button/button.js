@@ -1,4 +1,3 @@
-import { RESOLUTION_MULTIPLIER } from '../../../constants.js';
 import { isCollidingTop } from '../../../helpers.js';
 import Trigger from '../../trigger.js';
 import STATES from './states/index.js';
@@ -38,7 +37,7 @@ export default class Button extends Trigger {
 
   initialize({ position, hero }) {
     this.position.x = position.x;
-    this.position.y = position.y + 7.77 * RESOLUTION_MULTIPLIER;
+    this.position.y = position.y + 7.77;
     this.vertices = this.state.getVertices(this.position);
 
     this.element.style.position = 'absolute';

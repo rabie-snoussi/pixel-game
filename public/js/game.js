@@ -4,6 +4,7 @@ import Map from './map/map.js';
 import Monster from './monster/data/index.js';
 import Collectible from './collectible/data/index.js';
 import Trigger from './trigger/data/index.js';
+import Trigged from './trigged/data/index.js';
 import {
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
@@ -20,7 +21,9 @@ class Game {
   #hero = new Hero();
   #monsters;
 
-  constructor() {}
+  constructor() {
+    this.triggeds = [];
+  }
 
   // Public Methods
 
@@ -38,12 +41,12 @@ class Game {
         gridItemElement.style.width = GRID_DIMENSIONS.width + 'px';
         gridItemElement.style.left = item.x + 'px';
         gridItemElement.style.top = item.y + 'px';
-        gridItemElement.style.border = '0.5px solid white';
+        gridItemElement.style.border = '0.25px solid white';
         gridItemElement.style.textAlign = 'center';
         gridItemElement.style.color = 'white';
-        gridItemElement.style.fontSize = '8px';
+        gridItemElement.style.fontSize = '4px';
         gridItemElement.style.opacity = '0.25';
-        gridItemElement.style.lineHeight = '27px';
+        gridItemElement.style.lineHeight = '16px';
         gridItemElement.style.zIndex = 99;
 
         gridItemElement.addEventListener('mouseenter', () => {
@@ -96,6 +99,10 @@ class Game {
         item.loop();
       });
 
+      this.triggeds.forEach((item) => {
+        item.loop();
+      });
+
       this.#monsters.forEach((monster, i) => {
         monster.loop();
         if (monster.isDead) {
@@ -113,6 +120,10 @@ class Game {
       this.#map.update();
 
       this.collectibles.forEach((item) => {
+        item.update();
+      });
+
+      this.triggeds.forEach((item) => {
         item.update();
       });
 
@@ -142,6 +153,12 @@ class Game {
       .map((item) => {
         const trigger = new Trigger[item.name]();
         trigger.initialize({ position: item.position, hero: this.#hero });
+        item?.trigged?.map((item) => {
+          const trigged = new Trigged[item.name]();
+          trigged.initialize({ position: item.position, hero: this.#hero, trigger: trigger, isOpen: item.isOpen });
+          this.triggeds.push(trigged);
+        })
+
         return trigger;
       });
 
@@ -158,9 +175,7 @@ class Game {
     this.#hero.initialize({
       position: this.#map.heroPosition,
       blocksVerteces: this.#map.blocksVerteces,
-      items: this.triggers
-        .filter((trigger) => trigger.state.collision)
-        .map((trigger) => trigger.vertices),
+      items: [...this.triggers, ...this.triggeds],
     });
     this.animate();
     this.loop();

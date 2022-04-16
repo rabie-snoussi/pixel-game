@@ -919,14 +919,36 @@ export default {
   // --------------------------------------------------
   triggers: [
     {
-      type: 'trigger',
       name: 'button',
       position: GRID[37][17],
+      trigged: [
+        {
+          name: 'door',
+          position: GRID[44][12],
+          isOpen: true,
+        },
+      ],
     },
     {
-      type: 'trigger',
       name: 'lever',
       position: GRID[39][16],
+      trigged: [
+        {
+          name: 'woodSlabLeft',
+          position: GRID[38][15],
+          isOpen: false,
+        },
+        {
+          name: 'woodSlabMiddle',
+          position: GRID[40][15],
+          isOpen: false,
+        },
+        {
+          name: 'woodSlabRight',
+          position: GRID[42][15],
+          isOpen: true,
+        },
+      ],
     },
   ],
 };

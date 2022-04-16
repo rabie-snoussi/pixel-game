@@ -24,6 +24,11 @@ export const COIN_IMG = {
   collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
 };
 
+export const DOOR_IMG = {
+  closed: './assets/miscellaneous/strange_door_closed_anim_strip_10.png',
+  opening: './assets/miscellaneous/strange_door_opening_anim_strip_14.png',
+};
+
 export const HEALTH_POTION_IMG = {
   initial: './assets/miscellaneous/health_potion.png',
 };
@@ -42,27 +47,27 @@ export const SLIME_IMG = {
   idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
 };
 
-export const RESOLUTION_MULTIPLIER = 1.8;
+export const HERO_SIZE = 2;
 
-export const HERO_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const GOBLIN_SIZE = 2;
 
-export const GOBLIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const COIN_SIZE = 2;
 
-export const COIN_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const DOOR_SIZE = 2;
 
-export const HEALTH_POTION_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const HEALTH_POTION_SIZE = 2;
 
-export const SLIME_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const SLIME_SIZE = 2;
 
-export const BUTTON_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const BUTTON_SIZE = 2;
 
-export const LEVER_SIZE = 2 * RESOLUTION_MULTIPLIER;
+export const LEVER_SIZE = 2;
 
-export const HERO_SPEED = 8 * RESOLUTION_MULTIPLIER;
+export const HERO_SPEED = 8;
 
-export const HERO_JUMP_SPEED = 10 * RESOLUTION_MULTIPLIER;
+export const HERO_JUMP_SPEED = 10;
 
-export const GOBLIN_SPEED = 2 * RESOLUTION_MULTIPLIER;
+export const GOBLIN_SPEED = 2;
 
 export const GOBLIN_HEALTH = 2;
 
@@ -76,7 +81,7 @@ export const GAME_LOOP_INTERVAL = 30;
 
 export const MAX_JUMPS = 2;
 
-export const ACCELERATION = 2;
+export const ACCELERATION = 1;
 
 export const DIRECTIONS = {
   left: 'left',
@@ -135,6 +140,16 @@ export const LEVER_STATES = {
   disabled: 'disabled',
 };
 
+export const DOOR_STATES = {
+  closed: 'closed',
+  opening: 'opening',
+  closing: 'closing',
+};
+
+export const WOOD_SLAB_STATES = {
+  closed: 'closed',
+};
+
 export const SLIME_ACTIONS = {
   idle: 'idle',
 };
@@ -142,11 +157,11 @@ export const SLIME_ACTIONS = {
 export const SCREEN_LIMITS = {
   x: {
     start: 0,
-    end: 800 * RESOLUTION_MULTIPLIER,
+    end: 800,
   },
   y: {
     start: 0,
-    end: 448 * RESOLUTION_MULTIPLIER,
+    end: 448,
   },
 };
 
@@ -208,81 +223,87 @@ const MATERIALS_IMG = {
   arrowPlateRight: './assets/miscellaneous/arrow_plate_right.png',
 };
 
+export const WOOD_SLAB_IMGS = {
+  left: './assets/miscellaneous/wood_slab_left.png',
+  middle: './assets/miscellaneous/wood_slab_middle.png',
+  right: './assets/miscellaneous/wood_slab_right.png',
+};
+
 const MATERIALS_SIZE = {
-  waterfall: 256 * RESOLUTION_MULTIPLIER + 'px',
-  waterfallBottom: 128 * RESOLUTION_MULTIPLIER + 'px',
-  tiles: 384 * RESOLUTION_MULTIPLIER + 'px',
-  woodenPlate: 32 * RESOLUTION_MULTIPLIER + 'px',
-  woodSlab: 32 * RESOLUTION_MULTIPLIER + 'px',
-  torch: 192 * RESOLUTION_MULTIPLIER + 'px',
-  root: 32 * RESOLUTION_MULTIPLIER + 'px',
-  grass: 32 * RESOLUTION_MULTIPLIER + 'px',
-  flowers: 32 * RESOLUTION_MULTIPLIER + 'px',
-  drygrass: 32 * RESOLUTION_MULTIPLIER + 'px',
-  bigflowers: 32 * RESOLUTION_MULTIPLIER + 'px',
-  arrowPlateLeft: 32 * RESOLUTION_MULTIPLIER + 'px',
-  arrowPlateRight: 32 * RESOLUTION_MULTIPLIER + 'px',
+  waterfall: 256 + 'px',
+  waterfallBottom: 128 + 'px',
+  tiles: 384 + 'px',
+  woodenPlate: 32 + 'px',
+  woodSlab: 32 + 'px',
+  torch: 192 + 'px',
+  root: 32 + 'px',
+  grass: 32 + 'px',
+  flowers: 32 + 'px',
+  drygrass: 32 + 'px',
+  bigflowers: 32 + 'px',
+  arrowPlateLeft: 32 + 'px',
+  arrowPlateRight: 32 + 'px',
 };
 
 const MATERIALS_DIMENSIONS = {
   tiles: {
-    height: 32 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 32,
+    width: 32,
   },
   waterfall: {
-    height: 64 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 64,
+    width: 32,
   },
   waterfallBottom: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   woodenPlate: {
-    height: 32 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 32,
+    width: 32,
   },
   woodSlab: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   torch: {
-    height: 48 * RESOLUTION_MULTIPLIER,
-    width: 16 * RESOLUTION_MULTIPLIER,
+    height: 48,
+    width: 16,
   },
   root: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   grass: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   flowers: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   drygrass: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   bigflowers: {
-    height: 16 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
+    height: 16,
+    width: 32,
   },
   arrowPlate: {
-    height: 32 * RESOLUTION_MULTIPLIER,
-    width: 32 * RESOLUTION_MULTIPLIER,
-  }
+    height: 32,
+    width: 32,
+  },
 };
 
 export const GRID_DIMENSIONS = {
-  height: 16 * RESOLUTION_MULTIPLIER,
-  width: 16 * RESOLUTION_MULTIPLIER,
+  height: 16,
+  width: 16,
 };
 
 export const SMALLER_GRID_DIMENSIONS = {
-  height: 16 * RESOLUTION_MULTIPLIER,
-  width: 16 * RESOLUTION_MULTIPLIER,
+  height: 16,
+  width: 16,
 };
 
 export const MAP_MATERIALS = {
@@ -415,7 +436,7 @@ export const MAP_MATERIALS = {
     imgSize: MATERIALS_SIZE.arrowPlateRight,
     animation: false,
     collision: false,
-  }
+  },
 };
 
 const makeGrid = (dimensions) => {

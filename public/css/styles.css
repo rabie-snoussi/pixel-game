@@ -10,8 +10,11 @@ html {
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 0;
   margin: 0;
 }
@@ -21,6 +24,7 @@ body {
   height: var(--screen-height);
   background-color: black;
   position: relative;
+  transform: scale(1.8);
 }
 
 #items,

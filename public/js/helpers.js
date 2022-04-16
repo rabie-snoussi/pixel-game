@@ -1,4 +1,4 @@
-import { SCREEN_LIMITS } from "./constants.js";
+import { SCREEN_LIMITS } from './constants.js';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -51,13 +51,13 @@ export const isCollidingBottom = (verteces1, verteces2, distance = 0) => {
 };
 
 export const isColliding = (verteces1, verteces2) => {
-    const topCollision = isCollidingTop(verteces1, verteces2);
-    const bottomCollision = isCollidingBottom(verteces1, verteces2);
-    const rightCollision = isCollidingRight(verteces1, verteces2);
-    const leftCollision = isCollidingLeft(verteces1, verteces2);
-  
-    return topCollision || bottomCollision || rightCollision || leftCollision;
-  };
+  const topCollision = isCollidingTop(verteces1, verteces2);
+  const bottomCollision = isCollidingBottom(verteces1, verteces2);
+  const rightCollision = isCollidingRight(verteces1, verteces2);
+  const leftCollision = isCollidingLeft(verteces1, verteces2);
+
+  return topCollision || bottomCollision || rightCollision || leftCollision;
+};
 
 const getBlockDistance = ({ hurtbox, blocks, distance, direction }) => {
   const directions = {
@@ -192,8 +192,24 @@ export const nextPosition = ({
   collision,
   items = [],
 }) => {
-  const xDirection = getXDirection({ hurtbox, blocks: [...blocks, ...items], vector, collision });
-  const yDirection = getYDirection({ hurtbox, blocks: [...blocks, ...items], vector, collision });
+  const newItems = items
+    .filter(
+      (trigger) => trigger.state.collision && !_.isEmpty(trigger.vertices)
+    )
+    .map((trigger) => trigger.vertices);
+
+  const xDirection = getXDirection({
+    hurtbox,
+    blocks: [...blocks, ...newItems],
+    vector,
+    collision,
+  });
+  const yDirection = getYDirection({
+    hurtbox,
+    blocks: [...blocks, ...newItems],
+    vector,
+    collision,
+  });
 
   position.x += xDirection;
   position.y += yDirection;
