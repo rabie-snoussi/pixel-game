@@ -3,7 +3,7 @@ import {
   FG_0_IMG,
   FG_1_IMG,
 } from '../constants.js';
-import MAPS from './data/index.js';
+import MAPS from './maps/index.js';
 import { createMaterial } from './helpers.js';
 import { createVertices, getVertices } from '../helpers.js';
 

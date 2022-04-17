@@ -75,6 +75,10 @@ export const HERO_EFFECTS = {
 
 // MONSTER
 
+export const MONSTERS = {
+  goblin: 'goblin',
+};
+
 export const MONSTER_ACTIONS = {
   idle: 'idle',
   run: 'run',
@@ -103,12 +107,17 @@ export const MONSTER_IMG = {
 
 // COLLECTIBLE
 
+export const COLLECTIBLES = {
+  coin: 'coin',
+  healthPotion: 'healthPotion',
+};
+
 export const COLLECTIBLE_IMG = {
   coin: {
     initial: './assets/miscellaneous/coin_anim_strip_6.png',
     collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
   },
-  healtPotion: {
+  healthPotion: {
     initial: './assets/miscellaneous/health_potion.png',
   },
 };
@@ -119,6 +128,11 @@ export const COLLECTIBLE_STATES = {
 };
 
 // TRIGGER
+
+export const TRIGGERS = {
+  button: 'button',
+  lever: 'lever',
+};
 
 export const TRIGGER_IMG = {
   button: {
@@ -138,16 +152,21 @@ export const TRIGGER_STATES = {
 
 // TRIGGERED_IMG
 
+export const TRIGGEREDS = {
+  door: 'door',
+  woodSlabLeft: 'woodSlabLeft',
+  woodSlabMiddle: 'woodSlabMiddle',
+  woodSlabRight: 'woodSlabRight',
+};
+
 export const TRIGGERED_IMG = {
   door: {
     closed: './assets/miscellaneous/strange_door_closed_anim_strip_10.png',
     opening: './assets/miscellaneous/strange_door_opening_anim_strip_14.png',
   },
-  woodSlab: {
-    left: './assets/miscellaneous/wood_slab_left.png',
-    middle: './assets/miscellaneous/wood_slab_middle.png',
-    right: './assets/miscellaneous/wood_slab_right.png',
-  },
+  woodSlabLeft: './assets/miscellaneous/wood_slab_left.png',
+  woodSlabMiddle: './assets/miscellaneous/wood_slab_middle.png',
+  woodSlabRight: './assets/miscellaneous/wood_slab_right.png',
 };
 
 export const TRIGGERED_STATES = {

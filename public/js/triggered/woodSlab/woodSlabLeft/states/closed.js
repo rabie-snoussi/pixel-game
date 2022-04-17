@@ -3,7 +3,7 @@ import { createVertices, getVertices } from '../../../../helpers.js';
 
 const name = TRIGGERED_STATES.closed;
 
-const img = 'url("' + TRIGGERED_IMG.woodSlab.left + '")';
+const img = 'url("' + TRIGGERED_IMG.woodSlabLeft + '")';
 
 const dimensions = { height: 16, width: 32 };
 

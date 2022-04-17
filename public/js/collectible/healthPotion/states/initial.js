@@ -6,7 +6,7 @@ import { createVertices, getVertices } from '../../../helpers.js';
 
 const name = COLLECTIBLE_STATES.initial;
 
-const img = 'url("' + COLLECTIBLE_IMG.healtPotion.initial + '")';
+const img = 'url("' + COLLECTIBLE_IMG.healthPotion.initial + '")';
 
 const dimensions = { height: 20, width: 16 };
 

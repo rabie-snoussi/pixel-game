@@ -1,4 +1,4 @@
-import { MAP_MATERIALS, GRID, TILES } from '../../constants.js';
+import { MAP_MATERIALS, GRID, TILES, COLLECTIBLES, TRIGGERS, TRIGGEREDS, MONSTERS } from '../../constants.js';
 
 export default {
   bg2: true,
@@ -7,11 +7,11 @@ export default {
   heroPosition: GRID[10][22],
   enemies: [
     {
-      name: 'goblin',
+      name: MONSTERS.goblin,
       position: GRID[14][22],
     },
     {
-      name: 'goblin',
+      name: MONSTERS.goblin,
       position: GRID[42][16],
     },
   ],
@@ -906,11 +906,11 @@ export default {
   // --------------------------------------------------
   collectibles: [
     {
-      name: 'coin',
+      name: COLLECTIBLES.coin,
       position: GRID[18][22],
     },
     {
-      name: 'healthPotion',
+      name: COLLECTIBLES.healthPotion,
       position: GRID[20][22],
     },
   ],
@@ -919,32 +919,32 @@ export default {
   // --------------------------------------------------
   triggers: [
     {
-      name: 'button',
+      name: TRIGGERS.button,
       position: GRID[37][17],
       triggered: [
         {
-          name: 'door',
+          name: TRIGGEREDS.door,
           position: GRID[44][12],
           isOpen: true,
         },
       ],
     },
     {
-      name: 'lever',
+      name: TRIGGERS.lever,
       position: GRID[39][16],
       triggered: [
         {
-          name: 'woodSlabLeft',
+          name: TRIGGEREDS.woodSlabLeft,
           position: GRID[38][15],
           isOpen: false,
         },
         {
-          name: 'woodSlabMiddle',
+          name: TRIGGEREDS.woodSlabMiddle,
           position: GRID[40][15],
           isOpen: false,
         },
         {
-          name: 'woodSlabRight',
+          name: TRIGGEREDS.woodSlabRight,
           position: GRID[42][15],
           isOpen: true,
         },
