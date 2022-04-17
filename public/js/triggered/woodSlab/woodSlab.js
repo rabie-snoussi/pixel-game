@@ -13,20 +13,23 @@ export default class WoodSlab extends Triggered {
     this.isOpen = true;
     this.element.style.display = 'none';
     this.vertices = {};
+    this.collision = this.state.collision;
   }
 
   close() {
     this.isOpen = false;
     this.element.style.display = 'block';
     this.vertices = this.state.getVertices(this.position);
+    this.collision = this.state.collision;
   }
 
   loop() {
-    if (revertBool(this.revert, this.trigger.isEnabled) && !this.isOpen) {
+    if(!this.triggerElement) return this.triggerElement = document.getElementById(this.triggerId);
+    if (revertBool(this.revert, !!Number(this.triggerElement.dataset.isEnabled)) && !this.isOpen) {
       this.open();
     }
 
-    if (revertBool(this.revert, !this.trigger.isEnabled) && this.isOpen) {
+    if (revertBool(this.revert, !Number(this.triggerElement.dataset.isEnabled)) && this.isOpen) {
       this.close();
     }
   }

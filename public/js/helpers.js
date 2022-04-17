@@ -349,7 +349,7 @@ export const nextPosition = ({
   items = [],
 }) => {
   const filteredItems = items
-    .filter((item) => item.state.collision && !_.isEmpty(item.vertices))
+    .filter((item) => item.collision && !_.isEmpty(item.vertices))
     .map((item) => item.vertices);
 
   const xDirection = getXDirection({

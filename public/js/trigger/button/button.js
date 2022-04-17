@@ -11,22 +11,24 @@ export default class Button extends Trigger {
     if (this.state.name === this.states.enabled.name) return;
 
     this.state = this.states.enabled;
+    this.collision = this.state.collision;
+    
     this.element.style.height = this.state.dimensions.height;
     this.element.style.width = this.state.dimensions.width;
     this.element.style.backgroundImage = this.state.img;
-    
-    this.isEnabled = true;
+    this.element.dataset.isEnabled = '1';
   }
 
   disable() {
     if (this.state.name === this.states.disabled.name) return;
 
     this.state = this.states.disabled;
+    this.collision = this.state.collision;
+
     this.element.style.height = this.state.dimensions.height;
     this.element.style.width = this.state.dimensions.width;
     this.element.style.backgroundImage = this.state.img;
-
-    this.isEnabled = false;
+    this.element.dataset.isEnabled = '0';
   }
 
   loop() {
@@ -35,10 +37,11 @@ export default class Button extends Trigger {
     this.disable();
   }
 
-  initialize({ position, hero }) {
+  initialize({ position, hero, id }) {
     this.position = position;
     this.position.y += 7.77;
     this.vertices = this.state.getVertices(this.position);
+    this.collision = this.state.collision;
 
     this.element = createElement({
       position: this.position,
@@ -46,7 +49,11 @@ export default class Button extends Trigger {
       img: this.state.img
     });
 
+    this.element.setAttribute('id', id);
+
     document.getElementById('misc').appendChild(this.element);
+
+    this.element.dataset.isEnabled = '0';
 
     this.hero = hero;
   }

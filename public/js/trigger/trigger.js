@@ -6,7 +6,7 @@ export default class Trigger {
     this.state = this.states.disabled;
     this.element = null;
     this.hero = {};
-    this.isEnabled = false;
+    this.collision = null;
   }
 
   initialize() {}

@@ -2,11 +2,8 @@ import Controls from './control/control.js';
 import Hero from './hero/hero.js';
 import Map from './map/map.js';
 import Monster from './monster/index.js';
-import Collectible from './collectible/index.js';
-import Trigger from './trigger/index.js';
-import Triggered from './triggered/index.js';
+import Item from './items.js';
 import {
-  SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
   GRID_DIMENSIONS,
@@ -20,6 +17,7 @@ class Game {
     this.hero = null;
     this.map = null;
     this.controls = null;
+    this.items = null;
   }
 
   showGrid() {
@@ -82,20 +80,12 @@ class Game {
     setInterval(() => {
       this.hero.loop();
 
-      this.collectibles.forEach((item, i) => {
-        item.loop();
+      this.items.forEach((item, i) => {
+        item.loop?.();
         if (item.isCollected) {
           item.destroy();
-          this.collectibles.splice(i, 1);
+          this.items.splice(i, 1);
         }
-      });
-
-      this.triggers.forEach((item, i) => {
-        item.loop();
-      });
-
-      this.triggereds.forEach((item) => {
-        item.loop();
       });
 
       this.monsters.forEach((monster, i) => {
@@ -114,12 +104,8 @@ class Game {
 
       this.map.update();
 
-      this.collectibles.forEach((item) => {
-        item.update();
-      });
-
-      this.triggereds.forEach((item) => {
-        item.update();
+      this.items.forEach((item) => {
+        item.update?.();
       });
 
       this.monsters.forEach((monster) => {
@@ -136,27 +122,16 @@ class Game {
     this.controls.initialize(this.hero);
     this.map.initialize(0);
 
-    this.collectibles = this.map.collectibles.map((item) => {
-      const collectible = new Collectible[item.name]();
-      collectible.initialize({ position: item.position, hero: this.hero });
-      return collectible;
-    });
-
-    this.triggers = this.map.triggers.map((item) => {
-      const trigger = new Trigger[item.name]();
-      trigger.initialize({ position: item.position, hero: this.hero });
-      item?.triggered?.map((item) => {
-        const triggered = new Triggered[item.name]();
-        triggered.initialize({
-          position: item.position,
-          hero: this.hero,
-          trigger: trigger,
-          isOpen: item.isOpen,
-        });
-        this.triggereds.push(triggered);
+    this.items = this.map.items.map((item) => {
+      const itemObj = new Item[item.name]();
+      itemObj.initialize({
+        position: item.position,
+        hero: this.hero,
+        id: item.id,
+        triggerId: item.triggerId,
+        isOpen: item.isOpen,
       });
-
-      return trigger;
+      return itemObj;
     });
 
     this.monsters = this.map.enemies.map((item) => {
@@ -165,7 +140,7 @@ class Game {
         position: item.position,
         blocksVertices: this.map.blocksVertices,
         hero: this.hero,
-        items: this.triggereds
+        items: this.triggereds,
       });
       return monster;
     });
@@ -173,7 +148,7 @@ class Game {
     this.hero.initialize({
       position: this.map.heroPosition,
       blocksVertices: this.map.blocksVertices,
-      items: [...this.triggers, ...this.triggereds],
+      items: this.items,
     });
 
     this.animate();

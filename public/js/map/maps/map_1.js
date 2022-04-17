@@ -1,4 +1,12 @@
-import { MAP_MATERIALS, GRID, TILES, COLLECTIBLES, TRIGGERS, TRIGGEREDS, MONSTERS } from '../../constants.js';
+import {
+  MAP_MATERIALS,
+  GRID,
+  TILES,
+  COLLECTIBLES,
+  TRIGGERS,
+  TRIGGEREDS,
+  MONSTERS,
+} from '../../constants.js';
 
 export default {
   bg2: true,
@@ -902,9 +910,10 @@ export default {
     },
   ],
 
-  // COLLECTIBLES
+  // ITEMS
   // --------------------------------------------------
-  collectibles: [
+
+  items: [
     {
       name: COLLECTIBLES.coin,
       position: GRID[18][22],
@@ -913,42 +922,36 @@ export default {
       name: COLLECTIBLES.healthPotion,
       position: GRID[20][22],
     },
-  ],
-
-  // TRIGGERS
-  // --------------------------------------------------
-  triggers: [
     {
+      id: 'trigger-2',
       name: TRIGGERS.button,
       position: GRID[37][17],
-      triggered: [
-        {
-          name: TRIGGEREDS.door,
-          position: GRID[44][12],
-          isOpen: false,
-        },
-      ],
     },
     {
+      triggerId: 'trigger-2',
+      name: TRIGGEREDS.door,
+      position: GRID[44][12],
+    },
+    {
+      id: 'trigger-1',
       name: TRIGGERS.lever,
       position: GRID[39][16],
-      triggered: [
-        {
-          name: TRIGGEREDS.woodSlabLeft,
-          position: GRID[38][15],
-          isOpen: false,
-        },
-        {
-          name: TRIGGEREDS.woodSlabMiddle,
-          position: GRID[40][15],
-          isOpen: false,
-        },
-        {
-          name: TRIGGEREDS.woodSlabRight,
-          position: GRID[42][15],
-          isOpen: true,
-        },
-      ],
+    },
+    {
+      triggerId: 'trigger-1',
+      name: TRIGGEREDS.woodSlabLeft,
+      position: GRID[38][15],
+    },
+    {
+      triggerId: 'trigger-1',
+      name: TRIGGEREDS.woodSlabMiddle,
+      position: GRID[40][15],
+    },
+    {
+      triggerId: 'trigger-1',
+      name: TRIGGEREDS.woodSlabRight,
+      position: GRID[42][15],
+      isOpen: true,
     },
   ],
 };

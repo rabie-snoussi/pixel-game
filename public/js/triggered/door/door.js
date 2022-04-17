@@ -15,7 +15,7 @@ export default class Door extends Triggered {
     if (this.isLocked) return;
     if (this.state.name === this.states.opening.name) return;
     this.isLocked = true;
-
+    this.collision = this.state.collision;
     this.isClosed = false;
     this.frameCounter = 0;
     this.state = this.states.opening;
@@ -25,8 +25,9 @@ export default class Door extends Triggered {
   close() {
     if (this.isLocked) return;
     if (this.state.name === this.states.closing.name) return;
+    
     this.isLocked = true;
-
+    this.collision = this.state.collision;
     this.isOpen = false;
     this.frameCounter = 0;
     this.state = this.states.closing;
@@ -45,11 +46,12 @@ export default class Door extends Triggered {
   }
 
   loop() {
-    if (revertBool(this.revert, this.trigger.isEnabled)) {
+    if(!this.triggerElement) return this.triggerElement = document.getElementById(this.triggerId);
+    if (revertBool(this.revert, !!Number(this.triggerElement.dataset.isEnabled))) {
       this.open();
     }
 
-    if (revertBool(this.revert, !this.trigger.isEnabled)) {
+    if (revertBool(this.revert, !Number(this.triggerElement.dataset.isEnabled))) {
       if (this.states.opening.name === this.state.name) {
         this.close();
       }

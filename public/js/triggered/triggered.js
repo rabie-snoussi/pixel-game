@@ -8,8 +8,10 @@ export default class Triggered {
     this.hero = {};
     this.isEnabled = false;
     this.frameCounter = 0;
-    this.trigger = {};
     this.revert = false;
+    this.triggerId = '';
+    this.triggerElement = {};
+    this.collision = null;
   }
 
   updateFrame() {
@@ -40,11 +42,14 @@ export default class Triggered {
   open() {}
 
 
-  initialize({ position, hero, trigger, isOpen }) {
-    this.trigger = trigger;
+  initialize({ position, hero, isOpen, triggerId }) {
     this.position = position;
+    this.triggerId = triggerId;
+
+    this.triggerElement = document.getElementById(triggerId);
     
     this.vertices = this.state.getVertices(this.position);
+    this.collision = this.state.collision;
 
     this.element.style.position = 'absolute';
     this.element.style.backgroundSize = 'cover';

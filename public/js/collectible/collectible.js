@@ -11,6 +11,7 @@ export default class Collectible {
     this.hero = {};
     this.isCollecting = false;
     this.isCollected = false;
+    this.collision = false;
   }
 
   updateFrame() {
