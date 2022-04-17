@@ -6,7 +6,7 @@ export default class Monster {
     this.isDead = false;
     this._frameCounter = 0;
     this._element = document.createElement('div');
-    this.blocksVerteces = [];
+    this.blocksVertices = [];
     this.direction = DIRECTIONS.left;
     this._actions = actions;
     this.action = {};
@@ -24,7 +24,7 @@ export default class Monster {
     this.hero = {};
     this.hurtbox = {
       element: document.createElement('div'),
-      verteces: {
+      vertices: {
         a: {
           x: 0,
           y: 0,
@@ -149,7 +149,7 @@ export default class Monster {
         hitboxElement.style.top = hitbox.position.top;
         hitboxElement.style.left = hitbox.position.left;
 
-        this._hitbox = hitbox.verteces;
+        this._hitbox = hitbox.vertices;
 
         if (!item.hitbox[item.character.direction].length) {
           hitboxElement.remove();
@@ -178,19 +178,19 @@ export default class Monster {
   }
 
   updateHurtbox() {
-    this.hurtbox.verteces = this.action.hurtbox(this.position).verteces;
+    this.hurtbox.vertices = this.action.getHurtbox(this.position).vertices;
 
-    this.hurtbox.element.style.top = this.action.hurtbox(
+    this.hurtbox.element.style.top = this.action.getHurtbox(
       this.position
     ).position.top;
-    this.hurtbox.element.style.left = this.action.hurtbox(
+    this.hurtbox.element.style.left = this.action.getHurtbox(
       this.position
     ).position.left;
 
-    this.hurtbox.element.style.width = this.action.hurtbox(
+    this.hurtbox.element.style.width = this.action.getHurtbox(
       this.position
     ).dimensions.width;
-    this.hurtbox.element.style.height = this.action.hurtbox(
+    this.hurtbox.element.style.height = this.action.getHurtbox(
       this.position
     ).dimensions.height;
   }
@@ -233,8 +233,8 @@ export default class Monster {
 
   loop() {
     nextPosition({
-      hurtbox: this.hurtbox.verteces,
-      blocks: this.blocksVerteces,
+      hurtbox: this.hurtbox.vertices,
+      blocks: this.blocksVertices,
       vector: this.vector,
       position: this.position,
       collision: this.collision,
@@ -262,7 +262,7 @@ export default class Monster {
     this._showHitbox = true;
   }
 
-  initialize({ position, blocksVerteces, hero }) {
+  initialize({ position, blocksVertices, hero }) {
     this._element.style.position = 'absolute';
     this._element.style.backgroundSize = 'cover';
     this._element.style.imageRendering = 'pixelated';
@@ -275,6 +275,6 @@ export default class Monster {
     this.position.y = position.y;
 
     this.hero = hero;
-    this.blocksVerteces = blocksVerteces;
+    this.blocksVertices = blocksVertices;
   }
 }

@@ -1,4 +1,4 @@
-import ACTIONS from './data/index.js';
+import ACTIONS from './index.js';
 import {
   DIRECTIONS,
   HERO_SPEED,
@@ -15,7 +15,7 @@ export default class Hero {
   #godMode = false;
   #frameCounter = 0;
   #element = document.createElement('div');
-  #blocksVerteces = [];
+  #blocksVertices = [];
   #direction = DIRECTIONS.right;
   #action = ACTIONS.idle;
   #effects = [];
@@ -41,7 +41,7 @@ export default class Hero {
     this.items = [];
     this.hurtbox = {
       element: document.createElement('div'),
-      verteces: {
+      vertices: {
         a: {
           x: 0,
           y: 0,
@@ -163,7 +163,7 @@ export default class Hero {
         hitboxElement.style.top = hitbox.position.top;
         hitboxElement.style.left = hitbox.position.left;
 
-        this.hitbox = hitbox.verteces;
+        this.hitbox = hitbox.vertices;
 
         if (!item.frames[item.character.direction].length) {
           hitboxElement.remove();
@@ -187,19 +187,19 @@ export default class Hero {
   }
 
   #updateHurtbox() {
-    this.hurtbox.verteces = this.#action.hurtbox(this.#position).verteces;
+    this.hurtbox.vertices = this.#action.getHurtbox(this.#position).vertices;
 
-    this.hurtbox.element.style.top = this.#action.hurtbox(
+    this.hurtbox.element.style.top = this.#action.getHurtbox(
       this.#position
     ).position.top;
-    this.hurtbox.element.style.left = this.#action.hurtbox(
+    this.hurtbox.element.style.left = this.#action.getHurtbox(
       this.#position
     ).position.left;
 
-    this.hurtbox.element.style.width = this.#action.hurtbox(
+    this.hurtbox.element.style.width = this.#action.getHurtbox(
       this.#position
     ).dimensions.width;
-    this.hurtbox.element.style.height = this.#action.hurtbox(
+    this.hurtbox.element.style.height = this.#action.getHurtbox(
       this.#position
     ).dimensions.height;
   }
@@ -252,8 +252,8 @@ export default class Hero {
 
   loop() {
     nextPosition({
-      hurtbox: this.hurtbox.verteces,
-      blocks: this.#blocksVerteces,
+      hurtbox: this.hurtbox.vertices,
+      blocks: this.#blocksVertices,
       vector: this.#vector,
       position: this.#position,
       collision: this.#collision,
@@ -336,7 +336,7 @@ export default class Hero {
     this.#godMode = true;
   }
 
-  initialize({ position, blocksVerteces, items }) {
+  initialize({ position, blocksVertices, items }) {
     this.#element.setAttribute('id', 'hero');
     this.#element.style.position = 'absolute';
     this.#element.style.backgroundSize = 'cover';
@@ -347,7 +347,7 @@ export default class Hero {
     this.#position.x = position.x;
     this.#position.y = position.y;
 
-    this.#blocksVerteces = blocksVerteces;
+    this.#blocksVertices = blocksVertices;
     this.items = items;
   }
 }

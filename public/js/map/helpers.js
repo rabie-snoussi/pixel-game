@@ -1,4 +1,4 @@
-export const createElement = (item) => {
+export const createMaterial = (item) => {
     const element = document.createElement('div');
   
     element.style.position = 'absolute';
@@ -19,22 +19,3 @@ export const createElement = (item) => {
   
     return element;
   };
-  
-  export const getVerteces = ({ dimensions, position }) => ({
-    a: {
-      x: position.x,
-      y: position.y,
-    },
-    b: {
-      x: position.x + dimensions.width,
-      y: position.y,
-    },
-    c: {
-      x: position.x + dimensions.width,
-      y: position.y + dimensions.height,
-    },
-    d: {
-      x: position.x,
-      y: position.y + dimensions.height,
-    },
-  });

@@ -921,7 +921,7 @@ export default {
     {
       name: 'button',
       position: GRID[37][17],
-      trigged: [
+      triggered: [
         {
           name: 'door',
           position: GRID[44][12],
@@ -932,7 +932,7 @@ export default {
     {
       name: 'lever',
       position: GRID[39][16],
-      trigged: [
+      triggered: [
         {
           name: 'woodSlabLeft',
           position: GRID[38][15],

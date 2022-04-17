@@ -2,59 +2,193 @@ import { SCREEN_LIMITS } from './constants.js';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-export const isCollidingRight = (verteces1, verteces2, distance = 0) => {
+export const revertBool = (revert, bool) => {
+  if (revert) return !bool;
+  return bool;
+};
+
+export const addPosition =
+  ({ right, left }) =>
+  (position) => {
+    const rightPosition = {
+      x: position.x + right.x,
+      y: position.y + right.y,
+    };
+
+    const leftPosition = {
+      x: position.x + left.x,
+      y: position.y + left.y,
+    };
+
+    return { right: rightPosition, left: leftPosition };
+  };
+
+export const getBox =
+  ({ a, b, c, d }) =>
+  (currentPosition) => {
+    const vertices = {
+      a: { x: currentPosition.x + a.x, y: currentPosition.y + a.y },
+      b: { x: currentPosition.x + b.x, y: currentPosition.y + b.y },
+      c: { x: currentPosition.x + c.x, y: currentPosition.y + c.y },
+      d: { x: currentPosition.x + d.x, y: currentPosition.y + d.y },
+    };
+
+    const position = {
+      top: vertices.a.y + 'px',
+      left: vertices.a.x + 'px',
+    };
+
+    const dimensions = {
+      width: vertices.b.x - vertices.a.x + 'px',
+      height: vertices.c.y - vertices.a.y + 'px',
+    };
+
+    return {
+      vertices,
+      position,
+      dimensions,
+    };
+  };
+
+export const createVertices = (
+  { height, width },
+  initial = { x: 0, y: 0 }
+) => ({
+  a: { x: initial.x, y: initial.y },
+  b: { x: initial.x + width, y: initial.y },
+  c: { x: initial.x + width, y: initial.y + height },
+  d: { x: initial.x, y: initial.y + height },
+});
+
+export const getVertices =
+  (vertices) =>
+  (position = { x: 0, y: 0 }) => ({
+    a: {
+      x: vertices.a.x + position.x,
+      y: vertices.a.y + position.y,
+    },
+    b: {
+      x: vertices.b.x + position.x,
+      y: vertices.b.y + position.y,
+    },
+    c: {
+      x: vertices.c.x + position.x,
+      y: vertices.c.y + position.y,
+    },
+    d: {
+      x: vertices.d.x + position.x,
+      y: vertices.d.y + position.y,
+    },
+  });
+
+export const getReverseFrames = ({ dimensions, number }) => {
+  const frames = Array.apply(null, Array(number)).map((item, i) => ({
+    backgroundPositionX: getBackgroundPositionX(dimensions, number - 1 - i),
+  }));
+
+  return frames;
+};
+
+export const getBackgroundPositionX = (dimensions, i) =>
+  dimensions.width * -i + 'px';
+
+export const getFrames = ({ dimensions, number, left, right }) => {
+  if (!left && !right)
+    return Array.apply(null, Array(number)).map((item, i) => ({
+      backgroundPositionX: getBackgroundPositionX(dimensions, i),
+    }));
+
+  const rightFrames = Array.apply(null, Array(number)).map((item, i) => ({
+    transform: right,
+    backgroundPositionX: getBackgroundPositionX(dimensions, i),
+  }));
+
+  const leftFrames = Array.apply(null, Array(number)).map((item, i) => ({
+    transform: left,
+    backgroundPositionX: getBackgroundPositionX(dimensions, i),
+  }));
+
+  return { right: rightFrames, left: leftFrames };
+};
+
+export const getEffectPosition = (position) => (currentPosition) => ({
+  right: {
+    top: currentPosition.y + position.right.y + 'px',
+    left: currentPosition.x + position.right.x + 'px',
+  },
+  left: {
+    top: currentPosition.y + position.left.y + 'px',
+    left: currentPosition.x + position.left.x + 'px',
+  },
+});
+
+export const getHitbox = (dimensions, initialPositions) => {
+  const rightVertices = initialPositions.right.map((item, i) =>
+    createVertices(dimensions[i], initialPositions.right[i])
+  );
+  const leftVertices = initialPositions.left.map((item, i) =>
+    createVertices(dimensions[i], initialPositions.left[i])
+  );
+
+  const rightHitboxs = rightVertices.map((item, i) => getBox(rightVertices[i]));
+  const leftHitboxs = leftVertices.map((item, i) => getBox(leftVertices[i]));
+
+  return { right: rightHitboxs, left: leftHitboxs };
+};
+
+export const isCollidingRight = (vertices1, vertices2, distance = 0) => {
   return (
-    verteces1.b.x + distance >= verteces2.a.x &&
-    ((verteces1.b.y === verteces2.a.y && verteces1.c.y === verteces2.d.y) ||
-      (verteces1.b.y > verteces2.a.y && verteces1.b.y < verteces2.d.y) ||
-      (verteces1.c.y > verteces2.a.y && verteces1.c.y < verteces2.d.y) ||
-      (verteces2.a.y > verteces1.b.y && verteces2.a.y < verteces1.c.y) ||
-      (verteces2.d.y > verteces1.b.y && verteces2.d.y < verteces1.c.y)) &&
-    verteces1.b.x < verteces2.b.x
+    vertices1.b.x + distance >= vertices2.a.x &&
+    ((vertices1.b.y === vertices2.a.y && vertices1.c.y === vertices2.d.y) ||
+      (vertices1.b.y > vertices2.a.y && vertices1.b.y < vertices2.d.y) ||
+      (vertices1.c.y > vertices2.a.y && vertices1.c.y < vertices2.d.y) ||
+      (vertices2.a.y > vertices1.b.y && vertices2.a.y < vertices1.c.y) ||
+      (vertices2.d.y > vertices1.b.y && vertices2.d.y < vertices1.c.y)) &&
+    vertices1.b.x < vertices2.b.x
   );
 };
 
-export const isCollidingLeft = (verteces1, verteces2, distance = 0) => {
+export const isCollidingLeft = (vertices1, vertices2, distance = 0) => {
   return (
-    verteces1.a.x - distance <= verteces2.b.x &&
-    ((verteces1.a.y === verteces2.b.y && verteces1.d.y === verteces2.c.y) ||
-      (verteces1.a.y > verteces2.b.y && verteces1.a.y < verteces2.c.y) ||
-      (verteces1.d.y > verteces2.b.y && verteces1.d.y < verteces2.c.y) ||
-      (verteces2.b.y > verteces1.a.y && verteces2.b.y < verteces1.d.y) ||
-      (verteces2.c.y > verteces1.a.y && verteces2.c.y < verteces1.d.y)) &&
-    verteces1.a.x > verteces2.a.x
+    vertices1.a.x - distance <= vertices2.b.x &&
+    ((vertices1.a.y === vertices2.b.y && vertices1.d.y === vertices2.c.y) ||
+      (vertices1.a.y > vertices2.b.y && vertices1.a.y < vertices2.c.y) ||
+      (vertices1.d.y > vertices2.b.y && vertices1.d.y < vertices2.c.y) ||
+      (vertices2.b.y > vertices1.a.y && vertices2.b.y < vertices1.d.y) ||
+      (vertices2.c.y > vertices1.a.y && vertices2.c.y < vertices1.d.y)) &&
+    vertices1.a.x > vertices2.a.x
   );
 };
 
-export const isCollidingTop = (verteces1, verteces2, distance = 0) => {
+export const isCollidingTop = (vertices1, vertices2, distance = 0) => {
   return (
-    verteces1.a.y - distance <= verteces2.c.y &&
-    ((verteces1.a.x === verteces2.d.x && verteces1.b.x === verteces2.c.x) ||
-      (verteces1.a.x > verteces2.d.x && verteces1.a.x < verteces2.c.x) ||
-      (verteces1.b.x > verteces2.d.x && verteces1.b.x < verteces2.c.x) ||
-      (verteces2.c.x > verteces1.a.x && verteces2.c.x < verteces1.b.x) ||
-      (verteces2.d.x > verteces1.a.x && verteces2.d.x < verteces1.b.x)) &&
-    verteces1.a.y > verteces2.a.y
+    vertices1.a.y - distance <= vertices2.c.y &&
+    ((vertices1.a.x === vertices2.d.x && vertices1.b.x === vertices2.c.x) ||
+      (vertices1.a.x > vertices2.d.x && vertices1.a.x < vertices2.c.x) ||
+      (vertices1.b.x > vertices2.d.x && vertices1.b.x < vertices2.c.x) ||
+      (vertices2.c.x > vertices1.a.x && vertices2.c.x < vertices1.b.x) ||
+      (vertices2.d.x > vertices1.a.x && vertices2.d.x < vertices1.b.x)) &&
+    vertices1.a.y > vertices2.a.y
   );
 };
 
-export const isCollidingBottom = (verteces1, verteces2, distance = 0) => {
+export const isCollidingBottom = (vertices1, vertices2, distance = 0) => {
   return (
-    verteces1.c.y + distance >= verteces2.a.y &&
-    ((verteces1.c.x === verteces2.b.x && verteces1.d.x === verteces2.a.x) ||
-      (verteces1.c.x > verteces2.a.x && verteces1.c.x < verteces2.b.x) ||
-      (verteces1.d.x > verteces2.a.x && verteces1.d.x < verteces2.b.x) ||
-      (verteces2.a.x > verteces1.d.x && verteces2.a.x < verteces1.c.x) ||
-      (verteces2.b.x > verteces1.d.x && verteces2.b.x < verteces1.c.x)) &&
-    verteces1.c.y < verteces2.c.y
+    vertices1.c.y + distance >= vertices2.a.y &&
+    ((vertices1.c.x === vertices2.b.x && vertices1.d.x === vertices2.a.x) ||
+      (vertices1.c.x > vertices2.a.x && vertices1.c.x < vertices2.b.x) ||
+      (vertices1.d.x > vertices2.a.x && vertices1.d.x < vertices2.b.x) ||
+      (vertices2.a.x > vertices1.d.x && vertices2.a.x < vertices1.c.x) ||
+      (vertices2.b.x > vertices1.d.x && vertices2.b.x < vertices1.c.x)) &&
+    vertices1.c.y < vertices2.c.y
   );
 };
 
-export const isColliding = (verteces1, verteces2) => {
-  const topCollision = isCollidingTop(verteces1, verteces2);
-  const bottomCollision = isCollidingBottom(verteces1, verteces2);
-  const rightCollision = isCollidingRight(verteces1, verteces2);
-  const leftCollision = isCollidingLeft(verteces1, verteces2);
+export const isColliding = (vertices1, vertices2) => {
+  const topCollision = isCollidingTop(vertices1, vertices2);
+  const bottomCollision = isCollidingBottom(vertices1, vertices2);
+  const rightCollision = isCollidingRight(vertices1, vertices2);
+  const leftCollision = isCollidingLeft(vertices1, vertices2);
 
   return topCollision || bottomCollision || rightCollision || leftCollision;
 };
@@ -215,15 +349,41 @@ export const nextPosition = ({
   position.y += yDirection;
 };
 
-export const getCenterPosition = (verteces) => {
-  const xCenter = (verteces.a.x + verteces.c.x) / 2;
-  const yCenter = (verteces.a.y + verteces.c.y) / 2;
+export const getCenterPosition = (vertices) => {
+  const xCenter = (vertices.a.x + vertices.c.x) / 2;
+  const yCenter = (vertices.a.y + vertices.c.y) / 2;
   return { x: xCenter, y: yCenter };
+};
+
+export const isWithinRange = (position1, position2, distance) =>
+  !!(
+    position2.x - distance.x < position1.x &&
+    position2.x + distance.x > position1.x &&
+    position2.y - distance.y < position1.y &&
+    position2.y + distance.y > position1.y
+  );
+
+export const chase = ({
+  chaserVertices,
+  chasedVertices,
+  vector,
+  distance,
+  speed,
+}) => {
+  const chasedPosition = getCenterPosition(chasedVertices);
+  const chaserPosition = getCenterPosition(chaserVertices);
+
+  const isDetected = isWithinRange(chaserPosition, chasedPosition, distance);
+
+  if (!isDetected) return (vector.x = 0);
+
+  if (chasedPosition.x < chaserPosition.x) vector.x = -speed;
+  if (chasedPosition.x > chaserPosition.x) vector.x = speed;
 };
 
 export const insertEffect = ({ effect, position, direction }) => {
   if (!effect.img) return;
-  const effectPosition = effect.position(position)[direction];
+  const effectPosition = effect.getPosition(position)[direction];
 
   const element = document.createElement('div');
 
@@ -289,4 +449,20 @@ export const cloneWithElements = ({
   }));
 
   return [..._.cloneDeep(effects), ...effectWithElements];
+};
+
+export const makeGrid = (dimensions, screenLimits) => {
+  const columnsNumber = screenLimits.x.end / dimensions.width;
+  const rowsNumber = screenLimits.y.end / dimensions.height;
+  const grid = [];
+
+  for (let x = 0; x < columnsNumber; x++) {
+    grid.push([]);
+
+    for (let y = 0; y < rowsNumber; y++) {
+      const cell = { x: x * dimensions.width, y: y * dimensions.height };
+      grid[x].push(cell);
+    }
+  }
+  return grid;
 };

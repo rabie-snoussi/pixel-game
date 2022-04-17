@@ -1,10 +1,10 @@
 import Controls from './control/control.js';
 import Hero from './hero/hero.js';
 import Map from './map/map.js';
-import Monster from './monster/data/index.js';
-import Collectible from './collectible/data/index.js';
-import Trigger from './trigger/data/index.js';
-import Trigged from './trigged/data/index.js';
+import Monster from './monster/index.js';
+import Collectible from './collectible/index.js';
+import Trigger from './trigger/index.js';
+import Triggered from './triggered/index.js';
 import {
   SCREEN_LIMITS,
   GAME_LOOP_INTERVAL,
@@ -22,7 +22,7 @@ class Game {
   #monsters;
 
   constructor() {
-    this.triggeds = [];
+    this.triggereds = [];
   }
 
   // Public Methods
@@ -99,7 +99,7 @@ class Game {
         item.loop();
       });
 
-      this.triggeds.forEach((item) => {
+      this.triggereds.forEach((item) => {
         item.loop();
       });
 
@@ -123,7 +123,7 @@ class Game {
         item.update();
       });
 
-      this.triggeds.forEach((item) => {
+      this.triggereds.forEach((item) => {
         item.update();
       });
 
@@ -153,10 +153,10 @@ class Game {
       .map((item) => {
         const trigger = new Trigger[item.name]();
         trigger.initialize({ position: item.position, hero: this.#hero });
-        item?.trigged?.map((item) => {
-          const trigged = new Trigged[item.name]();
-          trigged.initialize({ position: item.position, hero: this.#hero, trigger: trigger, isOpen: item.isOpen });
-          this.triggeds.push(trigged);
+        item?.triggered?.map((item) => {
+          const triggered = new Triggered[item.name]();
+          triggered.initialize({ position: item.position, hero: this.#hero, trigger: trigger, isOpen: item.isOpen });
+          this.triggereds.push(triggered);
         })
 
         return trigger;
@@ -166,7 +166,7 @@ class Game {
       const monster = new Monster[item.name]();
       monster.initialize({
         position: item.position,
-        blocksVerteces: this.#map.blocksVerteces,
+        blocksVertices: this.#map.blocksVertices,
         hero: this.#hero,
       });
       return monster;
@@ -174,8 +174,8 @@ class Game {
 
     this.#hero.initialize({
       position: this.#map.heroPosition,
-      blocksVerteces: this.#map.blocksVerteces,
-      items: [...this.triggers, ...this.triggeds],
+      blocksVertices: this.#map.blocksVertices,
+      items: [...this.triggers, ...this.triggereds],
     });
     this.animate();
     this.loop();

@@ -1,3 +1,48 @@
+import { makeGrid } from './helpers.js';
+
+// GENERAL
+
+export const ACCELERATION = 1;
+
+export const DIRECTIONS = {
+  left: 'left',
+  right: 'right',
+};
+
+export const SCREEN_LIMITS = {
+  x: {
+    start: 0,
+    end: 800,
+  },
+  y: {
+    start: 0,
+    end: 448,
+  },
+};
+
+export const GRID_DIMENSIONS = {
+  height: 16,
+  width: 16,
+};
+
+export const GRID = makeGrid(GRID_DIMENSIONS, SCREEN_LIMITS);
+
+// GAME
+
+export const ANIMATION_INTERVAL = 100;
+
+export const MOVEMENT_INTERVAL = 30;
+
+export const GAME_LOOP_INTERVAL = 30;
+
+// HERO
+
+export const HERO_SPEED = 8;
+
+export const MAX_JUMPS = 2;
+
+export const HERO_JUMP_SPEED = 10;
+
 export const HERO_IMG = {
   idle: './assets/hero/herochar_idle_anim_strip_4.png',
   attack: './assets/hero/herochar_attack_anim_strip_4.png',
@@ -9,83 +54,6 @@ export const HERO_IMG = {
   fall: './assets/hero/herochar_jump_down_anim_strip_3.png',
   preJumpDust: './assets/hero/herochar_before_jump_dust_anim_strip_4.png',
   postJumpDust: './assets/hero/herochar_after_jump_dust_anim_strip_4.png',
-};
-
-export const GOBLIN_IMG = {
-  idle: './assets/enemies/goblin/goblin_idle_anim_strip_4.png',
-  run: './assets/enemies/goblin/goblin_run_anim_strip_6.png',
-  attack: './assets/enemies/goblin/goblin_attack_anim_strip_4.png',
-  hit: './assets/enemies/goblin/goblin_hit_anim_strip_3.png',
-  death: './assets/enemies/goblin/goblin_death_anim_strip_6.png',
-};
-
-export const COIN_IMG = {
-  initial: './assets/miscellaneous/coin_anim_strip_6.png',
-  collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
-};
-
-export const DOOR_IMG = {
-  closed: './assets/miscellaneous/strange_door_closed_anim_strip_10.png',
-  opening: './assets/miscellaneous/strange_door_opening_anim_strip_14.png',
-};
-
-export const HEALTH_POTION_IMG = {
-  initial: './assets/miscellaneous/health_potion.png',
-};
-
-export const BUTTON_IMG = {
-  enabled: './assets/miscellaneous/button_pressed.png',
-  disabled: './assets/miscellaneous/button.png',
-};
-
-export const LEVER_IMG = {
-  enabled: './assets/miscellaneous/lever_turned_right.png',
-  disabled: './assets/miscellaneous/lever_turned_left.png',
-};
-
-export const SLIME_IMG = {
-  idle: './assets/enemies/slime/slime_idle_anim_strip_5.png',
-};
-
-export const HERO_SIZE = 2;
-
-export const GOBLIN_SIZE = 2;
-
-export const COIN_SIZE = 2;
-
-export const DOOR_SIZE = 2;
-
-export const HEALTH_POTION_SIZE = 2;
-
-export const SLIME_SIZE = 2;
-
-export const BUTTON_SIZE = 2;
-
-export const LEVER_SIZE = 2;
-
-export const HERO_SPEED = 8;
-
-export const HERO_JUMP_SPEED = 10;
-
-export const GOBLIN_SPEED = 2;
-
-export const GOBLIN_HEALTH = 2;
-
-export const GOBLIN_ATTACK_INTERVAL = 1000;
-
-export const ANIMATION_INTERVAL = 100;
-
-export const MOVEMENT_INTERVAL = 30;
-
-export const GAME_LOOP_INTERVAL = 30;
-
-export const MAX_JUMPS = 2;
-
-export const ACCELERATION = 1;
-
-export const DIRECTIONS = {
-  left: 'left',
-  right: 'right',
 };
 
 export const HERO_ACTIONS = {
@@ -105,6 +73,8 @@ export const HERO_EFFECTS = {
   postJumpDust: 'postJumpDust',
 };
 
+// MONSTER
+
 export const MONSTER_ACTIONS = {
   idle: 'idle',
   run: 'run',
@@ -113,57 +83,80 @@ export const MONSTER_ACTIONS = {
   death: 'death',
 };
 
-export const GOBLIN_ACTIONS = {
-  idle: 'idle',
-  run: 'run',
-  attack: 'attack',
-  hit: 'hit',
-  death: 'death',
+export const MONSTER_SPEED = {
+  goblin: 2,
 };
 
-export const COIN_STATES = {
+export const MONSTER_HEALTH = { goblin: 2 };
+
+export const MONSTER_ATTACK_INTERVAL = { goblin: 1000 };
+
+export const MONSTER_IMG = {
+  goblin: {
+    idle: './assets/enemies/goblin/goblin_idle_anim_strip_4.png',
+    run: './assets/enemies/goblin/goblin_run_anim_strip_6.png',
+    attack: './assets/enemies/goblin/goblin_attack_anim_strip_4.png',
+    hit: './assets/enemies/goblin/goblin_hit_anim_strip_3.png',
+    death: './assets/enemies/goblin/goblin_death_anim_strip_6.png',
+  },
+};
+
+// COLLECTIBLE
+
+export const COLLECTIBLE_IMG = {
+  coin: {
+    initial: './assets/miscellaneous/coin_anim_strip_6.png',
+    collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
+  },
+  healtPotion: {
+    initial: './assets/miscellaneous/health_potion.png',
+  },
+};
+
+export const COLLECTIBLE_STATES = {
   initial: 'initial',
   collect: 'collect',
 };
 
-export const HEALTH_POTION_STATES = {
-  initial: 'initial',
+// TRIGGER
+
+export const TRIGGER_IMG = {
+  button: {
+    enabled: './assets/miscellaneous/button_pressed.png',
+    disabled: './assets/miscellaneous/button.png',
+  },
+  lever: {
+    enabled: './assets/miscellaneous/lever_turned_right.png',
+    disabled: './assets/miscellaneous/lever_turned_left.png',
+  },
 };
 
-export const BUTTON_STATES = {
+export const TRIGGER_STATES = {
   enabled: 'enabled',
   disabled: 'disabled',
 };
 
-export const LEVER_STATES = {
-  enabled: 'enabled',
-  disabled: 'disabled',
+// TRIGGERED_IMG
+
+export const TRIGGERED_IMG = {
+  door: {
+    closed: './assets/miscellaneous/strange_door_closed_anim_strip_10.png',
+    opening: './assets/miscellaneous/strange_door_opening_anim_strip_14.png',
+  },
+  woodSlab: {
+    left: './assets/miscellaneous/wood_slab_left.png',
+    middle: './assets/miscellaneous/wood_slab_middle.png',
+    right: './assets/miscellaneous/wood_slab_right.png',
+  },
 };
 
-export const DOOR_STATES = {
+export const TRIGGERED_STATES = {
   closed: 'closed',
   opening: 'opening',
   closing: 'closing',
 };
 
-export const WOOD_SLAB_STATES = {
-  closed: 'closed',
-};
-
-export const SLIME_ACTIONS = {
-  idle: 'idle',
-};
-
-export const SCREEN_LIMITS = {
-  x: {
-    start: 0,
-    end: 800,
-  },
-  y: {
-    start: 0,
-    end: 448,
-  },
-};
+// CONTROLS
 
 export const KEY_CODES = {
   spacebar: 32,
@@ -198,6 +191,8 @@ export const SIMULTANOUS_KEYS = {
   },
 };
 
+// MAP
+
 export const BG_2_IMG = './assets/tiles_background_foreground/bg_2.png';
 
 export const FG_0_IMG = './assets/tiles_background_foreground/fg_0.png';
@@ -221,12 +216,6 @@ const MATERIALS_IMG = {
   bigflowers: './assets/miscellaneous/bigflowers_props.png',
   arrowPlateLeft: './assets/miscellaneous/arrow_plate_left.png',
   arrowPlateRight: './assets/miscellaneous/arrow_plate_right.png',
-};
-
-export const WOOD_SLAB_IMGS = {
-  left: './assets/miscellaneous/wood_slab_left.png',
-  middle: './assets/miscellaneous/wood_slab_middle.png',
-  right: './assets/miscellaneous/wood_slab_right.png',
 };
 
 const MATERIALS_SIZE = {
@@ -294,16 +283,6 @@ const MATERIALS_DIMENSIONS = {
     height: 32,
     width: 32,
   },
-};
-
-export const GRID_DIMENSIONS = {
-  height: 16,
-  width: 16,
-};
-
-export const SMALLER_GRID_DIMENSIONS = {
-  height: 16,
-  width: 16,
 };
 
 export const MAP_MATERIALS = {
@@ -438,24 +417,6 @@ export const MAP_MATERIALS = {
     collision: false,
   },
 };
-
-const makeGrid = (dimensions) => {
-  const columnsNumber = SCREEN_LIMITS.x.end / dimensions.width;
-  const rowsNumber = SCREEN_LIMITS.y.end / dimensions.height;
-  const grid = [];
-
-  for (let x = 0; x < columnsNumber; x++) {
-    grid.push([]);
-
-    for (let y = 0; y < rowsNumber; y++) {
-      const cell = { x: x * dimensions.width, y: y * dimensions.height };
-      grid[x].push(cell);
-    }
-  }
-  return grid;
-};
-
-export const GRID = makeGrid(GRID_DIMENSIONS);
 
 export const TILES = {
   normal: {

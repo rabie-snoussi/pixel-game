@@ -1,16 +1,15 @@
-import { isColliding } from "../helpers.js";
-
-export default class Collectible {
+export default class Triggered {
   constructor({ states }) {
     this.states = states;
     this.position = { x: 0, y: 0 };
     this.vertices = {};
-    this.state = this.states.initial;
-    this.frameCounter = 0;
+    this.state = this.states.closed;
     this.element = document.createElement('div');
     this.hero = {};
-    this.isCollecting = false;
-    this.isCollected = false;
+    this.isEnabled = false;
+    this.frameCounter = 0;
+    this.trigger = {};
+    this.revert = false;
   }
 
   updateFrame() {
@@ -26,7 +25,6 @@ export default class Collectible {
 
   update() {
     if (this.frameCounter >= this.state.frames.length) {
-        if(this.isCollecting) return this.isCollected = true;
       this.frameCounter = 0;
     }
 
@@ -34,21 +32,19 @@ export default class Collectible {
     this.frameCounter++;
   }
 
-  collect () {}
-
-  destroy() {
-    this.element.remove();
-  }
-
   loop() {
-      if(isColliding(this.vertices, this.hero.hurtbox.vertices) && !this.isCollecting) {
-        this.isCollecting = true;
-        this.collect();
-      }
   }
 
-  initialize({ position, hero }) {
-    this.position = position;
+  close() {}
+
+  open() {}
+
+
+  initialize({ position, hero, trigger, isOpen }) {
+    this.trigger = trigger;
+
+    this.position.x = position.x;
+    this.position.y = position.y;
     this.vertices = this.state.getVertices(this.position);
 
     this.element.style.position = 'absolute';
@@ -58,14 +54,16 @@ export default class Collectible {
     this.element.style.height = this.state.dimensions.height;
     this.element.style.width = this.state.dimensions.width;
     this.element.style.backgroundImage = this.state.img;
-    this.element.style.left = position.x + 'px';
-    this.element.style.top = position.y + 'px';
+    this.element.style.left = this.position.x + 'px';
+    this.element.style.top = this.position.y + 'px';
 
     document.getElementById('misc').appendChild(this.element);
 
-    this.position.x = position.x;
-    this.position.y = position.y;
-
     this.hero = hero;
+
+    if(isOpen) {
+      this.open();
+      this.revert = true;
+    }
   }
 }

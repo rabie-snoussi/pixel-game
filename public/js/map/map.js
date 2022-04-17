@@ -4,7 +4,8 @@ import {
   FG_1_IMG,
 } from '../constants.js';
 import MAPS from './data/index.js';
-import { createElement, getVerteces } from './helpers.js';
+import { createMaterial } from './helpers.js';
+import { createVertices, getVertices } from '../helpers.js';
 
 export default class Map {
   //Private properties
@@ -12,7 +13,7 @@ export default class Map {
   #map;
 
   constructor() {
-    this.blocksVerteces = [];
+    this.blocksVertices = [];
     this.frameCounter = 0;
     this.animations = [];
   }
@@ -49,11 +50,11 @@ export default class Map {
 
     this.#map.materials
       .forEach((item) => {
-        const element = createElement(item);
+        const element = createMaterial(item);
 
         document.getElementById('materials').appendChild(element);
 
-        if(item.collision) this.blocksVerteces.push(getVerteces(item));
+        if(item.collision) this.blocksVertices.push(getVertices(createVertices(item.dimensions))(item.position));
 
         if(item.animation) this.animations.push({...item, element});
       });
