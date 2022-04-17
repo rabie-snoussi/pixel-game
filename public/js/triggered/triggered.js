@@ -42,9 +42,8 @@ export default class Triggered {
 
   initialize({ position, hero, trigger, isOpen }) {
     this.trigger = trigger;
-
-    this.position.x = position.x;
-    this.position.y = position.y;
+    this.position = position;
+    
     this.vertices = this.state.getVertices(this.position);
 
     this.element.style.position = 'absolute';

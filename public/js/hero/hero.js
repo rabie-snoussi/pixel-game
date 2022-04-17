@@ -7,7 +7,13 @@ import {
   ACCELERATION,
   HERO_JUMP_SPEED,
 } from '../constants.js';
-import { sleep, cloneWithElements, nextPosition } from '../helpers.js';
+import {
+  sleep,
+  cloneWithElements,
+  nextPosition,
+  createElement,
+  addBorder,
+} from '../helpers.js';
 
 export default class Hero {
   constructor() {
@@ -15,7 +21,7 @@ export default class Hero {
     this.hearts = 3;
     this.coins = 0;
     this.blocksVertices = [];
-    this.element = document.createElement('div');
+    this.element = null;
     this.frameCounter = 0;
     this.direction = DIRECTIONS.right;
     this.action = ACTIONS.idle;
@@ -301,9 +307,7 @@ export default class Hero {
   }
 
   showHurtbox() {
-    this.hurtbox.element.style.position = 'absolute';
-    this.hurtbox.element.style.border = '1px solid green';
-    this.hurtbox.element.style.boxSizing = 'border-box';
+    addBorder(this.hurtbox.element, 'green');;
 
     document.getElementById('map').appendChild(this.hurtbox.element);
   }
@@ -317,16 +321,17 @@ export default class Hero {
   }
 
   initialize({ position, blocksVertices, items }) {
+    this.element = createElement({
+      position,
+      dimensions: this.action.dimensions,
+      img: this.action.img,
+    });
+
     this.element.setAttribute('id', 'hero');
-    this.element.style.position = 'absolute';
-    this.element.style.backgroundSize = 'cover';
-    this.element.style.imageRendering = 'pixelated';
 
     document.getElementById('map').appendChild(this.element);
 
-    this.position.x = position.x;
-    this.position.y = position.y;
-
+    this.position = position;
     this.blocksVertices = blocksVertices;
     this.items = items;
   }

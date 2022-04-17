@@ -4,7 +4,7 @@ export default class Trigger {
     this.position = { x: 0, y: 0 };
     this.vertices = {};
     this.state = this.states.disabled;
-    this.element = document.createElement('div');
+    this.element = null;
     this.hero = {};
     this.isEnabled = false;
   }

@@ -1,4 +1,4 @@
-import { isColliding } from '../../helpers.js';
+import { isColliding, createElement } from '../../helpers.js';
 import Trigger from '../trigger.js';
 import STATES from './states/index.js';
 
@@ -41,19 +41,14 @@ export default class Lever extends Trigger {
   }
 
   initialize({ position, hero }) {
-    this.position.x = position.x;
-    this.position.y = position.y;
+    this.position = position;
     this.vertices = this.state.getVertices(this.position);
 
-    this.element.style.position = 'absolute';
-    this.element.style.backgroundSize = 'cover';
-    this.element.style.imageRendering = 'pixelated';
-
-    this.element.style.height = this.state.dimensions.height;
-    this.element.style.width = this.state.dimensions.width;
-    this.element.style.backgroundImage = this.state.img;
-    this.element.style.left = this.position.x + 'px';
-    this.element.style.top = this.position.y + 'px';
+    this.element = createElement({
+      position,
+      dimensions: this.state.dimensions,
+      img: this.state.img
+    });
 
     document.getElementById('misc').appendChild(this.element);
 

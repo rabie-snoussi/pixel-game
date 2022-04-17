@@ -133,11 +133,6 @@ class Game {
     this.map = new Map();
     this.controls = new Controls();
 
-    const root = document.querySelector(':root');
-
-    root.style.setProperty('--screen-width', SCREEN_LIMITS.x.end + 'px');
-    root.style.setProperty('--screen-height', SCREEN_LIMITS.y.end + 'px');
-
     this.controls.initialize(this.hero);
     this.map.initialize(0);
 
@@ -170,6 +165,7 @@ class Game {
         position: item.position,
         blocksVertices: this.map.blocksVertices,
         hero: this.hero,
+        items: this.triggereds
       });
       return monster;
     });
@@ -189,6 +185,6 @@ const game = new Game();
 
 game.initialize();
 // game.godMode();
-// game.showGrid();
+game.showGrid();
 game.showHurtbox();
 game.showHitbox();

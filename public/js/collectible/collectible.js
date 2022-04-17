@@ -1,4 +1,4 @@
-import { isColliding } from "../helpers.js";
+import { isColliding, createElement } from '../helpers.js';
 
 export default class Collectible {
   constructor({ states }) {
@@ -7,7 +7,7 @@ export default class Collectible {
     this.vertices = {};
     this.state = this.states.initial;
     this.frameCounter = 0;
-    this.element = document.createElement('div');
+    this.element = null;
     this.hero = {};
     this.isCollecting = false;
     this.isCollected = false;
@@ -15,7 +15,7 @@ export default class Collectible {
 
   updateFrame() {
     const frame = this.state.frames[this.frameCounter];
-    
+
     this.element.style.backgroundImage = this.state.img;
     this.element.style.height = this.state.dimensions.height;
     this.element.style.width = this.state.dimensions.width;
@@ -26,7 +26,7 @@ export default class Collectible {
 
   update() {
     if (this.frameCounter >= this.state.frames.length) {
-        if(this.isCollecting) return this.isCollected = true;
+      if (this.isCollecting) return (this.isCollected = true);
       this.frameCounter = 0;
     }
 
@@ -34,37 +34,33 @@ export default class Collectible {
     this.frameCounter++;
   }
 
-  collect () {}
+  collect() {}
 
   destroy() {
     this.element.remove();
   }
 
   loop() {
-      if(isColliding(this.vertices, this.hero.hurtbox.vertices) && !this.isCollecting) {
-        this.isCollecting = true;
-        this.collect();
-      }
+    if (
+      isColliding(this.vertices, this.hero.hurtbox.vertices) &&
+      !this.isCollecting
+    ) {
+      this.isCollecting = true;
+      this.collect();
+    }
   }
 
   initialize({ position, hero }) {
     this.position = position;
     this.vertices = this.state.getVertices(this.position);
 
-    this.element.style.position = 'absolute';
-    this.element.style.backgroundSize = 'cover';
-    this.element.style.imageRendering = 'pixelated';
-
-    this.element.style.height = this.state.dimensions.height;
-    this.element.style.width = this.state.dimensions.width;
-    this.element.style.backgroundImage = this.state.img;
-    this.element.style.left = position.x + 'px';
-    this.element.style.top = position.y + 'px';
+    this.element = createElement({
+      dimensions: this.state.dimensions,
+      img: this.state.img,
+      position: this.position,
+    });
 
     document.getElementById('misc').appendChild(this.element);
-
-    this.position.x = position.x;
-    this.position.y = position.y;
 
     this.hero = hero;
   }

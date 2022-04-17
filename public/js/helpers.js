@@ -7,6 +7,12 @@ export const revertBool = (revert, bool) => {
   return bool;
 };
 
+export const addBorder = (element, color) => {
+  element.style.position = 'absolute';
+  element.style.border = `1px solid ${color}`;
+  element.style.boxSizing = 'border-box';
+ };
+
 export const addPosition =
   ({ right, left }) =>
   (position) => {
@@ -318,6 +324,22 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
   );
 };
 
+export const createElement = ({ dimensions, img, position }) => {
+  const element = document.createElement('div');
+
+  element.style.position = 'absolute';
+  element.style.backgroundSize = 'cover';
+  element.style.imageRendering = 'pixelated';
+
+  element.style.height = dimensions.height;
+  element.style.width = dimensions.width;
+  element.style.backgroundImage = img;
+  element.style.left = position.x + 'px';
+  element.style.top = position.y + 'px';
+
+  return element;
+};
+
 export const nextPosition = ({
   hurtbox,
   blocks = [],
@@ -326,21 +348,19 @@ export const nextPosition = ({
   collision,
   items = [],
 }) => {
-  const newItems = items
-    .filter(
-      (trigger) => trigger.state.collision && !_.isEmpty(trigger.vertices)
-    )
-    .map((trigger) => trigger.vertices);
+  const filteredItems = items
+    .filter((item) => item.state.collision && !_.isEmpty(item.vertices))
+    .map((item) => item.vertices);
 
   const xDirection = getXDirection({
     hurtbox,
-    blocks: [...blocks, ...newItems],
+    blocks: [...blocks, ...filteredItems],
     vector,
     collision,
   });
   const yDirection = getYDirection({
     hurtbox,
-    blocks: [...blocks, ...newItems],
+    blocks: [...blocks, ...filteredItems],
     vector,
     collision,
   });
@@ -411,9 +431,7 @@ export const insertHitbox = (effect, showHitbox) => {
   const element = document.createElement('div');
 
   if (showHitbox) {
-    element.style.position = 'absolute';
-    element.style.border = '1px solid yellow';
-    element.style.boxSizing = 'border-box';
+    addBorder(element, 'yellow');
     element.style.visibility = 'hidden';
   }
 

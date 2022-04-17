@@ -925,7 +925,7 @@ export default {
         {
           name: TRIGGEREDS.door,
           position: GRID[44][12],
-          isOpen: true,
+          isOpen: false,
         },
       ],
     },

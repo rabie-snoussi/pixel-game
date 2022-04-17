@@ -1,15 +1,20 @@
 import { DIRECTIONS, ACCELERATION, MONSTER_ACTIONS } from '../constants.js';
-import { cloneWithElements, nextPosition } from '../helpers.js';
+import {
+  cloneWithElements,
+  nextPosition,
+  createElement,
+  addBorder
+} from '../helpers.js';
 
 export default class Monster {
   constructor({ actions }) {
     this.isDead = false;
     this.frameCounter = 0;
-    this.element = document.createElement('div');
+    this.element = null;
     this.blocksVertices = [];
     this.direction = DIRECTIONS.left;
     this.actions = actions;
-    this.action = {};
+    this.action = this.actions.idle;
     this.effects = [];
     this.imgPosition = { x: 0, y: 0 };
     this.collision = {
@@ -119,7 +124,7 @@ export default class Monster {
   }
 
   removeHitbox() {
-    this.effects?.map(item => item.elements?.hitbox.remove());
+    this.effects?.map((item) => item.elements?.hitbox.remove());
   }
 
   playEffects() {
@@ -167,9 +172,7 @@ export default class Monster {
 
   updatePosition() {
     if (this.action.img === this.element.style.backgroundImage)
-      this.imgPosition = this.action.getPosition(this.position)[
-        this.direction
-      ];
+      this.imgPosition = this.action.getPosition(this.position)[this.direction];
 
     this.element.style.top = this.imgPosition.y + 'px';
     this.element.style.left = this.imgPosition.x + 'px';
@@ -222,8 +225,9 @@ export default class Monster {
 
   update() {
     if (this.frameCounter >= this.action.frames[this.direction].length) {
-      if(this.action.name === MONSTER_ACTIONS.death) return this.isDead = true;
-      if(this.action.name !== MONSTER_ACTIONS.death) this.frameCounter = 0;
+      if (this.action.name === MONSTER_ACTIONS.death)
+        return (this.isDead = true);
+      if (this.action.name !== MONSTER_ACTIONS.death) this.frameCounter = 0;
     }
 
     this.playEffects();
@@ -238,6 +242,7 @@ export default class Monster {
       vector: this.vector,
       position: this.position,
       collision: this.collision,
+      items: this.items,
     });
 
     if (this.collision.bottom) {
@@ -251,9 +256,7 @@ export default class Monster {
   }
 
   showHurtbox() {
-    this.hurtbox.element.style.position = 'absolute';
-    this.hurtbox.element.style.border = '1px solid red';
-    this.hurtbox.element.style.boxSizing = 'border-box';
+    addBorder(this.hurtbox.element, 'red');
 
     document.getElementById('enemies').appendChild(this.hurtbox.element);
   }
@@ -262,18 +265,17 @@ export default class Monster {
     this.isHitboxVisible = true;
   }
 
-  initialize({ position, blocksVertices, hero }) {
-    this.element.style.position = 'absolute';
-    this.element.style.backgroundSize = 'cover';
-    this.element.style.imageRendering = 'pixelated';
+  initialize({ position, blocksVertices, hero, items }) {
+    this.element = createElement({
+      position,
+      dimensions: this.action.dimensions,
+      img: this.action.img
+    });
 
     document.getElementById('enemies').appendChild(this.element);
 
-    this.action = this.actions.idle;
-
-    this.position.x = position.x;
-    this.position.y = position.y;
-
+    this.items = items;
+    this.position = position;
     this.hero = hero;
     this.blocksVertices = blocksVertices;
   }
