@@ -14,18 +14,13 @@ import {
 } from './constants.js';
 
 class Game {
-  // Private Properties
-
-  #controls = new Controls();
-  #map = new Map();
-  #hero = new Hero();
-  #monsters;
-
   constructor() {
     this.triggereds = [];
+    this.monsters = null;
+    this.hero = null;
+    this.map = null;
+    this.controls = null;
   }
-
-  // Public Methods
 
   showGrid() {
     const gridElement = document.createElement('div');
@@ -69,23 +64,23 @@ class Game {
   }
 
   showHurtbox() {
-    this.#hero.showHurtbox();
-    this.#monsters.map((monster) => monster.showHurtbox());
+    this.hero.showHurtbox();
+    this.monsters.map((monster) => monster.showHurtbox());
   }
 
   showHitbox() {
-    this.#hero.showHitbox();
-    this.#monsters.map((monster) => monster.showHitbox());
+    this.hero.showHitbox();
+    this.monsters.map((monster) => monster.showHitbox());
   }
 
   godMode() {
-    this.#controls.godMode();
-    this.#hero.godMode();
+    this.controls.godMode();
+    this.hero.godMode();
   }
 
   loop() {
     setInterval(() => {
-      this.#hero.loop();
+      this.hero.loop();
 
       this.collectibles.forEach((item, i) => {
         item.loop();
@@ -103,11 +98,11 @@ class Game {
         item.loop();
       });
 
-      this.#monsters.forEach((monster, i) => {
+      this.monsters.forEach((monster, i) => {
         monster.loop();
         if (monster.isDead) {
           monster.destroy();
-          this.#monsters.splice(i, 1);
+          this.monsters.splice(i, 1);
         }
       });
     }, GAME_LOOP_INTERVAL);
@@ -115,9 +110,9 @@ class Game {
 
   animate() {
     setInterval(() => {
-      this.#hero.update();
+      this.hero.update();
 
-      this.#map.update();
+      this.map.update();
 
       this.collectibles.forEach((item) => {
         item.update();
@@ -127,56 +122,64 @@ class Game {
         item.update();
       });
 
-      this.#monsters.forEach((monster) => {
+      this.monsters.forEach((monster) => {
         monster.update();
       });
     }, ANIMATION_INTERVAL);
   }
 
   initialize() {
+    this.hero = new Hero();
+    this.map = new Map();
+    this.controls = new Controls();
+
     const root = document.querySelector(':root');
 
     root.style.setProperty('--screen-width', SCREEN_LIMITS.x.end + 'px');
     root.style.setProperty('--screen-height', SCREEN_LIMITS.y.end + 'px');
 
-    this.#controls.initialize(this.#hero);
-    this.#map.initialize(0);
+    this.controls.initialize(this.hero);
+    this.map.initialize(0);
 
-    this.collectibles = this.#map.collectibles.map((item) => {
+    this.collectibles = this.map.collectibles.map((item) => {
       const collectible = new Collectible[item.name]();
-      collectible.initialize({ position: item.position, hero: this.#hero });
+      collectible.initialize({ position: item.position, hero: this.hero });
       return collectible;
     });
 
-    this.triggers = this.#map
-      .triggers
-      .map((item) => {
-        const trigger = new Trigger[item.name]();
-        trigger.initialize({ position: item.position, hero: this.#hero });
-        item?.triggered?.map((item) => {
-          const triggered = new Triggered[item.name]();
-          triggered.initialize({ position: item.position, hero: this.#hero, trigger: trigger, isOpen: item.isOpen });
-          this.triggereds.push(triggered);
-        })
-
-        return trigger;
+    this.triggers = this.map.triggers.map((item) => {
+      const trigger = new Trigger[item.name]();
+      trigger.initialize({ position: item.position, hero: this.hero });
+      item?.triggered?.map((item) => {
+        const triggered = new Triggered[item.name]();
+        triggered.initialize({
+          position: item.position,
+          hero: this.hero,
+          trigger: trigger,
+          isOpen: item.isOpen,
+        });
+        this.triggereds.push(triggered);
       });
 
-    this.#monsters = this.#map.enemies.map((item) => {
+      return trigger;
+    });
+
+    this.monsters = this.map.enemies.map((item) => {
       const monster = new Monster[item.name]();
       monster.initialize({
         position: item.position,
-        blocksVertices: this.#map.blocksVertices,
-        hero: this.#hero,
+        blocksVertices: this.map.blocksVertices,
+        hero: this.hero,
       });
       return monster;
     });
 
-    this.#hero.initialize({
-      position: this.#map.heroPosition,
-      blocksVertices: this.#map.blocksVertices,
+    this.hero.initialize({
+      position: this.map.heroPosition,
+      blocksVertices: this.map.blocksVertices,
       items: [...this.triggers, ...this.triggereds],
     });
+
     this.animate();
     this.loop();
   }

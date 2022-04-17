@@ -10,135 +10,116 @@ import {
 import { sleep, cloneWithElements, nextPosition } from '../helpers.js';
 
 export default class Hero {
-  // Private properties
-
-  #godMode = false;
-  #frameCounter = 0;
-  #element = document.createElement('div');
-  #blocksVertices = [];
-  #direction = DIRECTIONS.right;
-  #action = ACTIONS.idle;
-  #effects = [];
-  #jumpCount = MAX_JUMPS;
-  #collision = {
-    top: false,
-    bottom: false,
-    right: false,
-    left: false,
-  };
-  #showHitbox = false;
-  #vector = { x: 0, y: 0 };
-
-  #position = {
-    x: 0,
-    y: 0,
-  };
-
   constructor() {
+    this.isGodMode = false;
     this.hearts = 3;
     this.coins = 0;
+    this.blocksVertices = [];
+    this.element = document.createElement('div');
+    this.frameCounter = 0;
+    this.direction = DIRECTIONS.right;
+    this.action = ACTIONS.idle;
+    this.jumpCount = MAX_JUMPS;
+    this.effects = [];
     this.hitbox = {};
     this.items = [];
+    this.isHitboxVisible = false;
+    this.vector = { x: 0, y: 0 };
+    this.position = {
+      x: 0,
+      y: 0,
+    };
     this.hurtbox = {
       element: document.createElement('div'),
-      vertices: {
-        a: {
-          x: 0,
-          y: 0,
-        },
-        b: {
-          x: 0,
-          y: 0,
-        },
-        c: {
-          x: 0,
-          y: 0,
-        },
-        d: {
-          x: 0,
-          y: 0,
-        },
-      },
+      vertices: {},
+    };
+    this.collision = {
+      top: false,
+      bottom: false,
+      right: false,
+      left: false,
     };
   }
 
-  // Private methods
+  idle() {
+    if (!this.action.allowedActions.includes(ACTIONS.idle.name)) return;
+    if (
+      !this.action.loop &&
+      this.action.frames[this.direction].length > this.frameCounter
+    )
+      return;
+    this.action = ACTIONS.idle;
+    this.frameCounter = 0;
 
-  #idle() {
-    if (!this.#action.allowedActions.includes(ACTIONS.idle.name)) return;
-    if(!this.#action.loop && this.#action.frames[this.#direction].length > this.#frameCounter) return;
-    this.#action = ACTIONS.idle;
-    this.#frameCounter = 0;
-
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #run() {
-    if (!this.#action.allowedActions.includes(ACTIONS.run.name)) return;
+  run() {
+    if (!this.action.allowedActions.includes(ACTIONS.run.name)) return;
 
-    this.#action = ACTIONS.run;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.run;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #fall() {
-    if (!this.#action.allowedActions.includes(ACTIONS.fall.name)) return;
+  fall() {
+    if (!this.action.allowedActions.includes(ACTIONS.fall.name)) return;
 
-    this.#action = ACTIONS.fall;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.fall;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #preJump() {
-    if (!this.#action.allowedActions.includes(ACTIONS.preJump.name)) return;
+  preJump() {
+    if (!this.action.allowedActions.includes(ACTIONS.preJump.name)) return;
 
-    this.#action = ACTIONS.preJump;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.preJump;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #insertEffects() {
-    this.#effects = cloneWithElements({
-      actionEffects: this.#action.effects,
-      position: this.#position,
-      direction: this.#direction,
-      effects: this.#effects,
-      showHitbox: this.#showHitbox,
+  insertEffects() {
+    this.effects = cloneWithElements({
+      actionEffects: this.action.effects,
+      position: this.position,
+      direction: this.direction,
+      effects: this.effects,
+      showHitbox: this.isHitboxVisible,
     });
   }
 
-  #jump() {
-    if (!this.#action.allowedActions.includes(ACTIONS.jump.name)) return;
+  jump() {
+    if (!this.action.allowedActions.includes(ACTIONS.jump.name)) return;
 
-    this.#action = ACTIONS.jump;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.jump;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #doubleJump() {
-    if (!this.#action.allowedActions.includes(ACTIONS.doubleJump.name)) return;
+  doubleJump() {
+    if (!this.action.allowedActions.includes(ACTIONS.doubleJump.name)) return;
 
-    this.#action = ACTIONS.doubleJump;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.doubleJump;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #postJump() {
-    if (!this.#action.allowedActions.includes(ACTIONS.postJump.name)) return;
+  postJump() {
+    if (!this.action.allowedActions.includes(ACTIONS.postJump.name)) return;
 
-    this.#action = ACTIONS.postJump;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.postJump;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
-  #playEffects() {
-    this.#effects?.forEach((item, i) => {
+  playEffects() {
+    this.effects?.forEach((item, i) => {
       if (!_.isEmpty(item.frames?.[item.character.direction])) {
         const frame = item.frames[item.character.direction].shift();
         const effectElement = item.elements.effect;
@@ -148,7 +129,8 @@ export default class Hero {
         effectElement.style.transform = frame.transform;
         effectElement.style.backgroundPositionX = frame.backgroundPositionX;
 
-        if (!item.frames[item.character.direction].length) effectElement.remove();
+        if (!item.frames[item.character.direction].length)
+          effectElement.remove();
       }
       if (!_.isEmpty(item.hitbox?.[item.character.direction])) {
         const getHitbox = item.hitbox[item.character.direction].shift();
@@ -175,149 +157,147 @@ export default class Hero {
         _.isEmpty(item.frames?.[item.character.direction]) &&
         _.isEmpty(item.hitbox?.[item.character.direction])
       )
-        this.#effects.splice(i, 1);
+        this.effects.splice(i, 1);
     });
   }
 
-  #updatePosition() {
-    this.#element.style.top = this.#position.y + 'px';
-    this.#element.style.left = this.#position.x + 'px';
+  updatePosition() {
+    this.element.style.top = this.position.y + 'px';
+    this.element.style.left = this.position.x + 'px';
 
-    this.#updateHurtbox();
+    this.updateHurtbox();
   }
 
-  #updateHurtbox() {
-    this.hurtbox.vertices = this.#action.getHurtbox(this.#position).vertices;
+  updateHurtbox() {
+    this.hurtbox.vertices = this.action.getHurtbox(this.position).vertices;
 
-    this.hurtbox.element.style.top = this.#action.getHurtbox(
-      this.#position
+    this.hurtbox.element.style.top = this.action.getHurtbox(
+      this.position
     ).position.top;
-    this.hurtbox.element.style.left = this.#action.getHurtbox(
-      this.#position
+    this.hurtbox.element.style.left = this.action.getHurtbox(
+      this.position
     ).position.left;
 
-    this.hurtbox.element.style.width = this.#action.getHurtbox(
-      this.#position
+    this.hurtbox.element.style.width = this.action.getHurtbox(
+      this.position
     ).dimensions.width;
-    this.hurtbox.element.style.height = this.#action.getHurtbox(
-      this.#position
+    this.hurtbox.element.style.height = this.action.getHurtbox(
+      this.position
     ).dimensions.height;
   }
 
-  #updateFrame() {
-    this.#element.style.backgroundImage = this.#action.img;
+  updateFrame() {
+    this.element.style.backgroundImage = this.action.img;
 
-    this.#element.style.height = this.#action.dimensions.height;
-    this.#element.style.width = this.#action.dimensions.width;
+    this.element.style.height = this.action.dimensions.height;
+    this.element.style.width = this.action.dimensions.width;
 
-    const frame = this.#action.frames[this.#direction][this.#frameCounter];
+    const frame = this.action.frames[this.direction][this.frameCounter];
 
-    this.#element.style.backgroundPositionX = frame.backgroundPositionX;
-    this.#element.style.transform = frame.transform;
+    this.element.style.backgroundPositionX = frame.backgroundPositionX;
+    this.element.style.transform = frame.transform;
   }
 
-  #gravity() {
-    if (this.#godMode) return;
-    this.#vector.y += ACCELERATION;
+  gravity() {
+    if (this.isGodMode) return;
+    this.vector.y += ACCELERATION;
   }
-
-  // Public methods
 
   getHurtbox() {
     return this.hurtbox;
   }
 
   attack() {
-    if (!this.#action.allowedActions.includes(ACTIONS.attack.name)) return;
+    if (!this.action.allowedActions.includes(ACTIONS.attack.name)) return;
 
-    this.#action = ACTIONS.attack;
-    this.#frameCounter = 0;
+    this.action = ACTIONS.attack;
+    this.frameCounter = 0;
 
-    this.#insertEffects();
+    this.insertEffects();
   }
 
   update() {
-    if (this.#frameCounter >= this.#action.frames[this.#direction].length)
-      this.#frameCounter = 0;
-    this.#playEffects();
-    this.#updateFrame();
-    this.#frameCounter++;
+    if (this.frameCounter >= this.action.frames[this.direction].length)
+      this.frameCounter = 0;
+    this.playEffects();
+    this.updateFrame();
+    this.frameCounter++;
 
     if (
-      !this.#action.loop &&
-      this.#frameCounter >= this.#action.frames[this.#direction].length
+      !this.action.loop &&
+      this.frameCounter >= this.action.frames[this.direction].length
     )
-      this.#idle();
+      this.idle();
   }
 
   loop() {
     nextPosition({
       hurtbox: this.hurtbox.vertices,
-      blocks: this.#blocksVertices,
-      vector: this.#vector,
-      position: this.#position,
-      collision: this.#collision,
-      items: this.items
+      blocks: this.blocksVertices,
+      vector: this.vector,
+      position: this.position,
+      collision: this.collision,
+      items: this.items,
     });
 
-    if (this.#collision.bottom) {
-      this.#vector.y = 0;
-      this.#jumpCount = MAX_JUMPS;
+    if (this.collision.bottom) {
+      this.vector.y = 0;
+      this.jumpCount = MAX_JUMPS;
 
-      if (this.#action.name === ACTIONS.fall.name) this.#postJump();
-      if (this.#vector.x === 0) this.#idle();
+      if (this.action.name === ACTIONS.fall.name) this.postJump();
+      if (this.vector.x === 0) this.idle();
 
-      if (this.#vector.x !== 0) this.#run();
+      if (this.vector.x !== 0) this.run();
     }
 
-    if (!this.#collision.bottom) {
-      if (this.#vector.y > 0) this.#fall();
+    if (!this.collision.bottom) {
+      if (this.vector.y > 0) this.fall();
     }
 
-    this.#updatePosition();
-    this.#gravity();
+    this.updatePosition();
+    this.gravity();
   }
 
   goRight() {
-    this.#direction = DIRECTIONS.right;
-    this.#vector.x += HERO_SPEED;
+    this.direction = DIRECTIONS.right;
+    this.vector.x += HERO_SPEED;
 
-    return () => (this.#vector.x -= HERO_SPEED);
+    return () => (this.vector.x -= HERO_SPEED);
   }
 
   goLeft() {
-    this.#direction = DIRECTIONS.left;
-    this.#vector.x -= HERO_SPEED;
+    this.direction = DIRECTIONS.left;
+    this.vector.x -= HERO_SPEED;
 
-    return () => (this.#vector.x += HERO_SPEED);
+    return () => (this.vector.x += HERO_SPEED);
   }
 
   async jumpUp() {
-    if (!this.#jumpCount) return;
+    if (!this.jumpCount) return;
 
-    if (this.#jumpCount === 2) {
-      this.#preJump();
+    if (this.jumpCount === 2) {
+      this.preJump();
 
       await sleep(ANIMATION_INTERVAL * 2);
 
-      this.#jump();
+      this.jump();
     }
 
-    if (this.#jumpCount === 1) this.#doubleJump();
+    if (this.jumpCount === 1) this.doubleJump();
 
-    this.#jumpCount--;
+    this.jumpCount--;
 
-    this.#vector.y = -HERO_JUMP_SPEED;
+    this.vector.y = -HERO_JUMP_SPEED;
   }
 
   goUp() {
-    this.#vector.y -= HERO_SPEED;
-    return () => (this.#vector.y += HERO_SPEED);
+    this.vector.y -= HERO_SPEED;
+    return () => (this.vector.y += HERO_SPEED);
   }
 
   goDown() {
-    this.#vector.y += HERO_SPEED;
-    return () => (this.#vector.y -= this.#vector.y);
+    this.vector.y += HERO_SPEED;
+    return () => (this.vector.y -= this.vector.y);
   }
 
   showHurtbox() {
@@ -329,25 +309,25 @@ export default class Hero {
   }
 
   showHitbox() {
-    this.#showHitbox = true;
+    this.isHitboxVisible = true;
   }
 
   godMode() {
-    this.#godMode = true;
+    this.isGodMode = true;
   }
 
   initialize({ position, blocksVertices, items }) {
-    this.#element.setAttribute('id', 'hero');
-    this.#element.style.position = 'absolute';
-    this.#element.style.backgroundSize = 'cover';
-    this.#element.style.imageRendering = 'pixelated';
+    this.element.setAttribute('id', 'hero');
+    this.element.style.position = 'absolute';
+    this.element.style.backgroundSize = 'cover';
+    this.element.style.imageRendering = 'pixelated';
 
-    document.getElementById('map').appendChild(this.#element);
+    document.getElementById('map').appendChild(this.element);
 
-    this.#position.x = position.x;
-    this.#position.y = position.y;
+    this.position.x = position.x;
+    this.position.y = position.y;
 
-    this.#blocksVertices = blocksVertices;
+    this.blocksVertices = blocksVertices;
     this.items = items;
   }
 }
