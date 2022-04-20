@@ -6,6 +6,7 @@ import fall from './actions/fall.js';
 import preJump from './actions/pre_jump.js';
 import doubleJump from './actions/double_jump.js';
 import postJump from './actions/post_jump.js';
+import push from './actions/push.js';
 
 export default {
   idle,
@@ -16,4 +17,5 @@ export default {
   doubleJump,
   postJump,
   fall,
+  push,
 };

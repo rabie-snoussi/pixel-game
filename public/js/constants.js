@@ -54,6 +54,7 @@ export const HERO_IMG = {
   fall: './assets/hero/herochar_jump_down_anim_strip_3.png',
   preJumpDust: './assets/hero/herochar_before_jump_dust_anim_strip_4.png',
   postJumpDust: './assets/hero/herochar_after_jump_dust_anim_strip_4.png',
+  push: './assets/hero/herochar_pushing_foward_anim_strip_6.png'
 };
 
 export const HERO_ACTIONS = {
@@ -65,6 +66,7 @@ export const HERO_ACTIONS = {
   doubleJump: 'doubleJump',
   postJump: 'postJump',
   fall: 'fall',
+  push: 'push',
 };
 
 export const HERO_EFFECTS = {
@@ -150,7 +152,7 @@ export const TRIGGER_STATES = {
   disabled: 'disabled',
 };
 
-// TRIGGERED_IMG
+// TRIGGERED
 
 export const TRIGGEREDS = {
   door: 'door',
@@ -173,6 +175,22 @@ export const TRIGGERED_STATES = {
   closed: 'closed',
   opening: 'opening',
   closing: 'closing',
+};
+
+// MOVABLE
+
+export const MOVABLES = {
+  stone: 'stone',
+};
+
+export const MOVABLE_IMG = {
+  stone: {
+    initial: './assets/miscellaneous/stone.png',
+  },
+};
+
+export const MOVABLE_STATES = {
+  initial: 'initial',
 };
 
 // CONTROLS

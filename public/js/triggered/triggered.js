@@ -42,9 +42,10 @@ export default class Triggered {
   open() {}
 
 
-  initialize({ position, hero, isOpen, triggerId }) {
+  initialize({ position, hero, isOpen, triggerId, name }) {
     this.position = position;
     this.triggerId = triggerId;
+    this.name = name;
 
     this.triggerElement = document.getElementById(triggerId);
     

@@ -1,3 +1,4 @@
+import { MOVABLES, TRIGGERS } from '../../constants.js';
 import { isCollidingTop, createElement } from '../../helpers.js';
 import Trigger from '../trigger.js';
 import STATES from './states/index.js';
@@ -5,6 +6,8 @@ import STATES from './states/index.js';
 export default class Button extends Trigger {
   constructor() {
     super({ states: STATES });
+    this.items = [];
+    this.name = TRIGGERS.button;
   }
 
   enable() {
@@ -32,16 +35,24 @@ export default class Button extends Trigger {
   }
 
   loop() {
-    if (isCollidingTop(this.vertices, this.hero.hurtbox.vertices))
-      return this.enable();
+    const stones = this.items.filter((item) => item.name === MOVABLES.stone);
+
+    const isEnabledArray = [...stones, this.hero.hurtbox]
+      .map((item) => isCollidingTop(this.vertices, item.vertices))
+      .filter((item) => item === true);
+
+    if (isEnabledArray.length > 0) return this.enable();
+
     this.disable();
   }
 
-  initialize({ position, hero, id }) {
+  initialize({ position, hero, id, items, name }) {
     this.position = position;
     this.position.y += 7.77;
     this.vertices = this.state.getVertices(this.position);
     this.collision = this.state.collision;
+    this.items = items;
+    this.name = name;
 
     this.element = createElement({
       position: this.position,

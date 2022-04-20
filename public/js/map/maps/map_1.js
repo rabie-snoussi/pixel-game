@@ -6,6 +6,7 @@ import {
   TRIGGERS,
   TRIGGEREDS,
   MONSTERS,
+  MOVABLES,
 } from '../../constants.js';
 
 export default {
@@ -952,6 +953,10 @@ export default {
       name: TRIGGEREDS.woodSlabRight,
       position: GRID[42][15],
       isOpen: true,
+    },
+    {
+      name: MOVABLES.stone,
+      position: GRID[27][16],
     },
   ],
 };

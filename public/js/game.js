@@ -17,7 +17,7 @@ class Game {
     this.hero = null;
     this.map = null;
     this.controls = null;
-    this.items = null;
+    this.items = [];
   }
 
   showGrid() {
@@ -122,16 +122,15 @@ class Game {
     this.controls.initialize(this.hero);
     this.map.initialize(0);
 
-    this.items = this.map.items.map((item) => {
+    this.map.items.map((item) => {
       const itemObj = new Item[item.name]();
       itemObj.initialize({
-        position: item.position,
         hero: this.hero,
-        id: item.id,
-        triggerId: item.triggerId,
-        isOpen: item.isOpen,
+        blocks: this.map.blocksVertices,
+        items: this.items,
+        ...item,
       });
-      return itemObj;
+      this.items.push(itemObj);
     });
 
     this.monsters = this.map.enemies.map((item) => {

@@ -51,9 +51,10 @@ export default class Collectible {
     }
   }
 
-  initialize({ position, hero }) {
+  initialize({ position, hero, name }) {
     this.position = position;
     this.vertices = this.state.getVertices(this.position);
+    this.name = name;
 
     this.element = createElement({
       dimensions: this.state.dimensions,

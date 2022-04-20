@@ -1,28 +1,27 @@
 import { HERO_ACTIONS, HERO_IMG } from '../../constants.js';
-import {
-  getBox,
-  createVertices,
-  getFrames,
-} from '../../helpers.js';
+import { getBox, createVertices, getFrames } from '../../helpers.js';
 
+const name = HERO_ACTIONS.push;
 
-const name = HERO_ACTIONS.idle;
-
-const img = 'url("' + HERO_IMG.idle + '")';
+const img = 'url("' + HERO_IMG.push + '")';
 
 const allowedActions = [
-  HERO_ACTIONS.attack,
-  HERO_ACTIONS.run,
-  HERO_ACTIONS.preJump,
+  HERO_ACTIONS.idle,
   HERO_ACTIONS.fall,
-  HERO_ACTIONS.push,
+  HERO_ACTIONS.preJump,
+  HERO_ACTIONS.attack,
 ];
 
 const dimensions = { height: 32, width: 32 };
 
-const vertices = createVertices(dimensions);
+const vertices = createVertices({ height: 32, width: 22 }, { x: 5, y: 0 });
 
-const frames = getFrames({ dimensions, number: 4, left: 'scaleX(-1)', right: 'none' });
+const frames = getFrames({
+  dimensions,
+  number: 6,
+  left: 'scaleX(-1)',
+  right: 'none',
+});
 
 const effects = [];
 

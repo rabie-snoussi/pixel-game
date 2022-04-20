@@ -43,10 +43,11 @@ export default class Lever extends Trigger {
     }
   }
 
-  initialize({ position, hero, id }) {
+  initialize({ position, hero, id, name }) {
     this.position = position;
     this.vertices = this.state.getVertices(this.position);
     this.collision = this.state.collision;
+    this.name = name;
 
     this.element = createElement({
       position,

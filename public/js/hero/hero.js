@@ -69,6 +69,15 @@ export default class Hero {
     this.insertEffects();
   }
 
+  push() {
+    if (!this.action.allowedActions.includes(ACTIONS.push.name)) return;
+
+    this.action = ACTIONS.push;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+  }
+
   fall() {
     if (!this.action.allowedActions.includes(ACTIONS.fall.name)) return;
 
