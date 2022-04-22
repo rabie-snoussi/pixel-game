@@ -2,7 +2,7 @@ import Controls from './control/control.js';
 import Hero from './hero/hero.js';
 import Map from './map/map.js';
 import Monster from './monster/index.js';
-import Item from './items.js';
+import Misc from './misc/index.js';
 import {
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
@@ -17,7 +17,7 @@ class Game {
     this.hero = null;
     this.map = null;
     this.controls = null;
-    this.items = [];
+    this.miscs = [];
   }
 
   showGrid() {
@@ -80,11 +80,11 @@ class Game {
     setInterval(() => {
       this.hero.loop();
 
-      this.items.forEach((item, i) => {
+      this.miscs.forEach((item, i) => {
         item.loop?.();
         if (item.isCollected) {
           item.destroy();
-          this.items.splice(i, 1);
+          this.miscs.splice(i, 1);
         }
       });
 
@@ -104,7 +104,7 @@ class Game {
 
       this.map.update();
 
-      this.items.forEach((item) => {
+      this.miscs.forEach((item) => {
         item.update?.();
       });
 
@@ -122,15 +122,15 @@ class Game {
     this.controls.initialize(this.hero);
     this.map.initialize(0);
 
-    this.map.items.map((item) => {
-      const itemObj = new Item[item.name]();
+    this.map.miscs.map((item) => {
+      const itemObj = new Misc[item.name]();
       itemObj.initialize({
         hero: this.hero,
         blocks: this.map.blocksVertices,
-        items: this.items,
+        miscs: this.miscs,
         ...item,
       });
-      this.items.push(itemObj);
+      this.miscs.push(itemObj);
     });
 
     this.monsters = this.map.enemies.map((item) => {
@@ -139,7 +139,7 @@ class Game {
         position: item.position,
         blocksVertices: this.map.blocksVertices,
         hero: this.hero,
-        items: this.triggereds,
+        miscs: this.triggereds,
       });
       return monster;
     });
@@ -147,7 +147,7 @@ class Game {
     this.hero.initialize({
       position: this.map.heroPosition,
       blocksVertices: this.map.blocksVertices,
-      items: this.items,
+      miscs: this.miscs,
     });
 
     this.animate();

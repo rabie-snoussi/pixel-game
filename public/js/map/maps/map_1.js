@@ -2,11 +2,8 @@ import {
   MAP_MATERIALS,
   GRID,
   TILES,
-  COLLECTIBLES,
-  TRIGGERS,
-  TRIGGEREDS,
   MONSTERS,
-  MOVABLES,
+  MISCS,
 } from '../../constants.js';
 
 export default {
@@ -813,7 +810,7 @@ export default {
       backgroundPosition: TILES.normal.green[1][1],
     },
 
-    // MISC
+    // DECOR
     // --------------------------------------------------
 
     {
@@ -911,51 +908,51 @@ export default {
     },
   ],
 
-  // ITEMS
+  // MISCS
   // --------------------------------------------------
 
-  items: [
+  miscs: [
     {
-      name: COLLECTIBLES.coin,
+      name: MISCS.coin,
       position: GRID[18][22],
     },
     {
-      name: COLLECTIBLES.healthPotion,
+      name: MISCS.healthPotion,
       position: GRID[20][22],
     },
     {
       id: 'trigger-2',
-      name: TRIGGERS.button,
-      position: GRID[37][17],
+      name: MISCS.button,
+      position: { x: GRID[37][17].x, y: GRID[37][17].y + 7.77 },
     },
     {
       triggerId: 'trigger-2',
-      name: TRIGGEREDS.door,
+      name: MISCS.door,
       position: GRID[44][12],
     },
     {
       id: 'trigger-1',
-      name: TRIGGERS.lever,
+      name: MISCS.lever,
       position: GRID[39][16],
     },
     {
       triggerId: 'trigger-1',
-      name: TRIGGEREDS.woodSlabLeft,
+      name: MISCS.woodSlabLeft,
       position: GRID[38][15],
     },
     {
       triggerId: 'trigger-1',
-      name: TRIGGEREDS.woodSlabMiddle,
+      name: MISCS.woodSlabMiddle,
       position: GRID[40][15],
     },
     {
       triggerId: 'trigger-1',
-      name: TRIGGEREDS.woodSlabRight,
+      name: MISCS.woodSlabRight,
       position: GRID[42][15],
       isOpen: true,
     },
     {
-      name: MOVABLES.stone,
+      name: MISCS.stone,
       position: GRID[27][16],
     },
   ],

@@ -94,7 +94,7 @@ export default class Goblin extends Monster {
       vector: this.vector,
       position: this.position,
       collision: this.collision,
-      items: this.items,
+      miscs: this.miscs,
     });
 
     if (this.vector.x !== 0) this.run();

@@ -25,7 +25,7 @@ export default class Map {
     this.enemies = this.map.enemies;
     this.collectibles = this.map.collectibles;
     this.triggers = this.map.triggers;
-    this.items = this.map.items;
+    this.miscs = this.map.miscs;
     this.heroPosition = this.map.heroPosition;
 
     if (this.map.bg2)

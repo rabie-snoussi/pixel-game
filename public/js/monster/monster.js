@@ -242,7 +242,7 @@ export default class Monster {
       vector: this.vector,
       position: this.position,
       collision: this.collision,
-      items: this.items,
+      miscs: this.miscs,
     });
 
     if (this.collision.bottom) {
@@ -265,7 +265,7 @@ export default class Monster {
     this.isHitboxVisible = true;
   }
 
-  initialize({ position, blocksVertices, hero, items }) {
+  initialize({ position, blocksVertices, hero, miscs }) {
     this.element = createElement({
       position,
       dimensions: this.action.dimensions,
@@ -274,7 +274,7 @@ export default class Monster {
 
     document.getElementById('enemies').appendChild(this.element);
 
-    this.items = items;
+    this.miscs = miscs;
     this.position = position;
     this.hero = hero;
     this.blocksVertices = blocksVertices;

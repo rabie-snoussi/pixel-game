@@ -54,7 +54,7 @@ export const HERO_IMG = {
   fall: './assets/hero/herochar_jump_down_anim_strip_3.png',
   preJumpDust: './assets/hero/herochar_before_jump_dust_anim_strip_4.png',
   postJumpDust: './assets/hero/herochar_after_jump_dust_anim_strip_4.png',
-  push: './assets/hero/herochar_pushing_foward_anim_strip_6.png'
+  push: './assets/hero/herochar_pushing_foward_anim_strip_6.png',
 };
 
 export const HERO_ACTIONS = {
@@ -107,36 +107,25 @@ export const MONSTER_IMG = {
   },
 };
 
-// COLLECTIBLE
+// MISCS
 
-export const COLLECTIBLES = {
-  coin: 'coin',
-  healthPotion: 'healthPotion',
-};
-
-export const COLLECTIBLE_IMG = {
-  coin: {
-    initial: './assets/miscellaneous/coin_anim_strip_6.png',
-    collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
-  },
-  healthPotion: {
-    initial: './assets/miscellaneous/health_potion.png',
-  },
-};
-
-export const COLLECTIBLE_STATES = {
-  initial: 'initial',
-  collect: 'collect',
-};
-
-// TRIGGER
-
-export const TRIGGERS = {
+export const MISCS = {
+  door: 'door',
+  woodSlabLeft: 'woodSlabLeft',
+  woodSlabMiddle: 'woodSlabMiddle',
+  woodSlabRight: 'woodSlabRight',
   button: 'button',
   lever: 'lever',
+  coin: 'coin',
+  healthPotion: 'healthPotion',
+  stone: 'stone',
 };
 
-export const TRIGGER_IMG = {
+export const MISC_IMG = {
+  door: {
+    closed: './assets/miscellaneous/strange_door_closed_anim_strip_10.png',
+    opening: './assets/miscellaneous/strange_door_opening_anim_strip_14.png',
+  },
   button: {
     enabled: './assets/miscellaneous/button_pressed.png',
     disabled: './assets/miscellaneous/button.png',
@@ -145,52 +134,29 @@ export const TRIGGER_IMG = {
     enabled: './assets/miscellaneous/lever_turned_right.png',
     disabled: './assets/miscellaneous/lever_turned_left.png',
   },
-};
-
-export const TRIGGER_STATES = {
-  enabled: 'enabled',
-  disabled: 'disabled',
-};
-
-// TRIGGERED
-
-export const TRIGGEREDS = {
-  door: 'door',
-  woodSlabLeft: 'woodSlabLeft',
-  woodSlabMiddle: 'woodSlabMiddle',
-  woodSlabRight: 'woodSlabRight',
-};
-
-export const TRIGGERED_IMG = {
-  door: {
-    closed: './assets/miscellaneous/strange_door_closed_anim_strip_10.png',
-    opening: './assets/miscellaneous/strange_door_opening_anim_strip_14.png',
+  coin: {
+    initial: './assets/miscellaneous/coin_anim_strip_6.png',
+    collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
+  },
+  healthPotion: {
+    initial: './assets/miscellaneous/health_potion.png',
+  },
+  stone: {
+    initial: './assets/miscellaneous/stone.png',
   },
   woodSlabLeft: './assets/miscellaneous/wood_slab_left.png',
   woodSlabMiddle: './assets/miscellaneous/wood_slab_middle.png',
   woodSlabRight: './assets/miscellaneous/wood_slab_right.png',
 };
 
-export const TRIGGERED_STATES = {
+export const MISC_STATES = {
   closed: 'closed',
   opening: 'opening',
   closing: 'closing',
-};
-
-// MOVABLE
-
-export const MOVABLES = {
-  stone: 'stone',
-};
-
-export const MOVABLE_IMG = {
-  stone: {
-    initial: './assets/miscellaneous/stone.png',
-  },
-};
-
-export const MOVABLE_STATES = {
+  enabled: 'enabled',
+  disabled: 'disabled',
   initial: 'initial',
+  collect: 'collect',
 };
 
 // CONTROLS

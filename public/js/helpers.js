@@ -324,7 +324,7 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
   );
 };
 
-export const createElement = ({ dimensions, img, position }) => {
+export const createElement = ({ dimensions, img, position, id }) => {
   const element = document.createElement('div');
 
   element.style.position = 'absolute';
@@ -337,6 +337,8 @@ export const createElement = ({ dimensions, img, position }) => {
   element.style.left = position.x + 'px';
   element.style.top = position.y + 'px';
 
+  if(id) element.setAttribute('id', id);
+
   return element;
 };
 
@@ -346,9 +348,9 @@ export const nextPosition = ({
   vector,
   position,
   collision,
-  items = [],
+  miscs = [],
 }) => {
-  const filteredItems = items
+  const filteredItems = miscs
     .filter((item) => item.collision && !_.isEmpty(item.vertices))
     .map((item) => item.vertices);
 

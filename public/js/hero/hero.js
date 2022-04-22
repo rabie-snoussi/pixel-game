@@ -28,7 +28,7 @@ export default class Hero {
     this.jumpCount = MAX_JUMPS;
     this.effects = [];
     this.hitbox = {};
-    this.items = [];
+    this.miscs = [];
     this.isHitboxVisible = false;
     this.vector = { x: 0, y: 0 };
     this.position = {
@@ -252,7 +252,7 @@ export default class Hero {
       vector: this.vector,
       position: this.position,
       collision: this.collision,
-      items: this.items,
+      miscs: this.miscs,
     });
 
     if (this.collision.bottom) {
@@ -329,7 +329,7 @@ export default class Hero {
     this.isGodMode = true;
   }
 
-  initialize({ position, blocksVertices, items }) {
+  initialize({ position, blocksVertices, miscs }) {
     this.element = createElement({
       position,
       dimensions: this.action.dimensions,
@@ -342,6 +342,6 @@ export default class Hero {
 
     this.position = position;
     this.blocksVertices = blocksVertices;
-    this.items = items;
+    this.miscs = miscs;
   }
 }
