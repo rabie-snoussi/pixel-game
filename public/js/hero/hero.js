@@ -269,6 +269,8 @@ export default class Hero {
       if (this.vector.y > 0) this.fall();
     }
 
+    if (this.collision.top) this.vector.y = 0;
+
     this.updatePosition();
     this.gravity();
   }

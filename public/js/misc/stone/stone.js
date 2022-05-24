@@ -29,12 +29,12 @@ export default class Stone extends Misc {
         this.vector.x -= 0.5;
       else this.vector.x += 0.5;
     }
-    if (isCollidingRight(this.vertices, this.hero.hurtbox.vertices)) {
+    if (isCollidingRight(this.vertices, this.hero.hurtbox.vertices) && !!this.hero.vector.x) {
       this.hero.push();
-      this.vector.x = -1;
+      this.vector.x = -1; 
     }
 
-    if (isCollidingLeft(this.vertices, this.hero.hurtbox.vertices)) {
+    if (isCollidingLeft(this.vertices, this.hero.hurtbox.vertices) && !!this.hero.vector.x) {
       this.hero.push();
       this.vector.x = 1;
     }

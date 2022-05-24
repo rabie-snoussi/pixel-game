@@ -7,6 +7,7 @@ import Stone from "./stone/stone.js";
 import WoodSlabLeft from "./woodSlabLeft/woodSlabLeft.js";
 import WoodSlabMiddle from "./woodSlabMiddle/woodSlabMiddle.js";
 import WoodSlabRight from "./woodSlabRight/woodSlabRight.js";
+import Mushroom from "./mushroom/mushroom.js";
 
 
 export default {
@@ -19,4 +20,5 @@ export default {
     woodSlabLeft: WoodSlabLeft,
     woodSlabMiddle: WoodSlabMiddle,
     woodSlabRight: WoodSlabRight,
+    mushroom: Mushroom,
 }

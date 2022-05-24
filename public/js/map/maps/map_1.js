@@ -955,5 +955,9 @@ export default {
       name: MISCS.stone,
       position: GRID[27][16],
     },
+    {
+      name: MISCS.mushroom,
+      position: GRID[29][16],
+    },
   ],
 };

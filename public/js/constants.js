@@ -119,6 +119,7 @@ export const MISCS = {
   coin: 'coin',
   healthPotion: 'healthPotion',
   stone: 'stone',
+  mushroom: 'mushroom',
 };
 
 export const MISC_IMG = {
@@ -147,6 +148,9 @@ export const MISC_IMG = {
   woodSlabLeft: './assets/miscellaneous/wood_slab_left.png',
   woodSlabMiddle: './assets/miscellaneous/wood_slab_middle.png',
   woodSlabRight: './assets/miscellaneous/wood_slab_right.png',
+  mushroom: {
+    initial: './assets/enemies/mushroom/mushroom_crushed_anim_strip_6.png',
+  }
 };
 
 export const MISC_STATES = {
