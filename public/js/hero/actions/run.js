@@ -14,6 +14,7 @@ const allowedActions = [
     HERO_ACTIONS.preJump,
     HERO_ACTIONS.attack,
     HERO_ACTIONS.push,
+    HERO_ACTIONS.jump,
 ];
 
 const dimensions = { height: 32, width: 32 };

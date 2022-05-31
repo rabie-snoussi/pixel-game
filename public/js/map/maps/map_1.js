@@ -16,10 +16,6 @@ export default {
       name: MONSTERS.goblin,
       position: GRID[14][22],
     },
-    {
-      name: MONSTERS.goblin,
-      position: GRID[42][16],
-    },
   ],
   materials: [
     // TILES
@@ -957,7 +953,7 @@ export default {
     },
     {
       name: MISCS.mushroom,
-      position: GRID[29][16],
+      position: GRID[22][22],
     },
   ],
 };
