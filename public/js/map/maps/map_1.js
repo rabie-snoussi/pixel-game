@@ -955,5 +955,10 @@ export default {
       name: MISCS.mushroom,
       position: GRID[22][22],
     },
+    {
+      name: MISCS.spikes,
+      position: GRID[22][4],
+      rotation: 0,
+    },
   ],
 };

@@ -120,6 +120,7 @@ export const MISCS = {
   healthPotion: 'healthPotion',
   stone: 'stone',
   mushroom: 'mushroom',
+  spikes: 'spikes',
 };
 
 export const MISC_IMG = {
@@ -150,6 +151,9 @@ export const MISC_IMG = {
   woodSlabRight: './assets/miscellaneous/wood_slab_right.png',
   mushroom: {
     initial: './assets/enemies/mushroom/mushroom_crushed_anim_strip_6.png',
+  },
+  spikes: {
+    initial: './assets/miscellaneous/spikes.png',
   }
 };
 

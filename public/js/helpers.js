@@ -324,7 +324,7 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
   );
 };
 
-export const createElement = ({ dimensions, img, position, id }) => {
+export const createElement = ({ dimensions, img, position, id, rotation }) => {
   const element = document.createElement('div');
 
   element.style.position = 'absolute';
@@ -336,7 +336,8 @@ export const createElement = ({ dimensions, img, position, id }) => {
   element.style.backgroundImage = img;
   element.style.left = position.x + 'px';
   element.style.top = position.y + 'px';
-
+  
+  if(rotation) element.style.transform = `rotate(${rotation}deg)`;
   if(id) element.setAttribute('id', id);
 
   return element;

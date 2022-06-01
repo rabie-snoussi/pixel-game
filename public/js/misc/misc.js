@@ -53,7 +53,7 @@ export default class Misc {
 
   open() {}
 
-  initialize({ position, hero, name, blocks, miscs, id, triggerId, isOpen }) {
+  initialize({ position, hero, name, blocks, miscs, id, triggerId, isOpen, rotation }) {
     this.position = position;
     this.vertices = this.state.getVertices(this.position);
     this.collision = this.state.collision;
@@ -68,6 +68,7 @@ export default class Misc {
       dimensions: this.state.dimensions,
       img: this.state.img,
       id,
+      rotation,
     });
 
     document.getElementById('miscs').appendChild(this.element);
