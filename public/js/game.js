@@ -9,6 +9,7 @@ import {
   GRID_DIMENSIONS,
   GRID,
 } from './constants.js';
+import Hud from './hud/hud.js';
 
 class Game {
   constructor() {
@@ -17,6 +18,7 @@ class Game {
     this.hero = null;
     this.map = null;
     this.controls = null;
+    this.hud = null;
     this.miscs = [];
   }
 
@@ -95,6 +97,8 @@ class Game {
           this.monsters.splice(i, 1);
         }
       });
+
+      this.hud.loop();
     }, GAME_LOOP_INTERVAL);
   }
 
@@ -118,6 +122,7 @@ class Game {
     this.hero = new Hero();
     this.map = new Map();
     this.controls = new Controls();
+    this.hud = new Hud();
 
     this.controls.initialize(this.hero);
     this.map.initialize(0);
@@ -149,6 +154,8 @@ class Game {
       blocksVertices: this.map.blocksVertices,
       miscs: this.miscs,
     });
+
+    this.hud.initialize({ hero: this.hero });
 
     this.animate();
     this.loop();

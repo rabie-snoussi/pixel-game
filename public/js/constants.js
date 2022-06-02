@@ -35,6 +35,12 @@ export const MOVEMENT_INTERVAL = 30;
 
 export const GAME_LOOP_INTERVAL = 30;
 
+// HUD
+
+export const HUD_IMG = { 
+  heart: './assets/hud/heart_hud.png'
+}
+
 // HERO
 
 export const HERO_SPEED = 8;
@@ -55,6 +61,8 @@ export const HERO_IMG = {
   preJumpDust: './assets/hero/herochar_before_jump_dust_anim_strip_4.png',
   postJumpDust: './assets/hero/herochar_after_jump_dust_anim_strip_4.png',
   push: './assets/hero/herochar_pushing_foward_anim_strip_6.png',
+  hit: './assets/hero/herochar_hit_anim_strip_3.png',
+  death: './assets/hero/herochar_death_anim_strip_8.png',
 };
 
 export const HERO_ACTIONS = {
@@ -67,6 +75,8 @@ export const HERO_ACTIONS = {
   postJump: 'postJump',
   fall: 'fall',
   push: 'push',
+  hit: 'hit',
+  death: 'death',
 };
 
 export const HERO_EFFECTS = {
