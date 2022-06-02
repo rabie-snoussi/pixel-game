@@ -12,6 +12,8 @@ const img = 'url("' + HERO_IMG.doubleJump + '")';
 const allowedActions = [
     HERO_ACTIONS.fall,
     HERO_ACTIONS.attack,
+    HERO_ACTIONS.hit,
+    HERO_ACTIONS.death,
 ];
 
 const dimensions = { height: 32, width: 32 };

@@ -18,7 +18,7 @@ import {
 export default class Hero {
   constructor() {
     this.isGodMode = false;
-    this.hearts = 3;
+    this.hearts = 5;
     this.coins = 0;
     this.blocksVertices = [];
     this.element = null;
@@ -30,6 +30,8 @@ export default class Hero {
     this.hitbox = {};
     this.miscs = [];
     this.isHitboxVisible = false;
+    this.isHit = false;
+    this.isDead = false;
     this.vector = { x: 0, y: 0 };
     this.position = {
       x: 0,
@@ -115,6 +117,15 @@ export default class Hero {
     this.insertEffects();
   }
 
+  hit() {
+    if (!this.action.allowedActions.includes(ACTIONS.hit.name)) return;
+
+    this.action = ACTIONS.hit;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+  }
+
   doubleJump() {
     if (!this.action.allowedActions.includes(ACTIONS.doubleJump.name)) return;
 
@@ -131,6 +142,18 @@ export default class Hero {
     this.frameCounter = 0;
 
     this.insertEffects();
+  }
+
+  removeHitbox() {
+    this.effects?.map((item) => item.elements?.hitbox.remove());
+  }
+
+  destroy() {
+    this.element.remove();
+    this.hurtbox.element.remove();
+    this.hitbox = {};
+    this.position = {};
+    this.removeHitbox();
   }
 
   playEffects() {
@@ -231,9 +254,31 @@ export default class Hero {
     this.insertEffects();
   }
 
+  death() {
+    if (!this.action.allowedActions.includes(ACTIONS.death.name)) return;
+
+    this.action = ACTIONS.death;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+  }
+
+  hurt() {
+    if (this.hearts > 1) {
+      this.hit();
+      this.vector.y -= 5;
+    } else this.death();
+
+    if (this.hearts > 0) this.hearts--;
+
+    this.isHit = true;
+  }
+
   update() {
-    if (this.frameCounter >= this.action.frames[this.direction].length)
+    if (this.frameCounter >= this.action.frames[this.direction].length) {
+      if (this.action.name === ACTIONS.death.name) return this.destroy();
       this.frameCounter = 0;
+    }
     this.playEffects();
     this.updateFrame();
     this.frameCounter++;
@@ -246,6 +291,14 @@ export default class Hero {
   }
 
   loop() {
+    if (
+      this.isHit &&
+      this.action.name !== ACTIONS.hit.name &&
+      this.action.name !== ACTIONS.death.name
+    ) {
+      this.isHit = false;
+    }
+
     nextPosition({
       hurtbox: this.hurtbox.vertices,
       blocks: this.blocksVertices,
@@ -318,7 +371,7 @@ export default class Hero {
   }
 
   showHurtbox() {
-    addBorder(this.hurtbox.element, 'green');;
+    addBorder(this.hurtbox.element, 'green');
 
     document.getElementById('map').appendChild(this.hurtbox.element);
   }

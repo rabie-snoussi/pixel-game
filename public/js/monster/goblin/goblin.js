@@ -54,6 +54,15 @@ export default class Goblin extends Monster {
       } else this.death();
     }
 
+    // Attack check
+    if (
+      !_.isEmpty(this.hitbox) &&
+      isColliding(this.hitbox, this.hero.hurtbox.vertices) &&
+      !this.hero.isHit
+    ) {
+      this.hero.hurt();
+    }
+
     if (
       this.isHit &&
       this.action.name !== MONSTER_ACTIONS.hit &&

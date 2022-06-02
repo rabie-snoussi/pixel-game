@@ -7,6 +7,8 @@ import preJump from './actions/pre_jump.js';
 import doubleJump from './actions/double_jump.js';
 import postJump from './actions/post_jump.js';
 import push from './actions/push.js';
+import hit from './actions/hit.js';
+import death from './actions/death.js';
 
 export default {
   idle,
@@ -18,4 +20,6 @@ export default {
   postJump,
   fall,
   push,
+  hit,
+  death,
 };

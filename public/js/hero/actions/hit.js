@@ -6,14 +6,15 @@ import {
   getFrames,
 } from '../../helpers.js';
 
-const name = HERO_ACTIONS.attack;
+const name = HERO_ACTIONS.hit;
 
-const img = 'url("' + HERO_IMG.attack + '")';
+const img = 'url("' + HERO_IMG.hit + '")';
 
 const allowedActions = [
+  HERO_ACTIONS.postJump,
+  HERO_ACTIONS.attack,
   HERO_ACTIONS.idle,
-  HERO_ACTIONS.preJump,
-  HERO_ACTIONS.hit,
+  HERO_ACTIONS.run,
   HERO_ACTIONS.death,
 ];
 
@@ -28,7 +29,7 @@ const frames = getFrames({
   right: 'none',
 });
 
-const effects = [sword];
+const effects = [];
 
 export default {
   name,

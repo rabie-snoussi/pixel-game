@@ -1,21 +1,15 @@
 import { HERO_ACTIONS, HERO_IMG } from '../../constants.js';
-import sword from '../effects/sword.js';
 import {
   getBox,
   createVertices,
   getFrames,
 } from '../../helpers.js';
 
-const name = HERO_ACTIONS.attack;
+const name = HERO_ACTIONS.death;
 
-const img = 'url("' + HERO_IMG.attack + '")';
+const img = 'url("' + HERO_IMG.death + '")';
 
-const allowedActions = [
-  HERO_ACTIONS.idle,
-  HERO_ACTIONS.preJump,
-  HERO_ACTIONS.hit,
-  HERO_ACTIONS.death,
-];
+const allowedActions = [];
 
 const dimensions = { height: 32, width: 32 };
 
@@ -23,12 +17,12 @@ const vertices = createVertices(dimensions);
 
 const frames = getFrames({
   dimensions,
-  number: 4,
+  number: 8,
   left: 'scaleX(-1)',
   right: 'none',
 });
 
-const effects = [sword];
+const effects = [];
 
 export default {
   name,
