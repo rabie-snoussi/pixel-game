@@ -31,8 +31,5 @@ export default {
   img,
   collision: true,
   getVertices: getVertices(vertices),
-  dimensions: {
-    height: dimensions.height + 'px',
-    width: dimensions.width + 'px',
-  },
+  dimensions,
 };

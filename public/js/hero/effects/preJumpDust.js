@@ -26,8 +26,5 @@ export default {
   img,
   frames,
   getPosition,
-  dimensions: {
-    height: dimensions.height + 'px',
-    width: dimensions.width + 'px',
-  },
+  dimensions,
 };

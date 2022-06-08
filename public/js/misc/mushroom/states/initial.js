@@ -17,8 +17,5 @@ export default {
   collision: true,
   getVertices: getVertices(vertices),
   frames,
-  dimensions: {
-    height: dimensions.height + 'px',
-    width: dimensions.width + 'px',
-  },
+  dimensions,
 };

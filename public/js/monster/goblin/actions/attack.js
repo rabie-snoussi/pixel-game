@@ -39,7 +39,7 @@ export default {
   getHurtbox,
   getPosition,
   dimensions: {
-    height: frameDimensions.height + 'px',
-    width: frameDimensions.width + 'px',
+    height: frameDimensions.height,
+    width: frameDimensions.width,
   },
 };

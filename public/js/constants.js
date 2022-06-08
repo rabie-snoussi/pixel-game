@@ -38,7 +38,9 @@ export const GAME_LOOP_INTERVAL = 30;
 // HUD
 
 export const HUD_IMG = { 
-  heart: './assets/hud/heart_hud.png'
+  heart: './assets/hud/heart_hud.png',
+  coin: './assets/hud/coin.png',
+  font: './assets/hud/font.png'
 }
 
 // HERO

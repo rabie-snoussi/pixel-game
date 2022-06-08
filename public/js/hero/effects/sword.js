@@ -48,8 +48,5 @@ export default {
   frames,
   hitbox,
   getPosition,
-  dimensions: {
-    height: dimensions.height + 'px',
-    width: dimensions.width + 'px',
-  },
+  dimensions,
 };

@@ -31,8 +31,5 @@ export default {
   allowedActions,
   getHurtbox: getBox(vertices),
   frames,
-  dimensions: {
-    height: dimensions.height + 'px',
-    width: dimensions.width + 'px',
-  },
+  dimensions,
 };

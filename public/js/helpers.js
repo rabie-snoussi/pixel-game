@@ -11,7 +11,7 @@ export const addBorder = (element, color) => {
   element.style.position = 'absolute';
   element.style.border = `1px solid ${color}`;
   element.style.boxSizing = 'border-box';
- };
+};
 
 export const addPosition =
   ({ right, left }) =>
@@ -324,21 +324,31 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
   );
 };
 
-export const createElement = ({ dimensions, img, position, id, rotation }) => {
+export const createElement = ({
+  dimensions,
+  img,
+  position,
+  id,
+  rotation,
+  backgroundSize,
+  backgroundPosition,
+}) => {
   const element = document.createElement('div');
 
   element.style.position = 'absolute';
   element.style.backgroundSize = 'cover';
   element.style.imageRendering = 'pixelated';
 
-  element.style.height = dimensions.height;
-  element.style.width = dimensions.width;
+  element.style.height = dimensions.height + 'px';
+  element.style.width = dimensions.width + 'px';
   element.style.backgroundImage = img;
   element.style.left = position.x + 'px';
   element.style.top = position.y + 'px';
-  
-  if(rotation) element.style.transform = `rotate(${rotation}deg)`;
-  if(id) element.setAttribute('id', id);
+
+  if (rotation) element.style.transform = `rotate(${rotation}deg)`;
+  if (backgroundSize) element.style.backgroundSize = backgroundSize;
+  if (backgroundPosition) element.style.backgroundPosition = backgroundPosition;
+  if (id) element.setAttribute('id', id);
 
   return element;
 };
