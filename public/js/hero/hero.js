@@ -154,6 +154,7 @@ export default class Hero {
     this.hitbox = {};
     this.position = {};
     this.removeHitbox();
+    this.isDead = true;
   }
 
   playEffects() {

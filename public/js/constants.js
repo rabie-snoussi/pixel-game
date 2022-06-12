@@ -37,11 +37,23 @@ export const GAME_LOOP_INTERVAL = 30;
 
 // HUD
 
-export const HUD_IMG = { 
+export const HUD_IMG = {
   heart: './assets/hud/heart_hud.png',
   coin: './assets/hud/coin.png',
-  font: './assets/hud/font.png'
-}
+  font: './assets/hud/font.png',
+  arrow: './assets/hud/select_icon_anim_strip_5.png',
+};
+
+export const MENU_OPTIONS = {
+  resume: 'resume',
+  restart: 'restart',
+  quit: 'quit',
+};
+
+export const MENU_TITLES = {
+  gamePaused: 'game paused',
+  gameOver: 'game over',
+};
 
 // HERO
 
@@ -166,7 +178,7 @@ export const MISC_IMG = {
   },
   spikes: {
     initial: './assets/miscellaneous/spikes.png',
-  }
+  },
 };
 
 export const MISC_STATES = {
@@ -187,6 +199,7 @@ export const KEY_CODES = {
   left: 37,
   up: 38,
   down: 40,
+  escape: 27,
 };
 
 export const SIMULTANOUS_KEYS = {

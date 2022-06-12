@@ -3,12 +3,15 @@ export default class Controls {
   constructor() {
     this.godMode = false;
     this.hero = null;
+    this.game = null;
+    this.hud = null;
     this.onStop = {
       right: () => {},
       left: () => {},
       up: () => {},
       down: () => {},
       spacebar: () => {},
+      escape: () => {},
     };
     this.pressed = {
       32: 0,
@@ -16,29 +19,37 @@ export default class Controls {
       37: 0,
       38: 0,
       40: 0,
+      27: 0,
     };
   }
 
-  onRight() {
-    this.onStop.right = this.hero.goRight();
+  onRight() {}
+
+  onLeft() {}
+
+  onSpacebar() {}
+
+  onUp() {}
+
+  onDown() {}
+
+  setHeroControls() {
+    this.onDown = () => (this.onStop.down = this.hero.goDown());
+    this.onSpacebar = () => (this.onStop.spacebar = this.hero.attack());
+    this.onLeft = () => (this.onStop.left = this.hero.goLeft());
+    this.onRight = () => (this.onStop.right = this.hero.goRight());
+    this.onUp = async () =>
+      (this.onStop.up = this.isGodMode
+        ? this.hero.goUp()
+        : await this.hero.jumpUp());
   }
 
-  onLeft() {
-    this.onStop.left = this.hero.goLeft();
-  }
-
-  onSpacebar() {
-    this.onStop.spacebar = this.hero.attack();
-  }
-
-  async onUp() {
-    this.onStop.up = this.isGodMode
-      ? this.hero.goUp()
-      : await this.hero.jumpUp();
-  }
-
-  onDown() {
-    this.onStop.down = this.hero.goDown();
+  setMenuControls() {
+    this.onDown = () => this.hud.nextOption();
+    this.onUp = () => this.hud.previousOption();
+    this.onLeft = () => this.hud.previousOption();
+    this.onRight = () => this.hud.nextOption();
+    this.onSpacebar = () => this.hud.selectOption();
   }
 
   onKeydown(event) {
@@ -93,6 +104,12 @@ export default class Controls {
       this.onStop.down?.();
       this.onStop.down = null;
     }
+
+    if (event.keyCode === KEY_CODES.escape) {
+      if (this.game.isPaused) return this.game.resume();
+      if (!this.game.isPaused && !this.game.isGameOver)
+        return this.game.pause();
+    }
   }
 
   addEventListeners() {
@@ -116,8 +133,11 @@ export default class Controls {
     this.isGodMode = true;
   }
 
-  initialize(hero) {
+  initialize({ hero, game, hud }) {
     this.hero = hero;
+    this.game = game;
+    this.hud = hud;
     this.addEventListeners();
+    this.setHeroControls();
   }
 }

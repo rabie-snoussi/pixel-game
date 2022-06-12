@@ -20,6 +20,30 @@ class Game {
     this.controls = null;
     this.hud = null;
     this.miscs = [];
+    this.isPaused = false;
+    this.isGameOver = false;
+  }
+
+  pause() {
+    this.isPaused = true;
+    this.hud.pause();
+    this.controls.setMenuControls();
+  }
+
+  resume() {
+    this.isPaused = false;
+    this.hud.resume();
+    this.controls.setHeroControls();
+  }
+
+  quit() {}
+
+  restart() {}
+
+  gameOver() {
+    this.isGameOver = true;
+    this.hud.gameOver();
+    this.controls.setMenuControls();
   }
 
   showGrid() {
@@ -80,6 +104,12 @@ class Game {
 
   loop() {
     setInterval(() => {
+      if (this.isPaused) return;
+
+      if(this.hero.isDead && !this.isGameOver) {
+        this.gameOver();
+      }
+
       this.hero.loop();
 
       this.miscs.forEach((item, i) => {
@@ -104,6 +134,10 @@ class Game {
 
   animate() {
     setInterval(() => {
+      this.hud.update();
+
+      if (this.isPaused) return;
+
       this.hero.update();
 
       this.map.update();
@@ -124,7 +158,7 @@ class Game {
     this.controls = new Controls();
     this.hud = new Hud();
 
-    this.controls.initialize(this.hero);
+    this.controls.initialize({ hero: this.hero, game: this, hud: this.hud });
     this.map.initialize(0);
 
     this.map.miscs.map((item) => {
@@ -155,7 +189,7 @@ class Game {
       miscs: this.miscs,
     });
 
-    this.hud.initialize({ hero: this.hero });
+    this.hud.initialize({ hero: this.hero, game: this });
 
     this.animate();
     this.loop();

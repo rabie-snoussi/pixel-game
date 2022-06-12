@@ -1,4 +1,4 @@
-import { SCREEN_LIMITS } from './constants.js';
+import { SCREEN_LIMITS, GRID } from './constants.js';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -412,6 +412,16 @@ export const chase = ({
 
   if (chasedPosition.x < chaserPosition.x) vector.x = -speed;
   if (chasedPosition.x > chaserPosition.x) vector.x = speed;
+};
+
+export const getMenu = ({ options, gridPos }) => {
+  const menu = options.map(({ text, action }, i) => {
+    const position = GRID[gridPos.x][gridPos.y + i * 2];
+    const arrowPosition = GRID[gridPos.x - 1][gridPos.y + i * 2];
+    return { text, action, position, arrowPosition };
+  });
+
+  return menu;
 };
 
 export const insertEffect = ({ effect, position, direction }) => {

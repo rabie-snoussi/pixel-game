@@ -27,8 +27,8 @@ export default class Misc {
     const frame = this.state.frames[this.frameCounter];
 
     this.element.style.backgroundImage = this.state.img;
-    this.element.style.height = this.state.dimensions.height;
-    this.element.style.width = this.state.dimensions.width;
+    this.element.style.height = this.state.dimensions.height + 'px';
+    this.element.style.width = this.state.dimensions.width + 'px';
     this.element.style.backgroundPositionX = frame.backgroundPositionX;
     this.element.style.left = this.position.x + 'px';
     this.element.style.top = this.position.y + 'px';

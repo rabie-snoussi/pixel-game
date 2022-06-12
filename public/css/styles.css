@@ -67,3 +67,12 @@ body {
   image-rendering: pixelated;
   z-index: 2;
 }
+
+#menu {
+  display: none;
+  position: absolute;
+  width: var(--screen-width);
+  height: var(--screen-height);
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
