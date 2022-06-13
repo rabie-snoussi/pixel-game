@@ -2,11 +2,9 @@ import { HUD_IMG } from '../../constants.js';
 
 const img = 'url("' + HUD_IMG.font + '")';
 
-const MULTIPLIER = 2.5;
+const dimensions = { height: 16, width: 16 };
 
-const dimensions = { height: 7 * MULTIPLIER, width: 7 * MULTIPLIER };
-
-const backgroundSize = `${70 * MULTIPLIER}px`;
+const backgroundSize = '160px';
 
 const CHARACTERS_POSITION = {
   0: {
@@ -156,19 +154,19 @@ const CHARACTERS_POSITION = {
     x: -5,
     y: -3,
   },
-  "!": {
+  '!': {
     x: -6,
     y: -3,
   },
-  "?": {
+  '?': {
     x: -7,
     y: -3,
   },
-  "/": {
+  '/': {
     x: -8,
     y: -3,
   },
-  " ": {
+  ' ': {
     x: -9,
     y: -3,
   },
@@ -176,7 +174,7 @@ const CHARACTERS_POSITION = {
 
 const getCharBgPosition = (character) => {
   const { x, y } = CHARACTERS_POSITION[character];
-  return `${x * 7 * MULTIPLIER}px ${y * 7 * MULTIPLIER}px`;
+  return `${x * 16}px ${y * 16}px`;
 };
 
 export default {

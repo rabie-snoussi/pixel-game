@@ -33,7 +33,7 @@ export default class Controls {
 
   onDown() {}
 
-  setHeroControls() {
+  setGameControls() {
     this.onDown = () => (this.onStop.down = this.hero.goDown());
     this.onSpacebar = () => (this.onStop.spacebar = this.hero.attack());
     this.onLeft = () => (this.onStop.left = this.hero.goLeft());
@@ -107,8 +107,7 @@ export default class Controls {
 
     if (event.keyCode === KEY_CODES.escape) {
       if (this.game.isPaused) return this.game.resume();
-      if (!this.game.isPaused && !this.game.isGameOver)
-        return this.game.pause();
+      if (!this.game.isPaused && !this.hud.menu) return this.game.pause();
     }
   }
 
@@ -138,6 +137,6 @@ export default class Controls {
     this.game = game;
     this.hud = hud;
     this.addEventListeners();
-    this.setHeroControls();
+    this.setGameControls();
   }
 }

@@ -20,20 +20,25 @@ class Game {
     this.controls = null;
     this.hud = null;
     this.miscs = [];
+    this.isStated = false;
     this.isPaused = false;
     this.isGameOver = false;
+  }
+
+  start() {
+    this.loop();
+    this.isStated = true;
+    this.hud.resetMenu();
   }
 
   pause() {
     this.isPaused = true;
     this.hud.pause();
-    this.controls.setMenuControls();
   }
 
   resume() {
     this.isPaused = false;
     this.hud.resume();
-    this.controls.setHeroControls();
   }
 
   quit() {}
@@ -106,7 +111,7 @@ class Game {
     setInterval(() => {
       if (this.isPaused) return;
 
-      if(this.hero.isDead && !this.isGameOver) {
+      if (this.hero.isDead && !this.isGameOver) {
         this.gameOver();
       }
 
@@ -136,7 +141,7 @@ class Game {
     setInterval(() => {
       this.hud.update();
 
-      if (this.isPaused) return;
+      if (!this.isStated || this.isPaused) return;
 
       this.hero.update();
 
@@ -159,6 +164,7 @@ class Game {
     this.hud = new Hud();
 
     this.controls.initialize({ hero: this.hero, game: this, hud: this.hud });
+    this.controls.setMenuControls();
     this.map.initialize(0);
 
     this.map.miscs.map((item) => {
@@ -189,16 +195,22 @@ class Game {
       miscs: this.miscs,
     });
 
-    this.hud.initialize({ hero: this.hero, game: this });
+    this.hud.initialize({
+      hero: this.hero,
+      game: this,
+      controls: this.controls,
+    });
+
+    this.hud.start();
 
     this.animate();
-    this.loop();
   }
 }
 
 const game = new Game();
 
 game.initialize();
+// game.start();
 // game.godMode();
 game.showGrid();
 game.showHurtbox();

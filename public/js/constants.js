@@ -45,12 +45,14 @@ export const HUD_IMG = {
 };
 
 export const MENU_OPTIONS = {
+  start: 'start',
   resume: 'resume',
   restart: 'restart',
   quit: 'quit',
 };
 
 export const MENU_TITLES = {
+  plateformGame: 'plateform game',
   gamePaused: 'game paused',
   gameOver: 'game over',
 };

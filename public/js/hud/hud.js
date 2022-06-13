@@ -1,11 +1,12 @@
 import { createElement, getMenu } from '../helpers.js';
-import { heart, coin, arrow, font } from './items/index.js';  
+import { heart, coin, arrow, font } from './items/index.js';
 import { GRID, MENU_TITLES, MENU_OPTIONS } from '../constants.js';
 
 export default class Hud {
   constructor() {
     this.hero = null;
     this.game = null;
+    this.controls = null;
     this.heartsElement = document.getElementById('hearts');
     this.coins = null;
     this.arrowElement = null;
@@ -72,8 +73,40 @@ export default class Hud {
     this.insertText({ text, position, id: 'coins-number' });
   }
 
+  start() {
+    document.getElementById('menu').style.display = 'block';
+    document.getElementById('menu').style.backgroundColor = 'rgba(0, 0, 0, 1)';
+
+    this.controls.setMenuControls();
+
+    this.insertText({
+      text: MENU_TITLES.plateformGame,
+      position: GRID[17][7],
+      id: 'menu',
+    });
+
+    const options = [
+      { text: MENU_OPTIONS.start, action: this.game.start.bind(this.game) },
+    ];
+
+    this.menu = getMenu({ options, gridPos: { x: 21, y: 11 } });
+    this.menu.map(({ text, position }) =>
+      this.insertText({ text, position, id: 'menu' })
+    );
+
+    this.cursor = 0;
+    const arrowPosition = this.menu[this.cursor].arrowPosition;
+
+    this.arrowElement = createElement({ ...arrow, position: arrowPosition });
+    document.getElementById('menu').appendChild(this.arrowElement);
+  }
+
   pause() {
     document.getElementById('menu').style.display = 'block';
+    document.getElementById('menu').style.backgroundColor =
+      'rgba(0, 0, 0, 0.25)';
+
+    this.controls.setMenuControls();
 
     this.insertText({
       text: MENU_TITLES.gamePaused,
@@ -101,6 +134,10 @@ export default class Hud {
 
   gameOver() {
     document.getElementById('menu').style.display = 'block';
+    document.getElementById('menu').style.backgroundColor =
+      'rgba(0, 0, 0, 0.25)';
+
+    this.controls.setMenuControls();
 
     this.insertText({
       text: MENU_TITLES.gameOver,
@@ -128,6 +165,8 @@ export default class Hud {
   resetMenu() {
     document.getElementById('menu').innerHTML = '';
     document.getElementById('menu').style.display = 'none';
+
+    this.controls.setGameControls();
 
     this.arrowElement = null;
     this.cursor = 0;
@@ -192,9 +231,10 @@ export default class Hud {
     this.updateCoins();
   }
 
-  initialize({ hero, game }) {
+  initialize({ hero, game, controls }) {
     this.hero = hero;
     this.game = game;
+    this.controls = controls;
 
     this.createHearts();
 
