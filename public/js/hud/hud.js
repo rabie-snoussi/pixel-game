@@ -75,13 +75,12 @@ export default class Hud {
 
   start() {
     document.getElementById('menu').style.display = 'block';
-    document.getElementById('menu').style.backgroundColor = 'rgba(0, 0, 0, 1)';
 
     this.controls.setMenuControls();
 
     this.insertText({
       text: MENU_TITLES.plateformGame,
-      position: GRID[17][7],
+      position: GRID[17][9],
       id: 'menu',
     });
 
@@ -89,7 +88,7 @@ export default class Hud {
       { text: MENU_OPTIONS.start, action: this.game.start.bind(this.game) },
     ];
 
-    this.menu = getMenu({ options, gridPos: { x: 21, y: 11 } });
+    this.menu = getMenu({ options, gridPos: { x: 21, y: 13 } });
     this.menu.map(({ text, position }) =>
       this.insertText({ text, position, id: 'menu' })
     );
@@ -103,14 +102,12 @@ export default class Hud {
 
   pause() {
     document.getElementById('menu').style.display = 'block';
-    document.getElementById('menu').style.backgroundColor =
-      'rgba(0, 0, 0, 0.25)';
 
     this.controls.setMenuControls();
 
     this.insertText({
       text: MENU_TITLES.gamePaused,
-      position: GRID[19][7],
+      position: GRID[19][9],
       id: 'menu',
     });
 
@@ -120,7 +117,7 @@ export default class Hud {
       { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
     ];
 
-    this.menu = getMenu({ options, gridPos: { x: 21, y: 11 } });
+    this.menu = getMenu({ options, gridPos: { x: 21, y: 13 } });
     this.menu.map(({ text, position }) =>
       this.insertText({ text, position, id: 'menu' })
     );
@@ -134,14 +131,12 @@ export default class Hud {
 
   gameOver() {
     document.getElementById('menu').style.display = 'block';
-    document.getElementById('menu').style.backgroundColor =
-      'rgba(0, 0, 0, 0.25)';
 
     this.controls.setMenuControls();
 
     this.insertText({
       text: MENU_TITLES.gameOver,
-      position: GRID[20][7],
+      position: GRID[20][9],
       id: 'menu',
     });
 
@@ -150,7 +145,7 @@ export default class Hud {
       { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
     ];
 
-    this.menu = getMenu({ options, gridPos: { x: 21, y: 11 } });
+    this.menu = getMenu({ options, gridPos: { x: 21, y: 13 } });
     this.menu.map(({ text, position }) =>
       this.insertText({ text, position, id: 'menu' })
     );
@@ -240,5 +235,7 @@ export default class Hud {
 
     const coinElement = createElement({ ...coin, position: GRID[1][4] });
     document.getElementById('coins').appendChild(coinElement);
+
+    this.updateCoins();
   }
 }

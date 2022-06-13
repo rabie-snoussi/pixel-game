@@ -141,7 +141,7 @@ class Game {
     setInterval(() => {
       this.hud.update();
 
-      if (!this.isStated || this.isPaused) return;
+      if (this.isPaused) return;
 
       this.hero.update();
 
@@ -210,7 +210,6 @@ class Game {
 const game = new Game();
 
 game.initialize();
-// game.start();
 // game.godMode();
 game.showGrid();
 game.showHurtbox();

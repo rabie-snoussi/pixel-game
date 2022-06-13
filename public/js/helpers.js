@@ -142,7 +142,25 @@ export const getHitbox = (dimensions, initialPositions) => {
   return { right: rightHitboxs, left: leftHitboxs };
 };
 
+export const isVerteces = (vertices) => {
+  if (!vertices) return false;
+  if (!vertices.a || !vertices.b || !vertices.c || !vertices.d) return false;
+  if (
+    vertices.a.x &&
+    vertices.a.y &&
+    vertices.b.x &&
+    vertices.b.y &&
+    vertices.c.x &&
+    vertices.c.y &&
+    vertices.d.x &&
+    vertices.d.y
+  )
+    return true;
+};
+
 export const isCollidingRight = (vertices1, vertices2, distance = 0) => {
+  if(!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+  
   return (
     vertices1.b.x + distance >= vertices2.a.x &&
     ((vertices1.b.y === vertices2.a.y && vertices1.c.y === vertices2.d.y) ||
@@ -155,6 +173,8 @@ export const isCollidingRight = (vertices1, vertices2, distance = 0) => {
 };
 
 export const isCollidingLeft = (vertices1, vertices2, distance = 0) => {
+  if(!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+  
   return (
     vertices1.a.x - distance <= vertices2.b.x &&
     ((vertices1.a.y === vertices2.b.y && vertices1.d.y === vertices2.c.y) ||
@@ -167,6 +187,8 @@ export const isCollidingLeft = (vertices1, vertices2, distance = 0) => {
 };
 
 export const isCollidingTop = (vertices1, vertices2, distance = 0) => {
+  if(!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+
   return (
     vertices1.a.y - distance <= vertices2.c.y &&
     ((vertices1.a.x === vertices2.d.x && vertices1.b.x === vertices2.c.x) ||
@@ -179,6 +201,8 @@ export const isCollidingTop = (vertices1, vertices2, distance = 0) => {
 };
 
 export const isCollidingBottom = (vertices1, vertices2, distance = 0) => {
+  if(!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+
   return (
     vertices1.c.y + distance >= vertices2.a.y &&
     ((vertices1.c.x === vertices2.b.x && vertices1.d.x === vertices2.a.x) ||
@@ -383,6 +407,8 @@ export const nextPosition = ({
 };
 
 export const getCenterPosition = (vertices) => {
+  if(!isVerteces(vertices)) return { x: 0, y: 0 };
+
   const xCenter = (vertices.a.x + vertices.c.x) / 2;
   const yCenter = (vertices.a.y + vertices.c.y) / 2;
   return { x: xCenter, y: yCenter };

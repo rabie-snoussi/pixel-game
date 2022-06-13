@@ -151,6 +151,7 @@ export default class Hero {
   destroy() {
     this.element.remove();
     this.hurtbox.element.remove();
+    this.hurtbox.vertices = {};
     this.hitbox = {};
     this.position = {};
     this.removeHitbox();
@@ -299,6 +300,8 @@ export default class Hero {
     ) {
       this.isHit = false;
     }
+
+    if(this.action.name === ACTIONS.death.name) return;
 
     nextPosition({
       hurtbox: this.hurtbox.vertices,

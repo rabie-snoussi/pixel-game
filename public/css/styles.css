@@ -74,4 +74,5 @@ body {
   width: var(--screen-width);
   height: var(--screen-height);
   z-index: 2;
+  background-color: rgba(0, 0, 0, 0.25);
 }
