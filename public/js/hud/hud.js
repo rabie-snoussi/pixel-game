@@ -1,4 +1,4 @@
-import { createElement, getMenu } from '../helpers.js';
+import { createElement, getOptions, createMenuElements } from '../helpers.js';
 import { heart, coin, arrow, font } from './items/index.js';
 import { GRID, MENU_TITLES, MENU_OPTIONS } from '../constants.js';
 
@@ -11,7 +11,7 @@ export default class Hud {
     this.coins = null;
     this.arrowElement = null;
     this.frameCounter = 0;
-    this.menu = null;
+    this.options = null;
     this.cursor = 0;
   }
 
@@ -73,99 +73,109 @@ export default class Hud {
     this.insertText({ text, position, id: 'coins-number' });
   }
 
-  start() {
-    document.getElementById('menu').style.display = 'block';
+  createOption = ({ id, text, position }) => {
+    const optionElement = document.createElement('div');
+    optionElement.id = id;
+    const menuElement = document.getElementById('menu-options');
+    menuElement.appendChild(optionElement);
+    this.insertText({ id, text, position });
+  };
 
+  gridToggle() {
+    const { id, position } = this.options[this.cursor];
+
+    document.getElementById(id).innerHTML = '';
+
+    const gridElement = document.getElementById('grid');
+    const text = gridElement ? MENU_OPTIONS.gridOff : MENU_OPTIONS.gridOn;
+
+    this.insertText({ text, position, id });
+
+    if (gridElement) return this.game.hideGrid();
+    this.game.showGrid();
+  }
+
+  initializeArrow() {
+    this.cursor = 0;
+    const optionPosition = this.options[this.cursor].position;
+    const distance = GRID[1][0];
+    const arrowPosition = {
+      x: optionPosition.x - distance.x,
+      y: optionPosition.y - distance.y,
+    };
+
+    this.arrowElement = createElement({ ...arrow, position: arrowPosition });
+    document.getElementById('menu-arrow').appendChild(this.arrowElement);
+  }
+
+  initializeMenu({ title, titlePosition, options, optionsPosition }) {
+    createMenuElements();
     this.controls.setMenuControls();
 
     this.insertText({
-      text: MENU_TITLES.plateformGame,
-      position: GRID[17][9],
-      id: 'menu',
+      text: title,
+      position: titlePosition,
+      id: 'menu-title',
     });
+
+    this.options = getOptions({ options, position: optionsPosition });
+    this.options.map(({ id, position }, i) =>
+      this.createOption({ id, text: options[i].text, position })
+    );
+
+    this.initializeArrow();
+  }
+
+  start() {
+    const title = MENU_TITLES.plateformGame;
+    const titlePosition = GRID[17][9];
+    const optionsPosition = GRID[21][13];
 
     const options = [
       { text: MENU_OPTIONS.start, action: this.game.start.bind(this.game) },
     ];
 
-    this.menu = getMenu({ options, gridPos: { x: 21, y: 13 } });
-    this.menu.map(({ text, position }) =>
-      this.insertText({ text, position, id: 'menu' })
-    );
-
-    this.cursor = 0;
-    const arrowPosition = this.menu[this.cursor].arrowPosition;
-
-    this.arrowElement = createElement({ ...arrow, position: arrowPosition });
-    document.getElementById('menu').appendChild(this.arrowElement);
+    this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
   pause() {
-    document.getElementById('menu').style.display = 'block';
+    const title = MENU_TITLES.gamePaused;
+    const titlePosition = GRID[19][9];
+    const optionsPosition = GRID[21][13];
 
-    this.controls.setMenuControls();
-
-    this.insertText({
-      text: MENU_TITLES.gamePaused,
-      position: GRID[19][9],
-      id: 'menu',
-    });
+    const gridElement = document.getElementById('grid');
+    const gridOption = gridElement ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
 
     const options = [
       { text: MENU_OPTIONS.resume, action: this.game.resume.bind(this.game) },
       { text: MENU_OPTIONS.restart, action: this.game.restart.bind(this.game) },
+      { text: gridOption, action: this.gridToggle.bind(this) },
       { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
     ];
 
-    this.menu = getMenu({ options, gridPos: { x: 21, y: 13 } });
-    this.menu.map(({ text, position }) =>
-      this.insertText({ text, position, id: 'menu' })
-    );
-
-    this.cursor = 0;
-    const arrowPosition = this.menu[this.cursor].arrowPosition;
-
-    this.arrowElement = createElement({ ...arrow, position: arrowPosition });
-    document.getElementById('menu').appendChild(this.arrowElement);
+    this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
   gameOver() {
-    document.getElementById('menu').style.display = 'block';
-
-    this.controls.setMenuControls();
-
-    this.insertText({
-      text: MENU_TITLES.gameOver,
-      position: GRID[20][9],
-      id: 'menu',
-    });
+    const title = MENU_TITLES.gameOver;
+    const titlePosition = GRID[20][9];
+    const optionsPosition = GRID[21][13];
 
     const options = [
       { text: MENU_OPTIONS.restart, action: this.game.restart.bind(this.game) },
       { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
     ];
 
-    this.menu = getMenu({ options, gridPos: { x: 21, y: 13 } });
-    this.menu.map(({ text, position }) =>
-      this.insertText({ text, position, id: 'menu' })
-    );
-
-    this.cursor = 0;
-    const arrowPosition = this.menu[this.cursor].arrowPosition;
-
-    this.arrowElement = createElement({ ...arrow, position: arrowPosition });
-    document.getElementById('menu').appendChild(this.arrowElement);
+    this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
   resetMenu() {
-    document.getElementById('menu').innerHTML = '';
-    document.getElementById('menu').style.display = 'none';
-
+    document.getElementById('menu').remove();
     this.controls.setGameControls();
 
     this.arrowElement = null;
     this.cursor = 0;
-    this.menu = null;
+    this.options = null;
   }
 
   resume() {
@@ -177,15 +187,15 @@ export default class Hud {
   restart() {}
 
   nextOption() {
-    this.cursor = (this.cursor + 1) % this.menu.length;
+    this.cursor = (this.cursor + 1) % this.options.length;
   }
 
   previousOption() {
-    this.cursor = (this.cursor - 1 + this.menu.length) % this.menu.length;
+    this.cursor = (this.cursor - 1 + this.options.length) % this.options.length;
   }
 
   selectOption() {
-    this.menu[this.cursor].action();
+    this.options[this.cursor].action();
   }
 
   updateArrow() {
@@ -195,14 +205,18 @@ export default class Hud {
 
     const frame = arrow.frames[this.frameCounter];
 
-    this.arrowElement.style.backgroundImage = arrow.img;
-    this.arrowElement.style.height = arrow.dimensions.height + 'px';
-    this.arrowElement.style.width = arrow.dimensions.width + 'px';
     this.arrowElement.style.backgroundPositionX = frame.backgroundPositionX;
+    this.arrowElement.style.visibility = 'visible';
 
-    this.arrowElement.style.left =
-      this.menu[this.cursor].arrowPosition.x + 'px';
-    this.arrowElement.style.top = this.menu[this.cursor].arrowPosition.y + 'px';
+    const optionPosition = this.options[this.cursor].position;
+    const distance = GRID[1][0];
+    const arrowPosition = {
+      x: optionPosition.x - distance.x,
+      y: optionPosition.y - distance.y,
+    };
+
+    this.arrowElement.style.left = arrowPosition.x + 'px';
+    this.arrowElement.style.top = arrowPosition.y + 'px';
 
     this.frameCounter++;
   }

@@ -107,7 +107,7 @@ export default class Controls {
 
     if (event.keyCode === KEY_CODES.escape) {
       if (this.game.isPaused) return this.game.resume();
-      if (!this.game.isPaused && !this.hud.menu) return this.game.pause();
+      if (!this.game.isPaused && !this.hud.options) return this.game.pause();
     }
   }
 

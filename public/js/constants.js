@@ -49,6 +49,8 @@ export const MENU_OPTIONS = {
   resume: 'resume',
   restart: 'restart',
   quit: 'quit',
+  gridOn: 'grid on',
+  gridOff: 'grid off',
 };
 
 export const MENU_TITLES = {

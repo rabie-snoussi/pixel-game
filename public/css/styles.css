@@ -69,7 +69,6 @@ body {
 }
 
 #menu {
-  display: none;
   position: absolute;
   width: var(--screen-width);
   height: var(--screen-height);

@@ -51,6 +51,10 @@ class Game {
     this.controls.setMenuControls();
   }
 
+  hideGrid() {
+    document.getElementById('grid').remove();
+  }
+
   showGrid() {
     const gridElement = document.createElement('div');
     gridElement.setAttribute('id', 'grid');
@@ -211,6 +215,5 @@ const game = new Game();
 
 game.initialize();
 // game.godMode();
-game.showGrid();
 game.showHurtbox();
 game.showHitbox();

@@ -144,8 +144,7 @@ export const getHitbox = (dimensions, initialPositions) => {
 
 export const isVerteces = (vertices) => {
   if (!vertices) return false;
-  if (!vertices.a || !vertices.b || !vertices.c || !vertices.d)
-    return false;
+  if (!vertices.a || !vertices.b || !vertices.c || !vertices.d) return false;
   if (
     !_.isNil(vertices.a.x) &&
     !_.isNil(vertices.a.y) &&
@@ -450,6 +449,43 @@ export const getMenu = ({ options, gridPos }) => {
 
   return menu;
 };
+
+export const getOptions = ({ options, position }) => {
+  const distance = GRID[0][2];
+  let newPosition = { ...position };
+
+  const newOptions = options.map(({ action }, i) => {
+    if (i)
+      newPosition = {
+        x: newPosition.x + distance.x,
+        y: newPosition.y + distance.y,
+      };
+
+    const id = `menu-option-${i}`;
+
+    return { id, action, position: newPosition };
+  });
+
+  return newOptions;
+};
+
+export const createMenuElements = () => {
+  const menuElement = document.createElement('div');
+  const titleElement = document.createElement('div');
+  const optionsElement = document.createElement('div');
+  const arrowElement = document.createElement('div');
+
+  menuElement.id = 'menu';
+  titleElement.id = 'menu-title';
+  optionsElement.id = 'menu-options';
+  arrowElement.id = 'menu-arrow';
+
+  menuElement.appendChild(titleElement);
+  menuElement.appendChild(optionsElement);
+  menuElement.appendChild(arrowElement);
+
+  document.getElementById('hud').appendChild(menuElement);
+}
 
 export const insertEffect = ({ effect, position, direction }) => {
   if (!effect.img) return;
