@@ -301,7 +301,7 @@ export default class Hero {
       this.isHit = false;
     }
 
-    if(this.action.name === ACTIONS.death.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
 
     nextPosition({
       hurtbox: this.hurtbox.vertices,
@@ -402,7 +402,7 @@ export default class Hero {
     document.getElementById('map').appendChild(this.element);
     document.getElementById('map').appendChild(this.hurtbox.element);
 
-    this.position = position;
+    this.position = { ...position };
     this.blocksVertices = blocksVertices;
     this.miscs = miscs;
 

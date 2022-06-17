@@ -278,7 +278,7 @@ export default class Monster {
     document.getElementById('enemies').appendChild(this.hurtbox.element);
 
     this.miscs = miscs;
-    this.position = position;
+    this.position = { ...position };
     this.hero = hero;
     this.blocksVertices = blocksVertices;
   }
