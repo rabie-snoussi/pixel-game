@@ -256,9 +256,11 @@ export default class Monster {
   }
 
   showHurtbox() {
-    addBorder(this.hurtbox.element, 'red');
+    addBorder(this.hurtbox.element, 'red');    
+  }
 
-    document.getElementById('enemies').appendChild(this.hurtbox.element);
+  hideHurtbox() {
+    this.hurtbox.element.style.border = 'none';
   }
 
   showHitbox() {
@@ -273,6 +275,7 @@ export default class Monster {
     });
 
     document.getElementById('enemies').appendChild(this.element);
+    document.getElementById('enemies').appendChild(this.hurtbox.element);
 
     this.miscs = miscs;
     this.position = position;

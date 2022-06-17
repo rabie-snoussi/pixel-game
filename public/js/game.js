@@ -62,6 +62,7 @@ class Game {
 
   applySavedData() {
     if (store.data.grid) this.showGrid();
+    if (store.data.hurtbox) this.showHurtbox();
   }
 
   showGrid() {
@@ -111,6 +112,17 @@ class Game {
   showHurtbox() {
     this.hero.showHurtbox();
     this.monsters.map((monster) => monster.showHurtbox());
+
+    store.setData({ hurtbox: true })
+    store.saveInLocalStorage();
+  }
+
+  hideHurtbox() {
+    this.hero.hideHurtbox();
+    this.monsters.map((monster) => monster.hideHurtbox());
+
+    store.setData({ hurtbox: false })
+    store.saveInLocalStorage();
   }
 
   showHitbox() {
@@ -174,10 +186,6 @@ class Game {
   }
 
   initialize() {
-    store.loadSavedData();
-    store.saveInLocalStorage();
-    this.applySavedData();
-
     this.hero = new Hero();
     this.map = new Map();
     this.controls = new Controls();
@@ -224,6 +232,10 @@ class Game {
     this.hud.start();
 
     this.animate();
+
+    store.loadSavedData();
+    store.saveInLocalStorage();
+    this.applySavedData();
   }
 }
 
@@ -231,5 +243,4 @@ const game = new Game();
 
 game.initialize();
 // game.godMode();
-game.showHurtbox();
 game.showHitbox();

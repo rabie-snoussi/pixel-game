@@ -53,6 +53,8 @@ export const MENU_OPTIONS = {
   quit: 'quit',
   gridOn: 'grid on',
   gridOff: 'grid off',
+  hurtboxOn: 'hurtbox on',
+  hurtboxOff: 'hurtbox off',
 };
 
 export const MENU_TITLES = {

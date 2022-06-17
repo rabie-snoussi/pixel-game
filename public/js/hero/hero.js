@@ -376,8 +376,10 @@ export default class Hero {
 
   showHurtbox() {
     addBorder(this.hurtbox.element, 'green');
+  }
 
-    document.getElementById('map').appendChild(this.hurtbox.element);
+  hideHurtbox() {
+    this.hurtbox.element.style.border = 'none';
   }
 
   showHitbox() {
@@ -398,9 +400,12 @@ export default class Hero {
     this.element.setAttribute('id', 'hero');
 
     document.getElementById('map').appendChild(this.element);
+    document.getElementById('map').appendChild(this.hurtbox.element);
 
     this.position = position;
     this.blocksVertices = blocksVertices;
     this.miscs = miscs;
+
+    this.updateHurtbox();
   }
 }

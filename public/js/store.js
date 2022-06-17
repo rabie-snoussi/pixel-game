@@ -4,6 +4,7 @@ class Store {
   constructor() {
     this.data = {
       grid: false,
+      hurtbox: false,
     };
   }
 

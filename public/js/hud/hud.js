@@ -95,6 +95,19 @@ export default class Hud {
     this.game.showGrid();
   }
 
+  hurtboxToggle() {
+    const { id, position } = this.options[this.cursor];
+
+    document.getElementById(id).innerHTML = '';
+
+    const text = store.data.hurtbox ? MENU_OPTIONS.hurtboxOn : MENU_OPTIONS.hurtboxOff;
+
+    this.insertText({ text, position, id });
+
+    if (store.data.hurtbox) return this.game.hideHurtbox();
+    this.game.showHurtbox();
+  }
+
   initializeArrow() {
     this.cursor = 0;
     const optionPosition = this.options[this.cursor].position;
@@ -144,11 +157,13 @@ export default class Hud {
     const optionsPosition = GRID[21][13];
 
     const gridOption = store.data.grid ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
+    const hurtboxOption = store.data.hurtbox ? MENU_OPTIONS.hurtboxOn : MENU_OPTIONS.hurtboxOff;
 
     const options = [
       { text: MENU_OPTIONS.resume, action: this.game.resume.bind(this.game) },
       { text: MENU_OPTIONS.restart, action: this.game.restart.bind(this.game) },
       { text: gridOption, action: this.gridToggle.bind(this) },
+      { text: hurtboxOption, action: this.hurtboxToggle.bind(this) },
       { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
     ];
 
