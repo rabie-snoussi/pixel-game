@@ -485,7 +485,7 @@ export const createMenuElements = () => {
   menuElement.appendChild(arrowElement);
 
   document.getElementById('hud').appendChild(menuElement);
-}
+};
 
 export const insertEffect = ({ effect, position, direction }) => {
   if (!effect.img) return;
@@ -499,8 +499,8 @@ export const insertEffect = ({ effect, position, direction }) => {
   element.style.backgroundSize = 'cover';
   element.style.imageRendering = 'pixelated';
 
-  element.style.height = effect.dimensions.height;
-  element.style.width = effect.dimensions.width;
+  element.style.height = effect.dimensions.height + 'px';
+  element.style.width = effect.dimensions.width + 'px';
 
   element.style.top = effectPosition.top;
   element.style.left = effectPosition.left;
