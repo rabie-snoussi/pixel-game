@@ -29,6 +29,10 @@ class Store {
 
     localStorage.setItem('data', encrypted);
   }
+
+  setData(data) {
+      this.data = _.merge(this.data, data);
+  }
 }
 
 export default new Store();

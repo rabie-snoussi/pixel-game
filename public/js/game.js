@@ -56,7 +56,7 @@ class Game {
   hideGrid() {
     document.getElementById('grid').remove();
 
-    store.data.grid = false;
+    store.setData({ grid: false })
     store.saveInLocalStorage();
   }
 
@@ -104,7 +104,7 @@ class Game {
 
     document.getElementById('game').appendChild(gridElement);
 
-    store.data.grid = true;
+    store.setData({ grid: true })
     store.saveInLocalStorage();
   }
 
@@ -175,8 +175,8 @@ class Game {
 
   initialize() {
     store.loadSavedData();
-    this.applySavedData();
     store.saveInLocalStorage();
+    this.applySavedData();
 
     this.hero = new Hero();
     this.map = new Map();
