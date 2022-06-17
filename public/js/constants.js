@@ -27,6 +27,8 @@ export const GRID_DIMENSIONS = {
 
 export const GRID = makeGrid(GRID_DIMENSIONS, SCREEN_LIMITS);
 
+export const SECRET = 'U2FsdGVkX197GLBi18OkXWz3ayZoKceP+oXcDc4qY3o';
+
 // GAME
 
 export const ANIMATION_INTERVAL = 100;

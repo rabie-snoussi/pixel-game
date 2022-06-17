@@ -3,13 +3,15 @@ import Hero from './hero/hero.js';
 import Map from './map/map.js';
 import Monster from './monster/index.js';
 import Misc from './misc/index.js';
+import Hud from './hud/hud.js';
 import {
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
   GRID_DIMENSIONS,
   GRID,
 } from './constants.js';
-import Hud from './hud/hud.js';
+import store from './store.js';
+
 
 class Game {
   constructor() {
@@ -53,6 +55,13 @@ class Game {
 
   hideGrid() {
     document.getElementById('grid').remove();
+
+    store.data.grid = false;
+    store.saveInLocalStorage();
+  }
+
+  applySavedData() {
+    if (store.data.grid) this.showGrid();
   }
 
   showGrid() {
@@ -94,6 +103,9 @@ class Game {
     });
 
     document.getElementById('game').appendChild(gridElement);
+
+    store.data.grid = true;
+    store.saveInLocalStorage();
   }
 
   showHurtbox() {
@@ -162,6 +174,10 @@ class Game {
   }
 
   initialize() {
+    store.loadSavedData();
+    this.applySavedData();
+    store.saveInLocalStorage();
+
     this.hero = new Hero();
     this.map = new Map();
     this.controls = new Controls();

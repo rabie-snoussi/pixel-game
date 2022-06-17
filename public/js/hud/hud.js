@@ -1,6 +1,7 @@
 import { createElement, getOptions, createMenuElements } from '../helpers.js';
 import { heart, coin, arrow, font } from './items/index.js';
 import { GRID, MENU_TITLES, MENU_OPTIONS } from '../constants.js';
+import store from '../store.js';
 
 export default class Hud {
   constructor() {
@@ -86,12 +87,11 @@ export default class Hud {
 
     document.getElementById(id).innerHTML = '';
 
-    const gridElement = document.getElementById('grid');
-    const text = gridElement ? MENU_OPTIONS.gridOff : MENU_OPTIONS.gridOn;
+    const text = store.data.grid ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
 
     this.insertText({ text, position, id });
 
-    if (gridElement) return this.game.hideGrid();
+    if (store.data.grid) return this.game.hideGrid();
     this.game.showGrid();
   }
 
@@ -143,8 +143,7 @@ export default class Hud {
     const titlePosition = GRID[19][9];
     const optionsPosition = GRID[21][13];
 
-    const gridElement = document.getElementById('grid');
-    const gridOption = gridElement ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
+    const gridOption = store.data.grid ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
 
     const options = [
       { text: MENU_OPTIONS.resume, action: this.game.resume.bind(this.game) },
