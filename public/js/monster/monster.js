@@ -28,7 +28,7 @@ export default class Monster {
     this.vector = { x: 0, y: 0 };
     this.hero = {};
     this.hurtbox = {
-      element: document.createElement('div'),
+      element: null,
       vertices: {
         a: {
           x: 0,
@@ -273,6 +273,9 @@ export default class Monster {
       dimensions: this.action.dimensions,
       img: this.action.img
     });
+
+    this.hurtbox.element = document.createElement('div');
+    this.hurtbox.element.style.position = 'absolute';
 
     document.getElementById('enemies').appendChild(this.element);
     document.getElementById('enemies').appendChild(this.hurtbox.element);

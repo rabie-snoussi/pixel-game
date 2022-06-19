@@ -7,7 +7,7 @@ const img = 'url("' + MISC_IMG.mushroom.initial + '")';
 
 const dimensions = { height: 32, width: 32 };
 
-const vertices = createVertices(dimensions);
+const vertices = createVertices(dimensions, { x: 0, y: 8 });
 
 const frames = getFrames({ dimensions, number: 6 });
 

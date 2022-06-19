@@ -51,11 +51,13 @@ export const MENU_OPTIONS = {
   resume: 'resume',
   restart: 'restart',
   quit: 'quit',
-  gridOn: 'grid on',
-  gridOff: 'grid off',
-  hurtboxOn: 'hurtbox on',
-  hurtboxOff: 'hurtbox off',
+  grid: 'grid',
+  hurtbox: 'hurtbox',
 };
+
+export const ON = 'on';
+
+export const OFF = 'off';
 
 export const MENU_TITLES = {
   plateformGame: 'plateform game',

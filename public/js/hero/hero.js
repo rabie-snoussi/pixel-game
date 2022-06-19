@@ -38,7 +38,7 @@ export default class Hero {
       y: 0,
     };
     this.hurtbox = {
-      element: document.createElement('div'),
+      element: null,
       vertices: {},
     };
     this.collision = {
@@ -398,6 +398,9 @@ export default class Hero {
     });
 
     this.element.setAttribute('id', 'hero');
+
+    this.hurtbox.element = document.createElement('div');
+    this.hurtbox.element.style.position = 'absolute';
 
     document.getElementById('map').appendChild(this.element);
     document.getElementById('map').appendChild(this.hurtbox.element);

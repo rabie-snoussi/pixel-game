@@ -454,7 +454,7 @@ export const getOptions = ({ options, position }) => {
   const distance = GRID[0][2];
   let newPosition = { ...position };
 
-  const newOptions = options.map(({ action }, i) => {
+  const newOptions = options.map(({ action, name }, i) => {
     if (i)
       newPosition = {
         x: newPosition.x + distance.x,
@@ -463,7 +463,7 @@ export const getOptions = ({ options, position }) => {
 
     const id = `menu-option-${i}`;
 
-    return { id, action, position: newPosition };
+    return { id, action, position: newPosition, name };
   });
 
   return newOptions;

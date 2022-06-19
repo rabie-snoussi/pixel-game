@@ -1,6 +1,6 @@
 import { createElement, getOptions, createMenuElements } from '../helpers.js';
 import { heart, coin, arrow, font } from './items/index.js';
-import { GRID, MENU_TITLES, MENU_OPTIONS } from '../constants.js';
+import { GRID, MENU_TITLES, MENU_OPTIONS, ON, OFF } from '../constants.js';
 import store from '../store.js';
 
 export default class Hud {
@@ -74,36 +74,29 @@ export default class Hud {
     this.insertText({ text, position, id: 'coins-number' });
   }
 
-  createOption = ({ id, text, position }) => {
+  createOption({ id, position, name }) {
     const optionElement = document.createElement('div');
     optionElement.id = id;
+
     const menuElement = document.getElementById('menu-options');
     menuElement.appendChild(optionElement);
-    this.insertText({ id, text, position });
-  };
 
-  gridToggle() {
-    const { id, position } = this.options[this.cursor];
+    const flag = store.data[name];
 
-    document.getElementById(id).innerHTML = '';
+    if (flag === undefined)
+      return this.insertText({ id, text: name, position });
 
-    const text = store.data.grid ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
+    const text = flag ? `${name} ${ON}` : `${name} ${OFF}`;
 
     this.insertText({ text, position, id });
+  }
 
+  gridToggle() {
     if (store.data.grid) return this.game.hideGrid();
     this.game.showGrid();
   }
 
   hurtboxToggle() {
-    const { id, position } = this.options[this.cursor];
-
-    document.getElementById(id).innerHTML = '';
-
-    const text = store.data.hurtbox ? MENU_OPTIONS.hurtboxOn : MENU_OPTIONS.hurtboxOff;
-
-    this.insertText({ text, position, id });
-
     if (store.data.hurtbox) return this.game.hideHurtbox();
     this.game.showHurtbox();
   }
@@ -132,9 +125,7 @@ export default class Hud {
     });
 
     this.options = getOptions({ options, position: optionsPosition });
-    this.options.map(({ id, position }, i) =>
-      this.createOption({ id, text: options[i].text, position })
-    );
+    this.options.map((option) => this.createOption(option));
 
     this.initializeArrow();
   }
@@ -145,7 +136,10 @@ export default class Hud {
     const optionsPosition = GRID[21][13];
 
     const options = [
-      { text: MENU_OPTIONS.start, action: this.game.start.bind(this.game) },
+      {
+        name: MENU_OPTIONS.start,
+        action: this.game.start.bind(this.game),
+      },
     ];
 
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
@@ -156,15 +150,27 @@ export default class Hud {
     const titlePosition = GRID[19][9];
     const optionsPosition = GRID[21][13];
 
-    const gridOption = store.data.grid ? MENU_OPTIONS.gridOn : MENU_OPTIONS.gridOff;
-    const hurtboxOption = store.data.hurtbox ? MENU_OPTIONS.hurtboxOn : MENU_OPTIONS.hurtboxOff;
-
     const options = [
-      { text: MENU_OPTIONS.resume, action: this.game.resume.bind(this.game) },
-      { text: MENU_OPTIONS.restart, action: this.game.restart.bind(this.game) },
-      { text: gridOption, action: this.gridToggle.bind(this) },
-      { text: hurtboxOption, action: this.hurtboxToggle.bind(this) },
-      { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
+      {
+        name: MENU_OPTIONS.resume,
+        action: this.game.resume.bind(this.game),
+      },
+      {
+        name: MENU_OPTIONS.restart,
+        action: this.game.restart.bind(this.game),
+      },
+      {
+        name: MENU_OPTIONS.grid,
+        action: this.gridToggle.bind(this),
+      },
+      {
+        name: MENU_OPTIONS.hurtbox,
+        action: this.hurtboxToggle.bind(this),
+      },
+      {
+        name: MENU_OPTIONS.quit,
+        action: this.game.quit.bind(this.game),
+      },
     ];
 
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
@@ -176,8 +182,14 @@ export default class Hud {
     const optionsPosition = GRID[21][13];
 
     const options = [
-      { text: MENU_OPTIONS.restart, action: this.game.restart.bind(this.game) },
-      { text: MENU_OPTIONS.quit, action: this.game.quit.bind(this.game) },
+      {
+        name: MENU_OPTIONS.restart,
+        action: this.game.restart.bind(this.game),
+      },
+      {
+        name: MENU_OPTIONS.quit,
+        action: this.game.quit.bind(this.game),
+      },
     ];
 
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
@@ -209,7 +221,17 @@ export default class Hud {
   }
 
   selectOption() {
-    this.options[this.cursor].action();
+    const { id, name, position, action } = this.options[this.cursor];
+    action();
+
+    const flag = store.data[name];
+
+    if (flag === undefined) return;
+
+    document.getElementById(id).innerHTML = '';
+
+    const text = flag ? `${name} on` : `${name} off`;
+    this.insertText({ text, position, id });
   }
 
   updateArrow() {
