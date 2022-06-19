@@ -3,7 +3,7 @@ import {
   cloneWithElements,
   nextPosition,
   createElement,
-  addBorder
+  addBorder,
 } from '../helpers.js';
 
 export default class Monster {
@@ -120,6 +120,7 @@ export default class Monster {
       direction: this.direction,
       effects: this.effects,
       showHitbox: this.isHitboxVisible,
+      color: 'yellow',
     });
   }
 
@@ -201,8 +202,8 @@ export default class Monster {
   updateFrame() {
     this.element.style.backgroundImage = this.action.img;
 
-    this.element.style.height = this.action.dimensions.height;
-    this.element.style.width = this.action.dimensions.width;
+    this.element.style.height = this.action.dimensions.height + 'px';
+    this.element.style.width = this.action.dimensions.width + 'px';
 
     const frame = this.action.frames[this.direction][this.frameCounter];
 
@@ -256,7 +257,7 @@ export default class Monster {
   }
 
   showHurtbox() {
-    addBorder(this.hurtbox.element, 'red');    
+    addBorder(this.hurtbox.element, 'red');
   }
 
   hideHurtbox() {
@@ -265,13 +266,25 @@ export default class Monster {
 
   showHitbox() {
     this.isHitboxVisible = true;
+
+    this.effects.map((effect) => {
+      addBorder(effect.elements.hitbox, 'yellow');
+    });
+  }
+
+  hideHitbox() {
+    this.isHitboxVisible = false;
+
+    this.effects.map((effect) => {
+      effect.elements.hitbox.style.border = 'none';
+    });
   }
 
   initialize({ position, blocksVertices, hero, miscs }) {
     this.element = createElement({
       position,
       dimensions: this.action.dimensions,
-      img: this.action.img
+      img: this.action.img,
     });
 
     this.hurtbox.element = document.createElement('div');

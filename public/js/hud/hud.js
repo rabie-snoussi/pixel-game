@@ -101,6 +101,11 @@ export default class Hud {
     this.game.showHurtbox();
   }
 
+  hitboxToggle() {
+    if (store.data.hitbox) return this.game.hideHitbox();
+    this.game.showHitbox();
+  }
+
   initializeArrow() {
     this.cursor = 0;
     const optionPosition = this.options[this.cursor].position;
@@ -166,6 +171,10 @@ export default class Hud {
       {
         name: MENU_OPTIONS.hurtbox,
         action: this.hurtboxToggle.bind(this),
+      },
+      {
+        name: MENU_OPTIONS.hitbox,
+        action: this.hitboxToggle.bind(this),
       },
       {
         name: MENU_OPTIONS.quit,

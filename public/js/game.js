@@ -12,7 +12,6 @@ import {
 } from './constants.js';
 import store from './store.js';
 
-
 class Game {
   constructor() {
     this.triggereds = [];
@@ -56,13 +55,14 @@ class Game {
   hideGrid() {
     document.getElementById('grid').remove();
 
-    store.setData({ grid: false })
+    store.setData({ grid: false });
     store.saveInLocalStorage();
   }
 
   applySavedData() {
     if (store.data.grid) this.showGrid();
     if (store.data.hurtbox) this.showHurtbox();
+    if (store.data.hitbox) this.showHitbox();
   }
 
   showGrid() {
@@ -105,7 +105,7 @@ class Game {
 
     document.getElementById('game').appendChild(gridElement);
 
-    store.setData({ grid: true })
+    store.setData({ grid: true });
     store.saveInLocalStorage();
   }
 
@@ -113,7 +113,7 @@ class Game {
     this.hero.showHurtbox();
     this.monsters.map((monster) => monster.showHurtbox());
 
-    store.setData({ hurtbox: true })
+    store.setData({ hurtbox: true });
     store.saveInLocalStorage();
   }
 
@@ -121,13 +121,24 @@ class Game {
     this.hero.hideHurtbox();
     this.monsters.map((monster) => monster.hideHurtbox());
 
-    store.setData({ hurtbox: false })
+    store.setData({ hurtbox: false });
     store.saveInLocalStorage();
   }
 
   showHitbox() {
     this.hero.showHitbox();
     this.monsters.map((monster) => monster.showHitbox());
+
+    store.setData({ hitbox: true });
+    store.saveInLocalStorage();
+  }
+
+  hideHitbox() {
+    this.hero.hideHitbox();
+    this.monsters.map((monster) => monster.hideHitbox());
+
+    store.setData({ hitbox: false });
+    store.saveInLocalStorage();
   }
 
   godMode() {
@@ -243,4 +254,3 @@ const game = new Game();
 
 game.initialize();
 // game.godMode();
-game.showHitbox();

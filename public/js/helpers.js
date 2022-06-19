@@ -511,13 +511,13 @@ export const insertEffect = ({ effect, position, direction }) => {
   return element;
 };
 
-export const insertHitbox = (effect, showHitbox) => {
+export const insertHitbox = ({ effect, showHitbox, color }) => {
   if (_.isEmpty(effect.hitbox)) return null;
 
   const element = document.createElement('div');
 
   if (showHitbox) {
-    addBorder(element, 'yellow');
+    addBorder(element, color);
     element.style.visibility = 'hidden';
   }
 
@@ -531,6 +531,7 @@ export const cloneWithElements = ({
   direction,
   effects,
   showHitbox,
+  color,
 }) => {
   if (_.isEmpty(actionEffects)) return effects;
 
@@ -547,7 +548,7 @@ export const cloneWithElements = ({
         position: position,
         direction: direction,
       }),
-      hitbox: insertHitbox(item, showHitbox),
+      hitbox: insertHitbox({ effect: item, showHitbox, color }),
     },
     ...item,
   }));

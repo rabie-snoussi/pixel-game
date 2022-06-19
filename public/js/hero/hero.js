@@ -105,6 +105,7 @@ export default class Hero {
       direction: this.direction,
       effects: this.effects,
       showHitbox: this.isHitboxVisible,
+      color: 'white',
     });
   }
 
@@ -384,6 +385,18 @@ export default class Hero {
 
   showHitbox() {
     this.isHitboxVisible = true;
+
+    this.effects.map((effect) => {
+      addBorder(effect.elements.hitbox, 'white');
+    });
+  }
+
+  hideHitbox() {
+    this.isHitboxVisible = false;
+
+    this.effects.map((effect) => {
+      effect.elements.hitbox.style.border = 'none';
+    });
   }
 
   godMode() {

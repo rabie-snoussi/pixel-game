@@ -5,6 +5,7 @@ class Store {
     this.data = {
       grid: false,
       hurtbox: false,
+      hitbox: false,
     };
   }
 
