@@ -1,4 +1,4 @@
-import { createElement } from '../helpers.js';
+import { addBorder, createElement } from '../helpers.js';
 
 export default class Misc {
   constructor({ states }) {
@@ -20,6 +20,10 @@ export default class Misc {
       bottom: false,
       right: false,
       left: false,
+    };
+    this.hitbox = {
+      element: null,
+      vertices: {},
     };
   }
 
@@ -44,7 +48,6 @@ export default class Misc {
     this.frameCounter++;
   }
 
-
   destroy() {
     this.element.remove();
   }
@@ -53,7 +56,38 @@ export default class Misc {
 
   open() {}
 
-  initialize({ position, hero, name, blocks, miscs, id, triggerId, isOpen, rotation }) {
+  showHitbox() {
+    if (this.state.hitbox) {
+      this.hitbox.element = document.createElement('div');
+
+      this.hitbox.element.style.width = this.element.style.width;
+      this.hitbox.element.style.height = this.element.style.height;
+      this.hitbox.element.style.top = this.element.style.top;
+      this.hitbox.element.style.left = this.element.style.left;
+
+      addBorder(this.hitbox.element, 'yellow');
+      document.getElementById('miscs').appendChild(this.hitbox.element);
+    }
+  }
+
+  hideHitbox() {
+    if (this.hitbox.element) {
+      this.hitbox.element.remove();
+      this.hitbox.element = null;
+    }
+  }
+
+  initialize({
+    position,
+    hero,
+    name,
+    blocks,
+    miscs,
+    id,
+    triggerId,
+    isOpen,
+    rotation,
+  }) {
     this.position = { ...position };
     this.vertices = this.state.getVertices(this.position);
     this.collision = this.state.collision;

@@ -35,6 +35,19 @@ export default class Goblin extends Monster {
     }, MONSTER_ATTACK_INTERVAL.goblin);
   }
 
+  hurt() {
+    if(this.isHit) return;
+    
+    if (this.health > 1) {
+      this.hit();
+      this.vector.y -= 5;
+    } else this.death();
+
+    if (this.health > 0) this.health--;
+
+    this.isHit = true;
+  }
+
   loop() {
     // Hit check
     if (
@@ -44,14 +57,8 @@ export default class Goblin extends Monster {
     ) {
       clearInterval(this.attackInterval);
       this.isAttacking = false;
-      this.isHit = true;
       this.removeHitbox();
-
-      if (this.health > 0) {
-        this.hit();
-        this.vector.y -= 5;
-        this.health--;
-      } else this.death();
+      this.hurt()
     }
 
     // Attack check

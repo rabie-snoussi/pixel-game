@@ -128,6 +128,7 @@ class Game {
   showHitbox() {
     this.hero.showHitbox();
     this.monsters.map((monster) => monster.showHitbox());
+    this.miscs.map((misc) => misc.showHitbox());
 
     store.setData({ hitbox: true });
     store.saveInLocalStorage();
@@ -136,6 +137,7 @@ class Game {
   hideHitbox() {
     this.hero.hideHitbox();
     this.monsters.map((monster) => monster.hideHitbox());
+    this.miscs.map((misc) => misc.hideHitbox());
 
     store.setData({ hitbox: false });
     store.saveInLocalStorage();

@@ -1,5 +1,4 @@
 import { HERO_ACTIONS, HERO_IMG } from '../../constants.js';
-import sword from '../effects/sword.js';
 import {
   getBox,
   createVertices,
@@ -24,7 +23,7 @@ const vertices = createVertices(dimensions);
 
 const frames = getFrames({
   dimensions,
-  number: 4,
+  number: 12,
   left: 'scaleX(-1)',
   right: 'none',
 });

@@ -18,6 +18,7 @@ export default {
   name,
   img,
   collision: true,
+  hitbox: true,
   getVertices: getVertices(vertices),
   frames,
   dimensions,

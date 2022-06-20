@@ -128,7 +128,7 @@ export const MONSTER_SPEED = {
   goblin: 2,
 };
 
-export const MONSTER_HEALTH = { goblin: 2 };
+export const MONSTER_HEALTH = { goblin: 3 };
 
 export const MONSTER_ATTACK_INTERVAL = { goblin: 1000 };
 
