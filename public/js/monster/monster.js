@@ -121,6 +121,7 @@ export default class Monster {
       effects: this.effects,
       showHitbox: this.isHitboxVisible,
       color: 'yellow',
+      bgColor: 'rgba(255,255,0,0.25)'
     });
   }
 
@@ -258,10 +259,12 @@ export default class Monster {
 
   showHurtbox() {
     addBorder(this.hurtbox.element, 'red');
+    this.hurtbox.element.style.background = 'rgba(255,0,0,0.25)';
   }
 
   hideHurtbox() {
     this.hurtbox.element.style.border = 'none';
+    this.hurtbox.element.style.background = 'none';
   }
 
   showHitbox() {
@@ -269,6 +272,7 @@ export default class Monster {
 
     this.effects.map((effect) => {
       addBorder(effect.elements.hitbox, 'yellow');
+      effect.elements.hitbox.style.background = 'rgba(255,255,0,0.25)';
     });
   }
 
@@ -277,6 +281,7 @@ export default class Monster {
 
     this.effects.map((effect) => {
       effect.elements.hitbox.style.border = 'none';
+      effect.elements.hitbox.style.background = 'none';
     });
   }
 

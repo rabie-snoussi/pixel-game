@@ -60,12 +60,14 @@ export default class Misc {
     if (this.state.hitbox) {
       this.hitbox.element = document.createElement('div');
 
+      addBorder(this.hitbox.element, 'yellow');
+
       this.hitbox.element.style.width = this.element.style.width;
       this.hitbox.element.style.height = this.element.style.height;
       this.hitbox.element.style.top = this.element.style.top;
       this.hitbox.element.style.left = this.element.style.left;
+      this.hitbox.element.style.background = 'rgba(255,255,0,0.25)';
 
-      addBorder(this.hitbox.element, 'yellow');
       document.getElementById('miscs').appendChild(this.hitbox.element);
     }
   }

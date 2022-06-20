@@ -21,14 +21,12 @@ class Game {
     this.controls = null;
     this.hud = null;
     this.miscs = [];
-    this.isStated = false;
     this.isPaused = false;
     this.isGameOver = false;
   }
 
   start() {
     this.loop();
-    this.isStated = true;
     this.hud.resetMenu();
   }
 

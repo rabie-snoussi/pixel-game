@@ -110,6 +110,7 @@ export default class Hero {
       effects: this.effects,
       showHitbox: this.isHitboxVisible,
       color: 'white',
+      bgColor: 'rgba(255,255,255,0.25)',
     });
   }
 
@@ -274,8 +275,8 @@ export default class Hero {
   }
 
   hurt() {
-    if(this.isHit) return;
-    
+    if (this.isHit) return;
+
     if (this.hearts > 1) {
       this.hit();
       this.vector.y = -5;
@@ -386,10 +387,12 @@ export default class Hero {
 
   showHurtbox() {
     addBorder(this.hurtbox.element, 'green');
+    this.hurtbox.element.style.background = 'rgba(0,255,0,0.25)';
   }
 
   hideHurtbox() {
     this.hurtbox.element.style.border = 'none';
+    this.hurtbox.element.style.background = 'none';
   }
 
   showHitbox() {
@@ -397,6 +400,7 @@ export default class Hero {
 
     this.effects.map((effect) => {
       addBorder(effect.elements.hitbox, 'white');
+      effect.elements.hitbox.style.background = 'rgba(255,255,255,0.25)';
     });
   }
 
@@ -405,6 +409,7 @@ export default class Hero {
 
     this.effects.map((effect) => {
       effect.elements.hitbox.style.border = 'none';
+      effect.elements.hitbox.style.background = 'none';
     });
   }
 

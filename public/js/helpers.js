@@ -511,7 +511,7 @@ export const insertEffect = ({ effect, position, direction }) => {
   return element;
 };
 
-export const insertHitbox = ({ effect, showHitbox, color }) => {
+export const insertHitbox = ({ effect, showHitbox, color, bgColor }) => {
   if (_.isEmpty(effect.hitbox)) return null;
 
   const element = document.createElement('div');
@@ -519,6 +519,7 @@ export const insertHitbox = ({ effect, showHitbox, color }) => {
   if (showHitbox) {
     addBorder(element, color);
     element.style.visibility = 'hidden';
+    element.style.background = bgColor;
   }
 
   document.getElementById('map').appendChild(element);
@@ -532,6 +533,7 @@ export const cloneWithElements = ({
   effects,
   showHitbox,
   color,
+  bgColor,
 }) => {
   if (_.isEmpty(actionEffects)) return effects;
 
@@ -548,7 +550,7 @@ export const cloneWithElements = ({
         position: position,
         direction: direction,
       }),
-      hitbox: insertHitbox({ effect: item, showHitbox, color }),
+      hitbox: insertHitbox({ effect: item, showHitbox, color, bgColor }),
     },
     ...item,
   }));
