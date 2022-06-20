@@ -23,7 +23,7 @@ const vertices = createVertices(dimensions);
 
 const frames = getFrames({
   dimensions,
-  number: 12,
+  number: 9,
   left: 'scaleX(-1)',
   right: 'none',
 });

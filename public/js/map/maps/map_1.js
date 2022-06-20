@@ -960,5 +960,9 @@ export default {
       position: GRID[22][4],
       rotation: 0,
     },
+    {
+      name: MISCS.water,
+      position: GRID[2][22],
+    },
   ],
 };

@@ -156,6 +156,7 @@ export const MISCS = {
   stone: 'stone',
   mushroom: 'mushroom',
   spikes: 'spikes',
+  water: 'water',
 };
 
 export const MISC_IMG = {
@@ -189,6 +190,9 @@ export const MISC_IMG = {
   },
   spikes: {
     initial: './assets/miscellaneous/spikes.png',
+  },
+  water: {
+    initial: './assets/miscellaneous/water_32x32.png',
   },
 };
 

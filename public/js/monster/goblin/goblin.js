@@ -40,7 +40,7 @@ export default class Goblin extends Monster {
     
     if (this.health > 1) {
       this.hit();
-      this.vector.y -= 5;
+      this.vector.y = -5;
     } else this.death();
 
     if (this.health > 0) this.health--;

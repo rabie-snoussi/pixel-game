@@ -278,7 +278,7 @@ export default class Hero {
     
     if (this.hearts > 1) {
       this.hit();
-      this.vector.y -= 5;
+      this.vector.y = -5;
     } else this.death();
 
     if (this.hearts > 0) this.hearts--;
