@@ -39,17 +39,14 @@ export default class Map {
       document.getElementById('fg_1').style.backgroundImage =
         'url("' + FG_1_IMG + '")';
 
-    this.map.materials.forEach((item) => {
+    this.blocksVertices = this.map.materials.map((item) => {
       const element = createMaterial(item);
 
       document.getElementById('materials').appendChild(element);
 
-      if (item.collision)
-        this.blocksVertices.push(
-          getVertices(createVertices(item.dimensions))(item.position)
-        );
-
       if (item.animation) this.animations.push({ ...item, element });
+
+      if (item.collision) return getVertices(createVertices(item.dimensions))(item.position);
     });
   }
 }
