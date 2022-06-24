@@ -9,18 +9,18 @@ export default class HealthPotion extends Misc {
 
   update() {};
 
-  loop() {
+  loop({ hero }) {
     if (
-      isColliding(this.vertices, this.hero.hurtbox.vertices) &&
+      isColliding(this.vertices, hero.hurtbox.vertices) &&
       !this.isCollecting
     ) {
       this.isCollecting = true;
-      this.collect();
+      this.collect(hero);
     }
   }
 
-  collect() {
-    this.hero.hearts++;
+  collect(hero) {
+    hero.hearts++;
     this.isCollected = true;
   }
 }

@@ -7,10 +7,10 @@ export default class Mushroom extends Misc {
     super({ states: STATES });
   }
 
-  loop() {
-    if(isCollidingBottom(this.hero.hurtbox.vertices, this.vertices)) {
-      this.hero.vector.y = -25;
-      this.hero.jump();
+  loop({ hero }) {
+    if(isCollidingBottom(hero.hurtbox.vertices, this.vertices)) {
+      hero.vector.y = -25;
+      hero.jump();
     }
   }
 

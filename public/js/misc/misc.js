@@ -82,24 +82,11 @@ export default class Misc {
     }
   }
 
-  initialize({
-    position,
-    hero,
-    name,
-    blocks,
-    miscs,
-    id,
-    triggerId,
-    isOpen,
-    rotation,
-  }) {
+  spawn({ position, name, id, triggerId, isOpen, rotation }) {
     this.position = { ...position };
     this.vertices = this.state.getVertices(this.position);
     this.collision = this.state.collision;
-    this.miscs = miscs;
     this.name = name;
-    this.hero = hero;
-    this.blocks = blocks;
     this.triggerId = triggerId;
 
     this.element = createElement({

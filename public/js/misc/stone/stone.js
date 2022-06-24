@@ -16,32 +16,32 @@ export default class Stone extends Misc {
 
   update() {}
 
-  loop() {
+  loop({ hero, blocks, miscs }) {
     if (
-      !_.isEmpty(this.hero.hitbox) &&
-      isColliding(this.hero.hitbox, this.vertices)
+      !_.isEmpty(hero.hitbox) &&
+      isColliding(hero.hitbox, this.vertices)
     ) {
       this.vector.y -= 1.25;
       if (
         getCenterPosition(this.vertices).x <
-        getCenterPosition(this.hero.hurtbox.vertices).x
+        getCenterPosition(hero.hurtbox.vertices).x
       )
         this.vector.x -= 0.5;
       else this.vector.x += 0.5;
     }
-    if (isCollidingRight(this.vertices, this.hero.hurtbox.vertices) && !!this.hero.vector.x) {
-      this.hero.push();
+    if (isCollidingRight(this.vertices, hero.hurtbox.vertices) && !!hero.vector.x) {
+      hero.push();
       this.vector.x = -1; 
     }
 
-    if (isCollidingLeft(this.vertices, this.hero.hurtbox.vertices) && !!this.hero.vector.x) {
-      this.hero.push();
+    if (isCollidingLeft(this.vertices, hero.hurtbox.vertices) && !!hero.vector.x) {
+      hero.push();
       this.vector.x = 1;
     }
 
     if (
-      !isCollidingLeft(this.vertices, this.hero.hurtbox.vertices) &&
-      !isCollidingRight(this.vertices, this.hero.hurtbox.vertices) &&
+      !isCollidingLeft(this.vertices, hero.hurtbox.vertices) &&
+      !isCollidingRight(this.vertices, hero.hurtbox.vertices) &&
       this.collisionObj.bottom
     )
       this.vector.x = 0;
@@ -51,8 +51,8 @@ export default class Stone extends Misc {
       position: this.position,
       vector: this.vector,
       collision: this.collisionObj,
-      blocks: this.blocks,
-      miscs: this.miscs,
+      blocks,
+      miscs,
     });
 
     if (this.collisionObj.bottom) this.vector.y = 0;

@@ -1,4 +1,4 @@
-import { SECRET } from "./constants.js";
+import { SECRET } from './constants.js';
 
 class Store {
   constructor() {
@@ -7,6 +7,8 @@ class Store {
       hurtbox: false,
       hitbox: false,
       map: 0,
+      hearts: 5,
+      coins: 0,
     };
   }
 
@@ -34,7 +36,7 @@ class Store {
   }
 
   setData(data) {
-      this.data = _.merge(this.data, data);
+    this.data = _.merge(this.data, data);
   }
 }
 

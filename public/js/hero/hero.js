@@ -16,11 +16,10 @@ import {
 } from '../helpers.js';
 
 export default class Hero {
-  constructor() {
+  constructor({ hearts, coins }) {
     this.isGodMode = false;
-    this.hearts = 5;
-    this.coins = 0;
-    this.blocksVertices = [];
+    this.hearts = hearts;
+    this.coins = coins;
     this.element = null;
     this.frameCounter = 0;
     this.direction = DIRECTIONS.right;
@@ -28,7 +27,6 @@ export default class Hero {
     this.jumpCount = MAX_JUMPS;
     this.effects = [];
     this.hitbox = {};
-    this.miscs = [];
     this.isHitboxVisible = false;
     this.isHit = false;
     this.isDead = false;
@@ -157,6 +155,10 @@ export default class Hero {
     this.effects?.map((item) => item.elements?.hitbox?.remove());
   }
 
+  removeEffects() {
+    this.effects?.map((item) => item.elements?.effect?.remove());
+  }
+
   destroy() {
     this.element.remove();
     this.hurtbox.element.remove();
@@ -164,6 +166,7 @@ export default class Hero {
     this.hitbox = {};
     this.position = {};
     this.removeHitbox();
+    this.removeEffects();
   }
 
   playEffects() {
@@ -305,7 +308,7 @@ export default class Hero {
       this.idle();
   }
 
-  loop() {
+  loop({ blocks, miscs }) {
     if (
       this.isHit &&
       this.action.name !== ACTIONS.hit.name &&
@@ -318,11 +321,11 @@ export default class Hero {
 
     nextPosition({
       hurtbox: this.hurtbox.vertices,
-      blocks: this.blocksVertices,
+      blocks,
       vector: this.vector,
       position: this.position,
       collision: this.collision,
-      miscs: this.miscs,
+      miscs,
     });
 
     if (this.collision.bottom) {
@@ -426,7 +429,7 @@ export default class Hero {
     this.isGodMode = true;
   }
 
-  initialize({ position, blocksVertices, miscs }) {
+  spawn({ position }) {
     this.element = createElement({
       position,
       dimensions: this.action.dimensions,
@@ -442,8 +445,6 @@ export default class Hero {
     document.getElementById('map').appendChild(this.hurtbox.element);
 
     this.position = { ...position };
-    this.blocksVertices = blocksVertices;
-    this.miscs = miscs;
 
     this.updateHurtbox();
   }

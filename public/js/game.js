@@ -20,25 +20,30 @@ class Game {
     this.map = null;
     this.controls = null;
     this.hud = null;
-    this.miscs = [];
+    this.miscs = null;
     this.isPaused = false;
     this.isGameOver = false;
     this.mapNumber = 0;
+    this.hearts = 5;
+    this.coins = 0;
   }
 
   start() {
     this.loop();
     this.hud.resetMenu();
+    this.controls.setGameControls(this.hero);
   }
 
   pause() {
     this.isPaused = true;
-    this.hud.pause();
+    this.hud.pauseMenu(this);
+    this.controls.setMenuControls(this.hud, this);
   }
 
   resume() {
     this.isPaused = false;
-    this.hud.resume();
+    this.hud.resetMenu();
+    this.controls.setGameControls(this.hero);
   }
 
   quit() {}
@@ -49,8 +54,8 @@ class Game {
 
   gameOver() {
     this.isGameOver = true;
-    this.hud.gameOver();
-    this.controls.setMenuControls();
+    this.hud.gameOverMenu(this);
+    this.controls.setMenuControls(this.hud, this);
   }
 
   hideGrid() {
@@ -68,6 +73,8 @@ class Game {
   applyGameSettings() {
     if (store.data.grid) this.showGrid();
     this.mapNumber = store.data.map;
+    this.hearts = store.data.hearts;
+    this.coins = store.data.coins;
   }
 
   showGrid() {
@@ -161,16 +168,23 @@ class Game {
         this.gameOver();
       }
 
-      this.miscs.forEach((item, i) => {
-        item.loop?.();
-        if (item.isCollected) {
-          item.destroy();
+      this.miscs.forEach((misc, i) => {
+        misc.loop?.({
+          hero: this.hero,
+          blocks: this.map.blocks,
+          miscs: this.miscs,
+        });
+        if (misc.isCollected) {
+          misc.destroy();
           this.miscs.splice(i, 1);
         }
       });
 
       this.monsters.forEach((monster, i) => {
-        monster.loop();
+        monster.loop({
+          blocks: this.map.blocks,
+          hero: this.hero,
+        });
         if (monster.isDead) {
           monster.destroy();
           this.monsters.splice(i, 1);
@@ -179,58 +193,59 @@ class Game {
 
       if (this.isGameOver) return;
 
-      this.hero.loop();
+      this.hero.loop({
+        blocks: this.map.blocks,
+        miscs: this.miscs,
+      });
+
+      this.hud.updateHearts(this.hero.hearts);
+      this.hud.updateCoins(this.hero.coins);
 
       if (this.hero.hurtbox.vertices.b.x == SCREEN_LIMITS.x.end) {
-        this.nexMap();
+        this.nextMap();
       }
-
-      this.hud.loop();
     }, GAME_LOOP_INTERVAL);
   }
 
-  nexMap() {
-    document.getElementById('enemies').innerHTML = '';
+  nextMap() {
+    document.getElementById('monsters').innerHTML = '';
     document.getElementById('miscs').innerHTML = '';
     document.getElementById('materials').innerHTML = '';
 
+    this.hearts = this.hero.hearts;
+    this.coins = this.hero.coins;
+
     this.hero.destroy();
 
-    this.miscs = [];
+    this.map = new Map();
+    this.hero = new Hero({ hearts: this.hearts, coins: this.coins });
 
     this.mapNumber++;
 
-    this.map.initialize(this.mapNumber);
+    this.map.generate(this.mapNumber);
 
-    this.map.miscs.map((item) => {
-      const itemObj = new Misc[item.name]();
-      itemObj.initialize({
-        hero: this.hero,
-        blocks: this.map.blocksVertices,
-        miscs: this.miscs,
-        ...item,
-      });
-      this.miscs.push(itemObj);
+    this.miscs = this.map.miscs.map((item) => {
+      const misc = new Misc[item.name]();
+      misc.spawn(item);
+      return misc;
     });
 
-    this.monsters = this.map.enemies.map((item) => {
+    this.monsters = this.map.monsters.map((item) => {
       const monster = new Monster[item.name]();
-      monster.initialize({
-        position: item.position,
-        blocksVertices: this.map.blocksVertices,
-        hero: this.hero,
-      });
+      monster.spawn({ position: item.position });
       return monster;
     });
 
-    this.hero.initialize({
-      position: this.map.heroPosition,
-      blocksVertices: this.map.blocksVertices,
-      miscs: this.miscs,
-    });
+    this.hero.spawn({ position: this.map.hero.position });
+
+    this.controls.setGameControls(this.hero);
 
     this.applySettings();
-    store.setData({ map: this.mapNumber });
+    store.setData({
+      map: this.mapNumber,
+      hearts: this.hearts,
+      coins: this.coins,
+    });
     store.saveInLocalStorage();
   }
 
@@ -241,7 +256,6 @@ class Game {
       if (this.isPaused) return;
 
       this.hero.update();
-
       this.map.update();
 
       this.miscs.forEach((item) => {
@@ -255,56 +269,38 @@ class Game {
   }
 
   initialize() {
-    this.hero = new Hero();
-    this.map = new Map();
-    this.controls = new Controls();
-    this.hud = new Hud();
-
     store.loadSavedData();
     store.saveInLocalStorage();
     this.applyGameSettings();
 
-    this.controls.initialize({ hero: this.hero, game: this, hud: this.hud });
-    this.controls.setMenuControls();
-    this.map.initialize(this.mapNumber);
+    this.hero = new Hero({ hearts: this.hearts, coins: this.coins });
+    this.map = new Map();
+    this.controls = new Controls();
+    this.hud = new Hud();
 
-    this.map.miscs.map((item) => {
-      const itemObj = new Misc[item.name]();
-      itemObj.initialize({
-        hero: this.hero,
-        blocks: this.map.blocksVertices,
-        miscs: this.miscs,
-        ...item,
-      });
-      this.miscs.push(itemObj);
+    this.hud.initialize({ hearts: this.hearts, coins: this.coins });
+    this.controls.initialize();
+    this.controls.setMenuControls(this.hud, this);
+    this.map.generate(this.mapNumber);
+
+    this.miscs = this.map.miscs.map((item) => {
+      const misc = new Misc[item.name]();
+      misc.spawn(item);
+      return misc;
     });
 
-    this.monsters = this.map.enemies.map((item) => {
+    this.monsters = this.map.monsters.map((item) => {
       const monster = new Monster[item.name]();
-      monster.initialize({
-        position: item.position,
-        blocksVertices: this.map.blocksVertices,
-        hero: this.hero,
-      });
+      monster.spawn({ position: item.position });
       return monster;
     });
 
-    this.hero.initialize({
-      position: this.map.heroPosition,
-      blocksVertices: this.map.blocksVertices,
-      miscs: this.miscs,
+    this.hero.spawn({
+      position: this.map.hero.position,
     });
 
-    this.hud.initialize({
-      hero: this.hero,
-      game: this,
-      controls: this.controls,
-    });
-
-    this.hud.start();
-
+    this.hud.startMenu(this);
     this.animate();
-
     this.applySettings();
   }
 }

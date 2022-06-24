@@ -2,9 +2,6 @@ import { KEY_CODES, SIMULTANOUS_KEYS } from '../constants.js';
 export default class Controls {
   constructor() {
     this.godMode = false;
-    this.hero = null;
-    this.game = null;
-    this.hud = null;
     this.onStop = {
       right: () => {},
       left: () => {},
@@ -33,23 +30,27 @@ export default class Controls {
 
   onDown() {}
 
-  setGameControls() {
-    this.onDown = () => (this.onStop.down = this.hero.goDown());
-    this.onSpacebar = () => (this.onStop.spacebar = this.hero.attack());
-    this.onLeft = () => (this.onStop.left = this.hero.goLeft());
-    this.onRight = () => (this.onStop.right = this.hero.goRight());
-    this.onUp = async () =>
-      (this.onStop.up = this.isGodMode
-        ? this.hero.goUp()
-        : await this.hero.jumpUp());
+  onEscape() {}
+
+  setGameControls(hero) {
+    this.onDown = () => (this.onStop.down = hero.goDown());
+    this.onSpacebar = () => (this.onStop.spacebar = hero.attack());
+    this.onLeft = () => (this.onStop.left = hero.goLeft());
+    this.onRight = () => (this.onStop.right = hero.goRight());
+    this.onUp = async () => (this.onStop.up = await hero.jumpUp());
   }
 
-  setMenuControls() {
-    this.onDown = () => this.hud.nextOption();
-    this.onUp = () => this.hud.previousOption();
-    this.onLeft = () => this.hud.previousOption();
-    this.onRight = () => this.hud.nextOption();
-    this.onSpacebar = () => this.hud.selectOption();
+  setMenuControls(hud, game) {
+    this.onDown = () => hud.nextOption();
+    this.onUp = () => hud.previousOption();
+    this.onLeft = () => hud.previousOption();
+    this.onRight = () => hud.nextOption();
+    this.onSpacebar = () => hud.selectOption();
+    this.onEscape = () => {
+      if (game.isPaused) return game.resume();
+      if (!game.isPaused && !hud.options)
+        return game.pause();
+    };
   }
 
   onKeydown(event) {
@@ -82,6 +83,10 @@ export default class Controls {
       this.pressed[KEY_CODES.down]++;
       this.onDown();
     }
+    if (event.keyCode === KEY_CODES.escape) {
+      this.pressed[KEY_CODES.escape]++;
+      this.onEscape();
+    }
   }
 
   onKeyup(event) {
@@ -103,11 +108,6 @@ export default class Controls {
     if (event.keyCode === KEY_CODES.down) {
       this.onStop.down?.();
       this.onStop.down = null;
-    }
-
-    if (event.keyCode === KEY_CODES.escape) {
-      if (this.game.isPaused) return this.game.resume();
-      if (!this.game.isPaused && !this.hud.options) return this.game.pause();
     }
   }
 
@@ -132,11 +132,7 @@ export default class Controls {
     this.isGodMode = true;
   }
 
-  initialize({ hero, game, hud }) {
-    this.hero = hero;
-    this.game = game;
-    this.hud = hud;
+  initialize() {
     this.addEventListeners();
-    this.setGameControls();
   }
 }

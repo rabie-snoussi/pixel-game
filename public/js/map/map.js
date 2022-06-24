@@ -6,7 +6,7 @@ import { createVertices, getVertices } from '../helpers.js';
 export default class Map {
   constructor() {
     this.map = null;
-    this.blocksVertices = [];
+    this.blocks = [];
     this.animations = [];
     this.frameCounter = 0;
   }
@@ -19,13 +19,13 @@ export default class Map {
     this.frameCounter--;
   }
 
-  initialize(i) {
+  generate(i) {
     this.map = MAPS[i];
 
-    this.enemies = this.map.enemies;
+    this.monsters = this.map.monsters;
     this.collectibles = this.map.collectibles;
     this.miscs = this.map.miscs;
-    this.heroPosition = this.map.heroPosition;
+    this.hero = this.map.hero;
 
     if (this.map.bg2)
       document.getElementById('bg_2').style.backgroundImage =
@@ -39,14 +39,15 @@ export default class Map {
       document.getElementById('fg_1').style.backgroundImage =
         'url("' + FG_1_IMG + '")';
 
-    this.blocksVertices = this.map.materials.map((item) => {
+    this.blocks = this.map.materials.map((item) => {
       const element = createMaterial(item);
 
       document.getElementById('materials').appendChild(element);
 
       if (item.animation) this.animations.push({ ...item, element });
 
-      if (item.collision) return getVertices(createVertices(item.dimensions))(item.position);
+      if (item.collision)
+        return getVertices(createVertices(item.dimensions))(item.position);
     });
   }
 }

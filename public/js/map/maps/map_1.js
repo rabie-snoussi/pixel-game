@@ -10,8 +10,8 @@ export default {
   bg2: true,
   fg0: true,
   fg1: true,
-  heroPosition: GRID[3][22],
-  enemies: [],
+  hero: { position: GRID[3][22] },
+  monsters: [{ name: MONSTERS.goblin, position: GRID[17][22] }],
   materials: [
     // TILES
     // --------------------------------------------------
@@ -353,7 +353,7 @@ export default {
       position: GRID[48][14],
       backgroundPosition: TILES.normal.green[1][1],
     },
-    
+
     // --------------------------------------------------
 
     {
@@ -860,6 +860,5 @@ export default {
       name: MISCS.mushroom,
       position: GRID[38][22],
     },
-
   ],
 };

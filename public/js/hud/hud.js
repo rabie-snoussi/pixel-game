@@ -7,21 +7,12 @@ export default class Hud {
   constructor() {
     this.hero = null;
     this.game = null;
-    this.controls = null;
     this.heartsElement = document.getElementById('hearts');
     this.coins = null;
     this.arrowElement = null;
     this.frameCounter = 0;
     this.options = null;
     this.cursor = 0;
-  }
-
-  createHearts() {
-    for (let i = 0; i < this.hero.hearts * 2; i += 2) {
-      const position = GRID[1 + i][1];
-      const heartElement = createElement({ ...heart, position });
-      document.getElementById('hearts').appendChild(heartElement);
-    }
   }
 
   removeHearts(num) {
@@ -40,16 +31,16 @@ export default class Hud {
     }
   }
 
-  updateHearts() {
+  updateHearts(hearts) {
     const heartsLength = this.heartsElement.children.length;
 
-    if (this.hero.hearts < heartsLength) {
-      const heartsToRemove = heartsLength - this.hero.hearts;
+    if (hearts < heartsLength) {
+      const heartsToRemove = heartsLength - hearts;
       this.removeHearts(heartsToRemove);
     }
 
-    if (this.hero.hearts > heartsLength) {
-      const heartsToAdd = this.hero.hearts - heartsLength;
+    if (hearts > heartsLength) {
+      const heartsToAdd = hearts - heartsLength;
       this.addHearts(heartsToAdd);
     }
   }
@@ -91,21 +82,6 @@ export default class Hud {
     this.insertText({ text, position, id });
   }
 
-  gridToggle() {
-    if (store.data.grid) return this.game.hideGrid();
-    this.game.showGrid();
-  }
-
-  hurtboxToggle() {
-    if (store.data.hurtbox) return this.game.hideHurtbox();
-    this.game.showHurtbox();
-  }
-
-  hitboxToggle() {
-    if (store.data.hitbox) return this.game.hideHitbox();
-    this.game.showHitbox();
-  }
-
   initializeArrow() {
     this.cursor = 0;
     const optionPosition = this.options[this.cursor].position;
@@ -121,7 +97,6 @@ export default class Hud {
 
   initializeMenu({ title, titlePosition, options, optionsPosition }) {
     createMenuElements();
-    this.controls.setMenuControls();
 
     this.insertText({
       text: title,
@@ -135,7 +110,22 @@ export default class Hud {
     this.initializeArrow();
   }
 
-  start() {
+  gridToggle(game) {
+    if (store.data.grid) return game.hideGrid();
+    game.showGrid();
+  }
+
+  hurtboxToggle(game) {
+    if (store.data.hurtbox) return game.hideHurtbox();
+    game.showHurtbox();
+  }
+
+  hitboxToggle(game) {
+    if (store.data.hitbox) return game.hideHitbox();
+    game.showHitbox();
+  }
+
+  startMenu(game) {
     const title = MENU_TITLES.plateformGame;
     const titlePosition = GRID[17][9];
     const optionsPosition = GRID[21][13];
@@ -143,14 +133,14 @@ export default class Hud {
     const options = [
       {
         name: MENU_OPTIONS.start,
-        action: this.game.start.bind(this.game),
+        action: game.start.bind(game),
       },
     ];
 
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
-  pause() {
+  pauseMenu(game) {
     const title = MENU_TITLES.gamePaused;
     const titlePosition = GRID[19][6];
     const optionsPosition = GRID[21][10];
@@ -158,34 +148,34 @@ export default class Hud {
     const options = [
       {
         name: MENU_OPTIONS.resume,
-        action: this.game.resume.bind(this.game),
+        action: game.resume.bind(game),
       },
       {
         name: MENU_OPTIONS.restart,
-        action: this.game.restart.bind(this.game),
+        action: game.restart.bind(game),
       },
       {
         name: MENU_OPTIONS.grid,
-        action: this.gridToggle.bind(this),
+        action: () => this.gridToggle(game),
       },
       {
         name: MENU_OPTIONS.hurtbox,
-        action: this.hurtboxToggle.bind(this),
+        action: () => this.hurtboxToggle(game),
       },
       {
         name: MENU_OPTIONS.hitbox,
-        action: this.hitboxToggle.bind(this),
+        action: () => this.hitboxToggle(game),
       },
       {
         name: MENU_OPTIONS.quit,
-        action: this.game.quit.bind(this.game),
+        action: game.quit.bind(game),
       },
     ];
 
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
-  gameOver() {
+  gameOverMenu(game) {
     const title = MENU_TITLES.gameOver;
     const titlePosition = GRID[20][9];
     const optionsPosition = GRID[21][13];
@@ -193,11 +183,11 @@ export default class Hud {
     const options = [
       {
         name: MENU_OPTIONS.restart,
-        action: this.game.restart.bind(this.game),
+        action: game.restart.bind(game),
       },
       {
         name: MENU_OPTIONS.quit,
-        action: this.game.quit.bind(this.game),
+        action: game.quit.bind(game),
       },
     ];
 
@@ -206,20 +196,11 @@ export default class Hud {
 
   resetMenu() {
     document.getElementById('menu').remove();
-    this.controls.setGameControls();
 
     this.arrowElement = null;
     this.cursor = 0;
     this.options = null;
   }
-
-  resume() {
-    this.resetMenu();
-  }
-
-  quit() {}
-
-  restart() {}
 
   nextOption() {
     this.cursor = (this.cursor + 1) % this.options.length;
@@ -270,31 +251,21 @@ export default class Hud {
     this.updateArrow();
   }
 
-  updateCoins() {
-    if (this.coins !== this.hero.coins) {
+  updateCoins(coins) {
+    if (this.coins !== coins) {
       this.updateCoinsNumber({
-        text: this.hero.coins.toString(),
+        text: coins.toString(),
         position: GRID[3][4],
       });
-      this.coins = this.hero.coins;
+      this.coins = coins;
     }
   }
 
-  loop() {
-    this.updateHearts();
-    this.updateCoins();
-  }
-
-  initialize({ hero, game, controls }) {
-    this.hero = hero;
-    this.game = game;
-    this.controls = controls;
-
-    this.createHearts();
-
+  initialize({ hearts, coins }) {
     const coinElement = createElement({ ...coin, position: GRID[1][4] });
     document.getElementById('coins').appendChild(coinElement);
 
-    this.updateCoins();
+    this.updateHearts(hearts);
+    this.updateCoins(coins);
   }
 }

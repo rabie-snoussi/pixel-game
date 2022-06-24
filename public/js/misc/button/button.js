@@ -35,10 +35,10 @@ export default class Button extends Misc {
     this.element.dataset.isEnabled = '0';
   }
 
-  loop() {
-    const stones = this.miscs.filter((item) => item.name === MISCS.stone);
+  loop({ hero, miscs }) {
+    const stones = miscs.filter((item) => item.name === MISCS.stone);
 
-    const isEnabledArray = [...stones, this.hero.hurtbox]
+    const isEnabledArray = [...stones, hero.hurtbox]
       .map((item) => isCollidingTop(this.vertices, item.vertices))
       .filter((item) => item === true);
 

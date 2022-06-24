@@ -9,9 +9,9 @@ export default class Spikes extends Misc {
 
   update() {}
 
-  loop() {
-    if (isColliding(this.hero.hurtbox.vertices, this.vertices)) {
-      this.hero.hurt();
+  loop({ hero }) {
+    if (isColliding(hero.hurtbox.vertices, this.vertices)) {
+      hero.hurt();
     }
   }
 }

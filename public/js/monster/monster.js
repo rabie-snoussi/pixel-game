@@ -11,7 +11,6 @@ export default class Monster {
     this.isDead = false;
     this.frameCounter = 0;
     this.element = null;
-    this.blocksVertices = [];
     this.direction = DIRECTIONS.left;
     this.actions = actions;
     this.action = this.actions.idle;
@@ -26,7 +25,6 @@ export default class Monster {
     this.hitbox = {};
     this.isHitboxVisible = false;
     this.vector = { x: 0, y: 0 };
-    this.hero = {};
     this.hurtbox = {
       element: null,
       vertices: {
@@ -291,7 +289,7 @@ export default class Monster {
     });
   }
 
-  initialize({ position, blocksVertices, hero, miscs }) {
+  spawn({ position }) {
     this.element = createElement({
       position,
       dimensions: this.action.dimensions,
@@ -301,12 +299,9 @@ export default class Monster {
     this.hurtbox.element = document.createElement('div');
     this.hurtbox.element.style.position = 'absolute';
 
-    document.getElementById('enemies').appendChild(this.element);
-    document.getElementById('enemies').appendChild(this.hurtbox.element);
+    document.getElementById('monsters').appendChild(this.element);
+    document.getElementById('monsters').appendChild(this.hurtbox.element);
 
-    this.miscs = miscs;
     this.position = { ...position };
-    this.hero = hero;
-    this.blocksVertices = blocksVertices;
   }
 }

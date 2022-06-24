@@ -10,8 +10,8 @@ export default {
   bg2: true,
   fg0: true,
   fg1: true,
-  heroPosition: GRID[0][8],
-  enemies: [],
+  hero: { position: GRID[0][8] },
+  monsters: [],
   materials: [
     // TILES
     // --------------------------------------------------

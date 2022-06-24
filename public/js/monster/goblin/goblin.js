@@ -36,8 +36,8 @@ export default class Goblin extends Monster {
   }
 
   hurt() {
-    if(this.isHit) return;
-    
+    if (this.isHit) return;
+
     if (this.health > 1) {
       this.hit();
       this.vector.y = -5;
@@ -48,26 +48,26 @@ export default class Goblin extends Monster {
     this.isHit = true;
   }
 
-  loop() {
+  loop({ blocks, miscs, hero }) {
     // Hit check
     if (
-      !_.isEmpty(this.hero.hitbox) &&
-      isColliding(this.hero.hitbox, this.hurtbox.vertices) &&
+      !_.isEmpty(hero.hitbox) &&
+      isColliding(hero.hitbox, this.hurtbox.vertices) &&
       !this.isHit
     ) {
       clearInterval(this.attackInterval);
       this.isAttacking = false;
       this.removeHitbox();
-      this.hurt()
+      this.hurt();
     }
 
     // Attack check
     if (
       !_.isEmpty(this.hitbox) &&
-      isColliding(this.hitbox, this.hero.hurtbox.vertices) &&
-      !this.hero.isHit
+      isColliding(this.hitbox, hero.hurtbox.vertices) &&
+      !hero.isHit
     ) {
-      this.hero.hurt();
+      hero.hurt();
     }
 
     if (
@@ -83,7 +83,7 @@ export default class Goblin extends Monster {
       chase({
         speed: MONSTER_SPEED.goblin,
         chaserVertices: this.hurtbox.vertices,
-        chasedVertices: this.hero.hurtbox.vertices,
+        chasedVertices: hero.hurtbox.vertices,
         vector: this.vector,
         distance: {
           x: GRID_DIMENSIONS.width * 10,
@@ -93,8 +93,8 @@ export default class Goblin extends Monster {
     }
 
     this.heroCollision =
-      isCollidingLeft(this.hurtbox.vertices, this.hero.hurtbox.vertices) ||
-      isCollidingRight(this.hurtbox.vertices, this.hero.hurtbox.vertices);
+      isCollidingLeft(this.hurtbox.vertices, hero.hurtbox.vertices) ||
+      isCollidingRight(this.hurtbox.vertices, hero.hurtbox.vertices);
 
     // Stop moving when Colliding with the play or being hit or attacking
     if (this.heroCollision || this.isHit || this.isAttacking) this.vector.x = 0;
@@ -106,11 +106,11 @@ export default class Goblin extends Monster {
 
     nextPosition({
       hurtbox: this.hurtbox.vertices,
-      blocks: this.blocksVertices,
+      blocks,
       vector: this.vector,
       position: this.position,
       collision: this.collision,
-      miscs: this.miscs,
+      miscs,
     });
 
     if (this.vector.x !== 0) this.run();

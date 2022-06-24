@@ -7,20 +7,20 @@ export default class Coin extends Misc {
     super({ states: STATES });
   }
 
-  loop() {
+  loop({ hero, blocks, miscs }) {
     if (
-      isColliding(this.vertices, this.hero.hurtbox.vertices) &&
+      isColliding(this.vertices, hero.hurtbox.vertices) &&
       !this.isCollecting
     ) {
       this.isCollecting = true;
-      this.collect();
+      this.collect(hero);
     }
   }
 
-  collect() {
+  collect(hero) {
       this.state = this.states.collect;
       this.position.y-= 16;
       this.frameCounter = 0;
-      this.hero.coins++;
+      hero.coins++;
   }
 }

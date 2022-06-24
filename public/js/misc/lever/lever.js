@@ -35,9 +35,9 @@ export default class Lever extends Misc {
     this.element.dataset.isEnabled = '0';
   }
 
-  async loop() {
-    if (_.isEmpty(this.hero.hitbox)) return (this.isLocked = false);
-    if (isColliding(this.vertices, this.hero.hitbox) && !this.isLocked) {
+  loop({ hero }) {
+    if (_.isEmpty(hero.hitbox)) return (this.isLocked = false);
+    if (isColliding(this.vertices, hero.hitbox) && !this.isLocked) {
       this.state.name === this.states.enabled.name
         ? this.disable()
         : this.enable();
