@@ -6,6 +6,7 @@ class Store {
       grid: false,
       hurtbox: false,
       hitbox: false,
+      map: 0,
     };
   }
 

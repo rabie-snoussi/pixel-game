@@ -7,10 +7,13 @@ export const revertBool = (revert, bool) => {
   return bool;
 };
 
-export const addBorder = (element, color) => {
+export const addBoxEffect = ({ element, borderColor, bgColor }) => {
+  if (!element) return;
+
   element.style.position = 'absolute';
-  element.style.border = `1px solid ${color}`;
+  element.style.border = `1px solid ${borderColor}`;
   element.style.boxSizing = 'border-box';
+  element.style.background = bgColor;
 };
 
 export const addPosition =
@@ -511,15 +514,14 @@ export const insertEffect = ({ effect, position, direction }) => {
   return element;
 };
 
-export const insertHitbox = ({ effect, showHitbox, color, bgColor }) => {
+export const insertHitbox = ({ effect, showHitbox, borderColor, bgColor }) => {
   if (_.isEmpty(effect.hitbox)) return null;
 
   const element = document.createElement('div');
 
   if (showHitbox) {
-    addBorder(element, color);
+    addBoxEffect({ element, borderColor, bgColor });
     element.style.visibility = 'hidden';
-    element.style.background = bgColor;
   }
 
   document.getElementById('map').appendChild(element);
@@ -532,7 +534,7 @@ export const cloneWithElements = ({
   direction,
   effects,
   showHitbox,
-  color,
+  borderColor,
   bgColor,
 }) => {
   if (_.isEmpty(actionEffects)) return effects;
@@ -550,7 +552,7 @@ export const cloneWithElements = ({
         position: position,
         direction: direction,
       }),
-      hitbox: insertHitbox({ effect: item, showHitbox, color, bgColor }),
+      hitbox: insertHitbox({ effect: item, showHitbox, borderColor, bgColor }),
     },
     ...item,
   }));

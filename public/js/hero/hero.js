@@ -12,7 +12,7 @@ import {
   cloneWithElements,
   nextPosition,
   createElement,
-  addBorder,
+  addBoxEffect,
 } from '../helpers.js';
 
 export default class Hero {
@@ -109,7 +109,7 @@ export default class Hero {
       direction: this.direction,
       effects: this.effects,
       showHitbox: this.isHitboxVisible,
-      color: 'white',
+      borderColor: 'white',
       bgColor: 'rgba(255,255,255,0.25)',
     });
   }
@@ -154,7 +154,7 @@ export default class Hero {
   }
 
   removeHitbox() {
-    this.effects?.map((item) => item.elements?.hitbox.remove());
+    this.effects?.map((item) => item.elements?.hitbox?.remove());
   }
 
   destroy() {
@@ -164,7 +164,6 @@ export default class Hero {
     this.hitbox = {};
     this.position = {};
     this.removeHitbox();
-    this.isDead = true;
   }
 
   playEffects() {
@@ -289,7 +288,10 @@ export default class Hero {
 
   update() {
     if (this.frameCounter >= this.action.frames[this.direction].length) {
-      if (this.action.name === ACTIONS.death.name) return this.destroy();
+      if (this.action.name === ACTIONS.death.name) {
+        this.isDead = true;
+        return this.destroy();
+      }
       this.frameCounter = 0;
     }
     this.playEffects();
@@ -386,8 +388,11 @@ export default class Hero {
   }
 
   showHurtbox() {
-    addBorder(this.hurtbox.element, 'green');
-    this.hurtbox.element.style.background = 'rgba(0,255,0,0.25)';
+    addBoxEffect({
+      element: this.hurtbox.element,
+      borderColor: 'green',
+      bgColor: 'rgba(0,255,0,0.25)',
+    });
   }
 
   hideHurtbox() {
@@ -399,8 +404,12 @@ export default class Hero {
     this.isHitboxVisible = true;
 
     this.effects.map((effect) => {
-      addBorder(effect.elements.hitbox, 'white');
-      effect.elements.hitbox.style.background = 'rgba(255,255,255,0.25)';
+      // TODO: MAKE box func
+      addBoxEffect({
+        element: effect.elements.hitbox,
+        border: 'white',
+        bgColor: 'rgba(255,255,255,0.25)',
+      });
     });
   }
 

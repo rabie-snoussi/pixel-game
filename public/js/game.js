@@ -9,12 +9,12 @@ import {
   ANIMATION_INTERVAL,
   GRID_DIMENSIONS,
   GRID,
+  SCREEN_LIMITS,
 } from './constants.js';
 import store from './store.js';
 
 class Game {
   constructor() {
-    this.triggereds = [];
     this.monsters = null;
     this.hero = null;
     this.map = null;
@@ -23,6 +23,7 @@ class Game {
     this.miscs = [];
     this.isPaused = false;
     this.isGameOver = false;
+    this.mapNumber = 0;
   }
 
   start() {
@@ -44,6 +45,8 @@ class Game {
 
   restart() {}
 
+  clear() {}
+
   gameOver() {
     this.isGameOver = true;
     this.hud.gameOver();
@@ -57,10 +60,14 @@ class Game {
     store.saveInLocalStorage();
   }
 
-  applySavedData() {
-    if (store.data.grid) this.showGrid();
+  applySettings() {
     if (store.data.hurtbox) this.showHurtbox();
     if (store.data.hitbox) this.showHitbox();
+  }
+
+  applyGameSettings() {
+    if (store.data.grid) this.showGrid();
+    this.mapNumber = store.data.map;
   }
 
   showGrid() {
@@ -154,8 +161,6 @@ class Game {
         this.gameOver();
       }
 
-      this.hero.loop();
-
       this.miscs.forEach((item, i) => {
         item.loop?.();
         if (item.isCollected) {
@@ -172,39 +177,30 @@ class Game {
         }
       });
 
+      if (this.isGameOver) return;
+
+      this.hero.loop();
+
+      if (this.hero.hurtbox.vertices.b.x == SCREEN_LIMITS.x.end) {
+        this.nexMap();
+      }
+
       this.hud.loop();
     }, GAME_LOOP_INTERVAL);
   }
 
-  animate() {
-    setInterval(() => {
-      this.hud.update();
+  nexMap() {
+    document.getElementById('enemies').innerHTML = '';
+    document.getElementById('miscs').innerHTML = '';
+    document.getElementById('materials').innerHTML = '';
 
-      if (this.isPaused) return;
+    this.hero.destroy();
 
-      this.hero.update();
+    this.miscs = [];
 
-      this.map.update();
+    this.mapNumber++;
 
-      this.miscs.forEach((item) => {
-        item.update?.();
-      });
-
-      this.monsters.forEach((monster) => {
-        monster.update();
-      });
-    }, ANIMATION_INTERVAL);
-  }
-
-  initialize() {
-    this.hero = new Hero();
-    this.map = new Map();
-    this.controls = new Controls();
-    this.hud = new Hud();
-
-    this.controls.initialize({ hero: this.hero, game: this, hud: this.hud });
-    this.controls.setMenuControls();
-    this.map.initialize(0);
+    this.map.initialize(this.mapNumber);
 
     this.map.miscs.map((item) => {
       const itemObj = new Misc[item.name]();
@@ -223,7 +219,72 @@ class Game {
         position: item.position,
         blocksVertices: this.map.blocksVertices,
         hero: this.hero,
-        miscs: this.triggereds,
+      });
+      return monster;
+    });
+
+    this.hero.initialize({
+      position: this.map.heroPosition,
+      blocksVertices: this.map.blocksVertices,
+      miscs: this.miscs,
+    });
+
+    this.applySettings();
+    store.setData({ map: this.mapNumber });
+    store.saveInLocalStorage();
+  }
+
+  animate() {
+    setInterval(() => {
+      this.hud.update();
+
+      if (this.isPaused) return;
+
+      this.hero.update();
+
+      this.map.update();
+
+      this.miscs.forEach((item) => {
+        item.update();
+      });
+
+      this.monsters.forEach((monster) => {
+        monster.update();
+      });
+    }, ANIMATION_INTERVAL);
+  }
+
+  initialize() {
+    this.hero = new Hero();
+    this.map = new Map();
+    this.controls = new Controls();
+    this.hud = new Hud();
+
+    store.loadSavedData();
+    store.saveInLocalStorage();
+    this.applyGameSettings();
+
+    this.controls.initialize({ hero: this.hero, game: this, hud: this.hud });
+    this.controls.setMenuControls();
+    this.map.initialize(this.mapNumber);
+
+    this.map.miscs.map((item) => {
+      const itemObj = new Misc[item.name]();
+      itemObj.initialize({
+        hero: this.hero,
+        blocks: this.map.blocksVertices,
+        miscs: this.miscs,
+        ...item,
+      });
+      this.miscs.push(itemObj);
+    });
+
+    this.monsters = this.map.enemies.map((item) => {
+      const monster = new Monster[item.name]();
+      monster.initialize({
+        position: item.position,
+        blocksVertices: this.map.blocksVertices,
+        hero: this.hero,
       });
       return monster;
     });
@@ -244,9 +305,7 @@ class Game {
 
     this.animate();
 
-    store.loadSavedData();
-    store.saveInLocalStorage();
-    this.applySavedData();
+    this.applySettings();
   }
 }
 

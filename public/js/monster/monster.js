@@ -3,7 +3,7 @@ import {
   cloneWithElements,
   nextPosition,
   createElement,
-  addBorder,
+  addBoxEffect,
 } from '../helpers.js';
 
 export default class Monster {
@@ -120,13 +120,13 @@ export default class Monster {
       direction: this.direction,
       effects: this.effects,
       showHitbox: this.isHitboxVisible,
-      color: 'yellow',
-      bgColor: 'rgba(255,255,0,0.25)'
+      borderColor: 'yellow',
+      bgColor: 'rgba(255,255,0,0.25)',
     });
   }
 
   removeHitbox() {
-    this.effects?.map((item) => item.elements?.hitbox.remove());
+    this.effects?.map((item) => item.elements?.hitbox?.remove());
   }
 
   playEffects() {
@@ -258,8 +258,11 @@ export default class Monster {
   }
 
   showHurtbox() {
-    addBorder(this.hurtbox.element, 'red');
-    this.hurtbox.element.style.background = 'rgba(255,0,0,0.25)';
+    addBoxEffect({
+      element: this.hurtbox.element,
+      borderColor: 'red',
+      bgColor: 'rgba(255,0,0,0.25)',
+    });
   }
 
   hideHurtbox() {
@@ -271,8 +274,11 @@ export default class Monster {
     this.isHitboxVisible = true;
 
     this.effects.map((effect) => {
-      addBorder(effect.elements.hitbox, 'yellow');
-      effect.elements.hitbox.style.background = 'rgba(255,255,0,0.25)';
+      addBoxEffect({
+        element: effect.elements.hitbox,
+        borderColor: 'yellow',
+        bgColor: 'rgba(255,255,0,0.25)',
+      });
     });
   }
 
