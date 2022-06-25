@@ -10,6 +10,7 @@ import {
   GRID_DIMENSIONS,
   GRID,
   SCREEN_LIMITS,
+  INITIAL_DATA,
 } from './constants.js';
 import store from './store.js';
 
@@ -21,6 +22,7 @@ class Game {
     this.controls = null;
     this.hud = null;
     this.miscs = null;
+    this.isGameStarted = false;
     this.isPaused = false;
     this.isGameOver = false;
     this.mapNumber = 0;
@@ -29,7 +31,7 @@ class Game {
   }
 
   start() {
-    this.loop();
+    this.isGameStarted = true;
     this.hud.resetMenu();
     this.controls.setGameControls(this.hero);
   }
@@ -46,9 +48,39 @@ class Game {
     this.controls.setGameControls(this.hero);
   }
 
-  quit() {}
+  quit() {
+    this.isPaused = false;
 
-  restart() {}
+    store.setData({ ...INITIAL_DATA });
+    store.saveData();
+    this.applyData();
+
+    this.destroyMap();
+    this.loadMap(this.mapNumber);
+    this.applySettings();
+
+    this.hud.resetMenu();
+    this.hud.startMenu(this);
+    this.hud.updateHearts(this.hearts);
+    this.hud.updateCoins(this.coins);
+
+    this.isGameStarted = false;
+  }
+
+  restart() {
+    this.isPaused = false;
+
+    store.loadSavedData();
+    store.saveData();
+    this.applyData();
+
+    this.destroyMap();
+    this.loadMap(this.mapNumber);
+    this.applySettings();
+
+    this.hud.resetMenu();
+    this.controls.setGameControls(this.hero);
+  }
 
   clear() {}
 
@@ -66,7 +98,7 @@ class Game {
   }
 
   applySettings() {
-    if (store.settings.grid) this.showGrid();
+    if (store.settings.grid && !this.isGameStarted) this.showGrid();
     if (store.settings.hurtbox) this.showHurtbox();
     if (store.settings.hitbox) this.showHitbox();
   }
@@ -162,7 +194,7 @@ class Game {
 
   loop() {
     setInterval(() => {
-      if (this.isPaused) return;
+      if (this.isPaused || !this.isGameStarted) return;
 
       if (this.hero.isDead && !this.isGameOver) {
         this.gameOver();
@@ -203,26 +235,24 @@ class Game {
       this.hud.updateCoins(this.coins);
 
       if (this.hero.hurtbox.vertices.b.x == SCREEN_LIMITS.x.end) {
-        this.nextMap();
+        this.nextLevel();
       }
     }, GAME_LOOP_INTERVAL);
   }
 
-  nextMap() {
+  destroyMap() {
+    this.hero.destroy();
+
     document.getElementById('monsters').innerHTML = '';
     document.getElementById('miscs').innerHTML = '';
     document.getElementById('materials').innerHTML = '';
+  }
 
-    this.hearts = this.hero.hearts;
-
-    this.hero.destroy();
-
+  loadMap(mapNumber) {
     this.map = new Map();
     this.hero = new Hero({ hearts: this.hearts });
 
-    this.mapNumber++;
-
-    const { hero, monsters, miscs } = this.map.generate(this.mapNumber);
+    const { hero, monsters, miscs } = this.map.generate(mapNumber);
 
     this.miscs = miscs.map((item) => {
       const misc = new Misc[item.name]();
@@ -237,10 +267,18 @@ class Game {
     });
 
     this.hero.spawn({ position: hero.position });
+  }
+
+  nextLevel() {
+    this.mapNumber++;
+    this.hearts = this.hero.hearts;
+
+    this.destroyMap();
+    this.loadMap(this.mapNumber);
+    this.applySettings();
 
     this.controls.setGameControls(this.hero);
 
-    this.applySettings();
     store.setData({
       map: this.mapNumber,
       hearts: this.hearts,
@@ -273,35 +311,17 @@ class Game {
     store.saveData();
     this.applyData();
 
-    this.hero = new Hero({ hearts: this.hearts, coins: this.coins });
-    this.map = new Map();
-    this.controls = new Controls();
     this.hud = new Hud();
-
     this.hud.initialize({ hearts: this.hearts, coins: this.coins });
+    this.hud.startMenu(this);
+
+    this.controls = new Controls();
     this.controls.initialize();
     this.controls.setMenuControls(this.hud, this);
 
-    const { hero, monsters, miscs } = this.map.generate(this.mapNumber);
-
-    this.miscs = miscs.map((item) => {
-      const misc = new Misc[item.name]();
-      misc.spawn(item);
-      return misc;
-    });
-
-    this.monsters = monsters.map((item) => {
-      const monster = new Monster[item.name]();
-      monster.spawn({ position: item.position });
-      return monster;
-    });
-
-    this.hero.spawn({
-      position: hero.position,
-    });
-
-    this.hud.startMenu(this);
+    this.loadMap(this.mapNumber);
     this.animate();
+    this.loop();
 
     store.loadSavedSettings();
     store.saveSettings();
