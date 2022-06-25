@@ -11,7 +11,7 @@ export default {
   fg0: true,
   fg1: true,
   hero: { position: GRID[3][22] },
-  monsters: [{ name: MONSTERS.goblin, position: GRID[17][22] }],
+  monsters: [],
   materials: [
     // TILES
     // --------------------------------------------------

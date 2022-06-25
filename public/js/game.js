@@ -192,6 +192,53 @@ class Game {
     this.hero.godMode();
   }
 
+  destroyMap() {
+    this.hero.destroy();
+
+    document.getElementById('monsters').innerHTML = '';
+    document.getElementById('miscs').innerHTML = '';
+    document.getElementById('materials').innerHTML = '';
+  }
+
+  loadMap(mapNumber) {
+    this.map = new Map();
+    this.hero = new Hero({ hearts: this.hearts });
+
+    const { hero, monsters, miscs } = this.map.generate(mapNumber);
+
+    this.miscs = miscs.map((item) => {
+      const misc = new Misc[item.name]();
+      misc.spawn(item);
+      return misc;
+    });
+
+    this.monsters = monsters.map((item) => {
+      const monster = new Monster[item.name]();
+      monster.spawn({ position: item.position });
+      return monster;
+    });
+
+    this.hero.spawn({ position: hero.position });
+  }
+
+  nextLevel() {
+    this.mapNumber++;
+    this.hearts = this.hero.hearts;
+
+    this.destroyMap();
+    this.loadMap(this.mapNumber);
+    this.applySettings();
+
+    this.controls.setGameControls(this.hero);
+
+    store.setData({
+      map: this.mapNumber,
+      hearts: this.hearts,
+      coins: this.coins,
+    });
+    store.saveData();
+  }
+
   loop() {
     setInterval(() => {
       if (this.isPaused || !this.isGameStarted) return;
@@ -238,53 +285,6 @@ class Game {
         this.nextLevel();
       }
     }, GAME_LOOP_INTERVAL);
-  }
-
-  destroyMap() {
-    this.hero.destroy();
-
-    document.getElementById('monsters').innerHTML = '';
-    document.getElementById('miscs').innerHTML = '';
-    document.getElementById('materials').innerHTML = '';
-  }
-
-  loadMap(mapNumber) {
-    this.map = new Map();
-    this.hero = new Hero({ hearts: this.hearts });
-
-    const { hero, monsters, miscs } = this.map.generate(mapNumber);
-
-    this.miscs = miscs.map((item) => {
-      const misc = new Misc[item.name]();
-      misc.spawn(item);
-      return misc;
-    });
-
-    this.monsters = monsters.map((item) => {
-      const monster = new Monster[item.name]();
-      monster.spawn({ position: item.position });
-      return monster;
-    });
-
-    this.hero.spawn({ position: hero.position });
-  }
-
-  nextLevel() {
-    this.mapNumber++;
-    this.hearts = this.hero.hearts;
-
-    this.destroyMap();
-    this.loadMap(this.mapNumber);
-    this.applySettings();
-
-    this.controls.setGameControls(this.hero);
-
-    store.setData({
-      map: this.mapNumber,
-      hearts: this.hearts,
-      coins: this.coins,
-    });
-    store.saveData();
   }
 
   animate() {

@@ -217,24 +217,91 @@ export const isCollidingBottom = (vertices1, vertices2, distance = 0) => {
   );
 };
 
-const isPositionInVertices = ({ position, vertices }) => {
+const isPositionInVertices = ({
+  position,
+  vertices,
+  vector = { x: 0, y: 0 },
+}) => {
   return (
-    position.x >= vertices.a.x &&
-    position.y >= vertices.a.y &&
-    position.x <= vertices.c.x &&
-    position.y <= vertices.c.y
+    position.x + vector.x >= vertices.a.x &&
+    position.y + vector.y >= vertices.a.y &&
+    position.x + vector.x <= vertices.c.x &&
+    position.y + vector.y <= vertices.c.y
   );
 };
 
-export const isColliding = (vertices1, vertices2) => {
+const isPositionStrictlyInVertices = ({
+  position,
+  vertices,
+  vector = { x: 0, y: 0 },
+}) => {
+  return (
+    position.x + vector.x > vertices.a.x &&
+    position.y + vector.y > vertices.a.y &&
+    position.x + vector.x < vertices.c.x &&
+    position.y + vector.y < vertices.c.y
+  );
+};
+
+export const isStrictlyColliding = (
+  vertices1,
+  vertices2,
+  vector = { x: 0, y: 0 }
+) => {
   if (!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
 
   return (
-    isPositionInVertices({ position: vertices1.a, vertices: vertices2 }) ||
-    isPositionInVertices({ position: vertices1.b, vertices: vertices2 }) ||
-    isPositionInVertices({ position: vertices1.c, vertices: vertices2 }) ||
-    isPositionInVertices({ position: vertices1.d, vertices: vertices2 })
+    isPositionStrictlyInVertices({
+      position: vertices1.a,
+      vertices: vertices2,
+      vector,
+    }) ||
+    isPositionStrictlyInVertices({
+      position: vertices1.b,
+      vertices: vertices2,
+      vector,
+    }) ||
+    isPositionStrictlyInVertices({
+      position: vertices1.c,
+      vertices: vertices2,
+      vector,
+    }) ||
+    isPositionStrictlyInVertices({
+      position: vertices1.d,
+      vertices: vertices2,
+      vector,
+    })
   );
+};
+
+export const isColliding = (vertices1, vertices2, vector = { x: 0, y: 0 }) => {
+  if (!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+
+  return (
+    isPositionInVertices({
+      position: vertices1.a,
+      vertices: vertices2,
+      vector,
+    }) ||
+    isPositionInVertices({
+      position: vertices1.b,
+      vertices: vertices2,
+      vector,
+    }) ||
+    isPositionInVertices({
+      position: vertices1.c,
+      vertices: vertices2,
+      vector,
+    }) ||
+    isPositionInVertices({ position: vertices1.d, vertices: vertices2, vector })
+  );
+};
+
+const isBlocksColliding = ({ vertices, blocks, vector = { x: 0, y: 0 } }) => {
+  const collisions = blocks.filter((block) =>
+    isStrictlyColliding(vertices, block, vector)
+  );
+  return !_.isEmpty(collisions);
 };
 
 const getBlockDistance = ({ hurtbox, blocks, distance, direction }) => {
@@ -409,6 +476,7 @@ export const nextPosition = ({
     vector,
     collision,
   });
+
   const yDirection = getYDirection({
     hurtbox,
     blocks: [...blocks, ...filteredItems],
@@ -416,7 +484,13 @@ export const nextPosition = ({
     collision,
   });
 
-  position.x += xDirection;
+  const willCollide = isBlocksColliding({
+    blocks: [...blocks, ...filteredItems],
+    vertices: hurtbox,
+    vector: { x: xDirection, y: yDirection },
+  });
+
+  position.x += willCollide ? 0 : xDirection;
   position.y += yDirection;
 };
 
