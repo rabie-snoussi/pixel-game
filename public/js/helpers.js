@@ -1,4 +1,4 @@
-import { SCREEN_LIMITS, GRID } from './constants.js';
+import { SCREEN_LIMITS, GRID, SECRET } from './constants.js';
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -217,13 +217,24 @@ export const isCollidingBottom = (vertices1, vertices2, distance = 0) => {
   );
 };
 
-export const isColliding = (vertices1, vertices2) => {
-  const topCollision = isCollidingTop(vertices1, vertices2);
-  const bottomCollision = isCollidingBottom(vertices1, vertices2);
-  const rightCollision = isCollidingRight(vertices1, vertices2);
-  const leftCollision = isCollidingLeft(vertices1, vertices2);
+const isPositionInVertices = ({ position, vertices }) => {
+  return (
+    position.x >= vertices.a.x &&
+    position.y >= vertices.a.y &&
+    position.x <= vertices.c.x &&
+    position.y <= vertices.c.y
+  );
+};
 
-  return topCollision || bottomCollision || rightCollision || leftCollision;
+export const isColliding = (vertices1, vertices2) => {
+  if (!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+
+  return (
+    isPositionInVertices({ position: vertices1.a, vertices: vertices2 }) ||
+    isPositionInVertices({ position: vertices1.b, vertices: vertices2 }) ||
+    isPositionInVertices({ position: vertices1.c, vertices: vertices2 }) ||
+    isPositionInVertices({ position: vertices1.d, vertices: vertices2 })
+  );
 };
 
 const getBlockDistance = ({ hurtbox, blocks, distance, direction }) => {
@@ -558,6 +569,43 @@ export const cloneWithElements = ({
   }));
 
   return [..._.cloneDeep(effects), ...effectWithElements];
+};
+
+export const encrypt = (data) => CryptoJS.AES.encrypt(data, SECRET).toString();
+
+export const decrypt = ({ data, defaultData }) => {
+  try {
+    const decrypted = CryptoJS.AES.decrypt(data, SECRET).toString(
+      CryptoJS.enc.Utf8
+    );
+
+    return decrypted;
+  } catch (error) {
+    return defaultData;
+  }
+};
+
+export const mergeData = ({ currentData, newData }) => {
+  const keys = _.keys(currentData);
+  const filteredData = _.pick(newData, keys);
+  const mergedData = _.merge(currentData, filteredData);
+
+  return mergedData;
+};
+
+export const loadStoredData = ({ key, defaultData }) => {
+  try {
+    const storeString = localStorage.getItem(key);
+    const decrypted = decrypt({
+      data: storeString,
+      defaultData: defaultData.toString(),
+    });
+
+    const storedData = JSON.parse(decrypted);
+    return storedData;
+  } catch (error) {
+    return defaultData;
+  }
 };
 
 export const makeGrid = (dimensions, screenLimits) => {

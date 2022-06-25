@@ -16,10 +16,9 @@ import {
 } from '../helpers.js';
 
 export default class Hero {
-  constructor({ hearts, coins }) {
+  constructor({ hearts }) {
     this.isGodMode = false;
     this.hearts = hearts;
-    this.coins = coins;
     this.element = null;
     this.frameCounter = 0;
     this.direction = DIRECTIONS.right;

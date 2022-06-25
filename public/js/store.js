@@ -1,42 +1,55 @@
-import { SECRET } from './constants.js';
+import { INITIAL_DATA, INITIAL_SETTINGS, STORAGE_KEYS } from './constants.js';
+import { loadStoredData, mergeData, encrypt } from './helpers.js';
 
 class Store {
   constructor() {
-    this.data = {
-      grid: false,
-      hurtbox: false,
-      hitbox: false,
-      map: 0,
-      hearts: 5,
-      coins: 0,
-    };
+    this.settings = { ...INITIAL_SETTINGS };
+    this.data = { ...INITIAL_DATA };
   }
 
   loadSavedData() {
-    try {
-      const storeString = localStorage.getItem('data');
-      const decrypted = CryptoJS.AES.decrypt(storeString, SECRET).toString(
-        CryptoJS.enc.Utf8
-      );
-      const store = JSON.parse(decrypted);
+    const storedData = loadStoredData({
+      key: STORAGE_KEYS.data,
+      defaultData: this.data,
+    });
+    const mergedData = mergeData({ currentData: this.data, newData: storedData });
 
-      const keys = _.keys(this.data);
-      const filteredStore = _.pick(store, keys);
-      const mergedStore = _.merge(this.data, filteredStore);
-
-      this.data = mergedStore;
-    } catch (error) {}
+    this.data = mergedData;
   }
 
-  saveInLocalStorage() {
-    const storeString = JSON.stringify(this.data);
-    const encrypted = CryptoJS.AES.encrypt(storeString, SECRET).toString();
+  loadSavedSettings() {
+    const storedData = loadStoredData({
+      key: STORAGE_KEYS.settings,
+      defaultData: this.settings,
+    });
+    const mergedData = mergeData({
+      currentData: this.settings,
+      newData: storedData,
+    });
 
-    localStorage.setItem('data', encrypted);
+    this.settings = mergedData;
+  }
+
+  saveData() {
+    const storeString = JSON.stringify(this.data);
+    const encrypted = encrypt(storeString);
+
+    localStorage.setItem(STORAGE_KEYS.data, encrypted);
+  }
+
+  saveSettings() {
+    const storeString = JSON.stringify(this.settings);
+    const encrypted = encrypt(storeString);
+
+    localStorage.setItem(STORAGE_KEYS.settings, encrypted);
   }
 
   setData(data) {
     this.data = _.merge(this.data, data);
+  }
+
+  setSettings(settings) {
+    this.settings = _.merge(this.settings, settings);
   }
 }
 

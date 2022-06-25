@@ -5,8 +5,6 @@ import store from '../store.js';
 
 export default class Hud {
   constructor() {
-    this.hero = null;
-    this.game = null;
     this.heartsElement = document.getElementById('hearts');
     this.coins = null;
     this.arrowElement = null;
@@ -72,7 +70,7 @@ export default class Hud {
     const menuElement = document.getElementById('menu-options');
     menuElement.appendChild(optionElement);
 
-    const flag = store.data[name];
+    const flag = store.settings[name];
 
     if (flag === undefined)
       return this.insertText({ id, text: name, position });
@@ -111,17 +109,17 @@ export default class Hud {
   }
 
   gridToggle(game) {
-    if (store.data.grid) return game.hideGrid();
+    if (store.settings.grid) return game.hideGrid();
     game.showGrid();
   }
 
   hurtboxToggle(game) {
-    if (store.data.hurtbox) return game.hideHurtbox();
+    if (store.settings.hurtbox) return game.hideHurtbox();
     game.showHurtbox();
   }
 
   hitboxToggle(game) {
-    if (store.data.hitbox) return game.hideHitbox();
+    if (store.settings.hitbox) return game.hideHitbox();
     game.showHitbox();
   }
 
@@ -214,7 +212,7 @@ export default class Hud {
     const { id, name, position, action } = this.options[this.cursor];
     action();
 
-    const flag = store.data[name];
+    const flag = store.settings[name];
 
     if (flag === undefined) return;
 

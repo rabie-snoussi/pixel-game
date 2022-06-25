@@ -24,8 +24,8 @@ class Game {
     this.isPaused = false;
     this.isGameOver = false;
     this.mapNumber = 0;
-    this.hearts = 5;
-    this.coins = 0;
+    this.hearts = null;
+    this.coins = null;
   }
 
   start() {
@@ -61,17 +61,17 @@ class Game {
   hideGrid() {
     document.getElementById('grid').remove();
 
-    store.setData({ grid: false });
-    store.saveInLocalStorage();
+    store.setSettings({ grid: false });
+    store.saveSettings();
   }
 
   applySettings() {
-    if (store.data.hurtbox) this.showHurtbox();
-    if (store.data.hitbox) this.showHitbox();
+    if (store.settings.grid) this.showGrid();
+    if (store.settings.hurtbox) this.showHurtbox();
+    if (store.settings.hitbox) this.showHitbox();
   }
 
-  applyGameSettings() {
-    if (store.data.grid) this.showGrid();
+  applyData() {
     this.mapNumber = store.data.map;
     this.hearts = store.data.hearts;
     this.coins = store.data.coins;
@@ -117,24 +117,24 @@ class Game {
 
     document.getElementById('game').appendChild(gridElement);
 
-    store.setData({ grid: true });
-    store.saveInLocalStorage();
+    store.setSettings({ grid: true });
+    store.saveSettings();
   }
 
   showHurtbox() {
     this.hero.showHurtbox();
     this.monsters.map((monster) => monster.showHurtbox());
 
-    store.setData({ hurtbox: true });
-    store.saveInLocalStorage();
+    store.setSettings({ hurtbox: true });
+    store.saveSettings();
   }
 
   hideHurtbox() {
     this.hero.hideHurtbox();
     this.monsters.map((monster) => monster.hideHurtbox());
 
-    store.setData({ hurtbox: false });
-    store.saveInLocalStorage();
+    store.setSettings({ hurtbox: false });
+    store.saveSettings();
   }
 
   showHitbox() {
@@ -142,8 +142,8 @@ class Game {
     this.monsters.map((monster) => monster.showHitbox());
     this.miscs.map((misc) => misc.showHitbox());
 
-    store.setData({ hitbox: true });
-    store.saveInLocalStorage();
+    store.setSettings({ hitbox: true });
+    store.saveSettings();
   }
 
   hideHitbox() {
@@ -151,8 +151,8 @@ class Game {
     this.monsters.map((monster) => monster.hideHitbox());
     this.miscs.map((misc) => misc.hideHitbox());
 
-    store.setData({ hitbox: false });
-    store.saveInLocalStorage();
+    store.setSettings({ hitbox: false });
+    store.saveSettings();
   }
 
   godMode() {
@@ -173,6 +173,7 @@ class Game {
           hero: this.hero,
           blocks: this.map.blocks,
           miscs: this.miscs,
+          game: this,
         });
         if (misc.isCollected) {
           misc.destroy();
@@ -199,7 +200,7 @@ class Game {
       });
 
       this.hud.updateHearts(this.hero.hearts);
-      this.hud.updateCoins(this.hero.coins);
+      this.hud.updateCoins(this.coins);
 
       if (this.hero.hurtbox.vertices.b.x == SCREEN_LIMITS.x.end) {
         this.nextMap();
@@ -213,30 +214,29 @@ class Game {
     document.getElementById('materials').innerHTML = '';
 
     this.hearts = this.hero.hearts;
-    this.coins = this.hero.coins;
 
     this.hero.destroy();
 
     this.map = new Map();
-    this.hero = new Hero({ hearts: this.hearts, coins: this.coins });
+    this.hero = new Hero({ hearts: this.hearts });
 
     this.mapNumber++;
 
-    this.map.generate(this.mapNumber);
+    const { hero, monsters, miscs } = this.map.generate(this.mapNumber);
 
-    this.miscs = this.map.miscs.map((item) => {
+    this.miscs = miscs.map((item) => {
       const misc = new Misc[item.name]();
       misc.spawn(item);
       return misc;
     });
 
-    this.monsters = this.map.monsters.map((item) => {
+    this.monsters = monsters.map((item) => {
       const monster = new Monster[item.name]();
       monster.spawn({ position: item.position });
       return monster;
     });
 
-    this.hero.spawn({ position: this.map.hero.position });
+    this.hero.spawn({ position: hero.position });
 
     this.controls.setGameControls(this.hero);
 
@@ -246,7 +246,7 @@ class Game {
       hearts: this.hearts,
       coins: this.coins,
     });
-    store.saveInLocalStorage();
+    store.saveData();
   }
 
   animate() {
@@ -270,8 +270,8 @@ class Game {
 
   initialize() {
     store.loadSavedData();
-    store.saveInLocalStorage();
-    this.applyGameSettings();
+    store.saveData();
+    this.applyData();
 
     this.hero = new Hero({ hearts: this.hearts, coins: this.coins });
     this.map = new Map();
@@ -281,26 +281,30 @@ class Game {
     this.hud.initialize({ hearts: this.hearts, coins: this.coins });
     this.controls.initialize();
     this.controls.setMenuControls(this.hud, this);
-    this.map.generate(this.mapNumber);
 
-    this.miscs = this.map.miscs.map((item) => {
+    const { hero, monsters, miscs } = this.map.generate(this.mapNumber);
+
+    this.miscs = miscs.map((item) => {
       const misc = new Misc[item.name]();
       misc.spawn(item);
       return misc;
     });
 
-    this.monsters = this.map.monsters.map((item) => {
+    this.monsters = monsters.map((item) => {
       const monster = new Monster[item.name]();
       monster.spawn({ position: item.position });
       return monster;
     });
 
     this.hero.spawn({
-      position: this.map.hero.position,
+      position: hero.position,
     });
 
     this.hud.startMenu(this);
     this.animate();
+
+    store.loadSavedSettings();
+    store.saveSettings();
     this.applySettings();
   }
 }

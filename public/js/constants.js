@@ -29,6 +29,23 @@ export const GRID = makeGrid(GRID_DIMENSIONS, SCREEN_LIMITS);
 
 export const SECRET = 'U2FsdGVkX197GLBi18OkXWz3ayZoKceP+oXcDc4qY3o';
 
+export const STORAGE_KEYS = {
+  data: 'data',
+  settings: 'settings',
+};
+
+export const INITIAL_SETTINGS = {
+  grid: false,
+  hitbox: false,
+  hurtbox: false,
+};
+
+export const INITIAL_DATA = {
+  map: 0,
+  hearts: 5,
+  coins: 0,
+};
+
 // GAME
 
 export const ANIMATION_INTERVAL = 100;
