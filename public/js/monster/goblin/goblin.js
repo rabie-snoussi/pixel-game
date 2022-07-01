@@ -15,6 +15,7 @@ import {
   nextPosition,
   chase,
 } from '../../helpers.js';
+import sound from '../../sound/sound.js';
 
 export default class Goblin extends Monster {
   constructor() {
@@ -24,6 +25,11 @@ export default class Goblin extends Monster {
     this.attackInterval = null;
     this.isHit = false;
     this.health = MONSTER_HEALTH.goblin;
+    this.sounds = {
+      attack: sound.goblinAttack.bind(sound),
+      hit: sound.goblinHit.bind(sound),
+      death: sound.goblinDeath.bind(sound),
+    };
   }
 
   attacking() {

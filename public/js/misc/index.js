@@ -1,7 +1,7 @@
 import Button from "./button/button.js";
 import Coin from "./coin/coin.js";
 import Door from "./door/door.js";
-import HealthPotion from "./healthPotion/healthPotion.js";
+import Apple from "./apple/apple.js";
 import Lever from "./lever/lever.js";
 import Stone from "./stone/stone.js";
 import WoodSlabLeft from "./woodSlabLeft/woodSlabLeft.js";
@@ -14,7 +14,7 @@ import Water from "./water/water.js";
 
 export default {
     coin: Coin,
-    healthPotion: HealthPotion,
+    apple: Apple,
     stone: Stone,
     button: Button,
     lever: Lever,

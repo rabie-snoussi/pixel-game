@@ -2,6 +2,7 @@ import { createElement, getOptions, createMenuElements } from '../helpers.js';
 import { heart, coin, arrow, font } from './items/index.js';
 import { GRID, MENU_TITLES, MENU_OPTIONS, ON, OFF } from '../constants.js';
 import store from '../store.js';
+import sound from '../sound/sound.js';
 
 export default class Hud {
   constructor() {
@@ -123,6 +124,21 @@ export default class Hud {
     game.showHitbox();
   }
 
+  musicToggle(game) {
+    if (store.settings.music) return game.stopMusic();
+    game.playMusic();
+  }
+
+  sfxToggle() {
+    if (store.settings.sfx) {
+      store.setSettings({ sfx: false });
+      store.saveSettings();
+      return;
+    }
+    store.setSettings({ sfx: true });
+    store.saveSettings();
+  }
+
   startMenu(game) {
     const title = MENU_TITLES.plateformGame;
     const titlePosition = GRID[17][9];
@@ -132,6 +148,26 @@ export default class Hud {
       {
         name: MENU_OPTIONS.start,
         action: game.start.bind(game),
+      },
+      {
+        name: MENU_OPTIONS.music,
+        action: () => this.musicToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.sfx,
+        action: () => this.sfxToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.grid,
+        action: () => this.gridToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.hurtbox,
+        action: () => this.hurtboxToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.hitbox,
+        action: () => this.hitboxToggle(game),
       },
     ];
 
@@ -151,6 +187,14 @@ export default class Hud {
       {
         name: MENU_OPTIONS.restart,
         action: game.restart.bind(game),
+      },
+      {
+        name: MENU_OPTIONS.music,
+        action: () => this.musicToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.sfx,
+        action: () => this.sfxToggle(game),
       },
       {
         name: MENU_OPTIONS.grid,
@@ -202,15 +246,21 @@ export default class Hud {
 
   nextOption() {
     this.cursor = (this.cursor + 1) % this.options.length;
+
+    sound.menuMove();
   }
 
   previousOption() {
     this.cursor = (this.cursor - 1 + this.options.length) % this.options.length;
+
+    sound.menuMove();
   }
 
   selectOption() {
     const { id, name, position, action } = this.options[this.cursor];
     action();
+
+    sound.menuSelect();
 
     const flag = store.settings[name];
 

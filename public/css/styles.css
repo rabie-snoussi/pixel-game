@@ -27,6 +27,7 @@ body {
   transform: scale(1.8);
 }
 
+#filter,
 #miscs,
 #materials,
 #collectibles,
@@ -75,4 +76,26 @@ body {
   height: var(--screen-height);
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.25);
+}
+
+#filter {
+  z-index: 2;
+  background: rgba(255, 0, 0, 0);
+}
+
+.fade-in-out {
+  background: rgba(255, 0, 0, 0.5);
+  animation: filter-animation 0.5s;
+}
+
+@keyframes filter-animation {
+  0% {
+    background: rgba(255, 0, 0, 0);
+  }
+  50% {
+    background: rgba(255, 0, 0, 0.2);
+  }
+  100% {
+    background: rgba(255, 0, 0, 0);
+  }
 }

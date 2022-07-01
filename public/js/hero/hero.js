@@ -14,6 +14,7 @@ import {
   createElement,
   addBoxEffect,
 } from '../helpers.js';
+import sound from '../sound/sound.js';
 
 export default class Hero {
   constructor({ hearts }) {
@@ -119,6 +120,7 @@ export default class Hero {
     this.frameCounter = 0;
 
     this.insertEffects();
+    sound.jump();
   }
 
   hit() {
@@ -128,6 +130,7 @@ export default class Hero {
     this.frameCounter = 0;
 
     this.insertEffects();
+    sound.hit();
   }
 
   doubleJump() {
@@ -138,6 +141,7 @@ export default class Hero {
     this.frameCounter = 0;
 
     this.insertEffects();
+    sound.doubleJump();
   }
 
   postJump() {
@@ -148,6 +152,27 @@ export default class Hero {
     this.frameCounter = 0;
 
     this.insertEffects();
+    sound.postJump();
+  }
+
+  attack() {
+    if (!this.action.allowedActions.includes(ACTIONS.attack.name)) return;
+
+    this.action = ACTIONS.attack;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.attack();
+  }
+
+  death() {
+    if (!this.action.allowedActions.includes(ACTIONS.death.name)) return;
+
+    this.action = ACTIONS.death;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.death();
   }
 
   removeHitbox() {
@@ -257,26 +282,14 @@ export default class Hero {
     return this.hurtbox;
   }
 
-  attack() {
-    if (!this.action.allowedActions.includes(ACTIONS.attack.name)) return;
-
-    this.action = ACTIONS.attack;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-  }
-
-  death() {
-    if (!this.action.allowedActions.includes(ACTIONS.death.name)) return;
-
-    this.action = ACTIONS.death;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-  }
-
   hurt() {
     if (this.isHit) return;
+
+    document.getElementById('filter').className = 'fade-in-out';
+
+    setTimeout(() => {
+      document.getElementById('filter').className = '';
+    }, 500);
 
     if (this.hearts > 1) {
       this.hit();

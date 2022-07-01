@@ -11,7 +11,7 @@ export default {
   fg0: true,
   fg1: true,
   hero: { position: GRID[3][22] },
-  monsters: [],
+  monsters: [{ name: MONSTERS.goblin, position: GRID[17][22] }],
   materials: [
     // TILES
     // --------------------------------------------------
@@ -824,6 +824,10 @@ export default {
   // --------------------------------------------------
 
   miscs: [
+    {
+      name: MISCS.apple,
+      position: GRID[11][22],
+    },
     {
       name: MISCS.coin,
       position: GRID[26][22],

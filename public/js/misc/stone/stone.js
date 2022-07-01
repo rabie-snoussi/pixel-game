@@ -8,6 +8,7 @@ import {
   isCollidingRight,
   nextPosition,
 } from '../../helpers.js';
+import sound from '../../sound/sound.js';
 
 export default class Stone extends Misc {
   constructor() {
@@ -17,10 +18,7 @@ export default class Stone extends Misc {
   update() {}
 
   loop({ hero, blocks, miscs }) {
-    if (
-      !_.isEmpty(hero.hitbox) &&
-      isColliding(hero.hitbox, this.vertices)
-    ) {
+    if (!_.isEmpty(hero.hitbox) && isColliding(hero.hitbox, this.vertices)) {
       this.vector.y -= 1.25;
       if (
         getCenterPosition(this.vertices).x <
@@ -29,12 +27,18 @@ export default class Stone extends Misc {
         this.vector.x -= 0.5;
       else this.vector.x += 0.5;
     }
-    if (isCollidingRight(this.vertices, hero.hurtbox.vertices) && !!hero.vector.x) {
+    if (
+      isCollidingRight(this.vertices, hero.hurtbox.vertices) &&
+      !!hero.vector.x
+    ) {
       hero.push();
-      this.vector.x = -1; 
+      this.vector.x = -1;
     }
 
-    if (isCollidingLeft(this.vertices, hero.hurtbox.vertices) && !!hero.vector.x) {
+    if (
+      isCollidingLeft(this.vertices, hero.hurtbox.vertices) &&
+      !!hero.vector.x
+    ) {
       hero.push();
       this.vector.x = 1;
     }
@@ -54,6 +58,12 @@ export default class Stone extends Misc {
       blocks,
       miscs,
     });
+
+    if (this.collisionObj.bottom) {
+      if (this.vector.y > 1) {
+        sound.stone();
+      }
+    }
 
     if (this.collisionObj.bottom) this.vector.y = 0;
 

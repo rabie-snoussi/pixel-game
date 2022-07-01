@@ -38,6 +38,8 @@ export const INITIAL_SETTINGS = {
   grid: false,
   hitbox: false,
   hurtbox: false,
+  music: false,
+  sfx: true,
 };
 
 export const INITIAL_DATA = {
@@ -71,6 +73,8 @@ export const MENU_OPTIONS = {
   grid: 'grid',
   hurtbox: 'hurtbox',
   hitbox: 'hitbox',
+  music: 'music',
+  sfx: 'sfx',
 };
 
 export const ON = 'on';
@@ -169,7 +173,7 @@ export const MISCS = {
   button: 'button',
   lever: 'lever',
   coin: 'coin',
-  healthPotion: 'healthPotion',
+  apple: 'apple',
   stone: 'stone',
   mushroom: 'mushroom',
   spikes: 'spikes',
@@ -193,8 +197,8 @@ export const MISC_IMG = {
     initial: './assets/miscellaneous/coin_anim_strip_6.png',
     collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
   },
-  healthPotion: {
-    initial: './assets/miscellaneous/health_potion.png',
+  apple: {
+    initial: './assets/miscellaneous/apple_item.png',
   },
   stone: {
     initial: './assets/miscellaneous/stone.png',

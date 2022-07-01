@@ -1,4 +1,5 @@
-import { createElement, revertBool } from '../../helpers.js';
+import { revertBool } from '../../helpers.js';
+import sound from '../../sound/sound.js';
 import Misc from '../misc.js';
 import STATES from './states/index.js';
 
@@ -22,6 +23,8 @@ export default class Door extends Misc {
     this.frameCounter = 0;
     this.state = this.states.opening;
     this.vertices = {};
+
+    sound.door();
   }
 
   close() {
@@ -35,6 +38,8 @@ export default class Door extends Misc {
     this.state = this.states.closing;
 
     this.vertices = this.state.getVertices(this.position);
+
+    sound.door();
   }
 
   update() {

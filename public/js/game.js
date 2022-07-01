@@ -4,6 +4,7 @@ import Map from './map/map.js';
 import Monster from './monster/index.js';
 import Misc from './misc/index.js';
 import Hud from './hud/hud.js';
+import sound from './sound/sound.js';
 import {
   GAME_LOOP_INTERVAL,
   ANIMATION_INTERVAL,
@@ -34,21 +35,31 @@ class Game {
     this.isGameStarted = true;
     this.hud.resetMenu();
     this.controls.setGameControls(this.hero);
+
+    if (store.settings.music) sound.playMusic();
   }
 
   pause() {
     this.isPaused = true;
     this.hud.pauseMenu(this);
     this.controls.setMenuControls(this.hud, this);
+
+    sound.menuPause();
+    if (store.settings.music) sound.pauseMusic();
   }
 
   resume() {
     this.isPaused = false;
     this.hud.resetMenu();
     this.controls.setGameControls(this.hero);
+
+    sound.menuUnPause();
+    if (store.settings.music) sound.playMusic();
   }
 
   quit() {
+    if (store.settings.music && this.isGameOver) sound.stopGameOver();
+
     this.isPaused = false;
 
     store.setData({ ...INITIAL_DATA });
@@ -64,11 +75,16 @@ class Game {
     this.hud.updateHearts(this.hearts);
     this.hud.updateCoins(this.coins);
 
+    this.isGameOver = false;
     this.isGameStarted = false;
   }
 
   restart() {
+    if (store.settings.music && this.isGameOver) sound.stopGameOver();
+    if (store.settings.music) sound.playMusic();
+
     this.isPaused = false;
+    this.isGameOver = false;
 
     store.loadSavedData();
     store.saveData();
@@ -79,6 +95,8 @@ class Game {
     this.applySettings();
 
     this.hud.resetMenu();
+    this.hud.updateHearts(this.hearts);
+    this.hud.updateCoins(this.coins);
     this.controls.setGameControls(this.hero);
   }
 
@@ -88,6 +106,9 @@ class Game {
     this.isGameOver = true;
     this.hud.gameOverMenu(this);
     this.controls.setMenuControls(this.hud, this);
+
+    if (store.settings.music) sound.stopMusic();
+    if (store.settings.music) sound.playGameOver();
   }
 
   hideGrid() {
@@ -101,6 +122,7 @@ class Game {
     if (store.settings.grid && !this.isGameStarted) this.showGrid();
     if (store.settings.hurtbox) this.showHurtbox();
     if (store.settings.hitbox) this.showHitbox();
+    this.sfx = store.settings.sfx;
   }
 
   applyData() {
@@ -187,6 +209,16 @@ class Game {
     store.saveSettings();
   }
 
+  playMusic() {
+    store.setSettings({ music: true });
+    store.saveSettings();
+  }
+
+  stopMusic() {
+    store.setSettings({ music: false });
+    store.saveSettings();
+  }
+
   godMode() {
     this.controls.godMode();
     this.hero.godMode();
@@ -248,10 +280,11 @@ class Game {
       }
 
       this.miscs.forEach((misc, i) => {
+        const filteredMiscs = this.miscs.filter((item) => item !== misc);
         misc.loop?.({
           hero: this.hero,
           blocks: this.map.blocks,
-          miscs: this.miscs,
+          miscs: filteredMiscs,
           game: this,
         });
         if (misc.isCollected) {
@@ -311,14 +344,6 @@ class Game {
     store.saveData();
     this.applyData();
 
-    this.hud = new Hud();
-    this.hud.initialize({ hearts: this.hearts, coins: this.coins });
-    this.hud.startMenu(this);
-
-    this.controls = new Controls();
-    this.controls.initialize();
-    this.controls.setMenuControls(this.hud, this);
-
     this.loadMap(this.mapNumber);
     this.animate();
     this.loop();
@@ -326,6 +351,14 @@ class Game {
     store.loadSavedSettings();
     store.saveSettings();
     this.applySettings();
+
+    this.hud = new Hud();
+    this.hud.initialize({ hearts: this.hearts, coins: this.coins });
+    this.hud.startMenu(this);
+
+    this.controls = new Controls();
+    this.controls.initialize();
+    this.controls.setMenuControls(this.hud, this);
   }
 }
 

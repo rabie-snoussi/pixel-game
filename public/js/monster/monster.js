@@ -50,6 +50,7 @@ export default class Monster {
       x: 0,
       y: 0,
     };
+    this.sounds = null;
   }
 
   idle() {
@@ -75,6 +76,7 @@ export default class Monster {
     this.frameCounter = 0;
 
     this.insertEffects();
+    this.sounds.hit();
   }
 
   run() {
@@ -100,6 +102,7 @@ export default class Monster {
     this.frameCounter = 0;
 
     this.insertEffects();
+    this.sounds.attack();
   }
 
   death() {
@@ -109,6 +112,7 @@ export default class Monster {
     this.frameCounter = 0;
 
     this.insertEffects();
+    this.sounds.death();
   }
 
   insertEffects() {

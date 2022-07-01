@@ -1,5 +1,6 @@
 import { MISCS } from '../../constants.js';
 import { isCollidingTop } from '../../helpers.js';
+import sound from '../../sound/sound.js';
 import Misc from '../misc.js';
 import STATES from './states/index.js';
 
@@ -21,6 +22,8 @@ export default class Button extends Misc {
     this.element.style.width = this.state.dimensions.width;
     this.element.style.backgroundImage = this.state.img;
     this.element.dataset.isEnabled = '1';
+
+    sound.button();
   }
 
   disable() {
@@ -33,6 +36,8 @@ export default class Button extends Misc {
     this.element.style.width = this.state.dimensions.width;
     this.element.style.backgroundImage = this.state.img;
     this.element.dataset.isEnabled = '0';
+
+    sound.button();
   }
 
   loop({ hero, miscs }) {

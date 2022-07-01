@@ -12,7 +12,10 @@ class Store {
       key: STORAGE_KEYS.data,
       defaultData: this.data,
     });
-    const mergedData = mergeData({ currentData: this.data, newData: storedData });
+    const mergedData = mergeData({
+      currentData: this.data,
+      newData: storedData,
+    });
 
     this.data = mergedData;
   }

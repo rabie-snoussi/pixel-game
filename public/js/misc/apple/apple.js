@@ -1,8 +1,9 @@
 import { isColliding } from "../../helpers.js";
+import sound from "../../sound/sound.js";
 import Misc from "../misc.js";
 import STATES from "./states/index.js";
 
-export default class HealthPotion extends Misc {
+export default class Apple extends Misc {
   constructor() {
     super({ states: STATES });
   }
@@ -22,5 +23,7 @@ export default class HealthPotion extends Misc {
   collect(hero) {
     hero.hearts++;
     this.isCollected = true;
+
+    sound.apple();
   }
 }
