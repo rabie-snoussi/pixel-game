@@ -23,6 +23,11 @@ export default class Map {
     const monsters = map.monsters;
     const miscs = map.miscs;
     const hero = map.hero;
+    this.winningBlock =
+      map.winningBlock &&
+      getVertices(createVertices(map.winningBlock.dimensions))(
+        map.winningBlock.position
+      );
 
     if (map.bg2)
       document.getElementById('bg_2').style.backgroundImage =

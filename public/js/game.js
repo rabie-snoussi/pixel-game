@@ -10,10 +10,10 @@ import {
   ANIMATION_INTERVAL,
   GRID_DIMENSIONS,
   GRID,
-  SCREEN_LIMITS,
   INITIAL_DATA,
 } from './constants.js';
 import store from './store.js';
+import { isColliding } from './helpers.js';
 
 class Game {
   constructor() {
@@ -314,7 +314,7 @@ class Game {
       this.hud.updateHearts(this.hero.hearts);
       this.hud.updateCoins(this.coins);
 
-      if (this.hero.hurtbox.vertices.b.x == SCREEN_LIMITS.x.end) {
+      if (isColliding(this.hero.hurtbox.vertices, this.map.winningBlock)) {
         this.nextLevel();
       }
     }, GAME_LOOP_INTERVAL);

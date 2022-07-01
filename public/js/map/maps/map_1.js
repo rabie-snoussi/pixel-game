@@ -12,6 +12,10 @@ export default {
   fg1: true,
   hero: { position: GRID[3][22] },
   monsters: [{ name: MONSTERS.goblin, position: GRID[17][22] }],
+  winningBlock: {
+    position: GRID[49][4],
+    dimensions: { width: 16, height: 16 * 6 },
+  },
   materials: [
     // TILES
     // --------------------------------------------------

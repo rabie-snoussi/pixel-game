@@ -240,8 +240,6 @@ export default {
       backgroundPosition: TILES.normal.green[1][2],
     },
 
-
-
     // --------------------------------------------------
 
     {
@@ -946,7 +944,6 @@ export default {
 
     // DECOR
     // --------------------------------------------------
-
   ],
 
   // MISCS
