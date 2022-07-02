@@ -1,17 +1,16 @@
 import { HERO_ACTIONS, HERO_IMG } from '../../constants.js';
-import {
-  getBox,
-  createVertices,
-  getFrames,
-} from '../../helpers.js';
+import { getBox, createVertices, getFrames } from '../../helpers.js';
 
 const name = HERO_ACTIONS.hit;
 
 const img = 'url("' + HERO_IMG.hit + '")';
 
 const allowedActions = [
+  HERO_ACTIONS.preJump,
   HERO_ACTIONS.postJump,
   HERO_ACTIONS.attack,
+  HERO_ACTIONS.jump,
+  HERO_ACTIONS.doubleJump,
   HERO_ACTIONS.idle,
   HERO_ACTIONS.run,
   HERO_ACTIONS.death,

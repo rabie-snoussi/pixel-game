@@ -28,7 +28,6 @@ export default class Hero {
     this.effects = [];
     this.hitbox = {};
     this.isHitboxVisible = false;
-    this.isHit = false;
     this.isDead = false;
     this.vector = { x: 0, y: 0 };
     this.position = {
@@ -61,7 +60,6 @@ export default class Hero {
   }
 
   run() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.run.name)) return;
 
     this.action = ACTIONS.run;
@@ -71,7 +69,6 @@ export default class Hero {
   }
 
   push() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.push.name)) return;
 
     this.action = ACTIONS.push;
@@ -81,7 +78,6 @@ export default class Hero {
   }
 
   fall() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.fall.name)) return;
 
     this.action = ACTIONS.fall;
@@ -91,7 +87,6 @@ export default class Hero {
   }
 
   preJump() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.preJump.name)) return;
 
     this.action = ACTIONS.preJump;
@@ -113,7 +108,6 @@ export default class Hero {
   }
 
   jump() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.jump.name)) return;
 
     this.action = ACTIONS.jump;
@@ -134,7 +128,6 @@ export default class Hero {
   }
 
   doubleJump() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.doubleJump.name)) return;
 
     this.action = ACTIONS.doubleJump;
@@ -145,7 +138,6 @@ export default class Hero {
   }
 
   postJump() {
-    if (this.isHit) return;
     if (!this.action.allowedActions.includes(ACTIONS.postJump.name)) return;
 
     this.action = ACTIONS.postJump;
@@ -283,7 +275,7 @@ export default class Hero {
   }
 
   hurt() {
-    if (this.isHit) return;
+    if (!this.action.allowedActions.includes(ACTIONS.hit.name)) return;
 
     document.getElementById('filter').className = 'fade-in-out';
 
@@ -297,8 +289,6 @@ export default class Hero {
     } else this.death();
 
     if (this.hearts > 0) this.hearts--;
-
-    this.isHit = true;
   }
 
   die() {
@@ -326,14 +316,6 @@ export default class Hero {
   }
 
   loop({ blocks, miscs }) {
-    if (
-      this.isHit &&
-      this.action.name !== ACTIONS.hit.name &&
-      this.action.name !== ACTIONS.death.name
-    ) {
-      this.isHit = false;
-    }
-
     if (this.action.name === ACTIONS.death.name) return;
 
     nextPosition({
