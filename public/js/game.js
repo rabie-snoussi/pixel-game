@@ -286,6 +286,7 @@ class Game {
           blocks: this.map.blocks,
           miscs: filteredMiscs,
           game: this,
+          monsters: this.monsters,
         });
         if (misc.isCollected) {
           misc.destroy();
@@ -297,6 +298,7 @@ class Game {
         monster.loop({
           blocks: this.map.blocks,
           hero: this.hero,
+          miscs: this.miscs,
         });
         if (monster.isDead) {
           monster.destroy();

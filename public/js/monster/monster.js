@@ -216,6 +216,11 @@ export default class Monster {
     this.updatePosition();
   }
 
+  die() {
+    this.health = 0;
+    this.death();
+  }
+
   gravity() {
     this.vector.y += ACCELERATION;
   }

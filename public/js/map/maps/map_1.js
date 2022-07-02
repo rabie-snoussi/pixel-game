@@ -1,17 +1,11 @@
-import {
-  MAP_MATERIALS,
-  GRID,
-  TILES,
-  MONSTERS,
-  MISCS,
-} from '../../constants.js';
+import { MAP_MATERIALS, GRID, TILES, MISCS } from '../../constants.js';
 
 export default {
   bg2: true,
   fg0: true,
   fg1: true,
   hero: { position: GRID[3][22] },
-  monsters: [{ name: MONSTERS.goblin, position: GRID[17][22] }],
+  monsters: [],
   winningBlock: {
     position: GRID[49][4],
     dimensions: { width: 16, height: 16 * 6 },
@@ -829,22 +823,6 @@ export default {
 
   miscs: [
     {
-      name: MISCS.apple,
-      position: GRID[11][22],
-    },
-    {
-      name: MISCS.coin,
-      position: GRID[26][22],
-    },
-    {
-      name: MISCS.coin,
-      position: GRID[30][22],
-    },
-    {
-      name: MISCS.coin,
-      position: GRID[34][22],
-    },
-    {
       name: MISCS.coin,
       position: GRID[38][19],
     },
@@ -855,14 +833,6 @@ export default {
     {
       name: MISCS.coin,
       position: GRID[38][11],
-    },
-    {
-      name: MISCS.coin,
-      position: GRID[43][8],
-    },
-    {
-      name: MISCS.coin,
-      position: GRID[47][8],
     },
     {
       name: MISCS.mushroom,

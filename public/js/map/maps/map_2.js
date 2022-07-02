@@ -1,10 +1,4 @@
-import {
-  MAP_MATERIALS,
-  GRID,
-  TILES,
-  MONSTERS,
-  MISCS,
-} from '../../constants.js';
+import { MAP_MATERIALS, GRID, TILES, MISCS } from '../../constants.js';
 
 export default {
   bg2: true,
@@ -12,6 +6,10 @@ export default {
   fg1: true,
   hero: { position: GRID[0][8] },
   monsters: [],
+  winningBlock: {
+    position: GRID[49][4],
+    dimensions: { width: 16, height: 16 * 16 },
+  },
   materials: [
     // TILES
     // --------------------------------------------------

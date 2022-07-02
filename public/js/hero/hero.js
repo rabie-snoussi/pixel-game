@@ -301,6 +301,11 @@ export default class Hero {
     this.isHit = true;
   }
 
+  die() {
+    this.hearts = 0;
+    this.death();
+  }
+
   update() {
     if (this.frameCounter >= this.action.frames[this.direction].length) {
       if (this.action.name === ACTIONS.death.name) {
