@@ -58,8 +58,6 @@ export default class Stone extends Misc {
       hero.die();
     }
 
-    console.log(this.vector.y);
-
     monsters.map((monster) => {
       if (
         isCollidingBottom(this.vertices, monster.hurtbox.vertices) &&

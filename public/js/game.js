@@ -82,6 +82,8 @@ class Game {
 
     this.isGameOver = false;
     this.isGameStarted = false;
+
+    sound.stopMusic();
   }
 
   restart() {
@@ -124,7 +126,9 @@ class Game {
   }
 
   applySettings() {
-    if (store.settings.grid && !this.isGameStarted) this.showGrid();
+    const gridElement = document.getElementById('grid');
+
+    if (store.settings.grid && !gridElement) this.showGrid();
     if (store.settings.hurtbox) this.showHurtbox();
     if (store.settings.hitbox) this.showHitbox();
     this.sfx = store.settings.sfx;
@@ -378,7 +382,9 @@ class Game {
       mapNumber: this.mapNumber,
       mapTotal: this.map.maps.length - 1,
     });
-    this.hud.startMenu(this);
+
+    if (this.mapNumber > 0) this.hud.continueMenu(this);
+    else this.hud.startMenu(this);
 
     this.controls = new Controls();
     this.controls.initialize();

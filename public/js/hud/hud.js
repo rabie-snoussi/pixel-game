@@ -174,6 +174,45 @@ export default class Hud {
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
+  continueMenu(game) {
+    const title = MENU_TITLES.plateformGame;
+    const titlePosition = GRID[17][9];
+    const optionsPosition = GRID[21][13];
+
+    const options = [
+      {
+        name: MENU_OPTIONS.continue,
+        action: game.start.bind(game),
+      },
+      {
+        name: MENU_OPTIONS.music,
+        action: () => this.musicToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.sfx,
+        action: () => this.sfxToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.grid,
+        action: () => this.gridToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.hurtbox,
+        action: () => this.hurtboxToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.hitbox,
+        action: () => this.hitboxToggle(game),
+      },
+      {
+        name: MENU_OPTIONS.quit,
+        action: game.quit.bind(game),
+      },
+    ];
+
+    this.initializeMenu({ title, titlePosition, options, optionsPosition });
+  }
+
   pauseMenu(game) {
     const title = MENU_TITLES.gamePaused;
     const titlePosition = GRID[19][6];

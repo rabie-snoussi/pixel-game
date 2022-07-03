@@ -67,6 +67,7 @@ export const HUD_IMG = {
 
 export const MENU_OPTIONS = {
   start: 'start',
+  continue: 'continue',
   resume: 'resume',
   restart: 'restart',
   quit: 'quit',
