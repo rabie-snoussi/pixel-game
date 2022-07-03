@@ -141,8 +141,8 @@ export default class Hud {
 
   startMenu(game) {
     const title = MENU_TITLES.plateformGame;
-    const titlePosition = GRID[17][9];
-    const optionsPosition = GRID[21][13];
+    const titlePosition = GRID[18][8];
+    const optionsPosition = GRID[20][12];
 
     const options = [
       {
@@ -176,8 +176,8 @@ export default class Hud {
 
   continueMenu(game) {
     const title = MENU_TITLES.plateformGame;
-    const titlePosition = GRID[17][9];
-    const optionsPosition = GRID[21][13];
+    const titlePosition = GRID[18][8];
+    const optionsPosition = GRID[20][12];
 
     const options = [
       {
@@ -215,8 +215,8 @@ export default class Hud {
 
   pauseMenu(game) {
     const title = MENU_TITLES.gamePaused;
-    const titlePosition = GRID[19][6];
-    const optionsPosition = GRID[21][10];
+    const titlePosition = GRID[19][8];
+    const optionsPosition = GRID[20][12];
 
     const options = [
       {
@@ -258,8 +258,8 @@ export default class Hud {
 
   gameOverMenu(game) {
     const title = MENU_TITLES.gameOver;
-    const titlePosition = GRID[20][9];
-    const optionsPosition = GRID[21][13];
+    const titlePosition = GRID[20][8];
+    const optionsPosition = GRID[21][12];
 
     const options = [
       {
