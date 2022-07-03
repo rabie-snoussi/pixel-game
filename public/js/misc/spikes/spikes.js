@@ -9,9 +9,13 @@ export default class Spikes extends Misc {
 
   update() {}
 
-  loop({ hero }) {
+  loop({ hero, monsters }) {
     if (isColliding(hero.hurtbox.vertices, this.vertices)) {
-      hero.hurt();
+      hero.die();
     }
+
+    monsters.map((monster) => {
+      if (isColliding(monster.hurtbox.vertices, this.vertices)) monster.die();
+    });
   }
 }

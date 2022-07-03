@@ -688,29 +688,29 @@ export const TILES = {
       ],
       [
         {
-          x: -1 * MATERIALS_DIMENSIONS.tiles.width,
+          x: -10 * MATERIALS_DIMENSIONS.tiles.width,
           y: 0 * MATERIALS_DIMENSIONS.tiles.height,
         },
         {
-          x: -1 * MATERIALS_DIMENSIONS.tiles.width,
+          x: -10 * MATERIALS_DIMENSIONS.tiles.width,
           y: -1 * MATERIALS_DIMENSIONS.tiles.height,
         },
         {
-          x: -1 * MATERIALS_DIMENSIONS.tiles.width,
+          x: -10 * MATERIALS_DIMENSIONS.tiles.width,
           y: -2 * MATERIALS_DIMENSIONS.tiles.height,
         },
       ],
       [
         {
-          x: -1 * MATERIALS_DIMENSIONS.tiles.width,
+          x: -11 * MATERIALS_DIMENSIONS.tiles.width,
           y: 0 * MATERIALS_DIMENSIONS.tiles.height,
         },
         {
-          x: -1 * MATERIALS_DIMENSIONS.tiles.width,
+          x: -11 * MATERIALS_DIMENSIONS.tiles.width,
           y: -1 * MATERIALS_DIMENSIONS.tiles.height,
         },
         {
-          x: -1 * MATERIALS_DIMENSIONS.tiles.width,
+          x: -11 * MATERIALS_DIMENSIONS.tiles.width,
           y: -2 * MATERIALS_DIMENSIONS.tiles.height,
         },
       ],
