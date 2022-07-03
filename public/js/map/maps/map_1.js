@@ -1,9 +1,9 @@
 import { MAP_MATERIALS, GRID, TILES, MISCS } from '../../constants.js';
 
 export default {
-  bg2: true,
-  fg0: true,
-  fg1: true,
+  dirt: true,
+  water: true,
+  rocks: true,
   hero: { position: GRID[3][22] },
   monsters: [],
   winningBlock: {

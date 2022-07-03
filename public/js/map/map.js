@@ -29,15 +29,15 @@ export default class Map {
         map.winningBlock.position
       );
 
-    if (map.bg2)
+    if (map.dirt)
       document.getElementById('bg_2').style.backgroundImage =
         'url("' + BG_2_IMG + '")';
 
-    if (map.fg0)
+    if (map.water)
       document.getElementById('fg_0').style.backgroundImage =
         'url("' + FG_0_IMG + '")';
 
-    if (map.fg1)
+    if (map.rocks)
       document.getElementById('fg_1').style.backgroundImage =
         'url("' + FG_1_IMG + '")';
 

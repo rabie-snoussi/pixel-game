@@ -4,6 +4,7 @@ import STATES from './states/index.js';
 import {
   getCenterPosition,
   isColliding,
+  isCollidingBottom,
   isCollidingLeft,
   isCollidingRight,
   nextPosition,
@@ -17,7 +18,7 @@ export default class Stone extends Misc {
 
   update() {}
 
-  loop({ hero, blocks, miscs }) {
+  loop({ hero, blocks, miscs, monsters }) {
     if (!_.isEmpty(hero.hitbox) && isColliding(hero.hitbox, this.vertices)) {
       this.vector.y -= 1.25;
       if (
@@ -49,6 +50,23 @@ export default class Stone extends Misc {
       this.collisionObj.bottom
     )
       this.vector.x = 0;
+
+    if (
+      isCollidingBottom(this.vertices, hero.hurtbox.vertices) &&
+      this.vector.y > 10
+    ) {
+      hero.die();
+    }
+
+    console.log(this.vector.y);
+
+    monsters.map((monster) => {
+      if (
+        isCollidingBottom(this.vertices, monster.hurtbox.vertices) &&
+        this.vector.y > 10
+      )
+        monster.die();
+    });
 
     nextPosition({
       hurtbox: this.vertices,

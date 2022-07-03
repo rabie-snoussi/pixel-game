@@ -394,8 +394,8 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
       direction: 'bottom',
     });
 
-    const screenCollision = hurtbox.b.y + distance >= SCREEN_LIMITS.y.end;
-    const screenDistance = SCREEN_LIMITS.x.end - hurtbox.b.y;
+    const screenCollision = hurtbox.c.y + distance >= SCREEN_LIMITS.y.end;
+    const screenDistance = SCREEN_LIMITS.y.end - hurtbox.c.y;
 
     collision.top = false;
     collision.bottom = blockDistance === 0 || screenCollision;

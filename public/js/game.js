@@ -11,6 +11,7 @@ import {
   GRID_DIMENSIONS,
   GRID,
   INITIAL_DATA,
+  SCREEN_LIMITS,
 } from './constants.js';
 import store from './store.js';
 import { isColliding } from './helpers.js';
@@ -230,6 +231,10 @@ class Game {
     document.getElementById('monsters').innerHTML = '';
     document.getElementById('miscs').innerHTML = '';
     document.getElementById('materials').innerHTML = '';
+
+    document.getElementById('bg_2').style.backgroundImage = '';
+    document.getElementById('fg_0').style.backgroundImage = '';
+    document.getElementById('fg_1').style.backgroundImage = '';
   }
 
   loadMap(mapNumber) {
@@ -318,6 +323,10 @@ class Game {
 
       if (isColliding(this.hero.hurtbox.vertices, this.map.winningBlock)) {
         this.nextLevel();
+      }
+
+      if (this.hero.hurtbox.vertices.c.y >= SCREEN_LIMITS.y.end) {
+        this.hero.die();
       }
     }, GAME_LOOP_INTERVAL);
   }
