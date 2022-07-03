@@ -818,6 +818,12 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[6][16],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[6][16],
       backgroundPosition: TILES.floating.green[2],
     },
     {
@@ -919,6 +925,12 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[40][16],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[42][16],
       backgroundPosition: TILES.normal.brown[1][1],
       collision: false,
     },
