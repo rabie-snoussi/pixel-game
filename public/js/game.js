@@ -75,6 +75,10 @@ class Game {
     this.hud.startMenu(this);
     this.hud.updateHearts(this.hearts);
     this.hud.updateCoins(this.coins);
+    this.hud.updateLevel({
+      mapNumber: this.mapNumber,
+      mapTotal: this.map.maps.length - 1,
+    });
 
     this.isGameOver = false;
     this.isGameStarted = false;
@@ -267,6 +271,10 @@ class Game {
     this.applySettings();
 
     this.controls.setGameControls(this.hero);
+    this.hud.updateLevel({
+      mapNumber: this.mapNumber,
+      mapTotal: this.map.maps.length - 1,
+    });
 
     store.setData({
       map: this.mapNumber,
@@ -364,7 +372,12 @@ class Game {
     this.applySettings();
 
     this.hud = new Hud();
-    this.hud.initialize({ hearts: this.hearts, coins: this.coins });
+    this.hud.initialize({
+      hearts: this.hearts,
+      coins: this.coins,
+      mapNumber: this.mapNumber,
+      mapTotal: this.map.maps.length - 1,
+    });
     this.hud.startMenu(this);
 
     this.controls = new Controls();

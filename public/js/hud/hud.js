@@ -309,10 +309,23 @@ export default class Hud {
     }
   }
 
-  initialize({ hearts, coins }) {
+  updateLevel({ mapNumber, mapTotal }) {
+    document.getElementById('level-number').innerHTML = '';
+
+    this.insertText({
+      text: `${mapNumber}/${mapTotal}`,
+      position: GRID[44][1],
+      id: 'level-number',
+    });
+  }
+
+  initialize({ hearts, coins, mapNumber, mapTotal }) {
     const coinElement = createElement({ ...coin, position: GRID[1][4] });
     document.getElementById('coins').appendChild(coinElement);
 
+    this.insertText({ text: 'level', position: GRID[38][1], id: 'level' });
+
+    this.updateLevel({ mapNumber, mapTotal });
     this.updateHearts(hearts);
     this.updateCoins(coins);
   }

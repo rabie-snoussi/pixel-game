@@ -7,6 +7,7 @@ export default class Map {
   constructor() {
     this.animations = [];
     this.frameCounter = 0;
+    this.maps = MAPS;
   }
 
   update() {
@@ -18,7 +19,7 @@ export default class Map {
   }
 
   generate(i) {
-    const map = MAPS[i];
+    const map = this.maps[i];
 
     const monsters = map.monsters;
     const miscs = map.miscs;
