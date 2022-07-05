@@ -3,17 +3,61 @@ import {
   GRID,
   TILES,
   MISCS,
+  MONSTERS,
 } from '../../constants.js';
 
 export default {
   dirt: false,
   water: false,
   rocks: false,
-  hero: { position: GRID[25][0] },
-  monsters: [],
+  hero: { position: GRID[48][4] },
+  monsters: [
+    { name: MONSTERS.goblin, position: GRID[0][24] },
+    { name: MONSTERS.goblin, position: GRID[1][24] },
+    { name: MONSTERS.goblin, position: GRID[2][24] },
+    { name: MONSTERS.goblin, position: GRID[3][24] },
+    { name: MONSTERS.goblin, position: GRID[4][24] },
+    { name: MONSTERS.goblin, position: GRID[5][24] },
+    { name: MONSTERS.goblin, position: GRID[6][24] },
+    { name: MONSTERS.goblin, position: GRID[7][24] },
+    { name: MONSTERS.goblin, position: GRID[8][24] },
+    { name: MONSTERS.goblin, position: GRID[9][24] },
+    { name: MONSTERS.goblin, position: GRID[10][24] },
+    { name: MONSTERS.goblin, position: GRID[11][24] },
+    { name: MONSTERS.goblin, position: GRID[12][24] },
+    { name: MONSTERS.goblin, position: GRID[13][24] },
+    { name: MONSTERS.goblin, position: GRID[14][24] },
+    { name: MONSTERS.goblin, position: GRID[15][24] },
+    { name: MONSTERS.goblin, position: GRID[16][24] },
+    { name: MONSTERS.goblin, position: GRID[17][24] },
+    { name: MONSTERS.goblin, position: GRID[18][24] },
+    { name: MONSTERS.goblin, position: GRID[19][24] },
+    { name: MONSTERS.goblin, position: GRID[20][24] },
+    { name: MONSTERS.goblin, position: GRID[21][24] },
+    { name: MONSTERS.goblin, position: GRID[22][24] },
+    { name: MONSTERS.goblin, position: GRID[23][24] },
+    { name: MONSTERS.goblin, position: GRID[24][24] },
+    { name: MONSTERS.goblin, position: GRID[25][24] },
+    { name: MONSTERS.goblin, position: GRID[26][24] },
+    { name: MONSTERS.goblin, position: GRID[27][24] },
+    { name: MONSTERS.goblin, position: GRID[28][24] },
+    { name: MONSTERS.goblin, position: GRID[29][24] },
+    { name: MONSTERS.goblin, position: GRID[30][24] },
+    { name: MONSTERS.goblin, position: GRID[31][24] },
+    { name: MONSTERS.goblin, position: GRID[32][24] },
+    { name: MONSTERS.goblin, position: GRID[33][24] },
+    { name: MONSTERS.goblin, position: GRID[34][24] },
+    { name: MONSTERS.goblin, position: GRID[35][24] },
+    { name: MONSTERS.goblin, position: GRID[36][24] },
+    { name: MONSTERS.goblin, position: GRID[37][24] },
+    { name: MONSTERS.goblin, position: GRID[38][24] },
+    { name: MONSTERS.goblin, position: GRID[39][24] },
+    { name: MONSTERS.goblin, position: GRID[40][24] },
+    { name: MONSTERS.goblin, position: GRID[41][24] },
+  ],
   winningBlock: {
     position: GRID[0][2],
-    dimensions: { width: 16, height: 16 * 4 },
+    dimensions: { width: 16, height: 16 * 23 },
   },
   materials: [
     // TILES
@@ -28,19 +72,16 @@ export default {
       ...MAP_MATERIALS.tile,
       position: GRID[2][0],
       backgroundPosition: TILES.normal.black[1][2],
-      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[4][0],
       backgroundPosition: TILES.normal.black[1][2],
-      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[6][0],
       backgroundPosition: TILES.normal.black[1][2],
-      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -85,12 +126,12 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[24][0],
-      backgroundPosition: TILES.normal.brown[1][1],
+      backgroundPosition: TILES.normal.black[1][2],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[26][0],
-      backgroundPosition: TILES.normal.brown[1][1],
+      backgroundPosition: TILES.normal.black[1][2],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -145,7 +186,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][0],
-      backgroundPosition: TILES.reversed.black[2][0],
+      backgroundPosition: TILES.normal.black[1][2],
     },
 
     // --------------------------------------------------
@@ -268,7 +309,6 @@ export default {
       ...MAP_MATERIALS.tile,
       position: GRID[38][2],
       backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -297,7 +337,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][2],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -449,7 +490,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][4],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -457,7 +499,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][6],
-      backgroundPosition: TILES.normal.black[2][0],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -600,7 +643,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][6],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.black[0][0],
     },
 
     // --------------------------------------------------
@@ -608,7 +651,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][8],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -759,7 +803,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][10],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -910,7 +955,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][12],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1061,17 +1107,20 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][14],
-      backgroundPosition: TILES.reversed.black[0][2],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[2][14],
-      backgroundPosition: TILES.floating.black[1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[4][14],
-      backgroundPosition: TILES.floating.black[1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1082,7 +1131,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[6][14],
-      backgroundPosition: TILES.floating.black[2],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1195,22 +1245,31 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[42][14],
-      backgroundPosition: TILES.floating.black[0],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[44][14],
-      backgroundPosition: TILES.floating.black[1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[46][14],
-      backgroundPosition: TILES.floating.black[1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][14],
-      backgroundPosition: TILES.reversed.black[2][2],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[48][14],
+      backgroundPosition: TILES.normal.black[0][2],
     },
 
     // --------------------------------------------------
@@ -1218,7 +1277,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][16],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1361,7 +1421,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][16],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -1369,7 +1430,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][18],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1512,7 +1574,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][18],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.black[0][0],
     },
 
     // --------------------------------------------------
@@ -1520,7 +1582,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][20],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1671,7 +1734,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][22],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1822,7 +1886,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][24],
-      backgroundPosition: TILES.normal.black[2][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1973,7 +2038,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][26],
-      backgroundPosition: TILES.reversed.black[0][2],
+      backgroundPosition: TILES.normal.black[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -2106,27 +2171,208 @@ export default {
   miscs: [
     {
       id: 'trigger-1',
-      name: MISCS.button,
-      position: { x: GRID[44][13].x, y: GRID[44][13].y + 7.77 },
-    },
-    {
-      id: 'trigger-2',
       name: MISCS.lever,
-      position: GRID[4][12],
+      position: GRID[48][16],
+    },
+
+    {
+      name: MISCS.stone,
+      position: GRID[0][2],
     },
     {
-      name: MISCS.mushroom,
-      position: GRID[24][24],
+      name: MISCS.stone,
+      position: GRID[2][2],
     },
     {
-      name: MISCS.mushroom,
-      position: GRID[26][24],
+      name: MISCS.stone,
+      position: GRID[4][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[6][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[8][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[10][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[12][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[14][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[16][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[18][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[20][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[22][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[24][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[26][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[28][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[30][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[32][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[34][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[36][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[38][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[40][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[42][2],
     },
     {
       name: MISCS.stone,
       position: GRID[44][2],
     },
-    
+
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[0][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[2][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[4][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[6][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[8][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[10][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[12][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[14][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[16][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[18][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[20][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[22][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[24][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[26][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[28][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[30][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[32][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[34][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[36][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[38][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[40][4],
+      triggerId: 'trigger-1',
+    },
     {
       name: MISCS.woodSlabMiddle,
       position: GRID[42][4],
@@ -2136,263 +2382,6 @@ export default {
       name: MISCS.woodSlabMiddle,
       position: GRID[44][4],
       triggerId: 'trigger-1',
-    },
-    {
-      name: MISCS.woodSlabRight,
-      position: GRID[46][4],
-      triggerId: 'trigger-1',
-    },
-
-    {
-      name: MISCS.woodSlabLeft,
-      position: GRID[8][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[10][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[12][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[14][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[16][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[18][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[20][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[22][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[24][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[26][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[28][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[30][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[32][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[34][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[36][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[38][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-    {
-      name: MISCS.woodSlabRight,
-      position: GRID[40][14],
-      triggerId: 'trigger-2',
-      isOpen: true,
-    },
-
-    {
-      name: MISCS.spikes,
-      position: GRID[2][16],
-      rotation: 270,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[2][18],
-      rotation: 270,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[2][20],
-      rotation: 270,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[2][22],
-      rotation: 270,
-    },
-
-    {
-      name: MISCS.spikes,
-      position: GRID[2][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[4][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[6][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[8][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[10][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[12][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[14][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[16][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[18][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[20][24],
-      rotation: 180,
-    },
-
-    {
-      name: MISCS.spikes,
-      position: GRID[22][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[28][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[30][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[32][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[34][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[36][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[38][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[40][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[42][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[44][24],
-      rotation: 180,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[46][24],
-      rotation: 180,
-    },
-
-    {
-      name: MISCS.spikes,
-      position: GRID[46][16],
-      rotation: 90,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[46][18],
-      rotation: 90,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[46][20],
-      rotation: 90,
-    },
-    {
-      name: MISCS.spikes,
-      position: GRID[46][22],
-      rotation: 90,
     },
   ],
 };

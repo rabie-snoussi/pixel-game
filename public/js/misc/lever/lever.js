@@ -42,7 +42,7 @@ export default class Lever extends Misc {
 
   loop({ hero }) {
     if (_.isEmpty(hero.hitbox)) return (this.isLocked = false);
-    if (isColliding(this.vertices, hero.hitbox) && !this.isLocked) {
+    if (isColliding(hero.hitbox, this.vertices) && !this.isLocked) {
       this.state.name === this.states.enabled.name
         ? this.disable()
         : this.enable();

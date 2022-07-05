@@ -4,11 +4,11 @@ export default {
   dirt: true,
   water: true,
   rocks: true,
-  hero: { position: GRID[0][8] },
+  hero: { position: GRID[3][22] },
   monsters: [],
   winningBlock: {
     position: GRID[49][4],
-    dimensions: { width: 16, height: 16 * 16 },
+    dimensions: { width: 16, height: 16 * 6 },
   },
   materials: [
     // TILES
@@ -82,6 +82,21 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[26][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[28][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[30][0],
+      backgroundPosition: TILES.normal.green[1][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[32][0],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
@@ -199,6 +214,21 @@ export default {
     },
     {
       ...MAP_MATERIALS.tile,
+      position: GRID[28][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[30][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[32][2],
+      backgroundPosition: TILES.normal.green[1][2],
+    },
+    {
+      ...MAP_MATERIALS.tile,
       position: GRID[34][2],
       backgroundPosition: TILES.normal.green[1][2],
     },
@@ -242,426 +272,176 @@ export default {
 
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[0][10],
+      position: GRID[40][10],
+      backgroundPosition: TILES.normal.green[0][0],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[42][10],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[2][10],
+      position: GRID[44][10],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[4][10],
+      position: GRID[46][10],
       backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[6][10],
+      position: GRID[48][10],
       backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][10],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][10],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][10],
-      backgroundPosition: TILES.normal.green[2][0],
     },
 
     // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[0][12],
+      position: GRID[40][12],
+      backgroundPosition: TILES.normal.green[0][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[42][12],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[2][12],
+      position: GRID[44][12],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[4][12],
+      position: GRID[46][12],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[6][12],
+      position: GRID[48][12],
       backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][12],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][12],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][12],
-      backgroundPosition: TILES.normal.green[2][1],
     },
 
     // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[0][14],
+      position: GRID[40][14],
+      backgroundPosition: TILES.normal.green[0][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[42][14],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[2][14],
+      position: GRID[44][14],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[4][14],
+      position: GRID[46][14],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[6][14],
+      position: GRID[48][14],
       backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][14],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][14],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][14],
-      backgroundPosition: TILES.normal.green[2][1],
     },
 
     // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[0][16],
+      position: GRID[40][16],
+      backgroundPosition: TILES.normal.green[0][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[42][16],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[2][16],
+      position: GRID[44][16],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[4][16],
+      position: GRID[46][16],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[6][16],
+      position: GRID[48][16],
       backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][16],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][16],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][16],
-      backgroundPosition: TILES.normal.green[2][1],
     },
 
     // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[0][18],
+      position: GRID[40][18],
+      backgroundPosition: TILES.normal.green[0][1],
+    },
+    {
+      ...MAP_MATERIALS.tile,
+      position: GRID[42][18],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[2][18],
+      position: GRID[44][18],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[4][18],
+      position: GRID[46][18],
       backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[6][18],
+      position: GRID[48][18],
       backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][18],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][18],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][18],
-      backgroundPosition: TILES.normal.green[2][1],
     },
 
     // --------------------------------------------------
 
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[0][20],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[2][20],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[4][20],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[6][20],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][20],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][20],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][20],
-      backgroundPosition: TILES.reversed.green[0][2],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[14][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[16][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[18][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[20][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[22][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[24][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[26][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[28][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[30][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[32][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[34][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[36][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[38][20],
-      backgroundPosition: TILES.normal.green[1][0],
-    },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[40][20],
-      backgroundPosition: TILES.normal.green[1][0],
+      backgroundPosition: TILES.normal.green[0][1],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[42][20],
-      backgroundPosition: TILES.normal.green[1][0],
+      backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[44][20],
-      backgroundPosition: TILES.normal.green[1][0],
+      backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[46][20],
-      backgroundPosition: TILES.normal.green[1][0],
+      backgroundPosition: TILES.normal.green[1][1],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][20],
-      backgroundPosition: TILES.normal.green[1][0],
+      backgroundPosition: TILES.normal.green[1][1],
     },
 
     // --------------------------------------------------
 
     {
       ...MAP_MATERIALS.tile,
-      position: GRID[0][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[2][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[4][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[6][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[8][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[10][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[12][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[14][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[16][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[18][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[20][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[22][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[24][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[26][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[28][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[30][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[32][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[34][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[36][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
-      position: GRID[38][22],
-      backgroundPosition: TILES.normal.green[1][1],
-    },
-    {
-      ...MAP_MATERIALS.tile,
       position: GRID[40][22],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[0][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -689,107 +469,107 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[2][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[4][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[6][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[8][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[10][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[12][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[14][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[16][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[18][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[20][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[22][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[24][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[26][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[28][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[30][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[32][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[34][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[36][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[38][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.normal.green[1][0],
     },
     {
       ...MAP_MATERIALS.tile,
       position: GRID[40][24],
-      backgroundPosition: TILES.normal.green[1][1],
+      backgroundPosition: TILES.reversed.green[2][2],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -942,6 +722,100 @@ export default {
 
     // DECOR
     // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.arrowPlateRight,
+      position: GRID[40][8],
+    },
+
+    // WATERFALL
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][0],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][0],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][4],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][4],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][8],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][8],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][12],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][12],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][16],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][16],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][20],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][20],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[22][24],
+    },
+    {
+      ...MAP_MATERIALS.waterfall,
+      position: GRID[23][24],
+    },
+
+    // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.waterfallBottom,
+      position: GRID[22][25],
+    },
+    {
+      ...MAP_MATERIALS.waterfallBottom,
+      position: GRID[23][25],
+    },
   ],
 
   // MISCS
@@ -949,38 +823,20 @@ export default {
 
   miscs: [
     {
-      id: 'trigger-2',
-      name: MISCS.button,
-      position: { x: GRID[30][19].x, y: GRID[30][19].y + 7.77 },
+      name: MISCS.coin,
+      position: GRID[38][19],
     },
     {
-      triggerId: 'trigger-2',
-      name: MISCS.door,
-      position: GRID[10][4],
+      name: MISCS.coin,
+      position: GRID[38][15],
     },
     {
-      id: 'trigger-1',
-      name: MISCS.lever,
-      position: GRID[5][8],
+      name: MISCS.coin,
+      position: GRID[38][11],
     },
     {
-      triggerId: 'trigger-1',
-      name: MISCS.woodSlabLeft,
-      position: GRID[28][3],
-    },
-    {
-      triggerId: 'trigger-1',
-      name: MISCS.woodSlabMiddle,
-      position: GRID[30][3],
-    },
-    {
-      triggerId: 'trigger-1',
-      name: MISCS.woodSlabRight,
-      position: GRID[32][3],
-    },
-    {
-      name: MISCS.stone,
-      position: GRID[30][1],
+      name: MISCS.mushroom,
+      position: GRID[38][22],
     },
   ],
 };
