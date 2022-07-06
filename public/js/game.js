@@ -235,6 +235,7 @@ class Game {
 
   destroyMap() {
     this.hero.destroy();
+    this.monsters.forEach((monster) => monster.destroy());
 
     document.getElementById('monsters').innerHTML = '';
     document.getElementById('miscs').innerHTML = '';
