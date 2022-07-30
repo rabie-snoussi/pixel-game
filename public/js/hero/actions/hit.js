@@ -6,7 +6,6 @@ const name = HERO_ACTIONS.hit;
 const img = 'url("' + HERO_IMG.hit + '")';
 
 const allowedActions = [
-  HERO_ACTIONS.preJump,
   HERO_ACTIONS.postJump,
   HERO_ACTIONS.attack,
   HERO_ACTIONS.jump,

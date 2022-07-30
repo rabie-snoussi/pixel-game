@@ -12,7 +12,7 @@ const img = 'url("' + HERO_IMG.attack + '")';
 
 const allowedActions = [
   HERO_ACTIONS.idle,
-  HERO_ACTIONS.preJump,
+  HERO_ACTIONS.jump,
   HERO_ACTIONS.hit,
   HERO_ACTIONS.death,
 ];

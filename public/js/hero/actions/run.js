@@ -11,7 +11,6 @@ const img = 'url("' + HERO_IMG.run + '")';
 
 const allowedActions = [
     HERO_ACTIONS.idle,
-    HERO_ACTIONS.preJump,
     HERO_ACTIONS.attack,
     HERO_ACTIONS.push,
     HERO_ACTIONS.jump,

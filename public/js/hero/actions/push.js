@@ -8,7 +8,7 @@ const img = 'url("' + HERO_IMG.push + '")';
 const allowedActions = [
   HERO_ACTIONS.idle,
   HERO_ACTIONS.fall,
-  HERO_ACTIONS.preJump,
+  HERO_ACTIONS.jump,
   HERO_ACTIONS.attack,
   HERO_ACTIONS.hit,
   HERO_ACTIONS.death,

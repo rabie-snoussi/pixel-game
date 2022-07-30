@@ -84,8 +84,12 @@ export default class Goblin extends Monster {
       this.isHit = false;
     }
 
-    // Prevents chasing when attacking or being hit
-    if (!this.isAttacking && !this.isHit) {
+    // Prevents chasing when attacking or being hit or dead
+    if (
+      !this.isAttacking &&
+      !this.isHit &&
+      this.action.name !== MONSTER_ACTIONS.death
+    ) {
       chase({
         speed: MONSTER_SPEED.goblin,
         chaserVertices: this.hurtbox.vertices,
@@ -102,8 +106,14 @@ export default class Goblin extends Monster {
       isCollidingLeft(this.hurtbox.vertices, hero.hurtbox.vertices) ||
       isCollidingRight(this.hurtbox.vertices, hero.hurtbox.vertices);
 
-    // Stop moving when Colliding with the play or being hit or attacking
-    if (this.heroCollision || this.isHit || this.isAttacking) this.vector.x = 0;
+    // Stop moving when Colliding with the play or being hit or attacking or dead
+    if (
+      this.heroCollision ||
+      this.isHit ||
+      this.isAttacking ||
+      this.action.name === MONSTER_ACTIONS.death
+    )
+      this.vector.x = 0;
 
     if (!this.heroCollision && this.action.name !== MONSTER_ACTIONS.attack) {
       this.isAttacking = false;

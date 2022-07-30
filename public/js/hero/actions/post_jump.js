@@ -14,7 +14,7 @@ const allowedActions = [
     HERO_ACTIONS.idle,
     HERO_ACTIONS.hit,
     HERO_ACTIONS.death,
-    HERO_ACTIONS.preJump,
+    HERO_ACTIONS.jump
 ];
 
 const dimensions = { height: 32, width: 32 };

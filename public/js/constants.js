@@ -116,7 +116,6 @@ export const HERO_ACTIONS = {
   idle: 'idle',
   attack: 'attack',
   run: 'run',
-  preJump: 'preJump',
   jump: 'jump',
   doubleJump: 'doubleJump',
   postJump: 'postJump',

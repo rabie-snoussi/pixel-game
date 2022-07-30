@@ -86,15 +86,6 @@ export default class Hero {
     this.insertEffects();
   }
 
-  preJump() {
-    if (!this.action.allowedActions.includes(ACTIONS.preJump.name)) return;
-
-    this.action = ACTIONS.preJump;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-  }
-
   insertEffects() {
     this.effects = cloneWithElements({
       actionEffects: this.action.effects,
@@ -365,10 +356,6 @@ export default class Hero {
     if (!this.jumpCount) return;
 
     if (this.jumpCount === 2) {
-      this.preJump();
-
-      await sleep(ANIMATION_INTERVAL * 2);
-
       this.jump();
     }
 

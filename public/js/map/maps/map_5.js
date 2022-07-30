@@ -10,16 +10,8 @@ export default {
   dirt: false,
   water: false,
   rocks: false,
-  hero: { position: GRID[48][4] },
+  hero: { position: GRID[0][4] },
   monsters: [
-    { name: MONSTERS.goblin, position: GRID[0][24] },
-    { name: MONSTERS.goblin, position: GRID[1][24] },
-    { name: MONSTERS.goblin, position: GRID[2][24] },
-    { name: MONSTERS.goblin, position: GRID[3][24] },
-    { name: MONSTERS.goblin, position: GRID[4][24] },
-    { name: MONSTERS.goblin, position: GRID[5][24] },
-    { name: MONSTERS.goblin, position: GRID[6][24] },
-    { name: MONSTERS.goblin, position: GRID[7][24] },
     { name: MONSTERS.goblin, position: GRID[8][24] },
     { name: MONSTERS.goblin, position: GRID[9][24] },
     { name: MONSTERS.goblin, position: GRID[10][24] },
@@ -54,9 +46,16 @@ export default {
     { name: MONSTERS.goblin, position: GRID[39][24] },
     { name: MONSTERS.goblin, position: GRID[40][24] },
     { name: MONSTERS.goblin, position: GRID[41][24] },
+    { name: MONSTERS.goblin, position: GRID[42][24] },
+    { name: MONSTERS.goblin, position: GRID[43][24] },
+    { name: MONSTERS.goblin, position: GRID[44][24] },
+    { name: MONSTERS.goblin, position: GRID[45][24] },
+    { name: MONSTERS.goblin, position: GRID[46][24] },
+    { name: MONSTERS.goblin, position: GRID[47][24] },
+    { name: MONSTERS.goblin, position: GRID[48][24] },
   ],
   winningBlock: {
-    position: GRID[0][2],
+    position: GRID[49][2],
     dimensions: { width: 16, height: 16 * 23 },
   },
   materials: [
@@ -499,8 +498,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][6],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][0],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -643,7 +641,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][6],
-      backgroundPosition: TILES.normal.black[0][0],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -651,8 +650,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][8],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -795,7 +793,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][8],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -803,8 +802,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][10],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -947,7 +945,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][10],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -955,8 +954,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][12],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1099,7 +1097,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][12],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -1107,8 +1106,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][14],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1269,7 +1267,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][14],
-      backgroundPosition: TILES.normal.black[0][2],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -1278,7 +1277,6 @@ export default {
       ...MAP_MATERIALS.tile,
       position: GRID[0][16],
       backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1430,8 +1428,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][18],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1574,7 +1571,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][18],
-      backgroundPosition: TILES.normal.black[0][0],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -1582,8 +1580,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][20],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1726,7 +1723,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][20],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -1734,8 +1732,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][22],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -1878,7 +1875,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][22],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -1886,8 +1884,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][24],
-      backgroundPosition: TILES.normal.brown[1][1],
-      collision: false,
+      backgroundPosition: TILES.normal.black[2][1],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -2030,7 +2027,8 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][24],
-      backgroundPosition: TILES.normal.black[0][1],
+      backgroundPosition: TILES.normal.brown[1][1],
+      collision: false,
     },
 
     // --------------------------------------------------
@@ -2038,7 +2036,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[0][26],
-      backgroundPosition: TILES.normal.black[1][0],
+      backgroundPosition: TILES.reversed.black[0][2],
     },
     {
       ...MAP_MATERIALS.tile,
@@ -2158,7 +2156,7 @@ export default {
     {
       ...MAP_MATERIALS.tile,
       position: GRID[48][26],
-      backgroundPosition: TILES.reversed.black[2][2],
+      backgroundPosition: TILES.normal.black[1][0],
     },
 
     // DECOR
@@ -2172,21 +2170,9 @@ export default {
     {
       id: 'trigger-1',
       name: MISCS.lever,
-      position: GRID[48][16],
+      position: GRID[0][16],
     },
 
-    {
-      name: MISCS.stone,
-      position: GRID[0][2],
-    },
-    {
-      name: MISCS.stone,
-      position: GRID[2][2],
-    },
-    {
-      name: MISCS.stone,
-      position: GRID[4][2],
-    },
     {
       name: MISCS.stone,
       position: GRID[6][2],
@@ -2267,22 +2253,15 @@ export default {
       name: MISCS.stone,
       position: GRID[44][2],
     },
+    {
+      name: MISCS.stone,
+      position: GRID[46][2],
+    },
+    {
+      name: MISCS.stone,
+      position: GRID[48][2],
+    },
 
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[0][4],
-      triggerId: 'trigger-1',
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[2][4],
-      triggerId: 'trigger-1',
-    },
-    {
-      name: MISCS.woodSlabMiddle,
-      position: GRID[4][4],
-      triggerId: 'trigger-1',
-    },
     {
       name: MISCS.woodSlabMiddle,
       position: GRID[6][4],
@@ -2381,6 +2360,16 @@ export default {
     {
       name: MISCS.woodSlabMiddle,
       position: GRID[44][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[46][4],
+      triggerId: 'trigger-1',
+    },
+    {
+      name: MISCS.woodSlabMiddle,
+      position: GRID[48][4],
       triggerId: 'trigger-1',
     },
   ],
