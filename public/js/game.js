@@ -264,7 +264,7 @@ class Game {
       return monster;
     });
 
-    this.hero.spawn({ position: hero.position });
+    this.hero.spawn({ position: hero.position, vector: hero.vector });
   }
 
   nextLevel() {
@@ -336,6 +336,7 @@ class Game {
 
       if (isColliding(this.hero.hurtbox.vertices, this.map.winningBlock)) {
         this.nextLevel();
+        return;
       }
 
       if (this.hero.hurtbox.vertices.c.y >= SCREEN_LIMITS.y.end) {

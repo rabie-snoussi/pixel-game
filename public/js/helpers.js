@@ -243,6 +243,37 @@ const isPositionStrictlyInVertices = ({
   );
 };
 
+export const isVerticesColliding = (
+  vertices1,
+  vertices2,
+  vector = { x: 0, y: 0 }
+) => {
+  if (!isVerteces(vertices1) || !isVerteces(vertices2)) return false;
+
+  let rightCollision = false;
+  let leftCollision = false;
+  let bottomCollision = false;
+  let topCollision = false;
+
+  if (vector.x > 0) {
+    rightCollision = isCollidingRight(vertices1, vertices2);
+  }
+
+  if (vector.x < 0) {
+    leftCollision = isCollidingLeft(vertices1, vertices2);
+  }
+
+  if (vector.y > 0) {
+    bottomCollision = isCollidingBottom(vertices1, vertices2);
+  }
+
+  if (vector.y < 0) {
+    topCollision = isCollidingTop(vertices1, vertices2);
+  }
+
+  return rightCollision || leftCollision || bottomCollision || topCollision;
+};
+
 export const isStrictlyColliding = (
   vertices1,
   vertices2,

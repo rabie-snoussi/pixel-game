@@ -6,5 +6,6 @@ import map4 from './map_4.js';
 import map5 from './map_5.js';
 import map6 from './map_6.js';
 import map7 from './map_7.js';
+import map8 from './map_8.js';
 
-export default [map0, map1, map2, map3, map4, map5, map6, map7];
+export default [map0, map1, map2, map3, map4, map5, map6, map7, map8];

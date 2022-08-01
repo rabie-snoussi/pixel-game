@@ -2,13 +2,11 @@ import ACTIONS from './index.js';
 import {
   DIRECTIONS,
   HERO_SPEED,
-  ANIMATION_INTERVAL,
   MAX_JUMPS,
   ACCELERATION,
   HERO_JUMP_SPEED,
 } from '../constants.js';
 import {
-  sleep,
   cloneWithElements,
   nextPosition,
   createElement,
@@ -415,12 +413,14 @@ export default class Hero {
     this.isGodMode = true;
   }
 
-  spawn({ position }) {
+  spawn({ position, vector = { x: 0, y: 0 } }) {
     this.element = createElement({
       position,
       dimensions: this.action.dimensions,
       img: this.action.img,
     });
+
+    this.vector = { ...vector };
 
     this.element.setAttribute('id', 'hero');
 

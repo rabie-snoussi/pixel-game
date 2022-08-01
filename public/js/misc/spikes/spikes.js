@@ -1,4 +1,4 @@
-import { isColliding } from '../../helpers.js';
+import { isColliding, isVerticesColliding } from '../../helpers.js';
 import Misc from '../misc.js';
 import STATES from './states/index.js';
 
@@ -10,7 +10,9 @@ export default class Spikes extends Misc {
   update() {}
 
   loop({ hero, monsters }) {
-    if (isColliding(hero.hurtbox.vertices, this.vertices)) {
+    if (
+      isVerticesColliding(hero.hurtbox.vertices, this.vertices, hero.vector)
+    ) {
       hero.die();
     }
 
