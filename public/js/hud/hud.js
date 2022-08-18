@@ -275,6 +275,21 @@ export default class Hud {
     this.initializeMenu({ title, titlePosition, options, optionsPosition });
   }
 
+  gameWonMenu(game) {
+    const title = MENU_TITLES.gameWon;
+    const titlePosition = GRID[20][8];
+    const optionsPosition = GRID[21][12];
+
+    const options = [
+      {
+        name: MENU_OPTIONS.quit,
+        action: game.quit.bind(game),
+      },
+    ];
+
+    this.initializeMenu({ title, titlePosition, options, optionsPosition });
+  }
+
   resetMenu() {
     document.getElementById('menu').remove();
 

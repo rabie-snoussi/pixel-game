@@ -86,6 +86,7 @@ export const MENU_TITLES = {
   plateformGame: 'plateform game',
   gamePaused: 'game paused',
   gameOver: 'game over',
+  gameWon: 'game won',
 };
 
 // HERO
@@ -178,6 +179,7 @@ export const MISCS = {
   mushroom: 'mushroom',
   spikes: 'spikes',
   water: 'water',
+  orb: 'orb',
 };
 
 export const MISC_IMG = {
@@ -215,6 +217,10 @@ export const MISC_IMG = {
   water: {
     initial: './assets/miscellaneous/water_32x32.png',
   },
+  orb: {
+    initial: './assets/miscellaneous/save_point_anim_strip_9.png',
+    activated: './assets/miscellaneous/save_point_saving_anim_strip_3.png',
+  },
 };
 
 export const MISC_STATES = {
@@ -225,6 +231,7 @@ export const MISC_STATES = {
   disabled: 'disabled',
   initial: 'initial',
   collect: 'collect',
+  activated: 'activated',
 };
 
 // CONTROLS

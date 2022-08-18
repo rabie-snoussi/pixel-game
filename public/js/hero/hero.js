@@ -16,7 +16,6 @@ import sound from '../sound/sound.js';
 
 export default class Hero {
   constructor({ hearts }) {
-    this.isGodMode = false;
     this.hearts = hearts;
     this.element = null;
     this.frameCounter = 0;
@@ -255,7 +254,6 @@ export default class Hero {
   }
 
   gravity() {
-    if (this.isGodMode) return;
     this.vector.y += ACCELERATION;
   }
 
@@ -407,10 +405,6 @@ export default class Hero {
       effect.elements.hitbox.style.border = 'none';
       effect.elements.hitbox.style.background = 'none';
     });
-  }
-
-  godMode() {
-    this.isGodMode = true;
   }
 
   spawn({ position, vector = { x: 0, y: 0 } }) {

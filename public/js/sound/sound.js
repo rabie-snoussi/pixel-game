@@ -22,6 +22,7 @@ class Sound {
     this._button = null;
     this._lever = null;
     this._apple = null;
+    this._orb = null;
     this._menuMove = null;
     this._menuSelect = null;
   }
@@ -111,6 +112,11 @@ class Sound {
   apple() {
     if (!store.settings.sfx) return;
     this._apple.play();
+  }
+
+  orb() {
+    if (!store.settings.sfx) return;
+    this._orb.play();
   }
 
   menuMove() {
@@ -231,6 +237,10 @@ class Sound {
 
     this._apple = new Howl({
       src: ['./assets/sounds/miscs/apple.ogg'],
+    });
+
+    this._orb = new Howl({
+      src: ['./assets/sounds/miscs/orb.wav'],
     });
 
     this._menuMove = new Howl({

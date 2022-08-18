@@ -1,7 +1,6 @@
 import { KEY_CODES, SIMULTANOUS_KEYS } from '../constants.js';
 export default class Controls {
   constructor() {
-    this.godMode = false;
     this.onStop = {
       right: () => {},
       left: () => {},
@@ -126,10 +125,6 @@ export default class Controls {
       },
       false
     );
-  }
-
-  godMode() {
-    this.isGodMode = true;
   }
 
   initialize() {

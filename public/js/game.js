@@ -27,6 +27,7 @@ class Game {
     this.isGameStarted = false;
     this.isPaused = false;
     this.isGameOver = false;
+    this.isGameWon = false;
     this.mapNumber = 0;
     this.hearts = null;
     this.coins = null;
@@ -60,6 +61,7 @@ class Game {
 
   quit() {
     if (store.settings.music && this.isGameOver) sound.stopGameOver();
+    if (store.settings.music && this.isGameWon) sound.stopGameWon();
 
     this.isPaused = false;
 
@@ -81,6 +83,7 @@ class Game {
     });
 
     this.isGameOver = false;
+    this.isGameWon = false;
     this.isGameStarted = false;
 
     sound.stopMusic();
@@ -92,6 +95,7 @@ class Game {
 
     this.isPaused = false;
     this.isGameOver = false;
+    this.isGameWon = false;
 
     store.loadSavedData();
     store.saveData();
@@ -107,15 +111,29 @@ class Game {
     this.controls.setGameControls(this.hero);
   }
 
-  clear() {}
-
   gameOver() {
+    if (this.isGameOver) return;
+
     this.isGameOver = true;
     this.hud.gameOverMenu(this);
     this.controls.setMenuControls(this.hud, this);
 
     if (store.settings.music) sound.stopMusic();
     if (store.settings.music) sound.playGameOver();
+  }
+
+  gameWon() {
+    if (this.isGameWon) return;
+
+    this.isGameWon = true;
+    this.hud.gameWonMenu(this);
+    this.controls.setMenuControls(this.hud, this);
+
+    store.setData(INITIAL_DATA);
+    store.saveData();
+
+    if (store.settings.music) sound.stopMusic();
+    if (store.settings.music) sound.playGameWon();
   }
 
   hideGrid() {
@@ -228,11 +246,6 @@ class Game {
     store.saveSettings();
   }
 
-  godMode() {
-    this.controls.godMode();
-    this.hero.godMode();
-  }
-
   destroyMap() {
     this.hero.destroy();
     this.monsters.forEach((monster) => monster.destroy());
@@ -293,9 +306,7 @@ class Game {
     setInterval(() => {
       if (this.isPaused || !this.isGameStarted) return;
 
-      if (this.hero.isDead && !this.isGameOver) {
-        this.gameOver();
-      }
+      if (this.hero.isDead) this.gameOver();
 
       this.miscs.forEach((misc, i) => {
         const filteredMiscs = this.miscs.filter((item) => item !== misc);
@@ -325,6 +336,7 @@ class Game {
       });
 
       if (this.isGameOver) return;
+      if (this.isGameWon) return;
 
       this.hero.loop({
         blocks: this.map.blocks,
@@ -397,4 +409,3 @@ class Game {
 const game = new Game();
 
 game.initialize();
-// game.godMode();
