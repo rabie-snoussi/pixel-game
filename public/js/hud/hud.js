@@ -215,8 +215,8 @@ export default class Hud {
 
   pauseMenu(game) {
     const title = MENU_TITLES.gamePaused;
-    const titlePosition = GRID[19][8];
-    const optionsPosition = GRID[20][12];
+    const titlePosition = GRID[19][6];
+    const optionsPosition = GRID[20][10];
 
     const options = [
       {
@@ -277,8 +277,8 @@ export default class Hud {
 
   gameWonMenu(game) {
     const title = MENU_TITLES.gameWon;
-    const titlePosition = GRID[20][8];
-    const optionsPosition = GRID[21][12];
+    const titlePosition = GRID[19][10];
+    const optionsPosition = GRID[21][14];
 
     const options = [
       {
