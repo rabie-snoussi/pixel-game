@@ -44,13 +44,13 @@ body {
 }
 
 #bg_0 {
-  background-image: url('../assets/tiles_background_foreground/bg_0.png');
+  background-image: url('../assets/materials/bg_0.png');
   background-size: contain;
   image-rendering: pixelated;
 }
 
 #bg_1 {
-  background-image: url('../assets/tiles_background_foreground/bg_1.png');
+  background-image: url('../assets/materials/bg_1.png');
   background-size: contain;
   image-rendering: pixelated;
 }

@@ -59,7 +59,7 @@ export const GAME_LOOP_INTERVAL = 30;
 // HUD
 
 export const HUD_IMG = {
-  heart: './assets/hud/heart_hud.png',
+  heart: './assets/hud/heart.png',
   coin: './assets/hud/coin.png',
   font: './assets/hud/font.png',
   arrow: './assets/hud/select_icon_anim_strip_5.png',
@@ -98,19 +98,19 @@ export const MAX_JUMPS = 2;
 export const HERO_JUMP_SPEED = 10;
 
 export const HERO_IMG = {
-  idle: './assets/hero/herochar_idle_anim_strip_4.png',
-  attack: './assets/hero/herochar_attack_anim_strip_4.png',
+  idle: './assets/hero/hero_idle_anim_strip_4.png',
+  attack: './assets/hero/hero_attack_anim_strip_4.png',
   sword: './assets/hero/sword_effect_strip_4.png',
-  run: './assets/hero/herochar_run_anim_strip_6.png',
-  prePostJump: './assets/hero/herochar_before_or_after_jump_strip_2.png',
-  jump: './assets/hero/herochar_jump_up_anim_strip_3.png',
-  doubleJump: './assets/hero/herochar_jump_double_anim_strip_3.png',
-  fall: './assets/hero/herochar_jump_down_anim_strip_3.png',
-  preJumpDust: './assets/hero/herochar_before_jump_dust_anim_strip_4.png',
-  postJumpDust: './assets/hero/herochar_after_jump_dust_anim_strip_4.png',
-  push: './assets/hero/herochar_pushing_foward_anim_strip_6.png',
-  hit: './assets/hero/herochar_hit_anim_strip_3.png',
-  death: './assets/hero/herochar_death_anim_strip_8.png',
+  run: './assets/hero/hero_run_anim_strip_6.png',
+  postJump: './assets/hero/hero_after_jump_strip_2.png',
+  jump: './assets/hero/hero_jump_up_anim_strip_3.png',
+  doubleJump: './assets/hero/hero_jump_double_anim_strip_3.png',
+  fall: './assets/hero/hero_jump_down_anim_strip_3.png',
+  preJumpDust: './assets/hero/hero_before_jump_dust_anim_strip_4.png',
+  postJumpDust: './assets/hero/hero_after_jump_dust_anim_strip_4.png',
+  push: './assets/hero/hero_pushing_foward_anim_strip_6.png',
+  hit: './assets/hero/hero_hit_anim_strip_3.png',
+  death: './assets/hero/hero_death_anim_strip_8.png',
 };
 
 export const HERO_ACTIONS = {
@@ -200,7 +200,7 @@ export const MISC_IMG = {
     collect: './assets/miscellaneous/coin_collected_anim_strip_6.png',
   },
   apple: {
-    initial: './assets/miscellaneous/apple_item.png',
+    initial: './assets/miscellaneous/apple.png',
   },
   stone: {
     initial: './assets/miscellaneous/stone.png',
@@ -209,7 +209,7 @@ export const MISC_IMG = {
   woodSlabMiddle: './assets/miscellaneous/wood_slab_middle.png',
   woodSlabRight: './assets/miscellaneous/wood_slab_right.png',
   mushroom: {
-    initial: './assets/enemies/mushroom/mushroom_crushed_anim_strip_6.png',
+    initial: './assets/miscellaneous/mushroom_anim_strip_6.png',
   },
   spikes: {
     initial: './assets/miscellaneous/spikes.png',
@@ -218,8 +218,8 @@ export const MISC_IMG = {
     initial: './assets/miscellaneous/water_32x32.png',
   },
   orb: {
-    initial: './assets/miscellaneous/save_point_anim_strip_9.png',
-    activated: './assets/miscellaneous/save_point_saving_anim_strip_3.png',
+    initial: './assets/miscellaneous/orb_anim_strip_9.png',
+    activated: './assets/miscellaneous/orb_activated_anim_strip_3.png',
   },
 };
 
@@ -247,29 +247,28 @@ export const KEY_CODES = {
 
 // MAP
 
-export const BG_2_IMG = './assets/tiles_background_foreground/bg_2.png';
+export const BG_2_IMG = './assets/materials/bg_2.png';
 
-export const FG_0_IMG = './assets/tiles_background_foreground/fg_0.png';
+export const FG_0_IMG = './assets/materials/fg_0.png';
 
-export const FG_1_IMG = './assets/tiles_background_foreground/fg_1.png';
+export const FG_1_IMG = './assets/materials/fg_1.png';
 
 const MATERIALS_IMG = {
-  waterfall: './assets/tiles_background_foreground/waterfall_anim_strip_4.png',
-  waterfallBottom:
-    './assets/tiles_background_foreground/waterfall_bottom_anim_strip_4.png',
-  tiles: './assets/tiles_background_foreground/tileset_32x32.png',
-  woodenPlate: './assets/miscellaneous/wooden_plate.png',
+  waterfall: './assets/materials/waterfall_anim_strip_4.png',
+  waterfallBottom: './assets/materials/waterfall_bottom_anim_strip_4.png',
+  tiles: './assets/materials/tileset_32x32.png',
   woodSlabRight: './assets/miscellaneous/wood_slab_right.png',
   woodSlabMiddle: './assets/miscellaneous/wood_slab_middle.png',
   woodSlabLeft: './assets/miscellaneous/wood_slab_left.png',
-  torch: './assets/miscellaneous/tiki_torch_props_strip_12.png',
-  root: './assets/miscellaneous/root_props.png',
-  grass: './assets/miscellaneous/grass_props.png',
-  flowers: './assets/miscellaneous/flowers_props.png',
-  drygrass: './assets/miscellaneous/drygrass_props.png',
-  bigflowers: './assets/miscellaneous/bigflowers_props.png',
-  arrowPlateLeft: './assets/miscellaneous/arrow_plate_left.png',
-  arrowPlateRight: './assets/miscellaneous/arrow_plate_right.png',
+  woodenPlate: './assets/materials/wooden_plate.png',
+  torch: './assets/materials/tiki_torch_strip_12.png',
+  root: './assets/materials/root.png',
+  grass: './assets/materials/grass.png',
+  flowers: './assets/materials/flowers.png',
+  drygrass: './assets/materials/drygrass.png',
+  bigflowers: './assets/materials/bigflowers.png',
+  arrowPlateLeft: './assets/materials/arrow_plate_left.png',
+  arrowPlateRight: './assets/materials/arrow_plate_right.png',
 };
 
 const MATERIALS_SIZE = {

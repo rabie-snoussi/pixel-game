@@ -8,7 +8,7 @@ import {
 
 const name = HERO_ACTIONS.postJump;
 
-const img = 'url("' + HERO_IMG.prePostJump + '")';
+const img = 'url("' + HERO_IMG.postJump + '")';
 
 const dimensions = { height: 32, width: 32 };
 
