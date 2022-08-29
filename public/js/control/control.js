@@ -1,4 +1,4 @@
-import { KEY_CODES, SIMULTANOUS_KEYS } from '../constants.js';
+import { KEY_CODES } from '../constants.js';
 export default class Controls {
   constructor() {
     this.onStop = {
@@ -36,7 +36,7 @@ export default class Controls {
     this.onSpacebar = () => (this.onStop.spacebar = hero.attack());
     this.onLeft = () => (this.onStop.left = hero.goLeft());
     this.onRight = () => (this.onStop.right = hero.goRight());
-    this.onUp = async () => (this.onStop.up = await hero.jumpUp());
+    this.onUp = async () => (this.onStop.up = hero.jumpUp());
   }
 
   setMenuControls(hud, game) {
@@ -47,19 +47,12 @@ export default class Controls {
     this.onSpacebar = () => hud.selectOption();
     this.onEscape = () => {
       if (game.isPaused) return game.resume();
-      if (!game.isPaused && !hud.options)
-        return game.pause();
+      if (!game.isPaused && !hud.options) return game.pause();
     };
   }
 
   onKeydown(event) {
     if (!Object.values(KEY_CODES).includes(event.keyCode)) return;
-    if (
-      !!Object.keys(this.pressed)
-        .filter((key) => this.pressed[key] && key)
-        .filter((key) => key && !SIMULTANOUS_KEYS[key]?.[event.keyCode]).length
-    )
-      return;
     this.pressed[event.keyCode]++;
 
     if (this.pressed[KEY_CODES.right] === 1) {

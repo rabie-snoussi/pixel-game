@@ -245,31 +245,6 @@ export const KEY_CODES = {
   escape: 27,
 };
 
-export const SIMULTANOUS_KEYS = {
-  [KEY_CODES.up]: {
-    [KEY_CODES.right]: true,
-    [KEY_CODES.left]: true,
-  },
-  [KEY_CODES.right]: {
-    [KEY_CODES.up]: true,
-    [KEY_CODES.spacebar]: true,
-    [KEY_CODES.down]: true,
-  },
-  [KEY_CODES.left]: {
-    [KEY_CODES.up]: true,
-    [KEY_CODES.spacebar]: true,
-    [KEY_CODES.down]: true,
-  },
-  [KEY_CODES.spacebar]: {
-    [KEY_CODES.left]: true,
-    [KEY_CODES.right]: true,
-  },
-  [KEY_CODES.down]: {
-    [KEY_CODES.left]: true,
-    [KEY_CODES.right]: true,
-  },
-};
-
 // MAP
 
 export const BG_2_IMG = './assets/tiles_background_foreground/bg_2.png';

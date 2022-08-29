@@ -15,6 +15,7 @@ export default class Misc {
     this.isCollected = false;
     this.vector = { x: 0, y: 0 };
     this.isOpen = false;
+    this.isPushed = false;
     this.collisionObj = {
       top: false,
       bottom: false,

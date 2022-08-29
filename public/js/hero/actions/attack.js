@@ -10,13 +10,6 @@ const name = HERO_ACTIONS.attack;
 
 const img = 'url("' + HERO_IMG.attack + '")';
 
-const allowedActions = [
-  HERO_ACTIONS.idle,
-  HERO_ACTIONS.jump,
-  HERO_ACTIONS.hit,
-  HERO_ACTIONS.death,
-];
-
 const dimensions = { height: 32, width: 32 };
 
 const vertices = createVertices(dimensions);
@@ -35,7 +28,6 @@ export default {
   loop: false,
   img,
   effects,
-  allowedActions,
   getHurtbox: getBox(vertices),
   frames,
   dimensions,

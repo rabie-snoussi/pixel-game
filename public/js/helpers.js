@@ -382,6 +382,7 @@ const getXDirection = ({ hurtbox, blocks, vector, collision }) => {
     const screenCollision = hurtbox.b.x + distance >= SCREEN_LIMITS.x.end;
     const screenDistance = SCREEN_LIMITS.x.end - hurtbox.b.x;
 
+    collision.left = false;
     collision.right = blockDistance === 0 || screenCollision;
 
     return (
@@ -403,6 +404,7 @@ const getXDirection = ({ hurtbox, blocks, vector, collision }) => {
   const screenCollision = hurtbox.a.x + vector.x <= SCREEN_LIMITS.x.start;
   const screenDistance = hurtbox.a.x - SCREEN_LIMITS.x.start;
 
+  collision.right = false;
   collision.left = blockDistance === 0 || screenCollision;
 
   return -(
@@ -450,6 +452,8 @@ const getYDirection = ({ hurtbox, blocks, vector, collision }) => {
   const screenCollision = hurtbox.a.y + vector.y <= SCREEN_LIMITS.y.start;
   const screenDistance = hurtbox.a.y - SCREEN_LIMITS.y.start;
 
+  collision.right = false;
+  collision.left = false;
   collision.bottom = false;
   collision.top = blockDistance === 0 || screenCollision;
 

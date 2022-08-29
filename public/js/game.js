@@ -14,7 +14,7 @@ import {
   SCREEN_LIMITS,
 } from './constants.js';
 import store from './store.js';
-import { isColliding } from './helpers.js';
+import { isColliding, isVerteces } from './helpers.js';
 
 class Game {
   constructor() {
@@ -306,8 +306,6 @@ class Game {
     setInterval(() => {
       if (this.isPaused || !this.isGameStarted) return;
 
-      if (this.hero.isDead) this.gameOver();
-
       this.miscs.forEach((misc, i) => {
         const filteredMiscs = this.miscs.filter((item) => item !== misc);
         misc.loop?.({
@@ -351,8 +349,16 @@ class Game {
         return;
       }
 
-      if (this.hero.hurtbox.vertices.c.y >= SCREEN_LIMITS.y.end) {
+      if (
+        isVerteces(this.hero.hurtbox.vertices) &&
+        this.hero.hurtbox.vertices.c.y >= SCREEN_LIMITS.y.end
+      ) {
         this.hero.die();
+      }
+
+      if (this.hero.isDead) {
+        this.hero.destroy();
+        this.gameOver();
       }
     }, GAME_LOOP_INTERVAL);
   }

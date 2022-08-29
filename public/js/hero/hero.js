@@ -13,6 +13,7 @@ import {
   addBoxEffect,
 } from '../helpers.js';
 import sound from '../sound/sound.js';
+import sword from './effects/sword.js';
 
 export default class Hero {
   constructor({ hearts }) {
@@ -26,6 +27,7 @@ export default class Hero {
     this.hitbox = {};
     this.isHitboxVisible = false;
     this.isDead = false;
+    this.isImmune = false;
     this.vector = { x: 0, y: 0 };
     this.position = {
       x: 0,
@@ -44,7 +46,8 @@ export default class Hero {
   }
 
   idle() {
-    if (!this.action.allowedActions.includes(ACTIONS.idle.name)) return;
+    if (this.action.name === ACTIONS.idle.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
     if (
       !this.action.loop &&
       this.action.frames[this.direction].length > this.frameCounter
@@ -57,7 +60,8 @@ export default class Hero {
   }
 
   run() {
-    if (!this.action.allowedActions.includes(ACTIONS.run.name)) return;
+    if (this.action.name === ACTIONS.run.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
 
     this.action = ACTIONS.run;
     this.frameCounter = 0;
@@ -66,7 +70,8 @@ export default class Hero {
   }
 
   push() {
-    if (!this.action.allowedActions.includes(ACTIONS.push.name)) return;
+    if (this.action.name === ACTIONS.push.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
 
     this.action = ACTIONS.push;
     this.frameCounter = 0;
@@ -75,12 +80,83 @@ export default class Hero {
   }
 
   fall() {
-    if (!this.action.allowedActions.includes(ACTIONS.fall.name)) return;
+    if (this.action.name === ACTIONS.hit.name) return;
+    if (this.action.name === ACTIONS.fall.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
 
     this.action = ACTIONS.fall;
     this.frameCounter = 0;
 
     this.insertEffects();
+  }
+
+  jump() {
+    if (this.action.name === ACTIONS.hit.name) return;
+    if (this.action.name === ACTIONS.jump.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
+
+    this.action = ACTIONS.jump;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.jump();
+  }
+
+  hit() {
+    if (this.action.name === ACTIONS.hit.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
+
+    this.action = ACTIONS.hit;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.hit();
+  }
+
+  doubleJump() {
+    if (this.action.name === ACTIONS.doubleJump.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
+
+    this.action = ACTIONS.doubleJump;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.doubleJump();
+  }
+
+  postJump() {
+    if (this.action.name === ACTIONS.postJump.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
+
+    this.action = ACTIONS.postJump;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.postJump();
+  }
+
+  attack() {
+    if (this.action.name === ACTIONS.attack.name) return;
+    if (this.action.name === ACTIONS.death.name) return;
+    if (!_.isEmpty(this.effects.filter((effect) => effect.name === sword.name)))
+      return;
+
+    this.action = ACTIONS.attack;
+    this.frameCounter = 0;
+
+    this.insertEffects();
+    sound.attack();
+  }
+
+  death() {
+    if (this.action.name === ACTIONS.death.name) return;
+
+    this.action = ACTIONS.death;
+    this.frameCounter = 0;
+    this.hurtbox.vertices = {};
+
+    this.insertEffects();
+    sound.death();
   }
 
   insertEffects() {
@@ -93,66 +169,6 @@ export default class Hero {
       borderColor: 'white',
       bgColor: 'rgba(255,255,255,0.25)',
     });
-  }
-
-  jump() {
-    if (!this.action.allowedActions.includes(ACTIONS.jump.name)) return;
-
-    this.action = ACTIONS.jump;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-    sound.jump();
-  }
-
-  hit() {
-    if (!this.action.allowedActions.includes(ACTIONS.hit.name)) return;
-
-    this.action = ACTIONS.hit;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-    sound.hit();
-  }
-
-  doubleJump() {
-    if (!this.action.allowedActions.includes(ACTIONS.doubleJump.name)) return;
-
-    this.action = ACTIONS.doubleJump;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-    sound.doubleJump();
-  }
-
-  postJump() {
-    if (!this.action.allowedActions.includes(ACTIONS.postJump.name)) return;
-
-    this.action = ACTIONS.postJump;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-    sound.postJump();
-  }
-
-  attack() {
-    if (!this.action.allowedActions.includes(ACTIONS.attack.name)) return;
-
-    this.action = ACTIONS.attack;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-    sound.attack();
-  }
-
-  death() {
-    if (!this.action.allowedActions.includes(ACTIONS.death.name)) return;
-
-    this.action = ACTIONS.death;
-    this.frameCounter = 0;
-
-    this.insertEffects();
-    sound.death();
   }
 
   removeHitbox() {
@@ -262,13 +278,13 @@ export default class Hero {
   }
 
   hurt() {
-    if (!this.action.allowedActions.includes(ACTIONS.hit.name)) return;
+    if (this.isImmune) return;
 
-    document.getElementById('filter').className = 'fade-in-out';
+    this.isImmune = true;
 
     setTimeout(() => {
-      document.getElementById('filter').className = '';
-    }, 500);
+      this.isImmune = false;
+    }, 1000);
 
     if (this.hearts > 1) {
       this.hit();
@@ -284,22 +300,14 @@ export default class Hero {
   }
 
   update() {
+    if (this.isDead) return;
     if (this.frameCounter >= this.action.frames[this.direction].length) {
-      if (this.action.name === ACTIONS.death.name) {
-        this.isDead = true;
-        return this.destroy();
-      }
-      this.frameCounter = 0;
+      if (this.action.name === ACTIONS.death.name) return (this.isDead = true);
+      else this.frameCounter = 0;
     }
     this.playEffects();
     this.updateFrame();
     this.frameCounter++;
-
-    if (
-      !this.action.loop &&
-      this.frameCounter >= this.action.frames[this.direction].length
-    )
-      this.idle();
   }
 
   loop({ blocks, miscs }) {
@@ -315,17 +323,28 @@ export default class Hero {
     });
 
     if (this.collision.bottom) {
-      this.vector.y = 0;
       this.jumpCount = MAX_JUMPS;
+      this.vector.y = 0;
 
       if (this.action.name === ACTIONS.fall.name) this.postJump();
-      if (this.vector.x === 0) this.idle();
 
-      if (this.vector.x !== 0) this.run();
+      if (this.vector.x === 0) this.idle();
+      else {
+        if (!_.every(miscs, ['isPushed', false])) this.push();
+        else this.run();
+      }
     }
+
+    if (this.vector.x > 0) this.direction = DIRECTIONS.right;
+    else if (this.vector.x < 0) this.direction = DIRECTIONS.left;
 
     if (!this.collision.bottom) {
       if (this.vector.y > 0) this.fall();
+      else if (this.vector.y < 0) {
+        if (this.jumpCount === 2) this.jump();
+        if (this.jumpCount === 1) this.jump();
+        if (this.jumpCount === 0) this.doubleJump();
+      }
     }
 
     if (this.collision.top) this.vector.y = 0;
@@ -335,41 +354,31 @@ export default class Hero {
   }
 
   goRight() {
-    this.direction = DIRECTIONS.right;
     this.vector.x += HERO_SPEED;
-
     return () => (this.vector.x -= HERO_SPEED);
   }
 
   goLeft() {
-    this.direction = DIRECTIONS.left;
     this.vector.x -= HERO_SPEED;
-
     return () => (this.vector.x += HERO_SPEED);
   }
 
-  async jumpUp() {
+  jumpUp() {
     if (!this.jumpCount) return;
 
-    if (this.jumpCount === 2) {
-      this.jump();
-    }
-
-    if (this.jumpCount === 1) this.doubleJump();
-
     this.jumpCount--;
+
+    if (this.jumpCount === 1 && !this.collision.bottom) this.jumpCount = 0;
 
     this.vector.y = -HERO_JUMP_SPEED;
   }
 
-  goUp() {
-    this.vector.y -= HERO_SPEED;
-    return () => (this.vector.y += HERO_SPEED);
-  }
-
   goDown() {
     this.vector.y += HERO_SPEED;
-    return () => (this.vector.y -= this.vector.y);
+
+    return () => {
+      if (this.vector.y >= HERO_SPEED) this.vector.y -= HERO_SPEED;
+    };
   }
 
   showHurtbox() {
@@ -389,7 +398,6 @@ export default class Hero {
     this.isHitboxVisible = true;
 
     this.effects.map((effect) => {
-      // TODO: MAKE box func
       addBoxEffect({
         element: effect.elements.hitbox,
         border: 'white',
