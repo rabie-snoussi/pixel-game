@@ -25,6 +25,7 @@ body {
   background-color: black;
   position: relative;
   transform: scale(1.8);
+  cursor: none;
 }
 
 #miscs,

@@ -178,6 +178,7 @@ class Game {
         gridItemElement.style.fontSize = '4px';
         gridItemElement.style.opacity = '0.25';
         gridItemElement.style.lineHeight = '16px';
+        gridItemElement.style.cursor = 'default';
         gridItemElement.style.zIndex = 99;
 
         gridItemElement.addEventListener('mouseenter', () => {
