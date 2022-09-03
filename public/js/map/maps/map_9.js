@@ -928,6 +928,28 @@ export default {
       ...MAP_MATERIALS.woodSlabRight,
       position: GRID[26][26],
     },
+
+    {
+      ...MAP_MATERIALS.root,
+      position: GRID[32][10],
+    },
+    {
+      ...MAP_MATERIALS.root,
+      position: GRID[37][10],
+    },
+
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[4][23],
+    },
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[12][23],
+    },
+    {
+      ...MAP_MATERIALS.bigflowers,
+      position: GRID[20][23],
+    },
   ],
 
   // MISCS
@@ -1170,6 +1192,105 @@ export default {
     {
       name: MISCS.orb,
       position: orbPosition(GRID[34][13]),
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[4][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[7][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[10][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[13][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[16][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[19][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[22][5],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[25][5],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[4][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[7][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[10][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[13][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[16][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[19][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[22][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[25][8],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[4][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[7][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[10][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[13][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[16][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[19][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[22][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[25][11],
     },
   ],
 };

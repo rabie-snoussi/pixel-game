@@ -2093,6 +2093,11 @@ export default {
 
     // DECOR
     // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.arrowPlateRight,
+      position: GRID[48][4],
+    },
   ],
 
   // MISCS
@@ -2388,6 +2393,170 @@ export default {
       name: MISCS.spikes,
       position: GRID[46][22],
       rotation: 90,
+    },
+
+    {
+      name: MISCS.apple,
+      position: GRID[4][6],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[6][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[9][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[12][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[15][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[18][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[21][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[24][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[27][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[30][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[33][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[36][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[39][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[42][18],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[6][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[9][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[12][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[15][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[18][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[21][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[24][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[27][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[30][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[33][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[36][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[39][18],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[42][18],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[6][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[9][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[12][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[15][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[18][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[21][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[24][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[27][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[30][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[33][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[36][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[39][21],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[42][21],
     },
   ],
 };

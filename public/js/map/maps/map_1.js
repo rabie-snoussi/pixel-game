@@ -942,6 +942,34 @@ export default {
 
     // DECOR
     // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[24][19],
+    },
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[14][19],
+    },
+
+    {
+      ...MAP_MATERIALS.bigflowers,
+      position: GRID[18][19],
+    },
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[37][19],
+    },
+    {
+      ...MAP_MATERIALS.flowers,
+      position: GRID[42][19],
+    },
+
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[46][19],
+    },
   ],
 
   // MISCS
@@ -981,6 +1009,22 @@ export default {
     {
       name: MISCS.stone,
       position: GRID[30][1],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[23][10],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[28][10],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[33][10],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[38][10],
     },
   ],
 };

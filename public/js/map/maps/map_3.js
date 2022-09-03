@@ -1691,6 +1691,33 @@ export default {
 
     // DECOR
     // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[12][7],
+    },
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[31][7],
+    },
+
+    {
+      ...MAP_MATERIALS.root,
+      position: GRID[10][10],
+    },
+    {
+      ...MAP_MATERIALS.root,
+      position: GRID[20][10],
+    },
+    {
+      ...MAP_MATERIALS.root,
+      position: GRID[36][10],
+    },
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[5][15],
+    },
   ],
 
   // MISCS
@@ -1805,6 +1832,33 @@ export default {
       position: GRID[34][16],
       triggerId: 'trigger-3',
       isOpen: true,
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[10][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[13][14],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[24][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[27][14],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[38][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[41][14],
     },
   ],
 };

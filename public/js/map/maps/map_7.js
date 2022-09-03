@@ -3,6 +3,7 @@ import {
   GRID,
   TILES,
   MISCS,
+  MONSTERS,
 } from '../../constants.js';
 
 export default {
@@ -10,7 +11,11 @@ export default {
   water: false,
   rocks: false,
   hero: { position: GRID[0][22] },
-  monsters: [],
+  monsters: [
+    { name: MONSTERS.goblin, position: GRID[33][4] },
+    { name: MONSTERS.goblin, position: GRID[37][16] },
+    { name: MONSTERS.goblin, position: GRID[14][22] },
+  ],
   winningBlock: {
     position: GRID[24][0],
     dimensions: { width: 16 * 2, height: 0 },
@@ -2038,6 +2043,97 @@ export default {
       name: MISCS.spikes,
       position: GRID[28][24],
       rotation: 180,
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[23][4],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][4],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[29][4],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[32][4],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[35][4],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[38][4],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[41][4],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[46][10],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[23][11],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][11],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[23][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[35][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[38][14],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[41][14],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[23][17],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][17],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[23][20],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][20],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[23][23],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][23],
     },
   ],
 };

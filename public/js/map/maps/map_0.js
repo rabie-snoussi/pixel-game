@@ -728,6 +728,57 @@ export default {
       position: GRID[40][8],
     },
 
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[45][9],
+    },
+
+    {
+      ...MAP_MATERIALS.woodenPlate,
+      position: GRID[6][22],
+    },
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[0][23],
+    },
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[6][23],
+    },
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[10][23],
+    },
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[14][23],
+    },
+    {
+      ...MAP_MATERIALS.bigflowers,
+      position: GRID[18][23],
+    },
+    {
+      ...MAP_MATERIALS.flowers,
+      position: GRID[20][23],
+    },
+    {
+      ...MAP_MATERIALS.bigflowers,
+      position: GRID[24][23],
+    },
+    {
+      ...MAP_MATERIALS.bigflowers,
+      position: GRID[26][23],
+    },
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[32][23],
+    },
+    {
+      ...MAP_MATERIALS.flowers,
+      position: GRID[28][23],
+    },
+
     // WATERFALL
     // --------------------------------------------------
 

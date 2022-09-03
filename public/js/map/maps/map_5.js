@@ -2372,5 +2372,42 @@ export default {
       position: GRID[48][4],
       triggerId: 'trigger-1',
     },
+
+    {
+      name: MISCS.coin,
+      position: GRID[6][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[11][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[16][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[21][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[26][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[31][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[36][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[41][15],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[46][15],
+    },
   ],
 };

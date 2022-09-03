@@ -510,12 +510,82 @@ export default {
 
     // DECOR
     // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[21][9],
+    },
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[25][9],
+    },
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[11][13],
+    },
+    {
+      ...MAP_MATERIALS.bigflowers,
+      position: GRID[38][13],
+    },
+
+    {
+      ...MAP_MATERIALS.arrowPlateRight,
+      position: GRID[44][18],
+    },
+
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[0][19],
+    },
+    {
+      ...MAP_MATERIALS.grass,
+      position: GRID[4][19],
+    },
+    {
+      ...MAP_MATERIALS.drygrass,
+      position: GRID[45][19],
+    },
   ],
 
   // MISCS
   // --------------------------------------------------
 
   miscs: [
+    {
+      name: MISCS.coin,
+      position: GRID[19][7],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[30][7],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[16][8],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[33][8],
+    },
+
+    {
+      name: MISCS.coin,
+      position: GRID[14][10],
+    },
+    {
+      name: MISCS.coin,
+      position: GRID[35][10],
+    },
+
+    {
+      name: MISCS.apple,
+      position: GRID[11][12],
+    },
+
+    // --------------------------------------------------
     {
       name: MISCS.water,
       position: GRID[6][22],
