@@ -15,8 +15,6 @@
 
 ---
 
-<br>
-
 ## 📝 Table of Contents
 
 - [About](#about)
@@ -25,15 +23,11 @@
 - [The Game](#game)
 - [Acknowledgments](#acknowledgement)
 
-<br>
-
 ## 🧐 About <a name = "about"></a>
 
 A platform game built using **JavaScript, HTML and CSS** without game engine or animation library.
 
 The objective of the game is to complete all levels with the highest number possible of coins.
-
-<br>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -43,8 +37,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Node v10+
 - Npm v5.6+
-
-<br>
 
 ## 🚀 Deployment <a name="deployment"></a>
 
@@ -62,20 +54,17 @@ The game will be running at: http://localhost:5000/
 
 <sup>_Preview_</sup>
 
-
 ## 🎮 The Game <a name="game"></a>
 
 ### <u>**Controls**</u>
 
 Add notes about how to use the system.
 
-| Keys                                                                                                                                                                                                                         | Actions                   |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| <img style="filter: invert(100%);" width=64px height=64px src="https://cdn-icons-png.flaticon.com/512/1782/1782551.png" alt="arrow_keys">                                                                                    | Movements / Choose option |
-| <img style="filter: invert(100%);" width=64px height=64px src="https://cdn-icons-png.flaticon.com/512/6535/6535114.png" alt="spacebar_key">                                                                                  | Jump / Select option      |
-| <div style="display: flex; justify-content: center;" width=64px height=64px><img style="filter: invert(100%);"  width=32px height=32px src="https://cdn-icons-png.flaticon.com/512/3602/3602367.png" alt="escape_key"></div> | Pause / Unpause           |
-
-<br>
+| Keys                                                                                                                                                           | Actions                   |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| <img width=64px height=64px src="./preview/arrow_keys.jpg" alt="arrow_keys">                                                                                   | Movements / Choose option |
+| <img width=64px height=64px src="./preview/spacebar_key.jpg" alt="spacebar_key">                                                                               | Jump / Select option      |
+| <div style="display: flex; justify-content: center;" width=64px height=64px><img width=32px height=32px src="./preview/escape_key.jpg" alt="escape_key"></div> | Pause / Unpause           |
 
 ### <u>**Menu**</u>
 
@@ -131,7 +120,6 @@ To detect collisions we use **4 positions (A, B, C & D)** that will define a sha
 <img src="./preview/goblin_attack_vertices.jpg" alt="goblin_attack_vertices">
 
 <sup>_Goblin attack vertices (hitbox)_</sup>
-
 
 We also need a position, that indicates where a certain point will be in the next screen update (vector), it will be used to make the hero move like shown in the picture bellow, with the white arrow representing the vector.
 
