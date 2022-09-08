@@ -46,7 +46,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## 🚀 Deployment <a name="deployment"></a>
 
-First, we need to install the dependencies, then we can run the project by the following commands:
+First, we need to install the dependencies, then we can run the project using the following commands:
 
 ```
 npm install
@@ -66,7 +66,7 @@ The game will be running at: http://localhost:5000/
 
 ### <u>**Controls**</u>
 
-Bellow is the list of keys used to play the game:
+Bellow is the list of keys used to play the game and their function:
 
 | Keys                                                                                                                                                           | Actions                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
@@ -76,7 +76,7 @@ Bellow is the list of keys used to play the game:
 
 ### <u>**Menu**</u>
 
-The menu will have multiple options:
+The menu has multiple options:
 
 - **Start:** Start the game.
 - **Continue:** Continue where you left off.
@@ -177,7 +177,7 @@ Gravity in game works with acceleration like in real life, while the hero is in 
 
 ### <u>**Save**</u>
 
-The progress of the game and it's settings will be saved in localeStorage, this way the user can continue to play from where he left off, the data will be encrypted to prevent users from cheating.
+The progress of the game and it's settings will be saved in localeStorage, this way, the user can continue to play from where he left off, the data will be encrypted to prevent users from cheating.
 
 <br>
 
