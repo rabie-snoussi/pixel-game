@@ -46,7 +46,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## 🚀 Deployment <a name="deployment"></a>
 
-First we need to install dependencies, then we can run the project by the following commands:
+First, we need to install the dependencies, then we can run the project by the following commands:
 
 ```
 npm install
@@ -66,7 +66,7 @@ The game will be running at: http://localhost:5000/
 
 ### <u>**Controls**</u>
 
-Add notes about how to use the system.
+Bellow is the list of keys used to play the game:
 
 | Keys                                                                                                                                                           | Actions                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
@@ -78,16 +78,16 @@ Add notes about how to use the system.
 
 The menu will have multiple options:
 
-- **Start:** To start the game.
-- **Continue:** To continue where you left off.
-- **Resume:** To unpause.
-- **Restart:** To restart the current level.
-- **Music (on/off):** To enable or disable the music.
-- **SFX (on/off):** To enable or disable sound effects.
-- **Grid (on/off):** To enable or disable the grid.
-- **Hurtbox (on/off):** To show or hide hurtboxs.
-- **Hitbox (on/off):** To show or hide the hitboxs.
-- **Quit:** To quit the game.
+- **Start:** Start the game.
+- **Continue:** Continue where you left off.
+- **Resume:** Unpause.
+- **Restart:** Restart the current level.
+- **Music (on/off):** Enable/disable music.
+- **SFX (on/off):** Enable/disable sound effects.
+- **Grid (on/off):** Show/hide grid.
+- **Hurtbox (on/off):** Show/hide hurtboxs.
+- **Hitbox (on/off):** Show/hide hitboxs.
+- **Quit:** Quit the game.
 
 <br>
 
@@ -97,7 +97,7 @@ The menu will have multiple options:
 
 ### <u>**Collisions**</u>
 
-To detect collisions we use **4 positions (A, B, C & D)** that will define a shape (vertices).
+To detect collisions, we use **4 positions (A, B, C & D)** that will define a shape _(vertices)_.
 
 <br>
 
@@ -129,7 +129,7 @@ To detect collisions we use **4 positions (A, B, C & D)** that will define a sha
 
 <sup>_Goblin attack vertices (hitbox)_</sup>
 
-We also need a position, that indicates where a certain point will be in the next screen update (vector), it will be used to make the hero move like shown in the picture bellow, with the white arrow representing the vector.
+We also need a position, that indicates where a certain point will be in the next screen update _(vector)_, it will be used to make the hero move like shown in the picture bellow, the white arrow represents the vector.
 
 <br>
 
@@ -137,7 +137,7 @@ We also need a position, that indicates where a certain point will be in the nex
 
 <sup>_Hero moving to the right_</sup>
 
-With vectors, we calculate the future position of hero's hurtbox, if the future position of the hurtbox goes inside a block, we detect a collision and the hero won't move further, this way, the hero will never go inside a block, otherwise if there's no blocks, the hero will move freely into that position.
+With vectors, we calculate the future position of hero's hurtbox, if the future position goes inside a block, we detect a collision and the hero won't move further, this way, the hero will never go inside a block, otherwise if there's no blocks, the hero will move freely into that position.
 
 <br>
 
@@ -151,7 +151,7 @@ With vectors, we calculate the future position of hero's hurtbox, if the future 
 
 <sup>_Hero running without collisions_</sup>
 
-Attacks work almost the same but without vectors, we check instead if the hitbox goes inside enemy's hurtbox, that's when we detect a collision.
+Attacks work almost the same but without vectors, we check instead, if the hitbox goes inside enemy's hurtbox, that's when we detect a collision.
 
 <br>
 
