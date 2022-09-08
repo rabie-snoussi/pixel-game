@@ -1,23 +1,21 @@
 {
-  "name": "pixel-game",
+  "name": "platform-game",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rabie-snoussi/pixel-game.git"
+    "url": "git+https://github.com/rabie-snoussi/platform-game.git"
   },
   "author": "Rabie Snoussi",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rabie-snoussi/pixel-game/issues"
+    "url": "https://github.com/rabie-snoussi/platform-game/issues"
   },
-  "homepage": "https://github.com/rabie-snoussi/pixel-game#readme",
+  "homepage": "https://github.com/rabie-snoussi/platform-game#readme",
   "dependencies": {
-    "express": "^4.17.3",
-    "nodemon": "^2.0.15"
+    "express": "^4.17.3"
   }
 }

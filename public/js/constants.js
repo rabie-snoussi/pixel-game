@@ -83,7 +83,7 @@ export const ON = 'on';
 export const OFF = 'off';
 
 export const MENU_TITLES = {
-  plateformGame: 'plateform game',
+  platformGame: 'platform game',
   gamePaused: 'game paused',
   gameOver: 'game over',
   gameWon: 'game won',

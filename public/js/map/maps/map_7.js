@@ -1974,6 +1974,19 @@ export default {
 
     // DECOR
     // --------------------------------------------------
+
+    {
+      ...MAP_MATERIALS.torch,
+      position: GRID[18][21],
+    },
+    {
+      ...MAP_MATERIALS.torch,
+      position: GRID[40][15],
+    },
+    {
+      ...MAP_MATERIALS.torch,
+      position: GRID[40][3],
+    },
   ],
 
   // MISCS

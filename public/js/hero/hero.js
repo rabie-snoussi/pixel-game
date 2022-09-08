@@ -400,7 +400,7 @@ export default class Hero {
     this.effects.map((effect) => {
       addBoxEffect({
         element: effect.elements.hitbox,
-        border: 'white',
+        borderColor: 'white',
         bgColor: 'rgba(255,255,255,0.25)',
       });
     });

@@ -140,7 +140,7 @@ export default class Hud {
   }
 
   startMenu(game) {
-    const title = MENU_TITLES.plateformGame;
+    const title = MENU_TITLES.platformGame;
     const titlePosition = GRID[18][8];
     const optionsPosition = GRID[20][12];
 
@@ -175,7 +175,7 @@ export default class Hud {
   }
 
   continueMenu(game) {
-    const title = MENU_TITLES.plateformGame;
+    const title = MENU_TITLES.platformGame;
     const titlePosition = GRID[18][8];
     const optionsPosition = GRID[20][12];
 
