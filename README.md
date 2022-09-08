@@ -23,11 +23,15 @@
 - [The Game](#game)
 - [Acknowledgments](#acknowledgement)
 
+<br>
+
 ## 🧐 About <a name = "about"></a>
 
 A platform game built using **JavaScript, HTML and CSS** without game engine or animation library.
 
 The objective of the game is to complete all levels with the highest number possible of coins.
+
+<br>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -37,6 +41,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Node v10+
 - Npm v5.6+
+
+<br>
 
 ## 🚀 Deployment <a name="deployment"></a>
 
@@ -53,6 +59,8 @@ The game will be running at: http://localhost:5000/
 <img src="./preview/preview.gif" alt="preview" />
 
 <sup>_Preview_</sup>
+
+<br>
 
 ## 🎮 The Game <a name="game"></a>
 
@@ -177,9 +185,11 @@ The progress of the game and it's settings will be saved in localeStorage, this 
 
 <sup>_LocalStorage_</sup>
 
+<br>
+
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-Big thanks to everyone who provided assets to make this possible, namely:
+Special thanks to everyone who provided assets to make this possible, namely:
 
 - [O_lobster](https://twitter.com/sir_shazam) (2D arts).
 - [Avgvsta](https://opengameart.org/users/avgvsta) (Music).
