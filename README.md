@@ -15,6 +15,11 @@
 
 ---
 
+## ⭐ Give it a Star !
+For more contents like this in the future, please give this project a star. Thanks ! 🙂
+
+<br>
+
 ## 📝 Table of Contents
 
 - [About](#about)
